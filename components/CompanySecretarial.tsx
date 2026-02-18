@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 
 const CompanySecretarial: React.FC = () => {
@@ -39,6 +40,63 @@ const CompanySecretarial: React.FC = () => {
   const toggleFaq = (index: number) => {
     setActiveFaq(activeFaq === index ? null : index);
   };
+
+  const expertiseItems = [
+    { 
+      title: "Name Search", 
+      desc: "Checking and reserving your preferred company name with SSM authorities.",
+      icon: (
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      )
+    },
+    { 
+      title: "Incorporation", 
+      desc: "End-to-end Sdn. Bhd. and LLP company formation with digital speed.",
+      icon: (
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        </svg>
+      )
+    },
+    { 
+      title: "Doc Preparation", 
+      desc: "Crafting all necessary statutory documents, resolutions, and filings.",
+      icon: (
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+      )
+    },
+    { 
+      title: "Appointments", 
+      desc: "Formal appointment of directors and licensed qualified secretaries.",
+      icon: (
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+      )
+    },
+    { 
+      title: "LHDN Registration", 
+      desc: "Securing your Income Tax and Employer numbers immediately post-setup.",
+      icon: (
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        </svg>
+      )
+    },
+    { 
+      title: "Annual Filing", 
+      desc: "Managing Annual Returns, AGMs, and statutory financial submissions.",
+      icon: (
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      )
+    }
+  ];
 
   return (
     <div className="bg-white min-h-screen">
@@ -113,27 +171,36 @@ const CompanySecretarial: React.FC = () => {
         </div>
       </section>
 
-      {/* 3. Scope of Expertise */}
-      <section className="py-24 bg-slate-50 border-y border-slate-100">
+      {/* 3. Scope of Expertise - ENHANCED BOXES */}
+      <section className="py-32 bg-slate-50 border-y border-slate-100 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl font-black text-royal-blue uppercase tracking-tighter">Scope of Expertise</h2>
-            <div className="w-20 h-1.5 bg-gold mx-auto mt-4"></div>
+          <div className="text-center mb-24">
+            <h2 className="text-gold font-black text-xs uppercase tracking-[0.5em] mb-4">Strategic Domains</h2>
+            <h3 className="text-4xl lg:text-5xl font-black text-royal-blue uppercase tracking-tighter">Scope of Expertise</h3>
+            <div className="w-24 h-1.5 bg-gold mx-auto mt-6 rounded-full shadow-lg"></div>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              { icon: "🔍", title: "Name Search", desc: "Checking and reserving your preferred company name with SSM." },
-              { icon: "🏢", title: "Incorporation", desc: "End-to-end Sdn. Bhd. and LLP company formation services." },
-              { icon: "📑", title: "Doc Preparation", desc: "Crafting all necessary statutory documents and filings." },
-              { icon: "👔", title: "Appointments", desc: "Formal appointment of directors and qualified secretaries." },
-              { icon: "🏦", title: "LHDN Registration", desc: "Securing your Income Tax and Employer numbers immediately." },
-              { icon: "📊", title: "Annual Filing", desc: "Managing Annual Returns, AGMs, and statutory submissions." }
-            ].map((s, i) => (
-              <div key={i} className="bg-white p-10 rounded-2xl shadow-sm border border-slate-100 hover:border-gold transition-all group">
-                <div className="text-4xl mb-6 group-hover:scale-110 transition-transform inline-block">{s.icon}</div>
-                <h4 className="text-lg font-black text-royal-blue mb-3 uppercase tracking-tight">{s.title}</h4>
-                <p className="text-slate-600 text-sm font-medium leading-relaxed">{s.desc}</p>
+            {expertiseItems.map((s, i) => (
+              <div key={i} className="group relative bg-white p-10 lg:p-12 rounded-[32px] shadow-sm border border-slate-100 hover:border-gold/50 hover:shadow-[0_20px_50px_rgba(0,51,102,0.1)] transition-all duration-500 cursor-default">
+                {/* Index Background */}
+                <div className="absolute top-8 right-10 text-6xl font-black text-slate-50 select-none group-hover:text-gold/10 transition-colors">0{i+1}</div>
+                
+                {/* Icon Container */}
+                <div className="w-16 h-16 rounded-2xl bg-royal-blue/5 flex items-center justify-center text-royal-blue mb-10 group-hover:bg-gold group-hover:text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-sm relative z-10">
+                  {s.icon}
+                </div>
+                
+                {/* Text Content */}
+                <div className="relative z-10">
+                  <h4 className="text-xl font-black text-royal-blue mb-4 uppercase tracking-tight group-hover:text-gold transition-colors">{s.title}</h4>
+                  <p className="text-slate-600 text-sm font-medium leading-relaxed group-hover:text-slate-700 transition-colors">
+                    {s.desc}
+                  </p>
+                </div>
+
+                {/* Bottom Bar Accent */}
+                <div className="absolute bottom-0 left-10 right-10 h-1 bg-transparent group-hover:bg-gold transition-all duration-500 rounded-t-full"></div>
               </div>
             ))}
           </div>
