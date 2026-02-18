@@ -8,7 +8,7 @@ const ServiceCard: React.FC<{
   tags: string[], 
   index: number
 }> = ({ title, desc, icon, tags, index }) => (
-  <div className="group relative bg-white p-10 lg:p-12 rounded-[40px] hover:rounded-[60px] border border-slate-100 shadow-sm hover:shadow-[0_50px_100px_-20px_rgba(0,51,102,0.12)] hover:-translate-y-4 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] cursor-pointer overflow-hidden">
+  <div className="group relative bg-white p-8 sm:p-10 lg:p-12 rounded-[40px] hover:rounded-[60px] border border-slate-100 shadow-sm hover:shadow-[0_50px_100px_-20px_rgba(0,51,102,0.12)] hover:-translate-y-4 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] cursor-pointer overflow-hidden">
     {/* Decorative index background */}
     <div className="absolute top-8 right-12 text-7xl font-black text-slate-50 select-none group-hover:text-gold/5 group-hover:-translate-y-2 transition-all duration-700">
       0{index + 1}
@@ -80,24 +80,24 @@ const Services: React.FC = () => {
   ];
 
   return (
-    <section id="services" className="py-40 bg-white relative overflow-hidden">
+    <section id="services" className="py-24 lg:py-40 bg-white relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-royal-blue opacity-[0.02] rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mb-24">
+        <div className="max-w-4xl mb-16 lg:mb-24 text-center lg:text-left">
           <span className="text-gold font-black text-xs uppercase tracking-[0.5em] block mb-4">Core Strategic Units</span>
           <h2 className="text-5xl lg:text-7xl font-black text-royal-blue leading-[1.05] tracking-tighter uppercase mb-8">
             The Mandatory <br/>
             <span className="text-gold">Operational</span> <br/>
             Framework.
           </h2>
-          <p className="text-slate-500 font-medium text-lg leading-relaxed max-w-2xl">
+          <p className="text-slate-500 font-medium text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
             We provide the end-to-end execution required to satisfy Malaysian authorities. Fast-track your market entry with our authorized units.
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
           {mainServices.map((service, i) => (
             <ServiceCard 
               key={i}
@@ -111,7 +111,7 @@ const Services: React.FC = () => {
         </div>
 
         {/* Bottom trust bar for services */}
-        <div className="mt-20 flex flex-wrap items-center justify-between gap-10 p-10 bg-slate-50 rounded-[40px] border border-slate-100">
+        <div className="mt-16 lg:mt-24 flex flex-wrap items-center justify-center lg:justify-between gap-8 lg:gap-10 p-8 lg:p-10 bg-slate-50 rounded-[40px] border border-slate-100">
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-full bg-royal-blue/10 flex items-center justify-center text-royal-blue">
               <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
