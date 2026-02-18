@@ -198,7 +198,7 @@ const CompanySecretarial: React.FC = () => {
         </div>
       </section>
 
-      {/* 4. Execution Roadmap */}
+      {/* 4. Execution Roadmap - FIXED OVERLAP */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-black text-royal-blue mb-16 text-center uppercase tracking-widest">Our Execution Roadmap</h2>
@@ -209,10 +209,18 @@ const CompanySecretarial: React.FC = () => {
               { step: "03", title: "Submission", desc: "Direct handling of authorities and management of clarifications." },
               { step: "04", title: "Approval", desc: "Ongoing support for renewals, compliance, and legal guidance." }
             ].map((p, i) => (
-              <div key={i} className="relative p-8 bg-navy-dark text-white rounded-2xl border-b-4 border-gold shadow-2xl">
-                <span className="text-5xl font-black text-gold/20 absolute top-4 right-4">{p.step}</span>
-                <h4 className="text-xl font-black mb-4 uppercase tracking-tighter text-gold">{p.title}</h4>
-                <p className="text-blue-100 text-sm font-medium leading-relaxed">{p.desc}</p>
+              <div key={i} className="group relative p-10 bg-[#081b2a] text-white rounded-[32px] border border-white/5 shadow-2xl hover:shadow-gold/10 transition-all duration-500 overflow-hidden">
+                {/* Decorative Number (Background Overlay) */}
+                <div className="absolute -top-4 -right-2 text-9xl font-black text-white/[0.03] select-none group-hover:text-gold/5 transition-colors duration-500 pointer-events-none">
+                  {p.step}
+                </div>
+                
+                <div className="w-12 h-1 bg-gold mb-8 rounded-full"></div>
+                
+                <div className="relative z-10">
+                  <h4 className="text-xl font-black mb-4 uppercase tracking-tighter text-gold">{p.title}</h4>
+                  <p className="text-blue-100/70 text-sm font-medium leading-relaxed">{p.desc}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -274,7 +282,7 @@ const CompanySecretarial: React.FC = () => {
         </div>
       </section>
 
-      {/* 6. Lead Gen Footer - ENHANCED FORM */}
+      {/* 6. Lead Gen Footer */}
       <section className="py-32 bg-white relative" id="secretarial-contact">
         <div className="absolute inset-0 bg-[#051622] pointer-events-none"></div>
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: `radial-gradient(#D4AF37 1px, transparent 1px)`, backgroundSize: '40px 40px' }}></div>
@@ -282,29 +290,20 @@ const CompanySecretarial: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 relative z-10">
           <div className="flex flex-col lg:flex-row bg-[#081b2a] rounded-[50px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.4)] border border-white/5 group">
             
-            {/* Left Column: Trust & Context */}
             <div className="lg:w-2/5 p-12 lg:p-20 bg-gradient-to-br from-navy-dark to-[#081b2a] border-r border-white/5 relative flex flex-col justify-center">
               <div className="absolute top-10 left-10 w-24 h-24 bg-gold/5 rounded-full blur-3xl"></div>
-              
               <div className="relative z-10">
                 <div className="w-16 h-16 bg-gold/10 rounded-2xl flex items-center justify-center text-gold mb-8 border border-gold/20 shadow-lg shadow-gold/5 group-hover:scale-110 transition-transform duration-500">
                   <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                 </div>
-                
                 <h2 className="text-3xl lg:text-5xl font-black text-white mb-6 uppercase tracking-tight leading-tight">
                   The <span className="text-gold">BizFlow</span> <br/>Guarantee.
                 </h2>
                 <p className="text-blue-100/60 text-lg font-medium mb-12 leading-relaxed">
                   We handle the complex statutory hurdles of Malaysian compliance so you don't have to. Direct access to experts, not bots.
                 </p>
-                
                 <div className="space-y-6">
-                  {[
-                    "100% Data Confidentiality",
-                    "Licensed Secretarial Unit",
-                    "2-Hour Response Time",
-                    "No Hidden Retainer Fees"
-                  ].map((item, i) => (
+                  {["100% Data Confidentiality", "Licensed Secretarial Unit", "2-Hour Response Time", "No Hidden Retainer Fees"].map((item, i) => (
                     <div key={i} className="flex items-center gap-4">
                       <div className="w-2 h-2 rounded-full bg-gold"></div>
                       <span className="text-xs font-black text-white uppercase tracking-widest opacity-80">{item}</span>
@@ -314,53 +313,32 @@ const CompanySecretarial: React.FC = () => {
               </div>
             </div>
 
-            {/* Right Column: The Form */}
             <div className="lg:w-3/5 p-12 lg:p-20 relative">
               <div className="absolute bottom-0 right-0 w-64 h-64 bg-gold/5 rounded-full blur-3xl pointer-events-none"></div>
-              
               <div className="max-w-xl mx-auto relative z-10">
                 <h3 className="text-white font-black text-xl uppercase tracking-widest mb-10 flex items-center gap-4">
                   <span className="w-10 h-1 bg-gold"></span>
                   Start Your Inquiry
                 </h3>
-                
                 <form className="space-y-8">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="relative group">
                       <label className="block text-[10px] font-black text-gold uppercase tracking-[0.3em] mb-3 group-focus-within:text-white transition-colors">Full Legal Name</label>
-                      <input 
-                        type="text" 
-                        placeholder="Johnathan Doe" 
-                        className="w-full px-0 py-3 bg-transparent border-b-2 border-white/10 focus:border-gold outline-none font-bold text-white transition-all placeholder:text-white/20 text-lg" 
-                      />
+                      <input type="text" placeholder="Johnathan Doe" className="w-full px-0 py-3 bg-transparent border-b-2 border-white/10 focus:border-gold outline-none font-bold text-white transition-all placeholder:text-white/20 text-lg" />
                     </div>
                     <div className="relative group">
                       <label className="block text-[10px] font-black text-gold uppercase tracking-[0.3em] mb-3 group-focus-within:text-white transition-colors">Professional Email</label>
-                      <input 
-                        type="email" 
-                        placeholder="john@company.com" 
-                        className="w-full px-0 py-3 bg-transparent border-b-2 border-white/10 focus:border-gold outline-none font-bold text-white transition-all placeholder:text-white/20 text-lg" 
-                      />
+                      <input type="email" placeholder="john@company.com" className="w-full px-0 py-3 bg-transparent border-b-2 border-white/10 focus:border-gold outline-none font-bold text-white transition-all placeholder:text-white/20 text-lg" />
                     </div>
                   </div>
-
                   <div className="relative group">
                     <label className="block text-[10px] font-black text-gold uppercase tracking-[0.3em] mb-3 group-focus-within:text-white transition-colors">Direct Phone / WhatsApp</label>
-                    <input 
-                      type="tel" 
-                      placeholder="+60 12 345 6789" 
-                      className="w-full px-0 py-3 bg-transparent border-b-2 border-white/10 focus:border-gold outline-none font-bold text-white transition-all placeholder:text-white/20 text-lg" 
-                    />
+                    <input type="tel" placeholder="+60 12 345 6789" className="w-full px-0 py-3 bg-transparent border-b-2 border-white/10 focus:border-gold outline-none font-bold text-white transition-all placeholder:text-white/20 text-lg" />
                   </div>
-
                   <div className="relative group">
                     <label className="block text-[10px] font-black text-gold uppercase tracking-[0.3em] mb-3 group-focus-within:text-white transition-colors">Requirement Specifics</label>
-                    <textarea 
-                      placeholder="e.g. Need help with SSM audit backlog..." 
-                      className="w-full px-0 py-3 bg-transparent border-b-2 border-white/10 focus:border-gold outline-none font-bold text-white transition-all placeholder:text-white/20 text-lg resize-none h-24"
-                    ></textarea>
+                    <textarea placeholder="e.g. Need help with SSM audit backlog..." className="w-full px-0 py-3 bg-transparent border-b-2 border-white/10 focus:border-gold outline-none font-bold text-white transition-all placeholder:text-white/20 text-lg resize-none h-24"></textarea>
                   </div>
-
                   <div className="pt-8">
                     <button className="w-full py-6 bg-gold text-navy-dark font-black rounded-2xl hover:bg-white hover:scale-[1.02] transition-all shadow-2xl shadow-gold/20 uppercase tracking-[0.3em] text-xs flex items-center justify-center gap-4 group/btn">
                       Get Expert Consultation
@@ -375,7 +353,6 @@ const CompanySecretarial: React.FC = () => {
                 </form>
               </div>
             </div>
-
           </div>
         </div>
       </section>

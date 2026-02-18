@@ -4,7 +4,7 @@ import React from 'react';
 const AccountingBookkeeping: React.FC = () => {
   return (
     <div className="bg-white min-h-screen">
-      {/* 1. Hero Section (Navy & Gold) */}
+      {/* 1. Hero Section */}
       <section className="relative bg-navy-dark text-white py-32 overflow-hidden">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gold/5 -skew-x-12 translate-x-1/4"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -26,7 +26,7 @@ const AccountingBookkeeping: React.FC = () => {
         </div>
       </section>
 
-      {/* 2. Why Accurate Accounting Matters Section */}
+      {/* 2. Why Accurate Accounting Matters */}
       <section className="py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row items-center gap-20">
@@ -34,7 +34,7 @@ const AccountingBookkeeping: React.FC = () => {
               <h2 className="text-gold font-black text-xs uppercase tracking-[0.4em] mb-4">Financial Integrity</h2>
               <h3 className="text-4xl font-black text-royal-blue mb-8 uppercase tracking-tight">Why Precision <br/>Matters Most.</h3>
               <p className="text-slate-600 font-medium mb-8 leading-relaxed">
-                Proper bookkeeping is the backbone of any successful business in Malaysia. Beyond just keeping track of cash, it ensures you are always ready for audits and tax filings, keeping the LHDN (Inland Revenue Board) satisfied and your business operational.
+                Proper bookkeeping is the backbone of any successful business in Malaysia. Beyond just keeping track of cash, it ensures you are always ready for audits and tax filings, keeping the LHDN satisfied and your business operational.
               </p>
               <ul className="space-y-6">
                 {[
@@ -99,21 +99,45 @@ const AccountingBookkeeping: React.FC = () => {
         </div>
       </section>
 
-      {/* 4. How It Works - The BizFlow Process */}
-      <section className="py-24 bg-white">
+      {/* 4. Accounting Workflow - ENHANCED & FIXED */}
+      <section className="py-32 bg-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-black text-royal-blue mb-16 text-center uppercase tracking-widest">Our Accounting Workflow</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="text-center mb-20">
+            <span className="text-gold font-black text-xs uppercase tracking-[0.4em] block mb-4">Precision Pipeline</span>
+            <h2 className="text-4xl font-black text-royal-blue uppercase tracking-widest">Our Accounting Workflow</h2>
+            <div className="w-16 h-1 bg-gold mx-auto mt-6"></div>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               { step: "01", title: "Document Submission", desc: "Easy digital upload or physical pickup of your invoices and receipts." },
               { step: "02", title: "Expert Processing", desc: "Our certified team categorizes and records every transaction in your ledger." },
               { step: "03", title: "Quality Review", desc: "A senior chartered accountant verifies all entries for total accuracy and compliance." },
               { step: "04", title: "Report Delivery", desc: "Receive clear, easy-to-read financial reports and actionable business insights." }
             ].map((p, i) => (
-              <div key={i} className="relative p-8 bg-navy-dark text-white rounded-2xl border-b-4 border-gold shadow-2xl">
-                <span className="text-5xl font-black text-gold/20 absolute top-4 right-4">{p.step}</span>
-                <h4 className="text-xl font-black mb-4 uppercase tracking-tighter text-gold">{p.title}</h4>
-                <p className="text-blue-100 text-sm font-medium leading-relaxed">{p.desc}</p>
+              <div key={i} className="group relative p-10 bg-[#081b2a] rounded-[40px] border border-white/5 shadow-2xl hover:shadow-gold/10 hover:-translate-y-2 transition-all duration-500 overflow-hidden">
+                {/* Decorative Number (Background Overlay to prevent overlap) */}
+                <div className="absolute -top-4 -right-2 text-9xl font-black text-white/[0.03] select-none group-hover:text-gold/5 transition-colors duration-500 pointer-events-none">
+                  {p.step}
+                </div>
+                
+                {/* Gold Accent Indicator */}
+                <div className="w-12 h-1.5 bg-gold mb-10 rounded-full group-hover:w-20 transition-all duration-500"></div>
+                
+                {/* Content */}
+                <div className="relative z-10">
+                  <h4 className="text-xl font-black mb-6 uppercase tracking-tight text-white group-hover:text-gold transition-colors">
+                    {p.title}
+                  </h4>
+                  <p className="text-blue-100/60 text-sm font-medium leading-relaxed">
+                    {p.desc}
+                  </p>
+                </div>
+
+                {/* Bottom Number (Small Badge) */}
+                <div className="absolute bottom-6 right-8 text-xs font-black text-gold/40 uppercase tracking-widest">
+                  Phase {p.step}
+                </div>
               </div>
             ))}
           </div>
