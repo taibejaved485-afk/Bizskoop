@@ -8,15 +8,17 @@ const ServiceCard: React.FC<{
   tags: string[], 
   index: number
 }> = ({ title, desc, icon, tags, index }) => (
-  <div className="group relative bg-white p-10 lg:p-12 rounded-[40px] border border-slate-100 shadow-sm hover:shadow-[0_40px_80px_-15px_rgba(0,51,102,0.1)] hover:-translate-y-3 transition-all duration-500 cursor-pointer overflow-hidden">
+  <div className="group relative bg-white p-10 lg:p-12 rounded-[40px] hover:rounded-[60px] border border-slate-100 shadow-sm hover:shadow-[0_50px_100px_-20px_rgba(0,51,102,0.12)] hover:-translate-y-4 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] cursor-pointer overflow-hidden">
     {/* Decorative index background */}
-    <div className="absolute top-8 right-12 text-7xl font-black text-slate-50 select-none group-hover:text-gold/5 transition-colors duration-500">
+    <div className="absolute top-8 right-12 text-7xl font-black text-slate-50 select-none group-hover:text-gold/5 group-hover:-translate-y-2 transition-all duration-700">
       0{index + 1}
     </div>
 
-    {/* Icon Container */}
-    <div className="w-20 h-20 bg-royal-blue rounded-3xl flex items-center justify-center text-white mb-10 group-hover:bg-gold group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-xl relative z-10">
-      {icon}
+    {/* Icon Container with Parallax Effect */}
+    <div className="w-20 h-20 bg-royal-blue rounded-3xl flex items-center justify-center text-white mb-10 group-hover:bg-gold group-hover:scale-110 group-hover:rotate-[10deg] group-hover:translate-x-4 group-hover:-translate-y-4 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] shadow-xl relative z-10">
+      <div className="group-hover:scale-110 transition-transform duration-500">
+        {icon}
+      </div>
     </div>
 
     {/* Content */}
@@ -32,7 +34,7 @@ const ServiceCard: React.FC<{
     {/* Tags Section */}
     <div className="flex flex-wrap gap-2 relative z-10">
       {tags.map(tag => (
-        <span key={tag} className="px-4 py-1.5 bg-slate-50 text-royal-blue text-[10px] font-black uppercase rounded-full tracking-widest border border-slate-100 group-hover:border-gold/20 group-hover:bg-gold/5 transition-all">
+        <span key={tag} className="px-4 py-1.5 bg-slate-50 text-royal-blue text-[10px] font-black uppercase rounded-full tracking-widest border border-slate-100 group-hover:border-gold/30 group-hover:bg-gold/10 group-hover:scale-105 transition-all duration-300">
           {tag}
         </span>
       ))}
