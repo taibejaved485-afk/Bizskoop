@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Header from './components/Header.tsx';
 import Hero from './components/Hero.tsx';
 import Services from './components/Services.tsx';
@@ -16,15 +16,38 @@ import BuySellBusiness from './components/BuySellBusiness.tsx';
 import ContactPage from './components/ContactPage.tsx';
 import AboutPage from './components/AboutPage.tsx';
 
-// Helper component for count-up animation
+// Enhanced helper component for count-up animation with Visibility Trigger
 const AnimatedCounter: React.FC<{ target: string, duration?: number }> = ({ target, duration = 2000 }) => {
   const [count, setCount] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const countRef = useRef<HTMLSpanElement>(null);
   
   // Extract number and suffix
   const numericPart = parseInt(target.replace(/[^0-9]/g, '')) || 0;
   const suffix = target.replace(/[0-9,]/g, '');
 
+  // Intersection Observer to detect visibility
   useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect(); // Only trigger once
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (countRef.current) {
+      observer.observe(countRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible) return;
+
     let startTimestamp: number | null = null;
     const step = (timestamp: number) => {
       if (!startTimestamp) startTimestamp = timestamp;
@@ -40,10 +63,10 @@ const AnimatedCounter: React.FC<{ target: string, duration?: number }> = ({ targ
       }
     };
     window.requestAnimationFrame(step);
-  }, [numericPart, duration]);
+  }, [numericPart, duration, isVisible]);
 
   return (
-    <span>
+    <span ref={countRef}>
       {count.toLocaleString()}{suffix}
     </span>
   );
