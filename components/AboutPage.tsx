@@ -174,23 +174,69 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Corporate Values */}
-      <section className="py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
-          <h2 className="text-4xl font-black text-[#051622] uppercase tracking-tighter">Our Core Identity</h2>
-          <div className="w-20 h-1.5 bg-[#E91E63] mx-auto mt-4"></div>
-        </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-3 gap-10">
-          {[
-            { title: "Transparency", desc: "No hidden fees, no fine print. You get clear timelines and honest feedback." },
-            { title: "Speed", desc: "In business, time is money. We move fast to ensure your operation is live without delay." },
-            { title: "Excellence", desc: "Every filing and every advisory session is conducted to the highest professional standards." }
-          ].map((v, i) => (
-            <div key={i} className="bg-white p-10 rounded-2xl shadow-sm border border-slate-100 text-center">
-              <h3 className="text-xl font-black text-[#051622] uppercase mb-4 tracking-tight">{v.title}</h3>
-              <p className="text-slate-600 font-medium leading-relaxed">{v.desc}</p>
-            </div>
-          ))}
+      {/* Corporate Values Section - ENHANCED */}
+      <section className="py-24 bg-white relative overflow-hidden">
+        {/* Subtle Background Accent */}
+        <div className="absolute top-1/2 left-0 w-64 h-64 bg-royal-blue/5 rounded-full blur-[100px] -z-10"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-gold/5 rounded-full blur-[120px] -z-10"></div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-20 relative">
+            <span className="text-gold font-black text-xs uppercase tracking-[0.6em] block mb-3">The Pillars of BizFlow</span>
+            <h2 className="text-4xl lg:text-6xl font-black text-[#051622] uppercase tracking-tighter relative inline-block">
+              Our Core Identity
+              <div className="absolute -bottom-4 left-0 w-full h-1.5 bg-[#E91E63] rounded-full"></div>
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-10">
+            {[
+              { 
+                title: "Transparency", 
+                desc: "No hidden fees, no fine print. You get clear timelines and honest feedback at every stage of your incorporation journey.",
+                icon: (
+                  <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                )
+              },
+              { 
+                title: "Speed", 
+                desc: "In business, time is money. We leverage digital pathways to ensure your operation is live and compliant without bureaucratic delay.",
+                icon: (
+                  <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                )
+              },
+              { 
+                title: "Excellence", 
+                desc: "Every filing and advisory session is conducted to the highest professional standards by licensed mobility and corporate specialists.",
+                icon: (
+                  <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
+                )
+              }
+            ].map((v, i) => (
+              <div 
+                key={i} 
+                className="group bg-white p-12 rounded-[40px] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-slate-100 text-center hover:border-gold hover:shadow-[0_25px_60px_-15px_rgba(212,175,55,0.15)] hover:-translate-y-3 transition-all duration-500 relative overflow-hidden"
+              >
+                {/* Decorative Element */}
+                <div className="absolute top-0 right-0 w-24 h-24 bg-gold/5 rounded-bl-full translate-x-12 -translate-y-12 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-700"></div>
+                
+                <div className="w-24 h-24 rounded-3xl bg-slate-50 text-[#051622] flex items-center justify-center mx-auto mb-10 shadow-sm border border-slate-100 group-hover:bg-[#051622] group-hover:text-gold group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                  {v.icon}
+                </div>
+                
+                <h3 className="text-2xl font-black text-[#051622] uppercase mb-6 tracking-tight group-hover:text-gold transition-colors">
+                  {v.title}
+                </h3>
+                
+                <p className="text-slate-600 font-medium leading-relaxed group-hover:text-slate-900 transition-colors">
+                  {v.desc}
+                </p>
+
+                {/* Bottom Border Accent */}
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-1 bg-gold group-hover:w-1/2 transition-all duration-500 rounded-full"></div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </div>
