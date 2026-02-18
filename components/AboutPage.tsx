@@ -1,7 +1,36 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 
 const AboutPage: React.FC = () => {
+  const [activeFaq, setActiveFaq] = useState<number | null>(null);
+
+  const faqs = [
+    {
+      question: "What exactly does BizFlow do for international entrepreneurs?",
+      answer: "BizFlow acts as a strategic launchpad. We handle the entire spectrum of business setup in Malaysia—from initial SSM company incorporation and licensed secretarial duties to securing specialized business permits (WRT, CIDB) and handling complex Employment Pass (EP) applications for expatriate talent."
+    },
+    {
+      question: "Why should I choose BizFlow over other Malaysian consultancies?",
+      answer: "Unlike generalist agencies, we are specialized 'Execution Partners.' We combine high-level strategic advisory with direct authorization to handle ESD, MDEC, and SSM portals. Our methodology focuses on speed, zero-friction compliance, and transparent pricing—no hidden retainers or fine print."
+    },
+    {
+      question: "What industries does BizFlow specialize in?",
+      answer: "We have deep expertise in Tech & Digital Economy (MDEC/MD Status), Retail & Wholesale (WRT Licensing), Manufacturing (MIDA incentives), and Professional Services. Our team is equipped to navigate the specific regulatory requirements of over 25 distinct industry sectors in Malaysia."
+    },
+    {
+      question: "How does BizFlow ensure 100% compliance with Malaysian authorities?",
+      answer: "Our units are led by licensed professionals—Company Secretaries registered with SSM, Chartered Accountants with MIA, and authorized immigration agents. We conduct rigorous internal audits before any submission to authorities like LHDN, ESD, or local municipal councils to ensure a 98% first-time approval rate."
+    },
+    {
+      question: "Does BizFlow support businesses outside of Kuala Lumpur?",
+      answer: "Yes. While our headquarters is in KL City Centre (Menara Binjai), we manage federal and state compliance for businesses across all of Malaysia, including Selangor (Petaling Jaya, Shah Alam), Johor, and Penang. Our digital-first approach allows us to serve clients from over 40 countries remotely."
+    }
+  ];
+
+  const toggleFaq = (index: number) => {
+    setActiveFaq(activeFaq === index ? null : index);
+  };
+
   return (
     <div className="bg-white min-h-screen">
       {/* Hero Header for About Page */}
@@ -174,7 +203,7 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Corporate Values Section - ENHANCED */}
+      {/* Corporate Values Section */}
       <section className="py-24 bg-white relative overflow-hidden">
         {/* Subtle Background Accent */}
         <div className="absolute top-1/2 left-0 w-64 h-64 bg-royal-blue/5 rounded-full blur-[100px] -z-10"></div>
@@ -236,6 +265,70 @@ const AboutPage: React.FC = () => {
                 <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-1 bg-gold group-hover:w-1/2 transition-all duration-500 rounded-full"></div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Strategic FAQ Section */}
+      <section className="py-24 bg-slate-50 relative overflow-hidden">
+        {/* Subtle Watermark Overlay */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-[0.02] pointer-events-none select-none flex items-center justify-center">
+            <span className="text-[300px] font-black uppercase text-navy-dark border-8 border-navy-dark p-20 rounded-full -rotate-6">ADVISORY</span>
+        </div>
+        
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-16">
+            <span className="text-gold font-black text-xs uppercase tracking-[0.4em] mb-4 block">Clarity on BizFlow</span>
+            <h2 className="text-4xl lg:text-5xl font-black text-royal-blue uppercase tracking-tight">Strategic FAQ</h2>
+            <div className="w-16 h-1.5 bg-gold mx-auto mt-6 rounded-full"></div>
+          </div>
+
+          <div className="space-y-4">
+            {faqs.map((faq, index) => (
+              <div 
+                key={index} 
+                className={`border-2 rounded-[24px] transition-all duration-300 ${activeFaq === index ? 'border-gold bg-white shadow-2xl' : 'border-slate-200 bg-white/50 hover:bg-white hover:border-slate-300'}`}
+              >
+                <button 
+                  onClick={() => toggleFaq(index)}
+                  className="w-full text-left px-8 py-7 flex items-center justify-between focus:outline-none"
+                >
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[10px] font-black text-gold uppercase tracking-[0.2em] mb-1">Inquiry 0{index + 1}</span>
+                    <span className="font-black text-royal-blue uppercase text-sm tracking-tight leading-snug">{faq.question}</span>
+                  </div>
+                  <div className={`w-10 h-10 rounded-full border-2 flex items-center justify-center shrink-0 transition-all ${activeFaq === index ? 'border-gold bg-gold text-white rotate-180' : 'border-slate-200 text-slate-400 group-hover:border-gold group-hover:text-gold'}`}>
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" /></svg>
+                  </div>
+                </button>
+                <div 
+                  className={`overflow-hidden transition-all duration-500 ease-in-out ${activeFaq === index ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}
+                >
+                  <div className="px-8 pb-10 pt-2">
+                    <div className="h-px w-full bg-slate-100 mb-6"></div>
+                    <p className="text-slate-600 font-medium leading-relaxed text-sm lg:text-base">
+                      {faq.answer}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          <div className="mt-20 text-center">
+            <div className="inline-block p-1 rounded-full bg-slate-100 mb-8">
+                <div className="flex items-center gap-4 px-6 py-2">
+                    <div className="flex -space-x-2">
+                        {[1,2,3].map(i => <img key={i} src={`https://i.pravatar.cc/100?img=${i+10}`} className="w-8 h-8 rounded-full border-2 border-white" alt="Team"/>)}
+                    </div>
+                    <span className="text-xs font-black text-slate-500 uppercase tracking-widest">Connect with our leadership team</span>
+                </div>
+            </div>
+            <h3 className="text-2xl font-black text-royal-blue uppercase tracking-tight mb-8">Still have questions about your <br/>market entry?</h3>
+            <a href="https://wa.me/601124244993" className="inline-flex items-center gap-4 px-12 py-6 bg-navy-dark text-gold font-black rounded-2xl hover:bg-black hover:scale-105 transition-all shadow-2xl uppercase tracking-[0.3em] text-xs">
+                Speak with a Consultant
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </a>
           </div>
         </div>
       </section>
