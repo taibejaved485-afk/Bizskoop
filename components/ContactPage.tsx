@@ -1,19 +1,35 @@
+
 import React from 'react';
 
 const ContactPage: React.FC = () => {
   return (
     <div className="bg-white min-h-screen">
-      {/* 1. Hero Section */}
-      <section className="relative bg-navy-dark text-white py-32 overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-gold/5 -skew-x-12 translate-x-1/4"></div>
+      {/* 1. Hero Section with Background Image */}
+      <section className="relative text-white py-32 lg:py-48 overflow-hidden group">
+        {/* Background Image Layer with Dark Base */}
+        <div className="absolute inset-0 z-0 bg-[#001f3f]">
+          <img 
+            src="https://i.pinimg.com/1200x/35/76/d2/3576d20671f27d34455af52453bf57a0.jpg" 
+            className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 opacity-25"
+            alt="Corporate Environment"
+          />
+          {/* Advanced Multi-layered Overlay for Maximum Legibility */}
+          <div className="absolute inset-0 bg-navy-dark/60 lg:bg-gradient-to-r lg:from-navy-dark lg:via-navy-dark/70 lg:to-transparent"></div>
+          <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white to-transparent"></div>
+        </div>
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl">
-            <h1 className="text-5xl lg:text-7xl font-black mb-8 leading-tight tracking-tighter uppercase animate-fadeIn">
+            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-gold/20 backdrop-blur-md border border-gold/30 text-gold text-[10px] font-black uppercase tracking-[0.4em] mb-8 animate-fadeIn">
+              <span className="w-2 h-2 rounded-full bg-gold animate-pulse"></span>
+              Global Business Gateway
+            </div>
+            <h1 className="text-5xl lg:text-8xl font-black mb-8 leading-[1] tracking-tighter uppercase animate-fadeIn">
               Strategic <br/>
               <span className="text-gold">Partnership</span> <br/>
               Starts Here
             </h1>
-            <p className="text-xl text-blue-100 mb-12 leading-relaxed font-medium animate-fadeIn" style={{ animationDelay: '0.2s' }}>
+            <p className="text-xl text-blue-100 mb-12 leading-relaxed font-black animate-fadeIn max-w-2xl drop-shadow-md" style={{ animationDelay: '0.2s' }}>
               Connect with Malaysia's leading business strategists. Whether you are launching a startup or scaling an enterprise, we provide the authority and compliance you need.
             </p>
           </div>
@@ -21,7 +37,10 @@ const ContactPage: React.FC = () => {
       </section>
 
       {/* 2. Contact Grid */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-white relative">
+        {/* Decorative element for transition */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-20 h-20 bg-gold rotate-45 z-20 hidden lg:block border-4 border-white shadow-xl"></div>
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-20">
             {/* Left: Contact Details */}
