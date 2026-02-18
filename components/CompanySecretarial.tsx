@@ -122,11 +122,10 @@ const CompanySecretarial: React.FC = () => {
         </div>
       </section>
 
-      {/* 2. Why It Matters Section (Side-by-Side) */}
+      {/* 2. Why It Matters Section */}
       <section className="py-24 bg-white overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row items-center gap-20">
-            {/* Image on the Left */}
             <div className="lg:w-1/2 relative animate-fadeIn">
               <div className="relative z-10">
                 <div className="absolute -top-6 -left-6 w-32 h-32 bg-gold/10 rounded-2xl -z-10"></div>
@@ -139,7 +138,6 @@ const CompanySecretarial: React.FC = () => {
               <div className="absolute -bottom-8 -right-8 w-48 h-48 bg-navy-dark/5 rounded-full blur-3xl -z-10"></div>
             </div>
             
-            {/* Text on the Right */}
             <div className="lg:w-1/2">
               <h2 className="text-gold font-black text-xs uppercase tracking-[0.4em] mb-4">Strategic Foundation</h2>
               <h3 className="text-4xl lg:text-5xl font-black text-royal-blue mb-8 uppercase tracking-tight leading-tight">
@@ -171,7 +169,7 @@ const CompanySecretarial: React.FC = () => {
         </div>
       </section>
 
-      {/* 3. Scope of Expertise - ENHANCED BOXES */}
+      {/* 3. Scope of Expertise */}
       <section className="py-32 bg-slate-50 border-y border-slate-100 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-24">
@@ -183,23 +181,16 @@ const CompanySecretarial: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {expertiseItems.map((s, i) => (
               <div key={i} className="group relative bg-white p-10 lg:p-12 rounded-[32px] shadow-sm border border-slate-100 hover:border-gold/50 hover:shadow-[0_20px_50px_rgba(0,51,102,0.1)] transition-all duration-500 cursor-default">
-                {/* Index Background */}
                 <div className="absolute top-8 right-10 text-6xl font-black text-slate-50 select-none group-hover:text-gold/10 transition-colors">0{i+1}</div>
-                
-                {/* Icon Container */}
                 <div className="w-16 h-16 rounded-2xl bg-royal-blue/5 flex items-center justify-center text-royal-blue mb-10 group-hover:bg-gold group-hover:text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-sm relative z-10">
                   {s.icon}
                 </div>
-                
-                {/* Text Content */}
                 <div className="relative z-10">
                   <h4 className="text-xl font-black text-royal-blue mb-4 uppercase tracking-tight group-hover:text-gold transition-colors">{s.title}</h4>
                   <p className="text-slate-600 text-sm font-medium leading-relaxed group-hover:text-slate-700 transition-colors">
                     {s.desc}
                   </p>
                 </div>
-
-                {/* Bottom Bar Accent */}
                 <div className="absolute bottom-0 left-10 right-10 h-1 bg-transparent group-hover:bg-gold transition-all duration-500 rounded-t-full"></div>
               </div>
             ))}
@@ -228,7 +219,7 @@ const CompanySecretarial: React.FC = () => {
         </div>
       </section>
 
-      {/* 5. FAQ Section (Expanded) */}
+      {/* 5. FAQ Section */}
       <section className="py-24 bg-slate-50 relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-[0.01] pointer-events-none select-none flex items-center justify-center">
             <span className="text-[400px] font-black uppercase text-navy-dark border-8 border-navy-dark p-20 rounded-full rotate-12">SSM</span>
@@ -283,41 +274,108 @@ const CompanySecretarial: React.FC = () => {
         </div>
       </section>
 
-      {/* 6. Lead Gen Footer */}
-      <section className="py-32 bg-white" id="secretarial-contact">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="bg-[#051622] p-12 lg:p-16 rounded-[40px] shadow-2xl border-4 border-gold/20 text-white relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-gold/5 rounded-full blur-3xl -z-0"></div>
-            <div className="relative z-10">
-              <h2 className="text-3xl lg:text-4xl font-black mb-4 text-center uppercase tracking-tight">Ready to Start or Expand?</h2>
-              <p className="text-blue-100 text-center mb-12 font-medium opacity-80">Get a 100% free consultation with our licensed company secretarial unit.</p>
+      {/* 6. Lead Gen Footer - ENHANCED FORM */}
+      <section className="py-32 bg-white relative" id="secretarial-contact">
+        <div className="absolute inset-0 bg-[#051622] pointer-events-none"></div>
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: `radial-gradient(#D4AF37 1px, transparent 1px)`, backgroundSize: '40px 40px' }}></div>
+        
+        <div className="max-w-7xl mx-auto px-4 relative z-10">
+          <div className="flex flex-col lg:flex-row bg-[#081b2a] rounded-[50px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.4)] border border-white/5 group">
+            
+            {/* Left Column: Trust & Context */}
+            <div className="lg:w-2/5 p-12 lg:p-20 bg-gradient-to-br from-navy-dark to-[#081b2a] border-r border-white/5 relative flex flex-col justify-center">
+              <div className="absolute top-10 left-10 w-24 h-24 bg-gold/5 rounded-full blur-3xl"></div>
               
-              <form className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-6">
-                  <div className="group">
-                    <label className="block text-[10px] font-black text-gold uppercase tracking-[0.3em] mb-2">Full Name</label>
-                    <input type="text" placeholder="Johnathan Doe" className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-xl focus:border-gold outline-none font-medium text-white transition-all" />
-                  </div>
-                  <div className="group">
-                    <label className="block text-[10px] font-black text-gold uppercase tracking-[0.3em] mb-2">Email Address</label>
-                    <input type="email" placeholder="john@company.com" className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-xl focus:border-gold outline-none font-medium text-white transition-all" />
-                  </div>
-                  <div className="group">
-                    <label className="block text-[10px] font-black text-gold uppercase tracking-[0.3em] mb-2">Phone Number</label>
-                    <input type="tel" placeholder="+60 12..." className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-xl focus:border-gold outline-none font-medium text-white transition-all" />
-                  </div>
+              <div className="relative z-10">
+                <div className="w-16 h-16 bg-gold/10 rounded-2xl flex items-center justify-center text-gold mb-8 border border-gold/20 shadow-lg shadow-gold/5 group-hover:scale-110 transition-transform duration-500">
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                 </div>
+                
+                <h2 className="text-3xl lg:text-5xl font-black text-white mb-6 uppercase tracking-tight leading-tight">
+                  The <span className="text-gold">BizFlow</span> <br/>Guarantee.
+                </h2>
+                <p className="text-blue-100/60 text-lg font-medium mb-12 leading-relaxed">
+                  We handle the complex statutory hurdles of Malaysian compliance so you don't have to. Direct access to experts, not bots.
+                </p>
+                
                 <div className="space-y-6">
-                  <div className="group h-full flex flex-col">
-                    <label className="block text-[10px] font-black text-gold uppercase tracking-[0.3em] mb-2">Requirement Details</label>
-                    <textarea placeholder="Tell us about your company needs..." className="w-full flex-1 px-6 py-4 bg-white/5 border border-white/10 rounded-xl focus:border-gold outline-none font-medium text-white resize-none transition-all min-h-[148px]"></textarea>
-                  </div>
-                  <button className="w-full py-5 bg-gold text-navy-dark font-black rounded-xl hover:bg-white transition-all shadow-xl uppercase tracking-widest text-sm transform hover:-translate-y-1">
-                    Get Free Consultation
-                  </button>
+                  {[
+                    "100% Data Confidentiality",
+                    "Licensed Secretarial Unit",
+                    "2-Hour Response Time",
+                    "No Hidden Retainer Fees"
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-center gap-4">
+                      <div className="w-2 h-2 rounded-full bg-gold"></div>
+                      <span className="text-xs font-black text-white uppercase tracking-widest opacity-80">{item}</span>
+                    </div>
+                  ))}
                 </div>
-              </form>
+              </div>
             </div>
+
+            {/* Right Column: The Form */}
+            <div className="lg:w-3/5 p-12 lg:p-20 relative">
+              <div className="absolute bottom-0 right-0 w-64 h-64 bg-gold/5 rounded-full blur-3xl pointer-events-none"></div>
+              
+              <div className="max-w-xl mx-auto relative z-10">
+                <h3 className="text-white font-black text-xl uppercase tracking-widest mb-10 flex items-center gap-4">
+                  <span className="w-10 h-1 bg-gold"></span>
+                  Start Your Inquiry
+                </h3>
+                
+                <form className="space-y-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className="relative group">
+                      <label className="block text-[10px] font-black text-gold uppercase tracking-[0.3em] mb-3 group-focus-within:text-white transition-colors">Full Legal Name</label>
+                      <input 
+                        type="text" 
+                        placeholder="Johnathan Doe" 
+                        className="w-full px-0 py-3 bg-transparent border-b-2 border-white/10 focus:border-gold outline-none font-bold text-white transition-all placeholder:text-white/20 text-lg" 
+                      />
+                    </div>
+                    <div className="relative group">
+                      <label className="block text-[10px] font-black text-gold uppercase tracking-[0.3em] mb-3 group-focus-within:text-white transition-colors">Professional Email</label>
+                      <input 
+                        type="email" 
+                        placeholder="john@company.com" 
+                        className="w-full px-0 py-3 bg-transparent border-b-2 border-white/10 focus:border-gold outline-none font-bold text-white transition-all placeholder:text-white/20 text-lg" 
+                      />
+                    </div>
+                  </div>
+
+                  <div className="relative group">
+                    <label className="block text-[10px] font-black text-gold uppercase tracking-[0.3em] mb-3 group-focus-within:text-white transition-colors">Direct Phone / WhatsApp</label>
+                    <input 
+                      type="tel" 
+                      placeholder="+60 12 345 6789" 
+                      className="w-full px-0 py-3 bg-transparent border-b-2 border-white/10 focus:border-gold outline-none font-bold text-white transition-all placeholder:text-white/20 text-lg" 
+                    />
+                  </div>
+
+                  <div className="relative group">
+                    <label className="block text-[10px] font-black text-gold uppercase tracking-[0.3em] mb-3 group-focus-within:text-white transition-colors">Requirement Specifics</label>
+                    <textarea 
+                      placeholder="e.g. Need help with SSM audit backlog..." 
+                      className="w-full px-0 py-3 bg-transparent border-b-2 border-white/10 focus:border-gold outline-none font-bold text-white transition-all placeholder:text-white/20 text-lg resize-none h-24"
+                    ></textarea>
+                  </div>
+
+                  <div className="pt-8">
+                    <button className="w-full py-6 bg-gold text-navy-dark font-black rounded-2xl hover:bg-white hover:scale-[1.02] transition-all shadow-2xl shadow-gold/20 uppercase tracking-[0.3em] text-xs flex items-center justify-center gap-4 group/btn">
+                      Get Expert Consultation
+                      <svg className="w-5 h-5 group-hover/btn:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                    </button>
+                    <div className="flex items-center justify-center gap-4 mt-8 opacity-40">
+                      <span className="h-px w-10 bg-white/50"></span>
+                      <span className="text-[10px] font-black text-white uppercase tracking-[0.2em]">Response within 60-120 mins</span>
+                      <span className="h-px w-10 bg-white/50"></span>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
