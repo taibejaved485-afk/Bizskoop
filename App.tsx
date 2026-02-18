@@ -1,20 +1,20 @@
 
 import React, { useState, useEffect } from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import Services from './components/Services';
-import AIServiceTool from './components/AIServiceTool';
-import Footer from './components/Footer';
-import CompanySecretarial from './components/CompanySecretarial';
-import AccountingBookkeeping from './components/AccountingBookkeeping';
-import TaxCompliance from './components/TaxCompliance';
-import BusinessLicensing from './components/BusinessLicensing';
-import LocalCouncilLicensing from './components/LocalCouncilLicensing';
-import CorporateServices from './components/CorporateServices';
-import ImmigrationSupport from './components/ImmigrationSupport';
-import BuySellBusiness from './components/BuySellBusiness';
-import ContactPage from './components/ContactPage';
-import AboutPage from './components/AboutPage';
+import Header from './components/Header.tsx';
+import Hero from './components/Hero.tsx';
+import Services from './components/Services.tsx';
+import AIServiceTool from './components/AIServiceTool.tsx';
+import Footer from './components/Footer.tsx';
+import CompanySecretarial from './components/CompanySecretarial.tsx';
+import AccountingBookkeeping from './components/AccountingBookkeeping.tsx';
+import TaxCompliance from './components/TaxCompliance.tsx';
+import BusinessLicensing from './components/BusinessLicensing.tsx';
+import LocalCouncilLicensing from './components/LocalCouncilLicensing.tsx';
+import CorporateServices from './components/CorporateServices.tsx';
+import ImmigrationSupport from './components/ImmigrationSupport.tsx';
+import BuySellBusiness from './components/BuySellBusiness.tsx';
+import ContactPage from './components/ContactPage.tsx';
+import AboutPage from './components/AboutPage.tsx';
 
 // Helper component for count-up animation
 const AnimatedCounter: React.FC<{ target: string, duration?: number }> = ({ target, duration = 2000 }) => {

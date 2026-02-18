@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
-import { getVisaEligibility, getBusinessRoadmap } from '../services/geminiService';
-import { AIResponse } from '../types';
+import { getVisaEligibility, getBusinessRoadmap } from '../services/geminiService.ts';
+import { AIResponse } from '../types.ts';
 
 interface ToolProps {
   id: string;

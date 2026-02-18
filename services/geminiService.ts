@@ -1,6 +1,6 @@
 
 import { GoogleGenAI, Type } from "@google/genai";
-import { VisaFormData, LicenseWizardData, AIResponse } from "../types";
+import { VisaFormData, LicenseWizardData, AIResponse } from "../types.ts";
 
 const SYSTEM_TONE = "You are a senior Malaysian Business Strategist at Bizskoop. Your tone is direct, authoritative, and bold. Focus on speed, efficiency, and zero-bullshit compliance. Use specific Malaysian terminology (SSM, ESD, MDEC, JTKSM).";
 
