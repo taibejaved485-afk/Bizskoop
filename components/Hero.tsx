@@ -35,11 +35,21 @@ const Hero: React.FC = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row items-center gap-5">
-              <a href="#wizard" className="w-full sm:w-auto px-10 py-5 bg-action-red text-white font-black rounded-2xl hover-bg-action-red transition-all shadow-2xl shadow-red-600/20 transform hover:-translate-y-1 text-center uppercase tracking-widest">
-                Start My Business Wizard
+              <a 
+                href="#wizard" 
+                className="liquid-box w-full sm:w-auto px-10 py-5 bg-action-red text-white font-black rounded-2xl transition-all shadow-2xl shadow-red-600/20 transform hover:-translate-y-1 text-center uppercase tracking-widest group"
+                style={{ '--fill-color': '#990000' } as React.CSSProperties}
+              >
+                <div className="liquid-wave"></div>
+                <span>Start My Business Wizard</span>
               </a>
-              <a href="#visa" className="w-full sm:w-auto px-10 py-5 bg-white/90 backdrop-blur-md text-royal-blue font-black rounded-2xl border-2 border-royal-blue hover:bg-royal-blue hover:text-white transition-all text-center uppercase tracking-widest">
-                Check Visa Status
+              <a 
+                href="#visa" 
+                className="liquid-box w-full sm:w-auto px-10 py-5 bg-white/90 backdrop-blur-md text-royal-blue font-black rounded-2xl border-2 border-[#003366] transition-all text-center uppercase tracking-widest hover:text-white group"
+                style={{ '--fill-color': '#003366' } as React.CSSProperties}
+              >
+                <div className="liquid-wave"></div>
+                <span>Check Visa Status</span>
               </a>
             </div>
 
@@ -68,13 +78,21 @@ const Hero: React.FC = () => {
               className="relative rounded-[40px] shadow-2xl border-8 border-white object-cover aspect-square z-10"
               alt="Elite Business Environment"
             />
-            <div className="absolute -bottom-10 -left-10 bg-accent-yellow p-8 rounded-3xl shadow-2xl max-w-xs border-4 border-white z-20 transform hover:scale-105 transition-transform">
-              <div className="flex text-royal-blue mb-2">
-                {[1,2,3,4,5].map(i => <span key={i} className="text-lg">★</span>)}
+            
+            {/* Enhanced Testimonial Card with Rotating Glow Border */}
+            <div className="absolute -bottom-10 -left-10 p-[2px] rounded-[32px] z-20 overflow-hidden group/card transform hover:scale-110 hover:-rotate-2 transition-all duration-500 shadow-2xl max-w-xs">
+              {/* Rotating Glow Layer - Only visible on hover */}
+              <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#003366_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
+              
+              {/* Inner Content Box */}
+              <div className="relative bg-accent-yellow p-8 rounded-[30px] border-4 border-white z-10 h-full">
+                <div className="flex text-royal-blue mb-2">
+                  {[1,2,3,4,5].map(i => <span key={i} className="text-lg group-hover/card:scale-125 transition-transform duration-300" style={{ transitionDelay: `${i * 50}ms` }}>★</span>)}
+                </div>
+                <p className="text-royal-blue font-black text-sm mb-1 uppercase tracking-tight group-hover/card:translate-x-1 transition-transform">"Best service in KL"</p>
+                <p className="text-royal-blue/80 text-xs leading-tight font-bold">Bizskoop handled everything from SSM to my EP in under 3 weeks. Incredible speed!</p>
+                <p className="text-royal-blue font-black text-[10px] mt-4 uppercase">— John D., Tech Founder</p>
               </div>
-              <p className="text-royal-blue font-black text-sm mb-1 uppercase tracking-tight">"Best service in KL"</p>
-              <p className="text-royal-blue/80 text-xs leading-tight font-bold">Bizskoop handled everything from SSM to my EP in under 3 weeks. Incredible speed!</p>
-              <p className="text-royal-blue font-black text-[10px] mt-4 uppercase">— John D., Tech Founder</p>
             </div>
           </div>
         </div>

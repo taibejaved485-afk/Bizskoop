@@ -184,11 +184,16 @@ const App: React.FC = () => {
                   { val: "25+", sub: "Industries Covered" },
                   { val: "100%", sub: "Compliance Approach" }
                 ].map((stat, idx) => (
-                  <div key={idx} className="bg-white p-10 rounded-[30px] shadow-sm border-2 border-slate-200 text-center transform hover:-translate-y-2 hover:border-gold hover:shadow-xl transition-all duration-300 group cursor-default">
-                    <p className="text-4xl lg:text-5xl font-black text-[#051622] mb-3 tracking-tighter group-hover:text-gold transition-colors">
+                  <div 
+                    key={idx} 
+                    className="liquid-box bg-white p-10 rounded-[30px] shadow-sm border-2 border-slate-200 text-center transform hover:-translate-y-2 hover:border-gold hover:shadow-xl transition-all duration-300 group cursor-default hover:text-white"
+                    style={{ '--fill-color': '#003366' } as React.CSSProperties}
+                  >
+                    <div className="liquid-wave"></div>
+                    <p className="text-4xl lg:text-5xl font-black text-[#051622] mb-3 tracking-tighter group-hover:text-white transition-colors">
                       <AnimatedCounter target={stat.val} />
                     </p>
-                    <p className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.2em] group-hover:text-slate-600 transition-colors">{stat.sub}</p>
+                    <p className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.2em] group-hover:text-blue-100 transition-colors">{stat.sub}</p>
                   </div>
                 ))}
               </div>
