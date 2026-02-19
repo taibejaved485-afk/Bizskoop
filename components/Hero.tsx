@@ -1,5 +1,6 @@
 import React from 'react';
 import AnimatedCounter from './AnimatedCounter.tsx';
+import TypingText from './TypingText.tsx';
 
 const Hero: React.FC = () => {
   return (
@@ -30,10 +31,13 @@ const Hero: React.FC = () => {
               with Zero Friction.
             </h1>
             
-            <p className="text-xl text-slate-800 mb-12 leading-relaxed max-w-xl font-bold bg-white/30 backdrop-blur-[2px] rounded-lg p-2 inline-block">
-              From Company Incorporation to Employment Passes. We bypass the bureaucracy. 
-              <span className="text-royal-blue"> 100% Compliant. No Hidden Fees. Fast Results.</span>
-            </p>
+            <div className="text-xl text-slate-800 mb-12 leading-relaxed max-w-xl font-bold bg-white/30 backdrop-blur-[2px] rounded-lg p-2 min-h-[5rem]">
+              <TypingText 
+                text="From Company Incorporation to Employment Passes. We bypass the bureaucracy. 100% Compliant. No Hidden Fees. Fast Results."
+                speed={25}
+                delay={800}
+              />
+            </div>
             
             <div className="flex flex-col sm:flex-row items-center gap-5">
               <a 
