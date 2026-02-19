@@ -126,6 +126,34 @@
             position: relative;
             z-index: 2;
         }
+
+        /* Isolated Consultation Button Liquid Effect */
+        .bizflow-liquid-consult {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transition: all 0.4s ease;
+        }
+        .bizflow-liquid-consult::before {
+            content: "";
+            position: absolute;
+            top: 110%;
+            left: -50%;
+            width: 200%;
+            height: 400%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 38%;
+            transition: top 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: -1;
+            animation: bizflow-wave-spin 4s linear infinite;
+        }
+        .bizflow-liquid-consult:hover::before {
+            top: -150%;
+        }
+        @keyframes bizflow-wave-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
     </style>
 <script type="importmap">
 {

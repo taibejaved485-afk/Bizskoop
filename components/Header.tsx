@@ -113,9 +113,9 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
             <div className="hidden lg:block">
               <button 
                 onClick={() => onNavigate('contact')} 
-                className={`px-6 py-3 bg-[#E91E63] text-white text-[13px] font-black rounded-lg hover:bg-[#C2185B] transition-all shadow-lg uppercase tracking-widest ${isScrolled ? 'scale-90' : 'scale-100'}`}
+                className={`bizflow-liquid-consult px-6 py-3 bg-[#E91E63] text-white text-[13px] font-black rounded-lg hover:bg-[#C2185B] transition-all shadow-lg uppercase tracking-widest ${isScrolled ? 'scale-90' : 'scale-100'}`}
               >
-                Get a Consultation
+                <span className="relative z-10">Get a Consultation</span>
               </button>
             </div>
 
