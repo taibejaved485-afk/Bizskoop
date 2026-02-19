@@ -109,10 +109,19 @@ const ImmigrationSupport: React.FC = () => {
               { step: "Phase 3", title: "Submission", desc: "Meticulous filing of the personal endorsement application via official digital portals." },
               { step: "Phase 4", title: "Endorsement", desc: "Coordinating passport submission and physical sticker collection for final legal status." }
             ].map((p, i) => (
-              <div key={i} className="relative p-8 bg-navy-dark text-white rounded-2xl border-b-4 border-gold shadow-2xl">
-                <span className="text-xs font-black text-gold uppercase tracking-widest absolute top-4 right-4">{p.step}</span>
-                <h4 className="text-xl font-black mb-4 uppercase tracking-tighter text-gold mt-2">{p.title}</h4>
-                <p className="text-blue-100 text-sm font-medium leading-relaxed">{p.desc}</p>
+              <div key={i} className="group relative p-[2px] rounded-[34px] overflow-hidden transition-all duration-500 hover:-translate-y-2">
+                {/* Rotating Glow Layer */}
+                <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                <div 
+                  className="liquid-box relative h-full bg-navy-dark p-8 rounded-[32px] border border-white/5 shadow-2xl transition-all duration-500 overflow-hidden z-10"
+                  style={{ '--fill-color': 'rgba(212, 175, 55, 0.05)' } as React.CSSProperties}
+                >
+                  <div className="liquid-wave"></div>
+                  <span className="text-xs font-black text-gold uppercase tracking-widest absolute top-4 right-4 z-20">{p.step}</span>
+                  <h4 className="text-xl font-black mb-4 uppercase tracking-tighter text-gold mt-2 relative z-20">{p.title}</h4>
+                  <p className="text-blue-100 text-sm font-medium leading-relaxed relative z-20">{p.desc}</p>
+                </div>
               </div>
             ))}
           </div>

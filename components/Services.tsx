@@ -8,40 +8,45 @@ const ServiceCard: React.FC<{
   tags: string[], 
   index: number
 }> = ({ title, desc, icon, tags, index }) => (
-  <div className="group relative bg-white p-8 sm:p-10 lg:p-12 rounded-[40px] hover:rounded-[60px] border border-slate-100 shadow-sm hover:shadow-[0_50px_100px_-20px_rgba(0,51,102,0.12)] hover:-translate-y-4 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] cursor-pointer overflow-hidden">
-    {/* Decorative index background */}
-    <div className="absolute top-8 right-12 text-7xl font-black text-slate-50 select-none group-hover:text-gold/5 group-hover:-translate-y-2 transition-all duration-700">
-      0{index + 1}
-    </div>
+  <div className="group relative p-[2px] rounded-[42px] overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-4">
+    {/* Rotating Glow Layer - Only visible on hover */}
+    <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-    {/* Icon Container with Parallax Effect */}
-    <div className="w-20 h-20 bg-royal-blue rounded-3xl flex items-center justify-center text-white mb-10 group-hover:bg-gold group-hover:scale-110 group-hover:rotate-[10deg] group-hover:translate-x-4 group-hover:-translate-y-4 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] shadow-xl relative z-10">
-      <div className="group-hover:scale-110 transition-transform duration-500">
-        {icon}
+    <div className="relative h-full bg-white p-8 sm:p-10 lg:p-12 rounded-[40px] group-hover:rounded-[40px] border border-slate-100 shadow-sm hover:shadow-[0_50px_100px_-20px_rgba(0,51,102,0.12)] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] cursor-pointer overflow-hidden z-10">
+      {/* Decorative index background */}
+      <div className="absolute top-8 right-12 text-7xl font-black text-slate-200 select-none group-hover:text-gold/10 group-hover:-translate-y-2 transition-all duration-700">
+        0{index + 1}
       </div>
-    </div>
 
-    {/* Content */}
-    <div className="relative z-10">
-      <h3 className="text-2xl font-black text-royal-blue mb-4 uppercase tracking-tighter group-hover:text-gold transition-colors duration-300">
-        {title}
-      </h3>
-      <p className="text-slate-600 font-medium leading-relaxed mb-10 text-sm group-hover:text-slate-800 transition-colors">
-        {desc}
-      </p>
-    </div>
+      {/* Icon Container with Parallax Effect */}
+      <div className="w-20 h-20 bg-royal-blue rounded-3xl flex items-center justify-center text-white mb-10 group-hover:bg-gold group-hover:scale-110 group-hover:rotate-[10deg] group-hover:translate-x-4 group-hover:-translate-y-4 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] shadow-xl relative z-10">
+        <div className="group-hover:scale-110 transition-transform duration-500">
+          {icon}
+        </div>
+      </div>
 
-    {/* Tags Section */}
-    <div className="flex flex-wrap gap-2 relative z-10">
-      {tags.map(tag => (
-        <span key={tag} className="px-4 py-1.5 bg-slate-50 text-royal-blue text-[10px] font-black uppercase rounded-full tracking-widest border border-slate-100 group-hover:border-gold/30 group-hover:bg-gold/10 group-hover:scale-105 transition-all duration-300">
-          {tag}
-        </span>
-      ))}
-    </div>
+      {/* Content */}
+      <div className="relative z-10">
+        <h3 className="text-2xl font-black text-royal-blue mb-4 uppercase tracking-tighter group-hover:text-gold transition-colors duration-300">
+          {title}
+        </h3>
+        <p className="text-slate-600 font-medium leading-relaxed mb-10 text-sm group-hover:text-slate-800 transition-colors">
+          {desc}
+        </p>
+      </div>
 
-    {/* Hover Accent Bar */}
-    <div className="absolute bottom-0 left-0 w-full h-2 bg-transparent group-hover:bg-gold transition-all duration-500"></div>
+      {/* Tags Section */}
+      <div className="flex flex-wrap gap-2 relative z-10">
+        {tags.map(tag => (
+          <span key={tag} className="px-4 py-1.5 bg-slate-50 text-royal-blue text-[10px] font-black uppercase rounded-full tracking-widest border border-slate-100 group-hover:border-gold/30 group-hover:bg-gold/10 group-hover:scale-105 transition-all duration-300">
+            {tag}
+          </span>
+        ))}
+      </div>
+
+      {/* Hover Accent Bar */}
+      <div className="absolute bottom-0 left-0 w-full h-2 bg-transparent group-hover:bg-gold transition-all duration-500"></div>
+    </div>
   </div>
 );
 
@@ -110,35 +115,43 @@ const Services: React.FC = () => {
           ))}
         </div>
 
-        {/* Bottom trust bar for services */}
-        <div className="mt-16 lg:mt-24 flex flex-wrap items-center justify-center lg:justify-between gap-8 lg:gap-10 p-8 lg:p-10 bg-slate-50 rounded-[40px] border border-slate-100">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-royal-blue/10 flex items-center justify-center text-royal-blue">
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+        {/* Enhanced Bottom trust bar for services */}
+        <div className="mt-16 lg:mt-24 grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            { label: "Authorized Handling", title: "SSM Licensed Secretarial Unit", icon: "🏢" },
+            { label: "Authorized Handling", title: "ESD / MDEC Registered Agent", icon: "🛂" },
+            { label: "Authorized Handling", title: "LHDN Verified Tax Firm", icon: "📑" }
+          ].map((item, idx) => (
+            <div 
+              key={idx} 
+              className="group relative p-[2px] rounded-[34px] overflow-hidden transition-all duration-500 hover:-translate-y-2"
+            >
+              {/* Rotating Glow Layer - Only visible on hover */}
+              <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+              <div 
+                className="liquid-box relative h-full bg-slate-50 p-8 rounded-[32px] border border-slate-100 group-hover:bg-white group-hover:shadow-2xl group-hover:shadow-royal-blue/10 transition-all duration-500 overflow-hidden cursor-default z-10"
+                style={{ '--fill-color': 'rgba(0, 51, 102, 0.03)' } as React.CSSProperties}
+              >
+                <div className="liquid-wave"></div>
+                <div className="flex items-center gap-5 relative z-10">
+                  <div className="w-16 h-16 rounded-2xl bg-white shadow-md flex items-center justify-center text-3xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 border border-slate-50">
+                    {item.icon}
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest group-hover:text-gold transition-colors">{item.label}</p>
+                      <svg className="w-3 h-3 text-emerald-500 animate-pulse" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+                    </div>
+                    <p className="text-sm font-black text-royal-blue uppercase leading-tight tracking-tight group-hover:translate-x-1 transition-transform">{item.title}</p>
+                  </div>
+                </div>
+                
+                {/* Decorative background element */}
+                <div className="absolute -bottom-4 -right-4 w-20 h-20 bg-royal-blue/5 rounded-full blur-2xl group-hover:bg-gold/10 transition-colors"></div>
+              </div>
             </div>
-            <div>
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Authorized Handling</p>
-              <p className="text-sm font-black text-royal-blue uppercase">SSM Licensed Secretarial Unit</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-royal-blue/10 flex items-center justify-center text-royal-blue">
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
-            </div>
-            <div>
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Authorized Handling</p>
-              <p className="text-sm font-black text-royal-blue uppercase">ESD / MDEC Registered Agent</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-full bg-royal-blue/10 flex items-center justify-center text-royal-blue">
-              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
-            </div>
-            <div>
-              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Authorized Handling</p>
-              <p className="text-sm font-black text-royal-blue uppercase">LHDN Verified Tax Firm</p>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>

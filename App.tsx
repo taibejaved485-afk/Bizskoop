@@ -16,6 +16,7 @@ import BuySellBusiness from './components/BuySellBusiness.tsx';
 import ContactPage from './components/ContactPage.tsx';
 import AboutPage from './components/AboutPage.tsx';
 import AnimatedCounter from './components/AnimatedCounter.tsx';
+import ServiceGrid from './components/ServiceGrid.tsx';
 
 // App Component
 const App: React.FC = () => {
@@ -186,6 +187,7 @@ const App: React.FC = () => {
           </section>
 
           <Services />
+          <ServiceGrid onNavigate={handleNavigate} />
           <AIServiceTool id="wizard" type="roadmap" title="Smart Setup Wizard" subtitle="Receive a hard-hitting compliance roadmap in 15 seconds." />
           <AIServiceTool id="visa" type="visa" title="Official Visa Checker" subtitle="Verify your eligibility for Malaysia's passes instantly." />
         </>

@@ -115,28 +115,37 @@ const AccountingBookkeeping: React.FC = () => {
               { step: "03", title: "Quality Review", desc: "A senior chartered accountant verifies all entries for total accuracy and compliance." },
               { step: "04", title: "Report Delivery", desc: "Receive clear, easy-to-read financial reports and actionable business insights." }
             ].map((p, i) => (
-              <div key={i} className="group relative p-10 bg-[#081b2a] rounded-[40px] border border-white/5 shadow-2xl hover:shadow-gold/10 hover:-translate-y-2 transition-all duration-500 overflow-hidden">
-                {/* Decorative Number (Background Overlay to prevent overlap) */}
-                <div className="absolute -top-4 -right-2 text-9xl font-black text-white/[0.03] select-none group-hover:text-gold/5 transition-colors duration-500 pointer-events-none">
-                  {p.step}
-                </div>
-                
-                {/* Gold Accent Indicator */}
-                <div className="w-12 h-1.5 bg-gold mb-10 rounded-full group-hover:w-20 transition-all duration-500"></div>
-                
-                {/* Content */}
-                <div className="relative z-10">
-                  <h4 className="text-xl font-black mb-6 uppercase tracking-tight text-white group-hover:text-gold transition-colors">
-                    {p.title}
-                  </h4>
-                  <p className="text-blue-100/60 text-sm font-medium leading-relaxed">
-                    {p.desc}
-                  </p>
-                </div>
+              <div key={i} className="group relative p-[2px] rounded-[42px] overflow-hidden transition-all duration-500 hover:-translate-y-2">
+                {/* Rotating Glow Layer */}
+                <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                {/* Bottom Number (Small Badge) */}
-                <div className="absolute bottom-6 right-8 text-xs font-black text-gold/40 uppercase tracking-widest">
-                  Phase {p.step}
+                <div 
+                  className="liquid-box relative h-full bg-[#081b2a] p-10 rounded-[40px] border border-white/5 shadow-2xl transition-all duration-500 overflow-hidden cursor-default z-10"
+                  style={{ '--fill-color': 'rgba(212, 175, 55, 0.05)' } as React.CSSProperties}
+                >
+                  <div className="liquid-wave"></div>
+                  {/* Decorative Number (Background Overlay to prevent overlap) */}
+                  <div className="absolute -top-4 -right-2 text-9xl font-black text-white/[0.1] select-none group-hover:text-gold/10 transition-colors duration-500 pointer-events-none">
+                    {p.step}
+                  </div>
+                  
+                  {/* Gold Accent Indicator */}
+                  <div className="w-12 h-1.5 bg-gold mb-10 rounded-full group-hover:w-20 transition-all duration-500"></div>
+                  
+                  {/* Content */}
+                  <div className="relative z-10">
+                    <h4 className="text-xl font-black mb-6 uppercase tracking-tight text-white group-hover:text-gold transition-colors">
+                      {p.title}
+                    </h4>
+                    <p className="text-blue-100/60 text-sm font-medium leading-relaxed">
+                      {p.desc}
+                    </p>
+                  </div>
+
+                  {/* Bottom Number (Small Badge) */}
+                  <div className="absolute bottom-6 right-8 text-xs font-black text-gold/40 uppercase tracking-widest">
+                    Phase {p.step}
+                  </div>
                 </div>
               </div>
             ))}
