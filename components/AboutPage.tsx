@@ -170,12 +170,17 @@ const AboutPage: React.FC = () => {
                 )
               }
             ].map((item, i) => (
-              <div key={i} className="bg-white p-8 lg:p-10 rounded-2xl shadow-lg border border-slate-100 flex flex-col items-center text-center group hover:scale-[1.02] transition-all duration-300">
-                <div className="w-20 h-20 rounded-full bg-navy-dark text-white flex items-center justify-center mb-8 shadow-xl group-hover:bg-royal-blue transition-colors">
-                  {item.icon}
+              <div key={i} className="group relative p-[2px] rounded-[26px] overflow-hidden transition-all duration-500 hover:-translate-y-2">
+                {/* Rotating Glow Layer */}
+                <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                <div className="relative h-full bg-white p-8 lg:p-10 rounded-3xl border border-slate-100 flex flex-col items-center text-center shadow-lg group-hover:shadow-2xl transition-all duration-500 z-10">
+                  <div className="w-20 h-20 rounded-full bg-navy-dark text-white flex items-center justify-center mb-8 shadow-xl group-hover:bg-royal-blue group-hover:scale-110 transition-all duration-300">
+                    {item.icon}
+                  </div>
+                  <h3 className="text-xl font-black text-royal-blue mb-4 leading-snug uppercase tracking-tight group-hover:text-gold transition-colors">{item.title}</h3>
+                  <p className="text-slate-500 font-medium text-sm leading-relaxed group-hover:text-slate-700 transition-colors">{item.desc}</p>
                 </div>
-                <h3 className="text-xl font-black text-royal-blue mb-4 leading-snug uppercase tracking-tight">{item.title}</h3>
-                <p className="text-slate-500 font-medium text-sm leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -242,27 +247,31 @@ const AboutPage: React.FC = () => {
                 )
               }
             ].map((v, i) => (
-              <div 
-                key={i} 
-                className="group bg-white p-12 rounded-[40px] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-slate-100 text-center hover:border-gold hover:shadow-[0_25px_60px_-15px_rgba(212,175,55,0.15)] hover:-translate-y-3 transition-all duration-500 relative overflow-hidden"
-              >
-                {/* Decorative Element */}
-                <div className="absolute top-0 right-0 w-24 h-24 bg-gold/5 rounded-bl-full translate-x-12 -translate-y-12 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-700"></div>
+              <div key={i} className="group relative p-[2px] rounded-[42px] overflow-hidden transition-all duration-500 hover:-translate-y-3">
+                {/* Rotating Glow Layer */}
+                <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
-                <div className="w-24 h-24 rounded-3xl bg-slate-50 text-[#051622] flex items-center justify-center mx-auto mb-10 shadow-sm border border-slate-100 group-hover:bg-[#051622] group-hover:text-gold group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
-                  {v.icon}
-                </div>
-                
-                <h3 className="text-2xl font-black text-[#051622] uppercase mb-6 tracking-tight group-hover:text-gold transition-colors">
-                  {v.title}
-                </h3>
-                
-                <p className="text-slate-600 font-medium leading-relaxed group-hover:text-slate-900 transition-colors">
-                  {v.desc}
-                </p>
+                <div 
+                  className="relative h-full bg-white p-12 rounded-[40px] shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] border border-slate-100 text-center group-hover:border-gold/50 group-hover:shadow-[0_25px_60px_-15px_rgba(212,175,55,0.15)] transition-all duration-500 overflow-hidden z-10"
+                >
+                  {/* Decorative Element */}
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-gold/5 rounded-bl-full translate-x-12 -translate-y-12 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-700"></div>
+                  
+                  <div className="w-24 h-24 rounded-3xl bg-slate-50 text-[#051622] flex items-center justify-center mx-auto mb-10 shadow-sm border border-slate-100 group-hover:bg-[#051622] group-hover:text-gold group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                    {v.icon}
+                  </div>
+                  
+                  <h3 className="text-2xl font-black text-[#051622] uppercase mb-6 tracking-tight group-hover:text-gold transition-colors">
+                    {v.title}
+                  </h3>
+                  
+                  <p className="text-slate-600 font-medium leading-relaxed group-hover:text-slate-900 transition-colors">
+                    {v.desc}
+                  </p>
 
-                {/* Bottom Border Accent */}
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-1 bg-gold group-hover:w-1/2 transition-all duration-500 rounded-full"></div>
+                  {/* Bottom Border Accent */}
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-1 bg-gold group-hover:w-1/2 transition-all duration-500 rounded-full"></div>
+                </div>
               </div>
             ))}
           </div>
