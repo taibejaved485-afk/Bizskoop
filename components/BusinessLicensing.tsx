@@ -83,16 +83,30 @@ const BusinessLicensing: React.FC = () => {
               { icon: "🏢", title: "MIDA & MDEC Status", desc: "Applying for Pioneer Status or Tax Incentives for tech (MSC) and high-impact manufacturing projects." },
               { icon: "🤝", title: "Professional Bodies", desc: "Assisting doctors, architects, and engineers in registering with respective Malaysian boards and professional councils." }
             ].map((s, i) => (
-              <div key={i} className="bg-white p-10 rounded-2xl shadow-sm border border-slate-100 hover:border-gold transition-all group">
-                <div className="text-4xl mb-6 group-hover:scale-110 transition-transform inline-block">{s.icon}</div>
-                <h4 className="text-lg font-black text-royal-blue mb-3 uppercase tracking-tight">{s.title}</h4>
-                <p className="text-slate-600 text-sm font-medium leading-relaxed">{s.desc}</p>
+              <div key={i} className="group relative p-[2px] rounded-[32px] overflow-hidden transition-all duration-500 hover:-translate-y-2">
+                {/* Rotating Glow Layer */}
+                <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                <div 
+                  className="liquid-box relative h-full bg-white p-10 rounded-[30px] border border-slate-100 shadow-sm transition-all duration-500 z-10 flex flex-col"
+                  style={{ '--fill-color': 'rgba(0, 51, 102, 0.02)' } as React.CSSProperties}
+                >
+                  <div className="liquid-wave"></div>
+                  <div className="text-4xl mb-6 group-hover:scale-110 transition-transform inline-block relative z-10">{s.icon}</div>
+                  <h4 className="text-lg font-black text-royal-blue mb-3 uppercase tracking-tight group-hover:text-gold transition-colors relative z-10">{s.title}</h4>
+                  <p className="text-slate-600 text-sm font-medium leading-relaxed relative z-10">{s.desc}</p>
+                </div>
               </div>
             ))}
-            <div className="bg-navy-dark p-10 rounded-2xl shadow-xl flex flex-col justify-center items-center text-center border-b-8 border-gold">
-              <h4 className="text-xl font-black text-gold mb-4 uppercase tracking-tighter">Compliance Check</h4>
-              <p className="text-blue-100 text-sm font-medium mb-6">Unsure about your license requirements? Get a full audit of your business activity.</p>
-              <a href="#licensing-contact" className="px-6 py-3 bg-gold text-navy-dark font-black rounded-lg uppercase text-xs tracking-widest hover:bg-white transition-colors">Start Audit</a>
+            <div className="group relative p-[2px] rounded-[32px] overflow-hidden transition-all duration-500 hover:scale-[1.02]">
+              {/* Rotating Glow Layer */}
+              <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              
+              <div className="relative h-full bg-navy-dark p-10 rounded-[30px] shadow-xl flex flex-col justify-center items-center text-center border-b-8 border-gold z-10">
+                <h4 className="text-xl font-black text-gold mb-4 uppercase tracking-tighter relative z-10">Compliance Check</h4>
+                <p className="text-blue-100 text-sm font-medium mb-6 relative z-10">Unsure about your license requirements? Get a full audit of your business activity.</p>
+                <a href="#licensing-contact" className="px-6 py-3 bg-gold text-navy-dark font-black rounded-lg uppercase text-xs tracking-widest hover:bg-white transition-colors relative z-10">Start Audit</a>
+              </div>
             </div>
           </div>
         </div>
@@ -109,10 +123,19 @@ const BusinessLicensing: React.FC = () => {
               { step: "Step 3", title: "Liaison & Submission", desc: "Direct representation with ministries and local agencies to expedite queries and handle clarifications." },
               { step: "Step 4", title: "License Issuance", desc: "Rigorous monitoring of progress until your permit is officially active and displayed at your premise." }
             ].map((p, i) => (
-              <div key={i} className="relative p-8 bg-navy-dark text-white rounded-2xl border-b-4 border-gold shadow-2xl">
-                <span className="text-xs font-black text-gold uppercase tracking-widest absolute top-4 right-4">{p.step}</span>
-                <h4 className="text-xl font-black mb-4 uppercase tracking-tighter text-gold mt-2">{p.title}</h4>
-                <p className="text-blue-100 text-sm font-medium leading-relaxed">{p.desc}</p>
+              <div key={i} className="group relative p-[2px] rounded-[34px] overflow-hidden transition-all duration-500 hover:-translate-y-2">
+                {/* Rotating Glow Layer */}
+                <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                <div 
+                  className="liquid-box relative h-full bg-navy-dark p-8 rounded-[32px] border border-white/5 shadow-2xl transition-all duration-500 overflow-hidden z-10"
+                  style={{ '--fill-color': 'rgba(212, 175, 55, 0.05)' } as React.CSSProperties}
+                >
+                  <div className="liquid-wave"></div>
+                  <span className="text-xs font-black text-gold uppercase tracking-widest absolute top-4 right-4 z-20">{p.step}</span>
+                  <h4 className="text-xl font-black mb-4 uppercase tracking-tighter text-gold mt-2 relative z-20">{p.title}</h4>
+                  <p className="text-blue-100 text-sm font-medium leading-relaxed relative z-20">{p.desc}</p>
+                </div>
               </div>
             ))}
           </div>
