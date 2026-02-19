@@ -154,6 +154,50 @@
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
+
+        /* Water Tank Liquid Effect with Bubbles */
+        .water-tank-box {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .water-tank-liquid {
+            position: absolute;
+            bottom: -100%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: var(--fill-color, rgba(0, 51, 102, 0.1));
+            border-radius: 40%;
+            animation: water-rise 12s ease-in-out infinite alternate, water-rotate 8s linear infinite;
+            z-index: -1;
+        }
+        @keyframes water-rise {
+            0% { bottom: -110%; }
+            100% { bottom: -45%; }
+        }
+        @keyframes water-rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: bubble-rise var(--bubble-duration) ease-in infinite;
+            pointer-events: none;
+            z-index: 0;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+        @keyframes bubble-rise {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            10% { opacity: 0.5; }
+            90% { opacity: 0.5; }
+            100% { transform: translateY(-150px) scale(1.5); opacity: 0; }
+        }
     </style>
 <script type="importmap">
 {

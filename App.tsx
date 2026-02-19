@@ -133,14 +133,30 @@ const App: React.FC = () => {
                 ].map((stat, idx) => (
                   <div 
                     key={idx} 
-                    className="liquid-box bg-white p-10 rounded-[30px] shadow-sm border-2 border-slate-200 text-center transform hover:-translate-y-2 hover:border-gold hover:shadow-xl transition-all duration-300 group cursor-default hover:text-white"
-                    style={{ '--fill-color': '#003366' } as React.CSSProperties}
+                    className="water-tank-box bg-white p-10 rounded-[30px] shadow-sm border-2 border-slate-200 text-center transform hover:-translate-y-2 hover:border-gold hover:shadow-xl transition-all duration-500 group cursor-default"
+                    style={{ '--fill-color': 'rgba(0, 51, 102, 0.15)' } as React.CSSProperties}
                   >
-                    <div className="liquid-wave"></div>
-                    <p className="text-4xl lg:text-5xl font-black text-[#051622] mb-3 tracking-tighter group-hover:text-white transition-colors">
+                    <div className="water-tank-liquid"></div>
+                    
+                    {/* Bubbles */}
+                    {[...Array(10)].map((_, i) => (
+                      <div 
+                        key={i} 
+                        className="bubble" 
+                        style={{ 
+                          left: `${Math.random() * 100}%`, 
+                          width: `${Math.random() * 12 + 6}px`, 
+                          height: `${Math.random() * 12 + 6}px`, 
+                          '--bubble-duration': `${Math.random() * 4 + 2}s`,
+                          animationDelay: `${Math.random() * 5}s`
+                        } as React.CSSProperties}
+                      ></div>
+                    ))}
+
+                    <p className="text-4xl lg:text-5xl font-black text-[#051622] mb-3 tracking-tighter group-hover:text-royal-blue transition-colors">
                       <AnimatedCounter target={stat.val} />
                     </p>
-                    <p className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.2em] group-hover:text-blue-100 transition-colors">{stat.sub}</p>
+                    <p className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.2em] group-hover:text-royal-blue transition-colors">{stat.sub}</p>
                   </div>
                 ))}
               </div>
