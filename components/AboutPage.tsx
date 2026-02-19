@@ -100,13 +100,13 @@ const AboutPage: React.FC = () => {
                   "Clear Client Guidance",
                   "Strategic & Compliant Planning"
                 ].map((feature, idx) => (
-                  <div key={idx} className="flex items-center gap-5 group">
-                    <div className="w-6 h-6 rounded-full border border-[#051622]/20 flex items-center justify-center text-[#051622] bg-slate-50">
-                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                  <div key={idx} className="flex items-center gap-5 group cursor-default">
+                    <div className="w-8 h-8 rounded-full border-2 border-[#051622]/10 flex items-center justify-center text-[#051622] bg-slate-50 group-hover:bg-[#051622] group-hover:text-white group-hover:border-[#051622] transition-all duration-300 shadow-sm group-hover:shadow-md group-hover:scale-110">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
-                    <span className="font-bold text-[#051622] text-sm uppercase tracking-widest">{feature}</span>
+                    <span className="font-bold text-[#051622] text-sm uppercase tracking-widest group-hover:text-royal-blue transition-colors duration-300">{feature}</span>
                   </div>
                 ))}
               </div>

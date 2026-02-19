@@ -93,11 +93,11 @@ const App: React.FC = () => {
                     <p className="text-slate-600 text-lg leading-relaxed font-medium mb-10">BizFlow is Malaysia’s premium strategic launchpad for global entrepreneurs. We handle the heavy lifting of compliance and operational setup so you can focus on building your empire from day one.</p>
                     <div className="space-y-4">
                       {['End-to-End Execution', 'Clear Client Guidance', 'Strategic & Compliant Planning'].map((item, idx) => (
-                        <div key={idx} className="flex items-center gap-4 group">
-                          <div className="w-6 h-6 rounded-full border border-[#051622]/20 flex items-center justify-center text-[#051622] group-hover:bg-gold group-hover:border-gold group-hover:text-white transition-all">
-                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+                        <div key={idx} className="flex items-center gap-4 group cursor-default">
+                          <div className="w-8 h-8 rounded-full border-2 border-[#051622]/10 flex items-center justify-center text-[#051622] bg-slate-50 group-hover:bg-gold group-hover:border-gold group-hover:text-white transition-all duration-300 shadow-sm group-hover:shadow-md group-hover:scale-110">
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
                           </div>
-                          <span className="font-bold text-[#051622] text-sm uppercase tracking-widest group-hover:text-gold transition-colors">{item}</span>
+                          <span className="font-bold text-[#051622] text-sm uppercase tracking-widest group-hover:text-gold transition-colors duration-300">{item}</span>
                         </div>
                       ))}
                     </div>
