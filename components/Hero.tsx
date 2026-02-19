@@ -1,4 +1,5 @@
 import React from 'react';
+import AnimatedCounter from './AnimatedCounter.tsx';
 
 const Hero: React.FC = () => {
   return (
@@ -55,17 +56,23 @@ const Hero: React.FC = () => {
 
             <div className="mt-16 flex items-center gap-10 opacity-100">
               <div className="flex flex-col">
-                <span className="text-3xl font-black text-royal-blue">500+</span>
+                <span className="text-3xl font-black text-royal-blue">
+                  <AnimatedCounter target="500+" />
+                </span>
                 <span className="text-[10px] font-bold text-slate-700 uppercase tracking-widest">Setup Successful</span>
               </div>
               <div className="w-px h-10 bg-slate-400"></div>
               <div className="flex flex-col">
-                <span className="text-3xl font-black text-royal-blue">100%</span>
+                <span className="text-3xl font-black text-royal-blue">
+                  <AnimatedCounter target="100%" />
+                </span>
                 <span className="text-[10px] font-bold text-slate-700 uppercase tracking-widest">SSM Compliance</span>
               </div>
               <div className="w-px h-10 bg-slate-400"></div>
               <div className="flex flex-col">
-                <span className="text-3xl font-black text-royal-blue">4.9/5</span>
+                <span className="text-3xl font-black text-royal-blue">
+                  <AnimatedCounter target="4.9/5" />
+                </span>
                 <span className="text-[10px] font-bold text-slate-700 uppercase tracking-widest">Google Rated</span>
               </div>
             </div>

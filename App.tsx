@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import Header from './components/Header.tsx';
 import Hero from './components/Hero.tsx';
 import Services from './components/Services.tsx';
@@ -15,63 +15,9 @@ import ImmigrationSupport from './components/ImmigrationSupport.tsx';
 import BuySellBusiness from './components/BuySellBusiness.tsx';
 import ContactPage from './components/ContactPage.tsx';
 import AboutPage from './components/AboutPage.tsx';
+import AnimatedCounter from './components/AnimatedCounter.tsx';
 
-// Enhanced helper component for count-up animation with Visibility Trigger
-const AnimatedCounter: React.FC<{ target: string, duration?: number }> = ({ target, duration = 2000 }) => {
-  const [count, setCount] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
-  const countRef = useRef<HTMLSpanElement>(null);
-  
-  // Extract number and suffix
-  const numericPart = parseInt(target.replace(/[^0-9]/g, '')) || 0;
-  const suffix = target.replace(/[0-9,]/g, '');
-
-  // Intersection Observer to detect visibility
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.disconnect(); // Only trigger once
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (countRef.current) {
-      observer.observe(countRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!isVisible) return;
-
-    let startTimestamp: number | null = null;
-    const step = (timestamp: number) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      
-      // Cubic Out Easing: t => 1 - Math.pow(1 - t, 3)
-      const easeProgress = 1 - Math.pow(1 - progress, 3);
-      
-      setCount(Math.floor(easeProgress * numericPart));
-      
-      if (progress < 1) {
-        window.requestAnimationFrame(step);
-      }
-    };
-    window.requestAnimationFrame(step);
-  }, [numericPart, duration, isVisible]);
-
-  return (
-    <span ref={countRef}>
-      {count.toLocaleString()}{suffix}
-    </span>
-  );
-};
-
+// App Component
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState('home');
 
