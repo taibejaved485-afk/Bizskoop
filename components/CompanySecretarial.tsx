@@ -3,6 +3,55 @@ import React, { useState } from 'react';
 
 const CompanySecretarial: React.FC = () => {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: ''
+  });
+  const [errors, setErrors] = useState({
+    email: '',
+    phone: ''
+  });
+
+  const validateEmail = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  };
+
+  const validatePhone = (phone: string) => {
+    return /^[\d\s+]{10,}$/.test(phone);
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    if (errors[name as keyof typeof errors]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const newErrors = { email: '', phone: '' };
+    let isValid = true;
+
+    if (!validateEmail(formData.email)) {
+      newErrors.email = 'Invalid professional email format.';
+      isValid = false;
+    }
+
+    if (!validatePhone(formData.phone)) {
+      newErrors.phone = 'Invalid phone format (min 10 digits).';
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+
+    if (isValid) {
+      alert('Inquiry sent successfully! Our experts will contact you shortly.');
+      setFormData({ name: '', email: '', phone: '', message: '' });
+    }
+  };
 
   const faqs = [
     {
@@ -181,7 +230,7 @@ const CompanySecretarial: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {expertiseItems.map((s, i) => (
               <div key={i} className="group relative bg-white p-10 lg:p-12 rounded-[32px] shadow-sm border border-slate-100 hover:border-gold/50 hover:shadow-[0_20px_50px_rgba(0,51,102,0.1)] transition-all duration-500 cursor-default">
-                <div className="absolute top-8 right-10 text-4xl font-black text-slate-200 select-none group-hover:text-gold/15 transition-colors">0{i+1}</div>
+                <div className="absolute top-8 right-10 text-6xl font-black text-slate-200 select-none group-hover:text-gold/15 transition-colors">0{i+1}</div>
                 <div className="w-16 h-16 rounded-2xl bg-royal-blue/5 flex items-center justify-center text-royal-blue mb-10 group-hover:bg-gold group-hover:text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-sm relative z-10">
                   {s.icon}
                 </div>
@@ -216,7 +265,7 @@ const CompanySecretarial: React.FC = () => {
                 <div className="liquid-box relative h-full p-10 bg-[#081b2a] text-white rounded-[32px] border border-white/5 shadow-2xl transition-all duration-500 overflow-hidden z-10">
                   <div className="liquid-wave"></div>
                   {/* Decorative Number (Background Overlay) */}
-                  <div className="absolute -top-2 -right-2 text-7xl font-black text-white/[0.1] select-none group-hover:text-gold/10 transition-colors duration-500 pointer-events-none">
+                  <div className="absolute -top-4 -right-2 text-9xl font-black text-white/[0.1] select-none group-hover:text-gold/10 transition-colors duration-500 pointer-events-none">
                     {p.step}
                   </div>
                   
@@ -326,24 +375,57 @@ const CompanySecretarial: React.FC = () => {
                   <span className="w-10 h-1 bg-gold"></span>
                   Start Your Inquiry
                 </h3>
-                <form className="space-y-8">
+                <form className="space-y-8" onSubmit={handleSubmit}>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="relative group">
                       <label className="block text-[10px] font-black text-gold uppercase tracking-[0.3em] mb-3 group-focus-within:text-white transition-colors">Full Legal Name</label>
-                      <input type="text" placeholder="Johnathan Doe" className="w-full px-0 py-3 bg-transparent border-b-2 border-white/10 focus:border-gold outline-none font-bold text-white transition-all placeholder:text-white/20 text-lg" />
+                      <input 
+                        type="text" 
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        placeholder="Johnathan Doe" 
+                        className="w-full px-0 py-3 bg-transparent border-b-2 border-white/10 focus:border-gold outline-none font-bold text-white transition-all placeholder:text-white/20 text-lg" 
+                        required
+                      />
                     </div>
                     <div className="relative group">
                       <label className="block text-[10px] font-black text-gold uppercase tracking-[0.3em] mb-3 group-focus-within:text-white transition-colors">Professional Email</label>
-                      <input type="email" placeholder="john@company.com" className="w-full px-0 py-3 bg-transparent border-b-2 border-white/10 focus:border-gold outline-none font-bold text-white transition-all placeholder:text-white/20 text-lg" />
+                      <input 
+                        type="email" 
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        placeholder="john@company.com" 
+                        className={`w-full px-0 py-3 bg-transparent border-b-2 ${errors.email ? 'border-red-500' : 'border-white/10'} focus:border-gold outline-none font-bold text-white transition-all placeholder:text-white/20 text-lg`}
+                        required
+                      />
+                      {errors.email && <p className="text-red-500 text-[10px] font-black mt-2 uppercase tracking-widest animate-pulse">{errors.email}</p>}
                     </div>
                   </div>
                   <div className="relative group">
                     <label className="block text-[10px] font-black text-gold uppercase tracking-[0.3em] mb-3 group-focus-within:text-white transition-colors">Direct Phone / WhatsApp</label>
-                    <input type="tel" placeholder="+60 12 345 6789" className="w-full px-0 py-3 bg-transparent border-b-2 border-white/10 focus:border-gold outline-none font-bold text-white transition-all placeholder:text-white/20 text-lg" />
+                    <input 
+                      type="tel" 
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      placeholder="+60 12 345 6789" 
+                      className={`w-full px-0 py-3 bg-transparent border-b-2 ${errors.phone ? 'border-red-500' : 'border-white/10'} focus:border-gold outline-none font-bold text-white transition-all placeholder:text-white/20 text-lg`}
+                      required
+                    />
+                    {errors.phone && <p className="text-red-500 text-[10px] font-black mt-2 uppercase tracking-widest animate-pulse">{errors.phone}</p>}
                   </div>
                   <div className="relative group">
                     <label className="block text-[10px] font-black text-gold uppercase tracking-[0.3em] mb-3 group-focus-within:text-white transition-colors">Requirement Specifics</label>
-                    <textarea placeholder="e.g. Need help with SSM audit backlog..." className="w-full px-0 py-3 bg-transparent border-b-2 border-white/10 focus:border-gold outline-none font-bold text-white transition-all placeholder:text-white/20 text-lg resize-none h-24"></textarea>
+                    <textarea 
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      placeholder="e.g. Need help with SSM audit backlog..." 
+                      className="w-full px-0 py-3 bg-transparent border-b-2 border-white/10 focus:border-gold outline-none font-bold text-white transition-all placeholder:text-white/20 text-lg resize-none h-24"
+                      required
+                    ></textarea>
                   </div>
                   <div className="pt-8">
                     <button className="w-full py-6 bg-gold text-navy-dark font-black rounded-2xl hover:bg-white hover:scale-[1.02] transition-all shadow-2xl shadow-gold/20 uppercase tracking-[0.3em] text-xs flex items-center justify-center gap-4 group/btn">
