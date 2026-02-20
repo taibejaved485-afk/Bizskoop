@@ -1,5 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
+import { Phone, Mail, Facebook, Twitter, Linkedin, Youtube, Clock, Globe } from 'lucide-react';
+import { motion } from 'motion/react';
 
 interface HeaderProps {
   onNavigate: (page: string) => void;
@@ -32,24 +34,64 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
 
   return (
     <header className={`sticky top-0 z-50 sticky-header ${isScrolled ? 'scrolled' : ''}`}>
-      <div className={`bg-royal-blue text-white py-2 text-[10px] sm:text-[11px] font-semibold tracking-wider border-b border-white/10 transition-all duration-500 ${isScrolled ? 'h-0 py-0 opacity-0 overflow-hidden border-none' : 'h-auto opacity-100'}`}>
+      <div className={`bg-[#051622] text-white py-2.5 text-[10px] sm:text-[11px] font-medium tracking-wider border-b border-white/5 transition-all duration-700 ${isScrolled ? 'h-0 py-0 opacity-0 overflow-hidden border-none' : 'h-auto opacity-100'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-          <div className="flex items-center gap-4 sm:gap-8">
-            <a href="tel:+60327718000" className="flex items-center gap-2 hover:text-accent-yellow transition-colors">
-              <span className="text-accent-yellow">📞</span> +60 3 2771 8000
-            </a>
-            <a href="mailto:info@bizskoop.com" className="hidden sm:flex items-center gap-2 hover:text-accent-yellow transition-colors">
-              <span className="text-accent-yellow">✉️</span> info@bizskoop.com
-            </a>
+          <div className="flex items-center gap-6 sm:gap-10">
+            <motion.a 
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              href="tel:+60327718000" 
+              className="flex items-center gap-2.5 hover:text-gold transition-all duration-300 group"
+            >
+              <Phone size={14} className="text-gold group-hover:scale-110 transition-transform" />
+              <span className="font-bold">+60 3 2771 8000</span>
+            </motion.a>
+            <motion.a 
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 }}
+              href="mailto:info@bizskoop.com" 
+              className="hidden sm:flex items-center gap-2.5 hover:text-gold transition-all duration-300 group"
+            >
+              <Mail size={14} className="text-gold group-hover:scale-110 transition-transform" />
+              <span className="font-bold">info@bizskoop.com</span>
+            </motion.a>
+            <div className="hidden lg:flex items-center gap-2.5 text-white/40">
+              <Clock size={14} className="text-gold/50" />
+              <span className="uppercase text-[9px] font-black tracking-[0.2em]">Mon - Fri: 9AM - 6PM</span>
+            </div>
           </div>
-          <div className="flex items-center gap-6 flex-wrap justify-end">
-            <span className="hidden md:inline opacity-60 uppercase tracking-widest text-[9px]">Professional Business Launchpad</span>
-            <div className="flex items-center gap-3 flex-wrap">
-              {['f', 't', 'in', 'y'].map((social) => (
-                <a key={social} href="#" className="w-6 h-6 rounded-full border border-white/20 flex items-center justify-center text-white hover:text-accent-yellow hover:border-accent-yellow transition-all">
-                  <span className="text-[8px] uppercase font-black">{social}</span>
-                </a>
-              ))}
+          
+          <div className="flex items-center gap-8">
+            <div className="hidden xl:flex items-center gap-3 px-4 py-1 bg-white/5 rounded-full border border-white/10">
+              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
+              <span className="uppercase text-[9px] font-black tracking-[0.2em] text-white/60">Professional Business Launchpad</span>
+            </div>
+            
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 pr-4 border-r border-white/10">
+                <Globe size={12} className="text-gold" />
+                <span className="uppercase text-[9px] font-black text-white/60">EN</span>
+              </div>
+              <div className="flex items-center gap-3">
+                {[
+                  { icon: Facebook, label: 'f' },
+                  { icon: Twitter, label: 't' },
+                  { icon: Linkedin, label: 'in' },
+                  { icon: Youtube, label: 'y' }
+                ].map((social, idx) => (
+                  <motion.a 
+                    key={social.label} 
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.2 + (idx * 0.05) }}
+                    href="#" 
+                    className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-gold hover:border-gold hover:bg-gold/10 transition-all duration-300 group"
+                  >
+                    <social.icon size={12} className="group-hover:scale-110 transition-transform" />
+                  </motion.a>
+                ))}
+              </div>
             </div>
           </div>
         </div>

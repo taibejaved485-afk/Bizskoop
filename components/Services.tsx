@@ -1,6 +1,8 @@
 
 import React from 'react';
 import TypingText from './TypingText.tsx';
+import { motion, AnimatePresence } from 'motion/react';
+import { Building2, Globe2, FileText, ArrowRight } from 'lucide-react';
 
 const ServiceCard: React.FC<{
   title: string, 
@@ -12,32 +14,43 @@ const ServiceCard: React.FC<{
   const [isHovered, setIsHovered] = React.useState(false);
 
   return (
-    <div 
-      className="group relative p-[2px] rounded-[42px] overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-4"
+    <motion.div 
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, delay: index * 0.1, ease: [0.21, 1.11, 0.81, 0.99] }}
+      className="group relative p-[1px] rounded-[42px] overflow-hidden transition-all duration-700"
       onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
-      {/* Rotating Glow Layer - Only visible on hover */}
-      <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+      {/* Animated Border Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-200 via-slate-100 to-slate-200 group-hover:from-gold/50 group-hover:via-gold/20 group-hover:to-gold/50 transition-all duration-700"></div>
 
-      <div className="relative h-full bg-white p-8 sm:p-10 lg:p-12 rounded-[40px] group-hover:rounded-[40px] border border-slate-100 shadow-sm hover:shadow-[0_50px_100px_-20px_rgba(0,51,102,0.12)] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] cursor-pointer overflow-hidden z-10">
+      {/* Rotating Glow Layer - Only visible on hover */}
+      <div className="absolute inset-[-150%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_6s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+
+      <div className="relative h-full bg-white p-8 sm:p-10 lg:p-12 rounded-[41px] border border-transparent shadow-sm group-hover:shadow-[0_40px_80px_-15px_rgba(0,51,102,0.15)] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] cursor-pointer overflow-hidden z-10">
+        {/* Glass Overlay on Hover */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-slate-50/50 group-hover:to-gold/[0.03] transition-all duration-700"></div>
+
         {/* Decorative index background */}
-        <div className="absolute top-8 right-12 text-5xl font-black text-slate-200 select-none group-hover:text-gold/10 group-hover:-translate-y-2 transition-all duration-700">
+        <div className="absolute top-8 right-12 text-8xl font-black text-slate-200/60 select-none group-hover:text-gold/20 group-hover:-translate-y-4 transition-all duration-700 font-mono">
           0{index + 1}
         </div>
 
         {/* Icon Container with Parallax Effect */}
-        <div className="w-20 h-20 bg-royal-blue rounded-3xl flex items-center justify-center text-white mb-10 group-hover:bg-gold group-hover:scale-110 group-hover:rotate-[10deg] group-hover:translate-x-4 group-hover:-translate-y-4 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] shadow-xl relative z-10">
-          <div className="group-hover:scale-110 transition-transform duration-500">
-            {icon}
+        <div className="relative z-20">
+          <div className="w-20 h-20 bg-royal-blue rounded-[24px] flex items-center justify-center text-white mb-10 group-hover:bg-gold group-hover:scale-110 group-hover:rotate-[8deg] group-hover:translate-x-2 group-hover:-translate-y-2 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] shadow-2xl shadow-royal-blue/20 group-hover:shadow-gold/30">
+            <div className="group-hover:scale-110 transition-transform duration-500">
+              {icon}
+            </div>
           </div>
-        </div>
 
-        {/* Content */}
-        <div className="relative z-10">
+          {/* Content */}
           <h3 className="text-2xl font-black text-royal-blue mb-4 uppercase tracking-tighter group-hover:text-gold transition-colors duration-300">
             {title}
           </h3>
-          <div className="text-slate-600 font-medium leading-relaxed mb-10 text-sm group-hover:text-slate-800 transition-colors min-h-[5rem]">
+          <div className="text-slate-500 font-medium leading-relaxed mb-10 text-sm group-hover:text-slate-700 transition-colors min-h-[5rem]">
             <TypingText 
               text={desc}
               speed={15}
@@ -45,21 +58,29 @@ const ServiceCard: React.FC<{
               start={isHovered}
             />
           </div>
-        </div>
 
-        {/* Tags Section */}
-        <div className="flex flex-wrap gap-2 relative z-10">
-          {tags.map(tag => (
-            <span key={tag} className="px-4 py-1.5 bg-slate-50 text-royal-blue text-[10px] font-black uppercase rounded-full tracking-widest border border-slate-100 group-hover:border-gold/30 group-hover:bg-gold/10 group-hover:scale-105 transition-all duration-300">
-              {tag}
-            </span>
-          ))}
+          {/* Tags Section */}
+          <div className="flex flex-wrap gap-2 mb-8">
+            {tags.map(tag => (
+              <span key={tag} className="px-4 py-1.5 bg-slate-50 text-royal-blue text-[9px] font-black uppercase rounded-full tracking-widest border border-slate-100 group-hover:border-gold/30 group-hover:bg-gold/10 group-hover:text-gold transition-all duration-300">
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          {/* Learn More Action */}
+          <div className="flex items-center gap-3 group/btn">
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-royal-blue group-hover:text-gold transition-colors">Learn More</span>
+            <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-gold group-hover:text-white transition-all duration-300">
+              <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
+            </div>
+          </div>
         </div>
 
         {/* Hover Accent Bar */}
-        <div className="absolute bottom-0 left-0 w-full h-2 bg-transparent group-hover:bg-gold transition-all duration-500"></div>
+        <div className="absolute bottom-0 left-0 w-full h-1.5 bg-transparent group-hover:bg-gold transition-all duration-700"></div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -68,31 +89,19 @@ const Services: React.FC = () => {
     {
       title: "Sdn Bhd Formation",
       desc: "Full 100% foreign-owned incorporation strategy. We navigate the Companies Act 2016 to ensure your entity is live, compliant, and bank-ready in 48-72 hours.",
-      icon: (
-        <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-        </svg>
-      ),
+      icon: <Building2 size={32} strokeWidth={2.5} />,
       tags: ["Foreign Ownership", "SSM Express", "Digital Setup"]
     },
     {
       title: "Global Immigration",
       desc: "Authorized ESD and MDEC handling for Category I, II, & III Employment Passes. We manage the quota projections and talent endorsement for 98% approval rates.",
-      icon: (
-        <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-      ),
+      icon: <Globe2 size={32} strokeWidth={2.5} />,
       tags: ["EP I/II/III", "PVP Specialist", "MDEC Status"]
     },
     {
       title: "Regulatory Licensing",
       desc: "Specialized licensing for complex sectors including WRT (Retail), CIDB (Construction), and DBKL municipal approvals. No guesswork, just results.",
-      icon: (
-        <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-        </svg>
-      ),
+      icon: <FileText size={32} strokeWidth={2.5} />,
       tags: ["WRT Permit", "CIDB Grade G7", "DBKL/MBPJ"]
     }
   ];
@@ -135,15 +144,19 @@ const Services: React.FC = () => {
             { label: "Authorized Handling", title: "ESD / MDEC Registered Agent", icon: "🛂" },
             { label: "Authorized Handling", title: "LHDN Verified Tax Firm", icon: "📑" }
           ].map((item, idx) => (
-            <div 
+            <motion.div 
               key={idx} 
-              className="group relative p-[2px] rounded-[34px] overflow-hidden transition-all duration-500 hover:-translate-y-2"
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: 0.5 + (idx * 0.1) }}
+              className="group relative p-[1px] rounded-[34px] overflow-hidden transition-all duration-500"
             >
               {/* Rotating Glow Layer - Only visible on hover */}
               <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
               <div 
-                className="liquid-box relative h-full bg-slate-50 p-8 rounded-[32px] border border-slate-100 group-hover:bg-white group-hover:shadow-2xl group-hover:shadow-royal-blue/10 transition-all duration-500 overflow-hidden cursor-default z-10"
+                className="liquid-box relative h-full bg-slate-50 p-8 rounded-[33px] border border-slate-100 group-hover:bg-white group-hover:shadow-2xl group-hover:shadow-royal-blue/10 transition-all duration-500 overflow-hidden cursor-default z-10"
                 style={{ '--fill-color': 'rgba(0, 51, 102, 0.03)' } as React.CSSProperties}
               >
                 <div className="liquid-wave"></div>
@@ -163,7 +176,7 @@ const Services: React.FC = () => {
                 {/* Decorative background element */}
                 <div className="absolute -bottom-4 -right-4 w-20 h-20 bg-royal-blue/5 rounded-full blur-2xl group-hover:bg-gold/10 transition-colors"></div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
