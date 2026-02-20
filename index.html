@@ -213,6 +213,58 @@
             animation: airplane-float 6s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
             will-change: transform;
         }
+
+        /* Glowing Border Trace Animation */
+        .ms-glow-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 24px;
+            background: rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .ms-glow-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                transparent,
+                transparent,
+                transparent,
+                #3b82f6 /* neon blue */
+            );
+            animation: ms-rotate 4s linear infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
+        }
+
+        .ms-glow-card:hover::before {
+            opacity: 1;
+        }
+
+        .ms-glow-card::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: white;
+            border-radius: 22px;
+            z-index: 1;
+        }
+
+        .ms-glow-content {
+            position: relative;
+            z-index: 2;
+            height: 100%;
+        }
+
+        @keyframes ms-rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 <script type="importmap">
 {
