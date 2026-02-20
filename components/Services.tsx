@@ -21,7 +21,7 @@ const ServiceCard: React.FC<{
 
       <div className="relative h-full bg-white p-8 sm:p-10 lg:p-12 rounded-[40px] group-hover:rounded-[40px] border border-slate-100 shadow-sm hover:shadow-[0_50px_100px_-20px_rgba(0,51,102,0.12)] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] cursor-pointer overflow-hidden z-10">
         {/* Decorative index background */}
-        <div className="absolute top-8 right-12 text-7xl font-black text-slate-200 select-none group-hover:text-gold/10 group-hover:-translate-y-2 transition-all duration-700">
+        <div className="absolute top-8 right-12 text-5xl font-black text-slate-200 select-none group-hover:text-gold/10 group-hover:-translate-y-2 transition-all duration-700">
           0{index + 1}
         </div>
 

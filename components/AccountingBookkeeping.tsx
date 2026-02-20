@@ -125,7 +125,7 @@ const AccountingBookkeeping: React.FC = () => {
                 >
                   <div className="liquid-wave"></div>
                   {/* Decorative Number (Background Overlay to prevent overlap) */}
-                  <div className="absolute -top-4 -right-2 text-9xl font-black text-white/[0.1] select-none group-hover:text-gold/10 transition-colors duration-500 pointer-events-none">
+                  <div className="absolute -top-2 -right-2 text-7xl font-black text-white/[0.1] select-none group-hover:text-gold/10 transition-colors duration-500 pointer-events-none">
                     {p.step}
                   </div>
                   

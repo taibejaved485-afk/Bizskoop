@@ -181,7 +181,7 @@ const CompanySecretarial: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {expertiseItems.map((s, i) => (
               <div key={i} className="group relative bg-white p-10 lg:p-12 rounded-[32px] shadow-sm border border-slate-100 hover:border-gold/50 hover:shadow-[0_20px_50px_rgba(0,51,102,0.1)] transition-all duration-500 cursor-default">
-                <div className="absolute top-8 right-10 text-6xl font-black text-slate-200 select-none group-hover:text-gold/15 transition-colors">0{i+1}</div>
+                <div className="absolute top-8 right-10 text-4xl font-black text-slate-200 select-none group-hover:text-gold/15 transition-colors">0{i+1}</div>
                 <div className="w-16 h-16 rounded-2xl bg-royal-blue/5 flex items-center justify-center text-royal-blue mb-10 group-hover:bg-gold group-hover:text-white group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-sm relative z-10">
                   {s.icon}
                 </div>
@@ -216,7 +216,7 @@ const CompanySecretarial: React.FC = () => {
                 <div className="liquid-box relative h-full p-10 bg-[#081b2a] text-white rounded-[32px] border border-white/5 shadow-2xl transition-all duration-500 overflow-hidden z-10">
                   <div className="liquid-wave"></div>
                   {/* Decorative Number (Background Overlay) */}
-                  <div className="absolute -top-4 -right-2 text-9xl font-black text-white/[0.1] select-none group-hover:text-gold/10 transition-colors duration-500 pointer-events-none">
+                  <div className="absolute -top-2 -right-2 text-7xl font-black text-white/[0.1] select-none group-hover:text-gold/10 transition-colors duration-500 pointer-events-none">
                     {p.step}
                   </div>
                   
