@@ -1,10 +1,63 @@
 
 import React from 'react';
 import AnimatedCounter from './AnimatedCounter.tsx';
+import TypingText from './TypingText.tsx';
 
 interface ServiceGridProps {
   onNavigate: (page: string) => void;
 }
+
+const ServiceGridCard: React.FC<{
+  service: any,
+  idx: number,
+  onNavigate: (page: string) => void
+}> = ({ service, idx, onNavigate }) => {
+  const [isHovered, setIsHovered] = React.useState(false);
+
+  return (
+    <div 
+      className="group relative p-[2px] rounded-[32px] overflow-hidden transition-all duration-500 hover:-translate-y-2"
+      onMouseEnter={() => setIsHovered(true)}
+    >
+      {/* Rotating Glow Layer */}
+      <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+      <div 
+        className="liquid-box relative h-full bg-white p-10 rounded-[30px] border border-slate-100 shadow-sm transition-all duration-500 z-10 flex flex-col items-center text-center"
+        style={{ '--fill-color': 'rgba(0, 51, 102, 0.02)' } as React.CSSProperties}
+      >
+        <div className="liquid-wave"></div>
+        
+        <div className="w-20 h-20 rounded-2xl bg-slate-50 flex items-center justify-center text-royal-blue mb-8 group-hover:scale-110 group-hover:bg-royal-blue group-hover:text-white transition-all duration-500 shadow-inner">
+          {service.icon}
+        </div>
+
+        <h3 className="text-xl font-black text-royal-blue mb-4 uppercase tracking-tight group-hover:text-gold transition-colors">
+          {service.title}
+        </h3>
+        
+        <div className="text-slate-500 font-medium text-sm leading-relaxed mb-8 flex-grow min-h-[4rem]">
+          <TypingText 
+            text={service.desc}
+            speed={20}
+            delay={idx * 150}
+            start={isHovered}
+          />
+        </div>
+
+        <button 
+          onClick={() => onNavigate(service.id)}
+          className="text-royal-blue font-black text-xs uppercase tracking-widest flex items-center gap-2 group/btn hover:text-gold transition-colors"
+        >
+          Read More
+          <svg className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  );
+};
 
 const ServiceGrid: React.FC<ServiceGridProps> = ({ onNavigate }) => {
   const services = [
@@ -104,42 +157,12 @@ const ServiceGrid: React.FC<ServiceGridProps> = ({ onNavigate }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, idx) => (
-            <div 
-              key={idx} 
-              className="group relative p-[2px] rounded-[32px] overflow-hidden transition-all duration-500 hover:-translate-y-2"
-            >
-              {/* Rotating Glow Layer */}
-              <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-              <div 
-                className="liquid-box relative h-full bg-white p-10 rounded-[30px] border border-slate-100 shadow-sm transition-all duration-500 z-10 flex flex-col items-center text-center"
-                style={{ '--fill-color': 'rgba(0, 51, 102, 0.02)' } as React.CSSProperties}
-              >
-                <div className="liquid-wave"></div>
-                
-                <div className="w-20 h-20 rounded-2xl bg-slate-50 flex items-center justify-center text-royal-blue mb-8 group-hover:scale-110 group-hover:bg-royal-blue group-hover:text-white transition-all duration-500 shadow-inner">
-                  {service.icon}
-                </div>
-
-                <h3 className="text-xl font-black text-royal-blue mb-4 uppercase tracking-tight group-hover:text-gold transition-colors">
-                  {service.title}
-                </h3>
-                
-                <p className="text-slate-500 font-medium text-sm leading-relaxed mb-8 flex-grow">
-                  {service.desc}
-                </p>
-
-                <button 
-                  onClick={() => onNavigate(service.id)}
-                  className="text-royal-blue font-black text-xs uppercase tracking-widest flex items-center gap-2 group/btn hover:text-gold transition-colors"
-                >
-                  Read More
-                  <svg className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </button>
-              </div>
-            </div>
+            <ServiceGridCard 
+              key={idx}
+              service={service}
+              idx={idx}
+              onNavigate={onNavigate}
+            />
           ))}
 
           {/* View All Services Box */}

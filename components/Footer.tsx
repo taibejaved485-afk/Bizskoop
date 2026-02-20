@@ -55,7 +55,7 @@ const Footer: React.FC = () => {
               <p className="text-slate-400 text-sm leading-relaxed font-medium">
                 Bizskoop simplifies business in Malaysia by providing expert support in company registration, business licensing, visas, and regulatory compliance. Trusted by 500+ companies.
               </p>
-              <div className="flex gap-4">
+              <div className="flex flex-wrap gap-4">
                 {['f', 't', 'in', 'y'].map((social) => (
                   <a key={social} href="#" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-[#D4AF37] hover:border-[#D4AF37] transition-all duration-300">
                     <span className="text-xs uppercase font-black">{social}</span>

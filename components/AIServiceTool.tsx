@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { getVisaEligibility, getBusinessRoadmap } from '../services/geminiService.ts';
 import { AIResponse } from '../types.ts';
+import TypingText from './TypingText.tsx';
 
 interface ToolProps {
   id: string;
@@ -40,7 +41,9 @@ const AIServiceTool: React.FC<ToolProps> = ({ id, type, title, subtitle }) => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-black text-slate-900 tracking-tight mb-4 uppercase">{title}</h2>
-          <p className="text-lg text-slate-600 font-medium max-w-2xl mx-auto">{subtitle}</p>
+          <div className="text-lg text-slate-600 font-medium max-w-2xl mx-auto min-h-[2rem]">
+            <TypingText text={subtitle} speed={20} delay={2000} />
+          </div>
         </div>
 
         <div className="bg-white border-2 border-slate-100 rounded-[40px] p-10 lg:p-14 shadow-2xl relative">

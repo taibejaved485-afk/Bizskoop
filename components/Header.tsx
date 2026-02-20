@@ -42,8 +42,15 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
               <span className="text-accent-yellow">✉️</span> info@bizskoop.com
             </a>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-6 flex-wrap justify-end">
             <span className="hidden md:inline opacity-60 uppercase tracking-widest text-[9px]">Professional Business Launchpad</span>
+            <div className="flex items-center gap-3 flex-wrap">
+              {['f', 't', 'in', 'y'].map((social) => (
+                <a key={social} href="#" className="w-6 h-6 rounded-full border border-white/20 flex items-center justify-center text-white hover:text-accent-yellow hover:border-accent-yellow transition-all">
+                  <span className="text-[8px] uppercase font-black">{social}</span>
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>

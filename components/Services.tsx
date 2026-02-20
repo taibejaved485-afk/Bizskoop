@@ -1,5 +1,6 @@
 
 import React from 'react';
+import TypingText from './TypingText.tsx';
 
 const ServiceCard: React.FC<{
   title: string, 
@@ -7,48 +8,60 @@ const ServiceCard: React.FC<{
   icon: React.ReactNode, 
   tags: string[], 
   index: number
-}> = ({ title, desc, icon, tags, index }) => (
-  <div className="group relative p-[2px] rounded-[42px] overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-4">
-    {/* Rotating Glow Layer - Only visible on hover */}
-    <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+}> = ({ title, desc, icon, tags, index }) => {
+  const [isHovered, setIsHovered] = React.useState(false);
 
-    <div className="relative h-full bg-white p-8 sm:p-10 lg:p-12 rounded-[40px] group-hover:rounded-[40px] border border-slate-100 shadow-sm hover:shadow-[0_50px_100px_-20px_rgba(0,51,102,0.12)] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] cursor-pointer overflow-hidden z-10">
-      {/* Decorative index background */}
-      <div className="absolute top-8 right-12 text-7xl font-black text-slate-200 select-none group-hover:text-gold/10 group-hover:-translate-y-2 transition-all duration-700">
-        0{index + 1}
-      </div>
+  return (
+    <div 
+      className="group relative p-[2px] rounded-[42px] overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] hover:-translate-y-4"
+      onMouseEnter={() => setIsHovered(true)}
+    >
+      {/* Rotating Glow Layer - Only visible on hover */}
+      <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-      {/* Icon Container with Parallax Effect */}
-      <div className="w-20 h-20 bg-royal-blue rounded-3xl flex items-center justify-center text-white mb-10 group-hover:bg-gold group-hover:scale-110 group-hover:rotate-[10deg] group-hover:translate-x-4 group-hover:-translate-y-4 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] shadow-xl relative z-10">
-        <div className="group-hover:scale-110 transition-transform duration-500">
-          {icon}
+      <div className="relative h-full bg-white p-8 sm:p-10 lg:p-12 rounded-[40px] group-hover:rounded-[40px] border border-slate-100 shadow-sm hover:shadow-[0_50px_100px_-20px_rgba(0,51,102,0.12)] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] cursor-pointer overflow-hidden z-10">
+        {/* Decorative index background */}
+        <div className="absolute top-8 right-12 text-7xl font-black text-slate-200 select-none group-hover:text-gold/10 group-hover:-translate-y-2 transition-all duration-700">
+          0{index + 1}
         </div>
-      </div>
 
-      {/* Content */}
-      <div className="relative z-10">
-        <h3 className="text-2xl font-black text-royal-blue mb-4 uppercase tracking-tighter group-hover:text-gold transition-colors duration-300">
-          {title}
-        </h3>
-        <p className="text-slate-600 font-medium leading-relaxed mb-10 text-sm group-hover:text-slate-800 transition-colors">
-          {desc}
-        </p>
-      </div>
+        {/* Icon Container with Parallax Effect */}
+        <div className="w-20 h-20 bg-royal-blue rounded-3xl flex items-center justify-center text-white mb-10 group-hover:bg-gold group-hover:scale-110 group-hover:rotate-[10deg] group-hover:translate-x-4 group-hover:-translate-y-4 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] shadow-xl relative z-10">
+          <div className="group-hover:scale-110 transition-transform duration-500">
+            {icon}
+          </div>
+        </div>
 
-      {/* Tags Section */}
-      <div className="flex flex-wrap gap-2 relative z-10">
-        {tags.map(tag => (
-          <span key={tag} className="px-4 py-1.5 bg-slate-50 text-royal-blue text-[10px] font-black uppercase rounded-full tracking-widest border border-slate-100 group-hover:border-gold/30 group-hover:bg-gold/10 group-hover:scale-105 transition-all duration-300">
-            {tag}
-          </span>
-        ))}
-      </div>
+        {/* Content */}
+        <div className="relative z-10">
+          <h3 className="text-2xl font-black text-royal-blue mb-4 uppercase tracking-tighter group-hover:text-gold transition-colors duration-300">
+            {title}
+          </h3>
+          <div className="text-slate-600 font-medium leading-relaxed mb-10 text-sm group-hover:text-slate-800 transition-colors min-h-[5rem]">
+            <TypingText 
+              text={desc}
+              speed={15}
+              delay={index * 200}
+              start={isHovered}
+            />
+          </div>
+        </div>
 
-      {/* Hover Accent Bar */}
-      <div className="absolute bottom-0 left-0 w-full h-2 bg-transparent group-hover:bg-gold transition-all duration-500"></div>
+        {/* Tags Section */}
+        <div className="flex flex-wrap gap-2 relative z-10">
+          {tags.map(tag => (
+            <span key={tag} className="px-4 py-1.5 bg-slate-50 text-royal-blue text-[10px] font-black uppercase rounded-full tracking-widest border border-slate-100 group-hover:border-gold/30 group-hover:bg-gold/10 group-hover:scale-105 transition-all duration-300">
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        {/* Hover Accent Bar */}
+        <div className="absolute bottom-0 left-0 w-full h-2 bg-transparent group-hover:bg-gold transition-all duration-500"></div>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 const Services: React.FC = () => {
   const mainServices = [
