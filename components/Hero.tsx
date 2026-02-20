@@ -1,6 +1,7 @@
 import React from 'react';
 import AnimatedCounter from './AnimatedCounter.tsx';
 import TypingText from './TypingText.tsx';
+import Airplane from './Airplane.tsx';
 
 const Hero: React.FC = () => {
   return (
@@ -84,6 +85,15 @@ const Hero: React.FC = () => {
           
           <div className="relative group animate-fadeIn" style={{ animationDelay: '0.3s' }}>
             <div className="absolute inset-0 bg-royal-blue/10 rounded-[40px] -rotate-3 scale-105 group-hover:rotate-0 transition-transform duration-500"></div>
+            
+            {/* Floating Airplane Animation */}
+            <div className="absolute -top-12 -right-12 z-30 hidden xl:block">
+              <Airplane size={80} color="#D4AF37" />
+            </div>
+            <div className="absolute top-1/2 -left-20 z-0 opacity-20 hidden lg:block">
+              <Airplane size={120} color="#003366" />
+            </div>
+
             <img 
               src="https://i.pinimg.com/736x/4f/d6/45/4fd64566a496266abfb11dda065cbc2b.jpg" 
               className="relative rounded-[40px] shadow-2xl border-8 border-white object-cover aspect-square z-10"
