@@ -33,11 +33,6 @@ const ServiceCard: React.FC<{
         {/* Glass Overlay on Hover */}
         <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-slate-50/50 group-hover:to-gold/[0.03] transition-all duration-700"></div>
 
-        {/* Decorative index background */}
-        <div className="absolute top-8 right-12 text-8xl font-black text-slate-200/60 select-none group-hover:text-gold/20 group-hover:-translate-y-4 transition-all duration-700 font-mono">
-          0{index + 1}
-        </div>
-
         {/* Icon Container with Parallax Effect */}
         <div className="relative z-20">
           <div className="w-20 h-20 bg-royal-blue rounded-[24px] flex items-center justify-center text-white mb-10 group-hover:bg-gold group-hover:scale-110 group-hover:rotate-[8deg] group-hover:translate-x-2 group-hover:-translate-y-2 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] shadow-2xl shadow-royal-blue/20 group-hover:shadow-gold/30">
@@ -60,20 +55,12 @@ const ServiceCard: React.FC<{
           </div>
 
           {/* Tags Section */}
-          <div className="flex flex-wrap gap-2 mb-8">
+          <div className="flex flex-wrap gap-2">
             {tags.map(tag => (
               <span key={tag} className="px-4 py-1.5 bg-slate-50 text-royal-blue text-[9px] font-black uppercase rounded-full tracking-widest border border-slate-100 group-hover:border-gold/30 group-hover:bg-gold/10 group-hover:text-gold transition-all duration-300">
                 {tag}
               </span>
             ))}
-          </div>
-
-          {/* Learn More Action */}
-          <div className="flex items-center gap-3 group/btn">
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-royal-blue group-hover:text-gold transition-colors">Learn More</span>
-            <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center group-hover:bg-gold group-hover:text-white transition-all duration-300">
-              <ArrowRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
-            </div>
           </div>
         </div>
 
