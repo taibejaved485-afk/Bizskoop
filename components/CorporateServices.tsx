@@ -83,10 +83,15 @@ const CorporateServices: React.FC = () => {
               { icon: "🏗️", title: "MOF Registration", desc: "Strategic registration with the Ministry of Finance, enabling your business to bid for and secure high-value government tenders." },
               { icon: "🎓", title: "HRDF Compliance", desc: "Managing Human Resource Development Fund registration and compliance to leverage employee training grants and subsidies." }
             ].map((s, i) => (
-              <div key={i} className="bg-white p-8 sm:p-10 rounded-2xl shadow-sm border border-slate-100 hover:border-gold transition-all group">
-                <div className="text-3xl sm:text-4xl mb-6 group-hover:scale-110 transition-transform inline-block">{s.icon}</div>
-                <h4 className="text-base sm:text-lg font-black text-royal-blue mb-3 uppercase tracking-tight">{s.title}</h4>
-                <p className="text-slate-600 text-[11px] sm:text-sm font-medium leading-relaxed">{s.desc}</p>
+              <div key={i} className="group relative p-[2px] rounded-[32px] overflow-hidden transition-all duration-500 hover:-translate-y-2">
+                {/* Rotating Glow Layer */}
+                <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                <div className="relative h-full bg-white p-8 sm:p-10 rounded-[30px] border border-slate-100 shadow-sm transition-all duration-500 z-10 flex flex-col">
+                  <div className="text-3xl sm:text-4xl mb-6 group-hover:scale-110 transition-transform inline-block relative z-10">{s.icon}</div>
+                  <h4 className="text-base sm:text-lg font-black text-royal-blue mb-3 uppercase tracking-tight relative z-10">{s.title}</h4>
+                  <p className="text-slate-600 text-[11px] sm:text-sm font-medium leading-relaxed relative z-10">{s.desc}</p>
+                </div>
               </div>
             ))}
             <div className="bg-navy-dark p-8 sm:p-10 rounded-2xl shadow-xl flex flex-col justify-center items-center text-center border-b-4 sm:border-b-8 border-gold">
