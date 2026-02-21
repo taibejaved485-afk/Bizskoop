@@ -133,7 +133,6 @@ const TaxCompliance: React.FC = () => {
                   style={{ '--fill-color': 'rgba(212, 175, 55, 0.05)' } as React.CSSProperties}
                 >
                   <div className="liquid-wave"></div>
-                  <span className="text-[10px] sm:text-xs font-black text-gold uppercase tracking-widest absolute top-4 right-4 z-20">{p.step}</span>
                   <h4 className="text-lg sm:text-xl font-black mb-4 uppercase tracking-tighter text-gold mt-2 relative z-20">{p.title}</h4>
                   <p className="text-blue-100 text-xs sm:text-sm font-medium leading-relaxed relative z-20">{p.desc}</p>
                 </div>
