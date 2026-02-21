@@ -39,7 +39,7 @@ const App: React.FC = () => {
           </div>
           
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-16 relative z-20">
-            <div className="bg-royal-blue rounded-[40px] p-10 shadow-2xl border-4 border-white flex flex-col md:flex-row items-center justify-between gap-10 transition-all duration-300 hover:shadow-gold/20 hover:scale-[1.01] hover:border-gold/10 group">
+            <div className="bg-royal-blue rounded-[40px] p-8 sm:p-10 shadow-2xl border-4 border-white flex flex-col md:flex-row items-center justify-between gap-10 transition-all duration-500 hover:shadow-gold/20 hover:scale-[1.02] hover:-translate-y-1 hover:border-gold/20 group">
               <div className="flex -space-x-4">
                 {[1,2,3,4].map(i => (
                   <img key={i} src={`https://picsum.photos/100/100?random=${i}`} className="w-16 h-16 rounded-2xl border-4 border-royal-blue object-cover shadow-lg group-hover:rotate-3 transition-transform duration-300" alt="Founder" />

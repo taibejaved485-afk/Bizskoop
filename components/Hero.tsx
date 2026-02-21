@@ -19,20 +19,20 @@ const Hero: React.FC = () => {
       </div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div className="animate-fadeIn text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50/90 backdrop-blur-sm border border-blue-100 text-royal-blue text-[10px] sm:text-xs font-black uppercase tracking-widest mb-6 sm:mb-8 shadow-sm">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="animate-fadeIn">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50/90 backdrop-blur-sm border border-blue-100 text-royal-blue text-xs font-black uppercase tracking-widest mb-8 shadow-sm">
               <span className="flex h-2 w-2 rounded-full bg-accent-yellow animate-pulse"></span>
               Fast-Track Approval Specialists
             </div>
             
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black text-slate-900 mb-6 sm:mb-8 leading-[1.1] tracking-tight">
-              Launch Your <br className="hidden sm:block"/>
-              <span className="text-royal-blue">Malaysia Business</span> <br className="hidden sm:block"/>
+            <h1 className="text-5xl lg:text-7xl font-black text-slate-900 mb-8 leading-[1.1] tracking-tight">
+              Launch Your <br/>
+              <span className="text-royal-blue">Malaysia Business</span> <br/>
               with Zero Friction.
             </h1>
             
-            <div className="text-base sm:text-xl text-slate-800 mb-8 sm:mb-12 leading-relaxed max-w-xl mx-auto lg:mx-0 font-bold bg-white/30 backdrop-blur-[2px] rounded-lg p-2 min-h-[5rem]">
+            <div className="text-xl text-slate-800 mb-12 leading-relaxed max-w-xl font-bold bg-white/30 backdrop-blur-[2px] rounded-lg p-2 min-h-[5rem]">
               <TypingText 
                 text="From Company Incorporation to Employment Passes. We bypass the bureaucracy. 100% Compliant. No Hidden Fees. Fast Results."
                 speed={25}
@@ -40,10 +40,10 @@ const Hero: React.FC = () => {
               />
             </div>
             
-            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-5">
+            <div className="flex flex-col sm:flex-row items-center gap-5">
               <a 
                 href="#wizard" 
-                className="liquid-box w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 bg-action-red text-white font-black rounded-2xl transition-all shadow-2xl shadow-red-600/20 transform hover:-translate-y-1 text-center uppercase tracking-widest group text-xs sm:text-sm"
+                className="liquid-box w-full sm:w-auto px-10 py-5 bg-action-red text-white font-black rounded-2xl transition-all shadow-2xl shadow-red-600/20 transform hover:-translate-y-1 text-center uppercase tracking-widest group"
                 style={{ '--fill-color': '#990000' } as React.CSSProperties}
               >
                 <div className="liquid-wave"></div>
@@ -51,7 +51,7 @@ const Hero: React.FC = () => {
               </a>
               <a 
                 href="#visa" 
-                className="liquid-box w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 bg-white/90 backdrop-blur-md text-royal-blue font-black rounded-2xl border-2 border-[#003366] transition-all text-center uppercase tracking-widest hover:text-white group text-xs sm:text-sm"
+                className="liquid-box w-full sm:w-auto px-10 py-5 bg-white/90 backdrop-blur-md text-royal-blue font-black rounded-2xl border-2 border-[#003366] transition-all text-center uppercase tracking-widest hover:text-white group"
                 style={{ '--fill-color': '#003366' } as React.CSSProperties}
               >
                 <div className="liquid-wave"></div>
@@ -59,35 +59,35 @@ const Hero: React.FC = () => {
               </a>
             </div>
 
-            <div className="mt-12 sm:mt-16 flex flex-wrap justify-center lg:justify-start items-center gap-6 sm:gap-10 opacity-100">
+            <div className="mt-16 flex items-center gap-10 opacity-100">
               <div className="flex flex-col">
-                <span className="text-2xl sm:text-3xl font-black text-royal-blue">
+                <span className="text-3xl font-black text-royal-blue">
                   <AnimatedCounter target="500+" />
                 </span>
-                <span className="text-[9px] sm:text-[10px] font-bold text-slate-700 uppercase tracking-widest">Setup Successful</span>
+                <span className="text-[10px] font-bold text-slate-700 uppercase tracking-widest">Setup Successful</span>
               </div>
-              <div className="hidden sm:block w-px h-10 bg-slate-400"></div>
+              <div className="w-px h-10 bg-slate-400"></div>
               <div className="flex flex-col">
-                <span className="text-2xl sm:text-3xl font-black text-royal-blue">
+                <span className="text-3xl font-black text-royal-blue">
                   <AnimatedCounter target="100%" />
                 </span>
-                <span className="text-[9px] sm:text-[10px] font-bold text-slate-700 uppercase tracking-widest">SSM Compliance</span>
+                <span className="text-[10px] font-bold text-slate-700 uppercase tracking-widest">SSM Compliance</span>
               </div>
-              <div className="hidden sm:block w-px h-10 bg-slate-400"></div>
+              <div className="w-px h-10 bg-slate-400"></div>
               <div className="flex flex-col">
-                <span className="text-2xl sm:text-3xl font-black text-royal-blue">
+                <span className="text-3xl font-black text-royal-blue">
                   <AnimatedCounter target="4.9/5" />
                 </span>
-                <span className="text-[9px] sm:text-[10px] font-bold text-slate-700 uppercase tracking-widest">Google Rated</span>
+                <span className="text-[10px] font-bold text-slate-700 uppercase tracking-widest">Google Rated</span>
               </div>
             </div>
           </div>
           
-          <div className="relative group animate-fadeIn mt-12 lg:mt-0" style={{ animationDelay: '0.3s' }}>
+          <div className="relative group animate-fadeIn" style={{ animationDelay: '0.3s' }}>
             <div className="absolute inset-0 bg-royal-blue/10 rounded-[40px] -rotate-3 scale-105 group-hover:rotate-0 transition-transform duration-500"></div>
             
             {/* Floating Airplane Animation */}
-            <div className="absolute -top-8 -right-8 sm:-top-12 sm:-right-12 z-30 hidden sm:block">
+            <div className="absolute -top-12 -right-12 z-30 hidden xl:block">
               <Airplane size={80} color="#D4AF37" />
             </div>
             <div className="absolute top-1/2 -left-20 z-0 opacity-20 hidden lg:block">
@@ -96,23 +96,23 @@ const Hero: React.FC = () => {
 
             <img 
               src="https://i.pinimg.com/736x/4f/d6/45/4fd64566a496266abfb11dda065cbc2b.jpg" 
-              className="relative rounded-[30px] sm:rounded-[40px] shadow-2xl border-4 sm:border-8 border-white object-cover aspect-square z-10 w-full max-w-md mx-auto"
+              className="relative rounded-[40px] shadow-2xl border-8 border-white object-cover aspect-square z-10"
               alt="Elite Business Environment"
             />
             
             {/* Enhanced Testimonial Card with Rotating Glow Border */}
-            <div className="absolute -bottom-6 -left-4 sm:-bottom-10 sm:-left-10 p-[2px] rounded-[24px] sm:rounded-[32px] z-20 overflow-hidden group/card transform hover:scale-110 hover:-rotate-2 transition-all duration-500 shadow-2xl max-w-[200px] sm:max-w-xs">
+            <div className="absolute -bottom-10 -left-10 p-[2px] rounded-[32px] z-20 overflow-hidden group/card transform hover:scale-105 hover:-rotate-1 transition-all duration-500 shadow-2xl max-w-xs">
               {/* Rotating Glow Layer - Only visible on hover */}
               <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#003366_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
               
               {/* Inner Content Box */}
-              <div className="relative bg-accent-yellow p-4 sm:p-8 rounded-[22px] sm:rounded-[30px] border-2 sm:border-4 border-white z-10 h-full">
-                <div className="flex text-royal-blue mb-1 sm:mb-2">
-                  {[1,2,3,4,5].map(i => <span key={i} className="text-sm sm:text-lg group-hover/card:scale-125 transition-transform duration-300" style={{ transitionDelay: `${i * 50}ms` }}>★</span>)}
+              <div className="relative bg-accent-yellow p-8 rounded-[30px] border-4 border-white z-10 h-full">
+                <div className="flex text-royal-blue mb-2">
+                  {[1,2,3,4,5].map(i => <span key={i} className="text-lg group-hover/card:scale-125 transition-transform duration-300" style={{ transitionDelay: `${i * 50}ms` }}>★</span>)}
                 </div>
-                <p className="text-royal-blue font-black text-[10px] sm:text-sm mb-1 uppercase tracking-tight group-hover/card:translate-x-1 transition-transform">"Best service in KL"</p>
-                <p className="text-royal-blue/80 text-[9px] sm:text-xs leading-tight font-bold">Bizskoop handled everything from SSM to my EP in under 3 weeks. Incredible speed!</p>
-                <p className="text-royal-blue font-black text-[8px] sm:text-[10px] mt-2 sm:mt-4 uppercase">— John D., Tech Founder</p>
+                <p className="text-royal-blue font-black text-sm mb-1 uppercase tracking-tight group-hover/card:translate-x-1 transition-transform">"Best service in KL"</p>
+                <p className="text-royal-blue/80 text-xs leading-tight font-bold">Bizskoop handled everything from SSM to my EP in under 3 weeks. Incredible speed!</p>
+                <p className="text-royal-blue font-black text-[10px] mt-4 uppercase">— John D., Tech Founder</p>
               </div>
             </div>
           </div>

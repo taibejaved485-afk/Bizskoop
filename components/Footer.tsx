@@ -3,15 +3,15 @@ import React from 'react';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="relative bg-[#051622] pt-16 sm:pt-24 overflow-hidden">
+    <footer className="relative bg-[#051622] pt-24 overflow-hidden">
       {/* 1. Newsletter Overlay Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-30 -mb-20 sm:-mb-16">
-        <div className="bg-[#051622] border border-white/10 rounded-2xl p-6 sm:p-8 lg:p-12 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-30 -mb-16">
+        <div className="bg-[#051622] border border-white/10 rounded-2xl p-8 lg:p-12 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8">
           <div className="text-center lg:text-left">
-            <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-white uppercase tracking-tight mb-2">
+            <h3 className="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight mb-2">
               Subscribe To Our Newsletter
             </h3>
-            <p className="text-slate-400 text-xs sm:text-sm font-medium">
+            <p className="text-slate-400 text-sm font-medium">
               Sign up for our monthly newsletter for the latest news & articles
             </p>
           </div>
@@ -19,9 +19,9 @@ const Footer: React.FC = () => {
             <input 
               type="email" 
               placeholder="Email Address" 
-              className="px-6 py-4 bg-white rounded-lg text-[#051622] font-medium outline-none w-full sm:w-80 lg:w-96 text-sm"
+              className="px-6 py-4 bg-white rounded-lg text-[#051622] font-medium outline-none w-full sm:w-80 lg:w-96"
             />
-            <button className="px-10 py-4 bg-[#051622] border border-white/20 text-white font-black rounded-lg hover:bg-white hover:text-[#051622] transition-all uppercase tracking-widest text-xs sm:text-sm">
+            <button className="px-10 py-4 bg-[#051622] border border-white/20 text-white font-black rounded-lg hover:bg-white hover:text-[#051622] transition-all uppercase tracking-widest text-sm">
               Subscribe
             </button>
           </div>
@@ -136,11 +136,11 @@ const Footer: React.FC = () => {
             </div>
           </div>
 
-          <div className="pt-10 flex flex-col md:flex-row justify-between items-center gap-6 text-[11px] font-black text-slate-500 uppercase tracking-[0.2em]">
-            <p>© 2024 BIZSKOOP CONSULTANCY. ALL RIGHTS RESERVED.</p>
-            <div className="flex gap-10">
-              <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+          <div className="pt-10 flex flex-col items-center gap-4 text-[11px] font-black text-slate-500 uppercase tracking-[0.2em] text-center">
+            <p>© 2026 BIZSKOOP CONSULTANCY. ALL RIGHTS RESERVED.</p>
+            <div className="flex gap-8">
+              <a href="#" className="hover:text-gold transition-all duration-300">Privacy Policy</a>
+              <a href="#" className="hover:text-gold transition-all duration-300">Terms of Service</a>
             </div>
           </div>
         </div>
