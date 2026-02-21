@@ -181,26 +181,60 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
       </nav>
 
       {/* Mobile Menu Overlay */}
-      <div className={`lg:hidden fixed inset-0 z-[60] bg-royal-blue transition-transform duration-500 ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-        <div className="p-6">
-          <div className="flex justify-between items-center mb-12">
-            <span className="text-white font-black text-2xl uppercase tracking-tighter">BIZFLOW</span>
-            <button onClick={() => setIsMobileMenuOpen(false)} className="text-white">
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" /></svg>
-            </button>
-          </div>
-          <div className="space-y-6">
-            <button onClick={() => { onNavigate('home'); setIsMobileMenuOpen(false); }} className="block w-full text-left text-white text-3xl font-black uppercase">Home</button>
-            <button onClick={() => { onNavigate('about'); setIsMobileMenuOpen(false); }} className="block w-full text-left text-white text-3xl font-black uppercase">About Us</button>
-            <div className="pt-4 border-t border-white/10">
-              <p className="text-accent-yellow font-black text-xs uppercase tracking-widest mb-4">Our Services</p>
-              <div className="grid grid-cols-1 gap-4">
-                {serviceItems.slice(0, 4).map((item) => (
-                  <button key={item.id} onClick={() => { onNavigate(item.id); setIsMobileMenuOpen(false); }} className="text-blue-100 text-lg font-bold uppercase text-left">{item.label}</button>
+      <div className={`lg:hidden fixed inset-0 z-[60] bg-royal-blue transition-all duration-500 ease-in-out ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
+        <div className={`absolute inset-0 bg-royal-blue transition-transform duration-500 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+          <div className="h-full flex flex-col p-6 overflow-y-auto">
+            <div className="flex justify-between items-center mb-10">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+                  <span className="text-royal-blue font-black text-lg">B</span>
+                </div>
+                <span className="text-white font-black text-xl uppercase tracking-tighter">BIZFLOW</span>
+              </div>
+              <button onClick={() => setIsMobileMenuOpen(false)} className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white hover:bg-white/20 transition-colors">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
+            </div>
+
+            <div className="space-y-4 mb-10">
+              <button onClick={() => { onNavigate('home'); setIsMobileMenuOpen(false); }} className={`block w-full text-left py-2 text-2xl font-black uppercase tracking-tight transition-colors ${currentPage === 'home' ? 'text-gold' : 'text-white'}`}>Home</button>
+              <button onClick={() => { onNavigate('about'); setIsMobileMenuOpen(false); }} className={`block w-full text-left py-2 text-2xl font-black uppercase tracking-tight transition-colors ${currentPage === 'about' ? 'text-gold' : 'text-white'}`}>About Us</button>
+              
+              <div className="pt-6 border-t border-white/10">
+                <p className="text-gold font-black text-[10px] uppercase tracking-[0.3em] mb-6">Our Core Services</p>
+                <div className="grid grid-cols-1 gap-y-4">
+                  {serviceItems.map((item) => (
+                    <button 
+                      key={item.id} 
+                      onClick={() => { onNavigate(item.id); setIsMobileMenuOpen(false); }} 
+                      className={`text-blue-100 text-sm font-bold uppercase text-left flex items-center gap-3 group transition-all ${currentPage === item.id ? 'text-gold' : ''}`}
+                    >
+                      <span className={`w-1.5 h-1.5 rounded-full bg-gold transition-transform duration-300 ${currentPage === item.id ? 'scale-150' : 'scale-0 group-hover:scale-100'}`}></span>
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <button onClick={() => { onNavigate('contact'); setIsMobileMenuOpen(false); }} className={`block w-full text-left py-2 text-2xl font-black uppercase tracking-tight transition-colors ${currentPage === 'contact' ? 'text-gold' : 'text-white'}`}>Contact</button>
+            </div>
+
+            <div className="mt-auto pt-10 border-t border-white/10">
+              <button 
+                onClick={() => { onNavigate('contact'); setIsMobileMenuOpen(false); }} 
+                className="w-full py-5 bg-gold text-royal-blue font-black rounded-xl uppercase tracking-[0.2em] text-xs shadow-2xl shadow-gold/20"
+              >
+                Get a Consultation
+              </button>
+              
+              <div className="flex justify-center gap-6 mt-8">
+                {[Facebook, Twitter, Linkedin, Youtube].map((Icon, i) => (
+                  <a key={i} href="#" className="text-white/40 hover:text-gold transition-colors">
+                    <Icon size={20} />
+                  </a>
                 ))}
               </div>
             </div>
-            <button onClick={() => { onNavigate('contact'); setIsMobileMenuOpen(false); }} className="block w-full py-5 bg-white text-royal-blue font-black rounded-xl uppercase tracking-widest text-center mt-12">Contact Us</button>
           </div>
         </div>
       </div>

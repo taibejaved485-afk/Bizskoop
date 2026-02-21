@@ -34,27 +34,27 @@ const AboutPage: React.FC = () => {
   return (
     <div className="bg-white min-h-screen">
       {/* Hero Header for About Page */}
-      <section className="relative bg-[#051622] text-white py-32 overflow-hidden">
+      <section className="relative bg-[#051622] text-white py-20 sm:py-32 overflow-hidden">
         <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='1000' height='1000' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 100 Q 250 50 500 100 T 1000 100 M0 200 Q 250 150 500 200 T 1000 200' stroke='white' fill='transparent' stroke-width='2'/%3E%3C/svg%3E")`, backgroundSize: 'cover' }}></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <span className="text-accent-yellow font-black text-xs uppercase tracking-[0.5em] block mb-6 animate-fadeIn">The BizFlow Narrative</span>
-          <h1 className="text-5xl lg:text-7xl font-black mb-8 leading-tight tracking-tighter uppercase animate-fadeIn">
+          <span className="text-accent-yellow font-black text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.5em] block mb-6 animate-fadeIn">The BizFlow Narrative</span>
+          <h1 className="text-3xl sm:text-5xl lg:text-7xl font-black mb-6 sm:mb-8 leading-tight tracking-tighter uppercase animate-fadeIn">
             Pioneering Your <br/>
             <span className="text-accent-yellow">Malaysia Success</span>
           </h1>
-          <p className="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed font-medium animate-fadeIn" style={{ animationDelay: '0.2s' }}>
+          <p className="text-base sm:text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed font-medium animate-fadeIn" style={{ animationDelay: '0.2s' }}>
             We aren't just consultants. We are your strategic execution partners, bridging the gap between global ambition and local compliance.
           </p>
         </div>
       </section>
 
       {/* Premium Content Section */}
-      <section id="about" className="relative py-24 overflow-hidden bg-white">
+      <section id="about" className="relative py-16 sm:py-24 overflow-hidden bg-white">
         {/* Topography Pattern */}
         <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='1000' height='1000' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 100 Q 250 50 500 100 T 1000 100 M0 200 Q 250 150 500 200 T 1000 200 M0 300 Q 250 250 500 300 T 1000 300' stroke='%23051622' fill='transparent' stroke-width='1.5'/%3E%3C/svg%3E")`, backgroundSize: 'cover' }}></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
             
             {/* Left Side (Visuals) */}
             <div className="relative animate-fadeIn">
@@ -72,23 +72,23 @@ const AboutPage: React.FC = () => {
                   alt="Consultation" 
                 />
               </div>
-              <div className="absolute bottom-10 left-[-20px] bg-[#051622] text-white p-6 lg:p-10 rounded-2xl shadow-2xl z-30">
-                <p className="text-4xl lg:text-5xl font-black mb-1 leading-none">12+</p>
-                <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-blue-200">Experiences</p>
+              <div className="absolute bottom-6 sm:bottom-10 left-[-10px] sm:left-[-20px] bg-[#051622] text-white p-6 sm:p-10 rounded-2xl shadow-2xl z-30">
+                <p className="text-3xl sm:text-5xl font-black mb-1 leading-none">12+</p>
+                <p className="text-[9px] sm:text-[11px] font-bold uppercase tracking-[0.2em] text-blue-200">Experiences</p>
               </div>
             </div>
 
             {/* Right Side (Content) */}
-            <div className="space-y-8 lg:pl-10">
+            <div className="space-y-8 lg:pl-10 text-center lg:text-left">
               <div>
-                <span className="text-[#051622] font-black text-xs uppercase tracking-[0.4em] block mb-4">Core Principles</span>
-                <h2 className="text-4xl lg:text-6xl font-black text-[#051622] leading-[1.1] mb-8 tracking-tighter uppercase">
-                  We Execute Our <br/> Ideas From Start <br/> To Finish
+                <span className="text-[#051622] font-black text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] block mb-4">Core Principles</span>
+                <h2 className="text-3xl sm:text-4xl lg:text-6xl font-black text-[#051622] leading-[1.1] mb-6 sm:mb-8 tracking-tighter uppercase">
+                  We Execute Our <br className="hidden sm:block"/> Ideas From Start <br className="hidden sm:block"/> To Finish
                 </h2>
-                <p className="text-slate-600 text-lg leading-relaxed font-medium mb-6">
+                <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-medium mb-6">
                   BizFlow was founded on the principle that business incorporation should be a catalyst for growth, not a bureaucratic hurdle. In the dynamic Malaysian landscape, speed and compliance are the twin engines of success.
                 </p>
-                <p className="text-slate-600 text-lg leading-relaxed font-medium">
+                <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-medium">
                   Our team of licensed company secretaries, chartered accountants, and immigration specialists work in synergy to provide a 360-degree support ecosystem for foreign founders.
                 </p>
               </div>
@@ -132,11 +132,11 @@ const AboutPage: React.FC = () => {
       </section>
 
       {/* Work Process Section */}
-      <section className="py-24 bg-slate-50 border-y border-slate-100 overflow-hidden">
+      <section className="py-16 sm:py-24 bg-slate-50 border-y border-slate-100 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="text-royal-blue font-black text-xs uppercase tracking-[0.4em] block mb-2">Fast. Trust. Compliant.</span>
-            <h2 className="text-4xl lg:text-6xl font-black text-royal-blue uppercase tracking-tight">Our Basic Work Process</h2>
+          <div className="text-center mb-12 sm:mb-16">
+            <span className="text-royal-blue font-black text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] block mb-2">Fast. Trust. Compliant.</span>
+            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-black text-royal-blue uppercase tracking-tight">Our Basic Work Process</h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
@@ -186,22 +186,22 @@ const AboutPage: React.FC = () => {
           </div>
 
           {/* Trust Bar */}
-          <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-10 flex flex-col lg:flex-row items-center justify-between gap-8 border border-slate-100">
-            <div className="flex items-center gap-6">
-              <div className="w-16 h-16 rounded-full bg-slate-50 flex items-center justify-center text-slate-400">
+          <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 lg:p-10 flex flex-col lg:flex-row items-center justify-between gap-8 border border-slate-100">
+            <div className="flex flex-col sm:flex-row items-center gap-6 text-center sm:text-left">
+              <div className="w-16 h-16 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 shrink-0">
                 <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
               </div>
-              <p className="text-slate-500 font-medium text-lg lg:text-xl leading-relaxed max-w-2xl">
+              <p className="text-slate-500 font-medium text-base sm:text-lg lg:text-xl leading-relaxed max-w-2xl">
                 Trusted by hundreds of companies and individuals, Bizflow delivers compliant, practical business solutions in Malaysia. <span className="font-black text-royal-blue">Speak to our team today for professional support you can rely on.</span>
               </p>
             </div>
-            <div className="flex items-center gap-6 bg-slate-50 p-6 rounded-2xl border border-slate-100 min-w-[300px]">
-              <div className="w-12 h-12 rounded-full border-2 border-slate-300 flex items-center justify-center text-slate-400">
+            <div className="flex items-center gap-6 bg-slate-50 p-6 rounded-2xl border border-slate-100 w-full lg:w-auto min-w-0 sm:min-w-[300px] justify-center sm:justify-start">
+              <div className="w-12 h-12 rounded-full border-2 border-slate-300 flex items-center justify-center text-slate-400 shrink-0">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
               </div>
               <div className="flex flex-col">
-                <span className="text-royal-blue font-black text-2xl">+60 11-2424 4993</span>
-                <span className="text-slate-400 font-bold text-xs uppercase tracking-widest">Have any Questions?</span>
+                <span className="text-royal-blue font-black text-xl sm:text-2xl">+60 11-2424 4993</span>
+                <span className="text-slate-400 font-bold text-[10px] sm:text-xs uppercase tracking-widest">Have any Questions?</span>
               </div>
             </div>
           </div>
@@ -209,15 +209,15 @@ const AboutPage: React.FC = () => {
       </section>
 
       {/* Corporate Values Section */}
-      <section className="py-24 bg-white relative overflow-hidden">
+      <section className="py-16 sm:py-24 bg-white relative overflow-hidden">
         {/* Subtle Background Accent */}
         <div className="absolute top-1/2 left-0 w-64 h-64 bg-royal-blue/5 rounded-full blur-[100px] -z-10"></div>
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-gold/5 rounded-full blur-[120px] -z-10"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-20 relative">
-            <span className="text-gold font-black text-xs uppercase tracking-[0.6em] block mb-3">The Pillars of BizFlow</span>
-            <h2 className="text-4xl lg:text-6xl font-black text-[#051622] uppercase tracking-tighter relative inline-block">
+          <div className="text-center mb-16 sm:mb-20 relative">
+            <span className="text-gold font-black text-[10px] sm:text-xs uppercase tracking-[0.4em] sm:tracking-[0.6em] block mb-3">The Pillars of BizFlow</span>
+            <h2 className="text-3xl sm:text-4xl lg:text-6xl font-black text-[#051622] uppercase tracking-tighter relative inline-block">
               Our Core Identity
               <div className="absolute -bottom-4 left-0 w-full h-1.5 bg-[#E91E63] rounded-full"></div>
             </h2>
@@ -279,16 +279,16 @@ const AboutPage: React.FC = () => {
       </section>
 
       {/* Strategic FAQ Section */}
-      <section className="py-24 bg-slate-50 relative overflow-hidden">
+      <section className="py-16 sm:py-24 bg-slate-50 relative overflow-hidden">
         {/* Subtle Watermark Overlay */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-[0.02] pointer-events-none select-none flex items-center justify-center">
-            <span className="text-[300px] font-black uppercase text-navy-dark border-8 border-navy-dark p-20 rounded-full -rotate-6">ADVISORY</span>
+            <span className="text-[150px] sm:text-[300px] font-black uppercase text-navy-dark border-4 sm:border-8 border-navy-dark p-10 sm:p-20 rounded-full -rotate-6">ADVISORY</span>
         </div>
         
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-16">
-            <span className="text-gold font-black text-xs uppercase tracking-[0.4em] mb-4 block">Clarity on BizFlow</span>
-            <h2 className="text-4xl lg:text-5xl font-black text-royal-blue uppercase tracking-tight">Strategic FAQ</h2>
+          <div className="text-center mb-12 sm:mb-16">
+            <span className="text-gold font-black text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] mb-4 block">Clarity on BizFlow</span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-royal-blue uppercase tracking-tight">Strategic FAQ</h2>
             <div className="w-16 h-1.5 bg-gold mx-auto mt-6 rounded-full"></div>
           </div>
 
@@ -296,26 +296,26 @@ const AboutPage: React.FC = () => {
             {faqs.map((faq, index) => (
               <div 
                 key={index} 
-                className={`border-2 rounded-[24px] transition-all duration-300 ${activeFaq === index ? 'border-gold bg-white shadow-2xl' : 'border-slate-200 bg-white/50 hover:bg-white hover:border-slate-300'}`}
+                className={`border-2 rounded-[20px] sm:rounded-[24px] transition-all duration-300 ${activeFaq === index ? 'border-gold bg-white shadow-2xl' : 'border-slate-200 bg-white/50 hover:bg-white hover:border-slate-300'}`}
               >
                 <button 
                   onClick={() => toggleFaq(index)}
-                  className="w-full text-left px-8 py-7 flex items-center justify-between focus:outline-none"
+                  className="w-full text-left px-6 sm:px-8 py-5 sm:py-7 flex items-center justify-between focus:outline-none"
                 >
-                  <div className="flex flex-col gap-1">
-                    <span className="text-[10px] font-black text-gold uppercase tracking-[0.2em] mb-1">Inquiry 0{index + 1}</span>
-                    <span className="font-black text-royal-blue uppercase text-sm tracking-tight leading-snug">{faq.question}</span>
+                  <div className="flex flex-col gap-1 pr-4">
+                    <span className="text-[9px] sm:text-[10px] font-black text-gold uppercase tracking-[0.2em] mb-1">Inquiry 0{index + 1}</span>
+                    <span className="font-black text-royal-blue uppercase text-xs sm:text-sm tracking-tight leading-snug">{faq.question}</span>
                   </div>
-                  <div className={`w-10 h-10 rounded-full border-2 flex items-center justify-center shrink-0 transition-all ${activeFaq === index ? 'border-gold bg-gold text-white rotate-180' : 'border-slate-200 text-slate-400 group-hover:border-gold group-hover:text-gold'}`}>
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" /></svg>
+                  <div className={`w-8 h-8 sm:w-10 h-10 rounded-full border-2 flex items-center justify-center shrink-0 transition-all ${activeFaq === index ? 'border-gold bg-gold text-white rotate-180' : 'border-slate-200 text-slate-400 group-hover:border-gold group-hover:text-gold'}`}>
+                    <svg className="w-4 h-4 sm:w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" /></svg>
                   </div>
                 </button>
                 <div 
                   className={`overflow-hidden transition-all duration-500 ease-in-out ${activeFaq === index ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'}`}
                 >
-                  <div className="px-8 pb-10 pt-2">
+                  <div className="px-6 sm:px-8 pb-8 sm:pb-10 pt-2">
                     <div className="h-px w-full bg-slate-100 mb-6"></div>
-                    <p className="text-slate-600 font-medium leading-relaxed text-sm lg:text-base">
+                    <p className="text-slate-600 font-medium leading-relaxed text-xs sm:text-sm lg:text-base">
                       {faq.answer}
                     </p>
                   </div>
@@ -324,19 +324,19 @@ const AboutPage: React.FC = () => {
             ))}
           </div>
           
-          <div className="mt-20 text-center">
+          <div className="mt-16 sm:mt-20 text-center">
             <div className="inline-block p-1 rounded-full bg-slate-100 mb-8">
-                <div className="flex items-center gap-4 px-6 py-2">
+                <div className="flex items-center gap-4 px-4 sm:px-6 py-2">
                     <div className="flex -space-x-2">
-                        {[1,2,3].map(i => <img key={i} src={`https://i.pravatar.cc/100?img=${i+10}`} className="w-8 h-8 rounded-full border-2 border-white" alt="Team"/>)}
+                        {[1,2,3].map(i => <img key={i} src={`https://i.pravatar.cc/100?img=${i+10}`} className="w-6 h-6 sm:w-8 h-8 rounded-full border-2 border-white" alt="Team"/>)}
                     </div>
-                    <span className="text-xs font-black text-slate-500 uppercase tracking-widest">Connect with our leadership team</span>
+                    <span className="text-[9px] sm:text-xs font-black text-slate-500 uppercase tracking-widest">Connect with our leadership team</span>
                 </div>
             </div>
-            <h3 className="text-2xl font-black text-royal-blue uppercase tracking-tight mb-8">Still have questions about your <br/>market entry?</h3>
-            <a href="https://wa.me/601124244993" className="inline-flex items-center gap-4 px-12 py-6 bg-navy-dark text-gold font-black rounded-2xl hover:bg-black hover:scale-105 transition-all shadow-2xl uppercase tracking-[0.3em] text-xs">
+            <h3 className="text-xl sm:text-2xl font-black text-royal-blue uppercase tracking-tight mb-8">Still have questions about your <br className="hidden sm:block"/>market entry?</h3>
+            <a href="https://wa.me/601124244993" className="inline-flex items-center gap-4 px-8 sm:px-12 py-4 sm:py-6 bg-navy-dark text-gold font-black rounded-2xl hover:bg-black hover:scale-105 transition-all shadow-2xl uppercase tracking-[0.3em] text-[10px] sm:text-xs w-full sm:w-auto justify-center">
                 Speak with a Consultant
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                <svg className="w-4 h-4 sm:w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
             </a>
           </div>
         </div>

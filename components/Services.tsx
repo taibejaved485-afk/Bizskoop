@@ -100,13 +100,13 @@ const Services: React.FC = () => {
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mb-16 lg:mb-24 text-center lg:text-left">
-          <span className="text-gold font-black text-xs uppercase tracking-[0.5em] block mb-4">Core Strategic Units</span>
-          <h2 className="text-5xl lg:text-7xl font-black text-royal-blue leading-[1.05] tracking-tighter uppercase mb-8">
+          <span className="text-gold font-black text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.5em] block mb-4">Core Strategic Units</span>
+          <h2 className="text-4xl sm:text-5xl lg:text-7xl font-black text-royal-blue leading-[1.05] tracking-tighter uppercase mb-8">
             The Mandatory <br/>
             <span className="text-gold">Operational</span> <br/>
             Framework.
           </h2>
-          <p className="text-slate-500 font-medium text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
+          <p className="text-slate-500 font-medium text-base sm:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
             We provide the end-to-end execution required to satisfy Malaysian authorities. Fast-track your market entry with our authorized units.
           </p>
         </div>

@@ -147,10 +147,10 @@ const ServiceGrid: React.FC<ServiceGridProps> = ({ onNavigate }) => {
   return (
     <section className="py-24 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-20">
-          <span className="text-royal-blue font-black text-xs uppercase tracking-[0.5em] block mb-4">Our Services</span>
-          <h2 className="text-4xl lg:text-6xl font-black text-royal-blue leading-tight tracking-tighter uppercase">
-            Practical Solutions For <br/>
+        <div className="text-center mb-16 sm:mb-20">
+          <span className="text-royal-blue font-black text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.5em] block mb-4">Our Services</span>
+          <h2 className="text-3xl sm:text-4xl lg:text-6xl font-black text-royal-blue leading-tight tracking-tighter uppercase">
+            Practical Solutions For <br className="hidden sm:block"/>
             Business Setup & Compliance
           </h2>
         </div>

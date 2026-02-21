@@ -37,16 +37,16 @@ const AIServiceTool: React.FC<ToolProps> = ({ id, type, title, subtitle }) => {
   };
 
   return (
-    <section id={id} className="py-24 bg-slate-50 border-y border-slate-100 scroll-mt-20">
+    <section id={id} className="py-16 sm:py-24 bg-slate-50 border-y border-slate-100 scroll-mt-20">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-black text-slate-900 tracking-tight mb-4 uppercase">{title}</h2>
-          <div className="text-lg text-slate-600 font-medium max-w-2xl mx-auto min-h-[2rem]">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-4 uppercase">{title}</h2>
+          <div className="text-base sm:text-lg text-slate-600 font-medium max-w-2xl mx-auto min-h-[2rem]">
             <TypingText text={subtitle} speed={20} delay={2000} />
           </div>
         </div>
 
-        <div className="bg-white border-2 border-slate-100 rounded-[40px] p-10 lg:p-14 shadow-2xl relative">
+        <div className="bg-white border-2 border-slate-100 rounded-[30px] sm:rounded-[40px] p-6 sm:p-10 lg:p-14 shadow-2xl relative">
           {!result ? (
             <form onSubmit={handleSubmit} className="space-y-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -156,11 +156,11 @@ const AIServiceTool: React.FC<ToolProps> = ({ id, type, title, subtitle }) => {
                 <span className="text-royal-blue mr-2">LEGAL NOTICE:</span> {result.disclaimer}
               </div>
 
-              <div className="pt-6 flex flex-col sm:flex-row gap-5">
-                <button className="flex-1 py-5 bg-action-red text-white font-black rounded-2xl hover-bg-action-red transition shadow-2xl shadow-red-600/20 uppercase tracking-widest">
+              <div className="pt-6 flex flex-col sm:flex-row gap-4 sm:gap-5">
+                <button className="flex-1 py-4 sm:py-5 bg-action-red text-white font-black rounded-2xl hover-bg-action-red transition shadow-2xl shadow-red-600/20 uppercase tracking-widest text-xs sm:text-sm">
                   Confirm Next Steps via WhatsApp
                 </button>
-                <button className="flex-1 py-5 bg-white border-4 border-royal-blue text-royal-blue font-black rounded-2xl hover:bg-slate-50 transition uppercase tracking-widest">
+                <button className="flex-1 py-4 sm:py-5 bg-white border-4 border-royal-blue text-royal-blue font-black rounded-2xl hover:bg-slate-50 transition uppercase tracking-widest text-xs sm:text-sm">
                   Secure Consultation Call
                 </button>
               </div>

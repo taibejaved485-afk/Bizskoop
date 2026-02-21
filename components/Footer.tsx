@@ -3,15 +3,15 @@ import React from 'react';
 
 const Footer: React.FC = () => {
   return (
-    <footer className="relative bg-[#051622] pt-24 overflow-hidden">
+    <footer className="relative bg-[#051622] pt-16 sm:pt-24 overflow-hidden">
       {/* 1. Newsletter Overlay Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-30 -mb-16">
-        <div className="bg-[#051622] border border-white/10 rounded-2xl p-8 lg:p-12 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-30 -mb-20 sm:-mb-16">
+        <div className="bg-[#051622] border border-white/10 rounded-2xl p-6 sm:p-8 lg:p-12 shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8">
           <div className="text-center lg:text-left">
-            <h3 className="text-2xl lg:text-3xl font-black text-white uppercase tracking-tight mb-2">
+            <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-white uppercase tracking-tight mb-2">
               Subscribe To Our Newsletter
             </h3>
-            <p className="text-slate-400 text-sm font-medium">
+            <p className="text-slate-400 text-xs sm:text-sm font-medium">
               Sign up for our monthly newsletter for the latest news & articles
             </p>
           </div>
@@ -19,9 +19,9 @@ const Footer: React.FC = () => {
             <input 
               type="email" 
               placeholder="Email Address" 
-              className="px-6 py-4 bg-white rounded-lg text-[#051622] font-medium outline-none w-full sm:w-80 lg:w-96"
+              className="px-6 py-4 bg-white rounded-lg text-[#051622] font-medium outline-none w-full sm:w-80 lg:w-96 text-sm"
             />
-            <button className="px-10 py-4 bg-[#051622] border border-white/20 text-white font-black rounded-lg hover:bg-white hover:text-[#051622] transition-all uppercase tracking-widest text-sm">
+            <button className="px-10 py-4 bg-[#051622] border border-white/20 text-white font-black rounded-lg hover:bg-white hover:text-[#051622] transition-all uppercase tracking-widest text-xs sm:text-sm">
               Subscribe
             </button>
           </div>
