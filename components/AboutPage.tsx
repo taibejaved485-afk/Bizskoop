@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import AnimatedCounter from './AnimatedCounter';
 
 const AboutPage: React.FC = () => {
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
@@ -73,7 +74,9 @@ const AboutPage: React.FC = () => {
                 />
               </div>
               <div className="absolute bottom-6 sm:bottom-10 left-[-10px] sm:left-[-20px] bg-[#051622] text-white p-6 sm:p-10 rounded-2xl shadow-2xl z-30">
-                <p className="text-3xl sm:text-5xl font-black mb-1 leading-none">12+</p>
+                <p className="text-3xl sm:text-5xl font-black mb-1 leading-none">
+                  <AnimatedCounter target="12+" duration={1500} />
+                </p>
                 <p className="text-[9px] sm:text-[11px] font-bold uppercase tracking-[0.2em] text-blue-200">Experiences</p>
               </div>
             </div>
@@ -121,7 +124,9 @@ const AboutPage: React.FC = () => {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-2xl font-black leading-none mb-1">1500+</p>
+                    <p className="text-2xl font-black leading-none mb-1">
+                      <AnimatedCounter target="1500+" duration={2500} />
+                    </p>
                     <p className="text-[10px] font-bold text-blue-200 uppercase tracking-widest">Successful Cases</p>
                   </div>
                 </div>
