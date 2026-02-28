@@ -83,7 +83,7 @@ const App: React.FC = () => {
                   </div>
                   <div className="absolute bottom-6 sm:bottom-10 left-[-10px] sm:left-[-20px] bg-[#051622] text-white p-6 lg:p-10 rounded-2xl shadow-2xl z-30 border-b-4 border-gold group-hover/about-img:scale-110 transition-transform">
                     <p className="text-3xl sm:text-4xl lg:text-5xl font-black mb-1 leading-none tracking-tighter">
-                      <AnimatedCounter target="12+" />
+                      <AnimatedCounter target="12+" duration={1500} />
                     </p>
                     <p className="text-[8px] sm:text-[10px] font-bold uppercase tracking-[0.3em] text-blue-200">Experiences</p>
                   </div>
@@ -119,7 +119,7 @@ const App: React.FC = () => {
                       </div>
                       <div className="text-left">
                         <p className="text-xl sm:text-2xl font-black leading-none mb-1">
-                          <AnimatedCounter target="1500+" />
+                          <AnimatedCounter target="1500+" duration={2500} />
                         </p>
                         <p className="text-[8px] sm:text-[10px] font-bold text-blue-200 uppercase tracking-widest">Successful Cases</p>
                       </div>

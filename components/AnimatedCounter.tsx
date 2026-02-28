@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 interface AnimatedCounterProps {
   target: string;
@@ -7,33 +7,30 @@ interface AnimatedCounterProps {
 }
 
 const AnimatedCounter: React.FC<AnimatedCounterProps> = ({ target, duration = 2000 }) => {
-  const [displayValue, setDisplayValue] = useState('0');
+  const [count, setCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
-  const countRef = useRef<HTMLSpanElement>(null);
+  const elementRef = useRef<HTMLSpanElement>(null);
   
-  // Parse the target string to find the numeric part and decimals
+  // Parse target string
   const match = target.match(/(\d+\.?\d*)/);
   const numericValue = match ? parseFloat(match[0]) : 0;
   const prefix = target.split(match ? match[0] : '')[0] || '';
   const suffix = target.split(match ? match[0] : '')[1] || '';
-  
-  // Determine decimal places
-  const decimalMatch = match ? match[0].split('.') : [];
-  const decimalPlaces = decimalMatch.length > 1 ? decimalMatch[1].length : 0;
+  const decimalPlaces = match && match[0].includes('.') ? match[0].split('.')[1].length : 0;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
+      (entries) => {
+        if (entries[0].isIntersecting) {
           setIsVisible(true);
-          observer.disconnect();
+          observer.disconnect(); // Run once
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.1 } // Trigger when 10% visible
     );
 
-    if (countRef.current) {
-      observer.observe(countRef.current);
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
     }
 
     return () => observer.disconnect();
@@ -42,30 +39,39 @@ const AnimatedCounter: React.FC<AnimatedCounterProps> = ({ target, duration = 20
   useEffect(() => {
     if (!isVisible) return;
 
-    let startTimestamp: number | null = null;
-    const step = (timestamp: number) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+    let startTime: number;
+    let animationFrame: number;
+
+    const animate = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const progress = timestamp - startTime;
+      const percentage = Math.min(progress / duration, 1);
       
-      // Cubic Out Easing
-      const easeProgress = 1 - Math.pow(1 - progress, 3);
-      const currentCount = easeProgress * numericValue;
+      // Ease out quart function for smooth deceleration
+      const ease = 1 - Math.pow(1 - percentage, 4);
       
-      setDisplayValue(currentCount.toLocaleString(undefined, {
-        minimumFractionDigits: decimalPlaces,
-        maximumFractionDigits: decimalPlaces
-      }));
-      
-      if (progress < 1) {
-        window.requestAnimationFrame(step);
+      setCount(numericValue * ease);
+
+      if (percentage < 1) {
+        animationFrame = requestAnimationFrame(animate);
+      } else {
+        setCount(numericValue);
       }
     };
-    window.requestAnimationFrame(step);
-  }, [numericValue, duration, isVisible, decimalPlaces]);
+
+    animationFrame = requestAnimationFrame(animate);
+
+    return () => cancelAnimationFrame(animationFrame);
+  }, [isVisible, numericValue, duration]);
 
   return (
-    <span ref={countRef}>
-      {prefix}{displayValue}{suffix}
+    <span ref={elementRef} className="tabular-nums inline-block">
+      {prefix}
+      {count.toLocaleString(undefined, {
+        minimumFractionDigits: decimalPlaces,
+        maximumFractionDigits: decimalPlaces
+      })}
+      {suffix}
     </span>
   );
 };

@@ -19,7 +19,7 @@ const ServiceCard: React.FC<{
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8, delay: index * 0.1, ease: [0.21, 1.11, 0.81, 0.99] }}
-      className="group relative p-[1px] rounded-[42px] overflow-hidden transition-all duration-700"
+      className="group relative p-[1px] rounded-[42px] overflow-hidden transition-all duration-700 hover:-translate-y-2"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -30,22 +30,40 @@ const ServiceCard: React.FC<{
       <div className="absolute inset-[-150%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_6s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 
       <div className="relative h-full bg-white p-8 sm:p-10 lg:p-12 rounded-[41px] border border-transparent shadow-sm group-hover:shadow-[0_40px_80px_-15px_rgba(0,51,102,0.15)] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] cursor-pointer overflow-hidden z-10">
+        
+        {/* NEW: Subtle Background Pattern */}
+        <div className="absolute inset-0 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity duration-700 pointer-events-none" 
+             style={{ backgroundImage: 'radial-gradient(#003366 1px, transparent 1px)', backgroundSize: '24px 24px' }}>
+        </div>
+
         {/* Glass Overlay on Hover */}
         <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-slate-50/50 group-hover:to-gold/[0.03] transition-all duration-700"></div>
 
+        {/* NEW: Floating Particles */}
+        <div className="absolute top-12 right-12 w-2 h-2 bg-gold rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700 group-hover:-translate-y-6 delay-100"></div>
+        <div className="absolute bottom-24 left-12 w-1.5 h-1.5 bg-royal-blue rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700 group-hover:-translate-y-8 delay-200"></div>
+        <div className="absolute top-1/2 right-8 w-1 h-1 bg-gold/50 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700 group-hover:-translate-y-4 delay-300"></div>
+
         {/* Icon Container with Parallax Effect */}
         <div className="relative z-20">
-          <div className="w-20 h-20 bg-royal-blue rounded-[24px] flex items-center justify-center text-white mb-10 group-hover:bg-gold group-hover:scale-110 group-hover:rotate-[8deg] group-hover:translate-x-2 group-hover:-translate-y-2 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] shadow-2xl shadow-royal-blue/20 group-hover:shadow-gold/30">
-            <div className="group-hover:scale-110 transition-transform duration-500">
+          <div className="w-20 h-20 bg-royal-blue rounded-[24px] flex items-center justify-center text-white mb-10 group-hover:bg-gold group-hover:scale-110 group-hover:rotate-[8deg] group-hover:translate-x-2 group-hover:-translate-y-2 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] shadow-2xl shadow-royal-blue/20 group-hover:shadow-gold/30 relative overflow-hidden">
+            {/* NEW: Shine effect on icon box */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent translate-y-full group-hover:-translate-y-full transition-transform duration-1000 ease-in-out"></div>
+            <div className="group-hover:scale-110 transition-transform duration-500 relative z-10">
               {icon}
             </div>
           </div>
 
           {/* Content */}
-          <h3 className="text-2xl font-black text-royal-blue mb-4 uppercase tracking-tighter group-hover:text-gold transition-colors duration-300">
-            {title}
-          </h3>
-          <div className="text-slate-500 font-medium leading-relaxed mb-10 text-sm group-hover:text-slate-700 transition-colors min-h-[5rem]">
+          <div className="flex justify-between items-start">
+            <h3 className="text-2xl font-black text-royal-blue mb-4 uppercase tracking-tighter group-hover:text-gold transition-colors duration-300 relative z-10">
+              {title}
+            </h3>
+            {/* NEW: Arrow Icon appearing next to title */}
+             <ArrowRight className="text-gold opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 mt-1" />
+          </div>
+
+          <div className="text-slate-500 font-medium leading-relaxed mb-10 text-sm group-hover:text-slate-700 transition-colors min-h-[5rem] relative z-10">
             <TypingText 
               text={desc}
               speed={15}
@@ -55,7 +73,7 @@ const ServiceCard: React.FC<{
           </div>
 
           {/* Tags Section */}
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 relative z-10">
             {tags.map(tag => (
               <span key={tag} className="px-4 py-1.5 bg-slate-50 text-royal-blue text-[9px] font-black uppercase rounded-full tracking-widest border border-slate-100 group-hover:border-gold/30 group-hover:bg-gold/10 group-hover:text-gold transition-all duration-300">
                 {tag}
@@ -66,6 +84,9 @@ const ServiceCard: React.FC<{
 
         {/* Hover Accent Bar */}
         <div className="absolute bottom-0 left-0 w-full h-1.5 bg-transparent group-hover:bg-gold transition-all duration-700"></div>
+        
+        {/* NEW: Corner Accent */}
+        <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-gold/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-bl-[40px] pointer-events-none"></div>
       </div>
     </motion.div>
   );
