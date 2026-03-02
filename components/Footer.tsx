@@ -1,205 +1,175 @@
 
 import React from 'react';
 import { motion } from 'motion/react';
-import { Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Youtube, ArrowRight, Send, Globe, ShieldCheck, Zap } from 'lucide-react';
+import { Facebook, Instagram, Linkedin, Twitter, Youtube, ArrowRight, ShieldCheck, Globe, CreditCard } from 'lucide-react';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-[#051622] pt-20 overflow-hidden">
-      {/* 1. Premium CTA / Newsletter Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-30">
-        <div className="bg-gradient-to-br from-royal-blue to-[#0a1e2e] border border-white/10 rounded-[40px] p-8 lg:p-16 shadow-2xl relative overflow-hidden group">
-          {/* Decorative Elements */}
-          <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 blur-[100px] -mr-32 -mt-32 rounded-full group-hover:bg-gold/20 transition-all duration-700"></div>
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-blue-500/10 blur-[80px] -ml-24 -mb-24 rounded-full"></div>
+    <footer className="relative bg-white pt-20 overflow-hidden">
+      {/* Wavy Top with Silhouette */}
+      <div className="relative w-full h-32 sm:h-48 -mb-px">
+        <svg 
+          viewBox="0 0 1440 320" 
+          className="absolute bottom-0 w-full h-full preserve-3d"
+          preserveAspectRatio="none"
+        >
+          <path 
+            fill="#051622" 
+            d="M0,160L48,176C96,192,192,224,288,224C384,224,480,192,576,165.3C672,139,768,117,864,128C960,139,1056,181,1152,197.3C1248,213,1344,203,1392,197.3L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+          ></path>
           
-          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-12">
-            <div className="max-w-2xl text-center lg:text-left">
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6"
-              >
-                <Zap size={14} className="text-gold animate-pulse" />
-                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-blue-200">Ready to scale?</span>
-              </motion.div>
-              <h3 className="text-3xl lg:text-5xl font-black text-white uppercase tracking-tighter mb-6 leading-[0.9]">
-                Let's Build Your <span className="text-gold">Success</span> Story In Malaysia
-              </h3>
-              <p className="text-blue-100/60 text-lg font-medium max-w-xl">
-                Join 500+ global founders who trusted BizFlow to navigate the Malaysian business landscape.
-              </p>
-            </div>
-            
-            <div className="w-full lg:w-auto">
-              <div className="bg-white/5 backdrop-blur-xl p-2 rounded-2xl border border-white/10 flex flex-col sm:flex-row gap-2 w-full lg:min-w-[450px]">
-                <div className="flex-1 relative">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" size={18} />
-                  <input 
-                    type="email" 
-                    placeholder="Enter your email" 
-                    className="w-full pl-12 pr-4 py-4 bg-transparent text-white font-bold outline-none placeholder:text-white/20"
-                  />
-                </div>
-                <button className="px-8 py-4 bg-gold text-royal-blue font-black rounded-xl hover:bg-white hover:scale-[1.02] active:scale-95 transition-all uppercase tracking-widest text-xs flex items-center justify-center gap-2 shadow-xl shadow-gold/20">
-                  Subscribe <ArrowRight size={16} />
-                </button>
-              </div>
-              <p className="text-[10px] text-white/30 mt-4 text-center lg:text-left font-bold uppercase tracking-widest">
-                <ShieldCheck size={12} className="inline mr-1 text-emerald-500" /> No spam, just strategic insights.
-              </p>
-            </div>
-          </div>
-        </div>
+          {/* Cityscape Silhouette Overlay (Simplified) */}
+          <g fill="#0a1e2e" opacity="0.4" transform="translate(0, 120)">
+            <rect x="100" y="40" width="30" height="60" />
+            <rect x="140" y="20" width="40" height="80" />
+            <rect x="200" y="50" width="25" height="50" />
+            <rect x="400" y="30" width="35" height="70" />
+            <rect x="450" y="10" width="45" height="90" />
+            <rect x="520" y="45" width="20" height="55" />
+            <rect x="800" y="25" width="40" height="75" />
+            <rect x="860" y="5" width="30" height="95" />
+            <rect x="1100" y="35" width="35" height="65" />
+            <rect x="1150" y="15" width="50" height="85" />
+          </g>
+        </svg>
+        
+        {/* Floating Icons (Like the shoes/balloons in the image) */}
+        <motion.div 
+          animate={{ y: [0, -20, 0] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-10 left-[15%] text-gold/20 hidden lg:block"
+        >
+          <Globe size={64} strokeWidth={1} />
+        </motion.div>
+        <motion.div 
+          animate={{ y: [0, -15, 0], rotate: [0, 5, 0] }}
+          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute top-20 right-[20%] text-gold/10 hidden lg:block"
+        >
+          <ShieldCheck size={80} strokeWidth={1} />
+        </motion.div>
       </div>
 
-      {/* 2. Main Footer Content */}
-      <div className="relative pt-24 pb-12 lg:pb-16 z-10">
-        {/* Abstract Background Pattern */}
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none select-none">
-          <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }}></div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 border-b border-white/5 pb-20">
+      {/* Main Footer Content */}
+      <div className="bg-[#051622] text-white pb-12 lg:pb-16 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 py-16 border-b border-white/5">
             
-            {/* Column 1: Branding & About (4 cols) */}
-            <div className="lg:col-span-4 space-y-10">
-              <div className="flex items-center gap-4 group cursor-pointer">
-                <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center shadow-2xl group-hover:rotate-6 transition-transform duration-500">
-                  <span className="text-royal-blue font-black text-2xl">B</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-3xl font-black tracking-tighter text-white uppercase leading-none">bizflow</span>
-                  <span className="text-[10px] font-bold tracking-[0.3em] text-gold uppercase mt-1">Strategic Consultancy</span>
-                </div>
-              </div>
-              
-              <p className="text-slate-400 text-base leading-relaxed font-medium max-w-sm">
-                The definitive launchpad for international businesses in Malaysia. We combine local regulatory expertise with global service standards.
+            {/* Column 1: Newsletter */}
+            <div className="space-y-8">
+              <h4 className="text-lg font-black uppercase tracking-tighter">BizFlow's Newsletter</h4>
+              <p className="text-blue-100/50 text-sm font-medium leading-relaxed">
+                Stay updated with the latest Malaysian regulatory changes and business insights.
               </p>
-              
-              <div className="flex items-center gap-3">
-                {[
-                  { icon: Facebook, label: 'fb' },
-                  { icon: Twitter, label: 'tw' },
-                  { icon: Linkedin, label: 'li' },
-                  { icon: Youtube, label: 'yt' }
-                ].map((social) => (
-                  <a 
-                    key={social.label} 
-                    href="#" 
-                    className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-gold hover:border-gold hover:bg-gold/10 transition-all duration-300 group"
-                  >
-                    <social.icon size={18} className="group-hover:scale-110 transition-transform" />
-                  </a>
-                ))}
+              <div className="space-y-4">
+                <input 
+                  type="email" 
+                  placeholder="Your email" 
+                  className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-xl text-white font-bold outline-none focus:border-gold/50 transition-all"
+                />
+                <button className="w-full sm:w-auto px-10 py-4 bg-[#E91E63] text-white font-black rounded-xl hover:bg-white hover:text-royal-blue transition-all uppercase tracking-widest text-xs shadow-xl">
+                  Subscribe
+                </button>
               </div>
             </div>
 
-            {/* Column 2: Quick Links (2 cols) */}
-            <div className="lg:col-span-2 space-y-8">
-              <h4 className="text-white font-black text-xs uppercase tracking-[0.3em] flex items-center gap-2">
-                <span className="w-6 h-px bg-gold"></span> Company
-              </h4>
+            {/* Column 2: Terms & Conditions */}
+            <div className="space-y-8">
+              <h4 className="text-lg font-black uppercase tracking-tighter">Legal & Policy</h4>
               <ul className="space-y-4">
-                {['Home', 'About Us', 'Our Team', 'Success Stories', 'Contact'].map((link) => (
-                  <li key={link}>
-                    <a href="#" className="text-slate-400 hover:text-gold text-[13px] font-bold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 group">
-                      <ArrowRight size={12} className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
-                      {link}
+                {['Privacy Policy', 'Terms of Service', 'Refund Policy', 'Compliance Standards', 'Data Protection'].map((item) => (
+                  <li key={item}>
+                    <a href="#" className="text-blue-100/50 hover:text-gold text-sm font-bold transition-colors flex items-center gap-2 group">
+                      <div className="w-1.5 h-1.5 rounded-full bg-gold/30 group-hover:bg-gold transition-colors"></div>
+                      {item}
                     </a>
                   </li>
                 ))}
               </ul>
+              <div className="pt-4">
+                <h5 className="text-[10px] font-black uppercase tracking-widest text-gold mb-4">Follow BizFlow</h5>
+                <div className="flex gap-4">
+                  {[Facebook, Instagram, Linkedin, Twitter].map((Icon, i) => (
+                    <a key={i} href="#" className="text-white/40 hover:text-gold transition-colors">
+                      <Icon size={20} />
+                    </a>
+                  ))}
+                </div>
+              </div>
             </div>
 
-            {/* Column 3: Services (3 cols) */}
-            <div className="lg:col-span-3 space-y-8">
-              <h4 className="text-white font-black text-xs uppercase tracking-[0.3em] flex items-center gap-2">
-                <span className="w-6 h-px bg-gold"></span> Expertise
-              </h4>
+            {/* Column 3: Information */}
+            <div className="space-y-8">
+              <h4 className="text-lg font-black uppercase tracking-tighter">Information</h4>
               <ul className="space-y-4">
-                {[
-                  'Company Formation', 
-                  'Regulatory Licensing', 
-                  'Corporate Secretarial', 
-                  'Immigration & Visas', 
-                  'Tax & Accounting'
-                ].map((service) => (
-                  <li key={service}>
-                    <a href="#" className="text-slate-400 hover:text-gold text-[13px] font-bold uppercase tracking-wider transition-all duration-300 flex items-center gap-2 group leading-tight">
-                      <ArrowRight size={12} className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
-                      {service}
+                {['FAQs', 'About us at BizFlow', 'BizFlow Legal', 'Our Methodology', 'Global Network'].map((item) => (
+                  <li key={item}>
+                    <a href="#" className="text-blue-100/50 hover:text-gold text-sm font-bold transition-colors">
+                      {item}
                     </a>
                   </li>
                 ))}
               </ul>
+              <div className="pt-4 space-y-2">
+                <p className="text-white font-black text-lg tracking-tight">+60 3 2771 8000</p>
+                <p className="text-blue-100/50 text-sm font-bold">info@bizflow.com</p>
+              </div>
             </div>
 
-            {/* Column 4: Contact Info (3 cols) */}
-            <div className="lg:col-span-3 space-y-8">
-              <h4 className="text-white font-black text-xs uppercase tracking-[0.3em] flex items-center gap-2">
-                <span className="w-6 h-px bg-gold"></span> Connect
-              </h4>
+            {/* Column 4: Contact */}
+            <div className="space-y-8">
+              <h4 className="text-lg font-black uppercase tracking-tighter">Contact</h4>
               <div className="space-y-6">
-                <div className="flex gap-4 group">
-                  <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center shrink-0 border border-white/10 group-hover:border-gold/50 transition-colors">
-                    <MapPin size={18} className="text-gold" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-[10px] font-black text-white/30 uppercase tracking-widest mb-1">Headquarters</span>
-                    <span className="text-slate-400 text-[13px] font-bold leading-relaxed">
-                      Integra Tower, The Intermark, 50400 Kuala Lumpur
-                    </span>
-                  </div>
+                <div>
+                  <p className="text-white font-black text-sm uppercase mb-1">BizFlow Strategic</p>
+                  <p className="text-blue-100/50 text-xs font-bold leading-relaxed">
+                    Company number: 202401012345 (123456-X)
+                  </p>
                 </div>
-                
-                <div className="flex gap-4 group">
-                  <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center shrink-0 border border-white/10 group-hover:border-gold/50 transition-colors">
-                    <Phone size={18} className="text-gold" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-[10px] font-black text-white/30 uppercase tracking-widest mb-1">Direct Line</span>
-                    <span className="text-white text-base font-black tracking-tight group-hover:text-gold transition-colors">
-                      +60 3 2771 8000
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex gap-4 group">
-                  <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center shrink-0 border border-white/10 group-hover:border-gold/50 transition-colors">
-                    <Mail size={18} className="text-gold" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-[10px] font-black text-white/30 uppercase tracking-widest mb-1">Inquiries</span>
-                    <span className="text-slate-400 text-[13px] font-bold group-hover:text-gold transition-colors">
-                      info@bizflow.com
-                    </span>
-                  </div>
+                <div>
+                  <p className="text-white font-black text-sm uppercase mb-1">Head office:</p>
+                  <p className="text-blue-100/50 text-xs font-bold leading-relaxed">
+                    Level 09, Integra Tower, The Intermark,<br/>
+                    348 Jalan Tun Razak, 50400 Kuala Lumpur,<br/>
+                    Malaysia
+                  </p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Bottom Bar */}
-          <div className="pt-12 flex flex-col md:flex-row justify-between items-center gap-8">
-            <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
-              <p className="text-[11px] font-black text-slate-500 uppercase tracking-[0.2em]">
-                © {currentYear} BIZFLOW STRATEGIC CONSULTANCY.
-              </p>
-              <div className="flex gap-6">
-                <a href="#" className="text-[10px] font-black text-slate-500 hover:text-gold uppercase tracking-widest transition-colors">Privacy Policy</a>
-                <a href="#" className="text-[10px] font-black text-slate-500 hover:text-gold uppercase tracking-widest transition-colors">Terms of Use</a>
+          {/* Bottom Trust Bar */}
+          <div className="py-12 flex flex-col items-center gap-10">
+            <div className="flex flex-wrap justify-center items-center gap-8 lg:gap-16 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
+              <div className="flex items-center gap-2">
+                <ShieldCheck size={24} className="text-gold" />
+                <span className="text-[10px] font-black uppercase tracking-widest">Trusted Partner</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Globe size={24} className="text-gold" />
+                <span className="text-[10px] font-black uppercase tracking-widest">Global Reach</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CreditCard size={24} className="text-gold" />
+                <span className="text-[10px] font-black uppercase tracking-widest">Secure Payments</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-xl font-black italic tracking-tighter">VISA</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-xl font-black italic tracking-tighter">MasterCard</span>
               </div>
             </div>
-            
-            <div className="flex items-center gap-3 px-4 py-2 bg-white/5 rounded-full border border-white/10">
-              <Globe size={12} className="text-gold" />
-              <span className="text-[10px] font-black text-white/60 uppercase tracking-widest">Global Operations Center</span>
+
+            <div className="text-center space-y-4">
+              <p className="text-[10px] font-bold text-blue-100/30 uppercase tracking-[0.3em]">
+                Part of BizFlow Group, serving entrepreneurs worldwide.
+              </p>
+              <p className="text-[11px] font-black text-blue-100/20 uppercase tracking-widest">
+                © 2024-{currentYear} BIZFLOW. ALL RIGHTS RESERVED.
+              </p>
             </div>
           </div>
         </div>
