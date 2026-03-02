@@ -56,51 +56,69 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
 
   return (
     <header className={`sticky top-0 z-50 sticky-header ${isScrolled ? 'scrolled' : ''}`}>
-      <div className={`bg-[#051622] text-white py-2.5 text-[10px] sm:text-[11px] font-medium tracking-wider border-b border-white/5 transition-all duration-700 ${isScrolled ? 'h-0 py-0 opacity-0 overflow-hidden border-none' : 'h-auto opacity-100'}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+      <div className={`bg-[#051622] text-white py-2.5 text-[10px] sm:text-[11px] font-medium tracking-wider border-b border-white/5 transition-all duration-700 relative overflow-hidden ${isScrolled ? 'h-0 py-0 opacity-0 overflow-hidden border-none' : 'h-auto opacity-100'}`}>
+        {/* Subtle background glow */}
+        <div className="absolute top-0 left-1/4 w-1/2 h-full bg-gold/5 blur-[50px] pointer-events-none"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center relative z-10">
           <div className="flex items-center gap-6 sm:gap-10">
             <motion.a 
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
               href="tel:+60327718000" 
-              className="flex items-center gap-2.5 hover:text-gold transition-all duration-300 group"
+              className="flex items-center gap-2.5 hover:text-gold transition-all duration-300 group relative"
             >
-              <Phone size={14} className="text-gold group-hover:scale-110 transition-transform" />
-              <span className="font-bold">+60 3 2771 8000</span>
+              <div className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-gold/20 transition-colors">
+                <Phone size={12} className="text-gold group-hover:scale-110 transition-transform" />
+              </div>
+              <span className="font-black tracking-tight">+60 3 2771 8000</span>
+              <div className="absolute -bottom-1 left-8 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300"></div>
             </motion.a>
+            
             <motion.a 
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
               href="mailto:info@bizskoop.com" 
-              className="hidden sm:flex items-center gap-2.5 hover:text-gold transition-all duration-300 group"
+              className="hidden sm:flex items-center gap-2.5 hover:text-gold transition-all duration-300 group relative"
             >
-              <Mail size={14} className="text-gold group-hover:scale-110 transition-transform" />
-              <span className="font-bold">info@bizskoop.com</span>
+              <div className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-gold/20 transition-colors">
+                <Mail size={12} className="text-gold group-hover:scale-110 transition-transform" />
+              </div>
+              <span className="font-black tracking-tight">info@bizskoop.com</span>
+              <div className="absolute -bottom-1 left-8 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300"></div>
             </motion.a>
-            <div className="hidden lg:flex items-center gap-2.5 text-white/40">
-              <Clock size={14} className="text-gold/50" />
-              <span className="uppercase text-[9px] font-black tracking-[0.2em]">Mon - Fri: 9AM - 6PM</span>
+            
+            <div className="hidden lg:flex items-center gap-2.5 text-white/60 group cursor-default">
+              <div className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-gold/10 transition-colors">
+                <Clock size={12} className="text-gold/70 group-hover:rotate-12 transition-transform" />
+              </div>
+              <span className="uppercase text-[9px] font-black tracking-[0.2em] group-hover:text-white transition-colors">Mon - Fri: 9AM - 6PM</span>
             </div>
           </div>
           
           <div className="flex items-center gap-8">
-            <div className="hidden xl:flex items-center gap-3 px-4 py-1 bg-white/5 rounded-full border border-white/10">
-              <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
-              <span className="uppercase text-[9px] font-black tracking-[0.2em] text-white/60">Professional Business Launchpad</span>
+            <div className="hidden xl:flex items-center gap-3 px-4 py-1.5 bg-white/5 rounded-full border border-white/10 hover:border-gold/30 transition-colors group cursor-default">
+              <div className="relative">
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
+                <div className="absolute inset-0 w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></div>
+              </div>
+              <span className="uppercase text-[9px] font-black tracking-[0.2em] text-white/60 group-hover:text-gold transition-colors">Professional Business Launchpad</span>
             </div>
             
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2 pr-4 border-r border-white/10">
-                <Globe size={12} className="text-gold" />
-                <span className="uppercase text-[9px] font-black text-white/60">EN</span>
+              <div className="flex items-center gap-2 pr-4 border-r border-white/10 group cursor-pointer">
+                <Globe size={12} className="text-gold group-hover:rotate-12 transition-transform" />
+                <span className="uppercase text-[9px] font-black text-white/60 group-hover:text-white transition-colors">EN</span>
+                <svg className="w-2.5 h-2.5 text-white/30 group-hover:text-gold transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7"/></svg>
               </div>
-              <div className="flex items-center gap-3">
+              
+              <div className="flex items-center gap-2.5">
                 {[
-                  { icon: Facebook, label: 'f' },
-                  { icon: Twitter, label: 't' },
-                  { icon: Linkedin, label: 'in' },
-                  { icon: Youtube, label: 'y' }
+                  { icon: Facebook, label: 'f', color: 'hover:bg-blue-600' },
+                  { icon: Twitter, label: 't', color: 'hover:bg-sky-500' },
+                  { icon: Linkedin, label: 'in', color: 'hover:bg-blue-700' },
+                  { icon: Youtube, label: 'y', color: 'hover:bg-red-600' }
                 ].map((social, idx) => (
                   <motion.a 
                     key={social.label} 
@@ -108,7 +126,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.2 + (idx * 0.05) }}
                     href="#" 
-                    className="w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-gold hover:border-gold hover:bg-gold/10 transition-all duration-300 group"
+                    className={`w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:border-transparent ${social.color} transition-all duration-300 group shadow-sm hover:shadow-lg hover:-translate-y-0.5`}
                   >
                     <social.icon size={12} className="group-hover:scale-110 transition-transform" />
                   </motion.a>
