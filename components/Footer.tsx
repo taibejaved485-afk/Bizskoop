@@ -54,7 +54,18 @@ const Footer: React.FC = () => {
 
       {/* Main Footer Content */}
       <div className="bg-[#051622] text-white pb-12 lg:pb-16 relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Background Image Overlay */}
+        <div 
+          className="absolute inset-0 opacity-30 pointer-events-none select-none"
+          style={{ 
+            backgroundImage: `url("https://i.pinimg.com/736x/47/9d/68/479d684a4749f39776cca09afefca6b5.jpg")`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+        ></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 py-16 border-b border-white/5">
             
             {/* Column 1: Newsletter */}
