@@ -60,7 +60,7 @@ const Footer: React.FC = () => {
           style={{ 
             backgroundImage: `url("https://i.pinimg.com/736x/47/9d/68/479d684a4749f39776cca09afefca6b5.jpg")`,
             backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundPosition: 'top',
             backgroundRepeat: 'no-repeat'
           }}
         ></div>
