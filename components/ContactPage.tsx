@@ -1,7 +1,90 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 
 const ContactPage: React.FC = () => {
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    companyName: '',
+    phoneNumber: '',
+    service: '',
+    message: ''
+  });
+
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const validateForm = () => {
+    const newErrors: { [key: string]: string } = {};
+
+    if (!formData.fullName.trim()) {
+      newErrors.fullName = 'Full name is required';
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Invalid email format';
+    }
+
+    if (!formData.phoneNumber.trim()) {
+      newErrors.phoneNumber = 'Phone number is required';
+    } else if (!/^\+?[\d\s-]{7,15}$/.test(formData.phoneNumber)) {
+      newErrors.phoneNumber = 'Invalid phone number format';
+    }
+
+    if (!formData.service) {
+      newErrors.service = 'Please select a service';
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = 'Inquiry details are required';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitStatus('idle');
+
+    if (validateForm()) {
+      setIsSubmitting(true);
+      try {
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        setSubmitStatus('success');
+        setFormData({
+          fullName: '',
+          email: '',
+          companyName: '',
+          phoneNumber: '',
+          service: '',
+          message: ''
+        });
+      } catch (error) {
+        setSubmitStatus('error');
+      } finally {
+        setIsSubmitting(false);
+      }
+    }
+  };
+
   return (
     <div className="bg-white min-h-screen">
       {/* 1. Hero Section with Background Image */}
@@ -104,32 +187,79 @@ const ContactPage: React.FC = () => {
               <div className="absolute -top-10 -right-10 w-32 h-32 bg-gold/10 rounded-full blur-3xl -z-10"></div>
               <h3 className="text-2xl sm:text-3xl font-black text-royal-blue mb-6 sm:mb-8 uppercase tracking-tight">Executive Inquiry Form</h3>
               
-              <form className="space-y-4 sm:space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                {submitStatus === 'success' && (
+                  <div className="p-4 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-xl text-sm font-bold animate-fadeIn">
+                    Thank you! Your inquiry has been sent successfully. We will contact you shortly.
+                  </div>
+                )}
+                {submitStatus === 'error' && (
+                  <div className="p-4 bg-rose-50 border border-rose-200 text-rose-700 rounded-xl text-sm font-bold animate-fadeIn">
+                    Oops! Something went wrong. Please try again later.
+                  </div>
+                )}
+
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                   <div>
                     <label className="block text-[8px] sm:text-[10px] font-black text-royal-blue uppercase tracking-widest mb-2">Full Name</label>
-                    <input type="text" placeholder="e.g. Alexander Graham" className="w-full px-6 py-3 sm:py-4 bg-slate-50 border border-slate-100 rounded-xl focus:border-gold outline-none font-medium transition-all text-sm" />
+                    <input 
+                      type="text" 
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleChange}
+                      placeholder="e.g. Alexander Graham" 
+                      className={`w-full px-6 py-3 sm:py-4 bg-slate-50 border ${errors.fullName ? 'border-rose-500' : 'border-slate-100'} rounded-xl focus:border-gold outline-none font-medium transition-all text-sm`} 
+                    />
+                    {errors.fullName && <p className="text-rose-500 text-[10px] mt-1 font-bold">{errors.fullName}</p>}
                   </div>
                   <div>
                     <label className="block text-[8px] sm:text-[10px] font-black text-royal-blue uppercase tracking-widest mb-2">Professional Email</label>
-                    <input type="email" placeholder="name@company.com" className="w-full px-6 py-3 sm:py-4 bg-slate-50 border border-slate-100 rounded-xl focus:border-gold outline-none font-medium transition-all text-sm" />
+                    <input 
+                      type="email" 
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="name@company.com" 
+                      className={`w-full px-6 py-3 sm:py-4 bg-slate-50 border ${errors.email ? 'border-rose-500' : 'border-slate-100'} rounded-xl focus:border-gold outline-none font-medium transition-all text-sm`} 
+                    />
+                    {errors.email && <p className="text-rose-500 text-[10px] mt-1 font-bold">{errors.email}</p>}
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                   <div>
                     <label className="block text-[8px] sm:text-[10px] font-black text-royal-blue uppercase tracking-widest mb-2">Company Name</label>
-                    <input type="text" placeholder="Entity Name" className="w-full px-6 py-3 sm:py-4 bg-slate-50 border border-slate-100 rounded-xl focus:border-gold outline-none font-medium transition-all text-sm" />
+                    <input 
+                      type="text" 
+                      name="companyName"
+                      value={formData.companyName}
+                      onChange={handleChange}
+                      placeholder="Entity Name" 
+                      className="w-full px-6 py-3 sm:py-4 bg-slate-50 border border-slate-100 rounded-xl focus:border-gold outline-none font-medium transition-all text-sm" 
+                    />
                   </div>
                   <div>
                     <label className="block text-[8px] sm:text-[10px] font-black text-royal-blue uppercase tracking-widest mb-2">Phone Number</label>
-                    <input type="tel" placeholder="+60 12..." className="w-full px-6 py-3 sm:py-4 bg-slate-50 border border-slate-100 rounded-xl focus:border-gold outline-none font-medium transition-all text-sm" />
+                    <input 
+                      type="tel" 
+                      name="phoneNumber"
+                      value={formData.phoneNumber}
+                      onChange={handleChange}
+                      placeholder="+60 12..." 
+                      className={`w-full px-6 py-3 sm:py-4 bg-slate-50 border ${errors.phoneNumber ? 'border-rose-500' : 'border-slate-100'} rounded-xl focus:border-gold outline-none font-medium transition-all text-sm`} 
+                    />
+                    {errors.phoneNumber && <p className="text-rose-500 text-[10px] mt-1 font-bold">{errors.phoneNumber}</p>}
                   </div>
                 </div>
 
                 <div>
                   <label className="block text-[8px] sm:text-[10px] font-black text-royal-blue uppercase tracking-widest mb-2">Service of Interest</label>
-                  <select className="w-full px-6 py-3 sm:py-4 bg-slate-50 border border-slate-100 rounded-xl focus:border-gold outline-none font-medium text-slate-500 appearance-none transition-all text-sm">
+                  <select 
+                    name="service"
+                    value={formData.service}
+                    onChange={handleChange}
+                    className={`w-full px-6 py-3 sm:py-4 bg-slate-50 border ${errors.service ? 'border-rose-500' : 'border-slate-100'} rounded-xl focus:border-gold outline-none font-medium text-slate-500 appearance-none transition-all text-sm`}
+                  >
                     <option value="">Select a Primary Service</option>
                     <option value="incorporation">Sdn Bhd Incorporation</option>
                     <option value="secretarial">Company Secretarial</option>
@@ -139,16 +269,28 @@ const ContactPage: React.FC = () => {
                     <option value="licensing">Business Licensing</option>
                     <option value="m&a">Buy & Sell Business</option>
                   </select>
+                  {errors.service && <p className="text-rose-500 text-[10px] mt-1 font-bold">{errors.service}</p>}
                 </div>
 
                 <div>
                   <label className="block text-[8px] sm:text-[10px] font-black text-royal-blue uppercase tracking-widest mb-2">Detailed Inquiry</label>
-                  <textarea placeholder="Describe your business goals or compliance requirements..." className="w-full h-32 px-6 py-3 sm:py-4 bg-slate-50 border border-slate-100 rounded-xl focus:border-gold outline-none font-medium resize-none transition-all text-sm"></textarea>
+                  <textarea 
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Describe your business goals or compliance requirements..." 
+                    className={`w-full h-32 px-6 py-3 sm:py-4 bg-slate-50 border ${errors.message ? 'border-rose-500' : 'border-slate-100'} rounded-xl focus:border-gold outline-none font-medium resize-none transition-all text-sm`}
+                  ></textarea>
+                  {errors.message && <p className="text-rose-500 text-[10px] mt-1 font-bold">{errors.message}</p>}
                 </div>
 
-                <button type="submit" className="w-full py-4 sm:py-5 bg-navy-dark text-gold font-black rounded-xl hover:bg-black transition shadow-xl uppercase tracking-widest text-[10px] sm:text-sm flex items-center justify-center gap-3">
-                  Send Professional Inquiry
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                <button 
+                  type="submit" 
+                  disabled={isSubmitting}
+                  className={`w-full py-4 sm:py-5 bg-navy-dark text-gold font-black rounded-xl hover:bg-black transition shadow-xl uppercase tracking-widest text-[10px] sm:text-sm flex items-center justify-center gap-3 ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                >
+                  {isSubmitting ? 'Processing...' : 'Send Professional Inquiry'}
+                  {!isSubmitting && <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>}
                 </button>
                 <p className="text-[8px] sm:text-[10px] text-center text-slate-400 font-bold uppercase tracking-widest">Typical response time: Under 2 business hours</p>
               </form>
