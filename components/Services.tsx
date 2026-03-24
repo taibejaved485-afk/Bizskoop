@@ -1,7 +1,7 @@
 
 import React from 'react';
 import TypingText from './TypingText.tsx';
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import { Building2, Globe2, FileText, ArrowRight } from 'lucide-react';
 
 const ServiceCard: React.FC<{
@@ -15,8 +15,8 @@ const ServiceCard: React.FC<{
 
   return (
     <motion.div 
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, scale: 0.9 }}
+      whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8, delay: index * 0.1, ease: [0.21, 1.11, 0.81, 0.99] }}
       className="group relative p-[1px] rounded-[42px] overflow-hidden transition-all duration-700 hover:-translate-y-2"
@@ -93,6 +93,9 @@ const ServiceCard: React.FC<{
 };
 
 const Services: React.FC = () => {
+  const { scrollY } = useScroll();
+  const yHero = useTransform(scrollY, [0, 500], [0, 150]);
+
   const mainServices = [
     {
       title: "Sdn Bhd Formation",
@@ -117,20 +120,57 @@ const Services: React.FC = () => {
   return (
     <section id="services" className="py-24 lg:py-40 bg-white relative overflow-hidden">
       {/* Background decoration */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-royal-blue opacity-[0.02] rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
+      <motion.div 
+        style={{ y: yHero }}
+        className="absolute top-0 right-0 w-96 h-96 bg-royal-blue opacity-[0.02] rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"
+      ></motion.div>
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mb-16 lg:mb-24 text-center lg:text-left">
-          <span className="text-gold font-black text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.5em] block mb-4">Core Strategic Units</span>
-          <h2 className="text-4xl sm:text-5xl lg:text-7xl font-black text-royal-blue leading-[1.05] tracking-tighter uppercase mb-8">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.2
+              }
+            }
+          }}
+          className="max-w-4xl mb-16 lg:mb-24 text-center lg:text-left"
+        >
+          <motion.span 
+            variants={{
+              hidden: { opacity: 0, x: -20 },
+              visible: { opacity: 1, x: 0 }
+            }}
+            className="text-gold font-black text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.5em] block mb-4"
+          >
+            Core Strategic Units
+          </motion.span>
+          <motion.h2 
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0 }
+            }}
+            className="text-4xl sm:text-5xl lg:text-7xl font-black text-royal-blue leading-[1.05] tracking-tighter uppercase mb-8"
+          >
             The Mandatory <br/>
             <span className="text-gold">Operational</span> <br/>
             Framework.
-          </h2>
-          <p className="text-slate-500 font-medium text-base sm:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
+          </motion.h2>
+          <motion.p 
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              visible: { opacity: 1, y: 0 }
+            }}
+            className="text-slate-500 font-medium text-base sm:text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0"
+          >
             We provide the end-to-end execution required to satisfy Malaysian authorities. Fast-track your market entry with our authorized units.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
           {mainServices.map((service, i) => (
