@@ -166,16 +166,16 @@ const AccountingBookkeeping: React.FC = () => {
   return (
     <div className="bg-white min-h-screen selection:bg-gold selection:text-navy-dark" ref={containerRef}>
       {/* 1. Hero Section */}
-      <section className="relative bg-[#051622] text-white py-24 sm:py-40 lg:py-56 overflow-hidden min-h-[90vh] flex items-center">
+      <section className="relative bg-[#051622] text-white py-20 sm:py-32 lg:py-40 overflow-hidden min-h-[70vh] flex items-center">
         {/* Parallax Background Image */}
         <motion.div 
           style={{ y: yHero, scale: scaleHero, opacity: opacityHero }}
           className="absolute inset-0 z-0"
         >
           <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-50"
             style={{ 
-              backgroundImage: "url('https://images.unsplash.com/photo-1454165833767-027ffea9e778?auto=format&fit=crop&q=80&w=2070')",
+              backgroundImage: "url('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=2072')",
             }}
           />
         </motion.div>
@@ -252,7 +252,7 @@ const AccountingBookkeeping: React.FC = () => {
                 hidden: { opacity: 0, y: 50, rotateX: -20 },
                 visible: { opacity: 1, y: 0, rotateX: 0 }
               }}
-              className="text-5xl sm:text-7xl lg:text-9xl font-black mb-8 leading-[0.9] tracking-tighter uppercase"
+              className="text-5xl sm:text-7xl lg:text-8xl font-black mb-8 leading-[0.9] tracking-tighter uppercase"
             >
               Strategic <br/>
               <span className="text-gold">Accounting</span> <br/>

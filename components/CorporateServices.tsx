@@ -53,14 +53,14 @@ const CorporateServices: React.FC = () => {
   return (
     <div className="bg-white min-h-screen font-sans selection:bg-gold/30">
       {/* 1. Hero Section (Navy & Gold) */}
-      <section className="relative bg-navy-dark text-white py-20 sm:py-32 overflow-hidden min-h-[90vh] flex items-center">
+      <section className="relative bg-navy-dark text-white py-20 sm:py-32 lg:py-40 overflow-hidden min-h-[70vh] flex items-center">
         <motion.div 
           style={{ y: yHero, opacity: opacityHero, scale: scaleHero }}
           className="absolute inset-0 z-0"
         >
           <img 
-            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=2070" 
-            className="w-full h-full object-cover opacity-40"
+            src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=2069" 
+            className="w-full h-full object-cover opacity-50"
             alt="Corporate Services Background"
             referrerPolicy="no-referrer"
           />
