@@ -36,8 +36,14 @@ const AboutPage: React.FC = () => {
   return (
     <div className="bg-white min-h-screen">
       {/* Hero Header for About Page */}
-      <section className="relative bg-[#051622] text-white py-20 sm:py-32 overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='1000' height='1000' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 100 Q 250 50 500 100 T 1000 100 M0 200 Q 250 150 500 200 T 1000 200' stroke='white' fill='transparent' stroke-width='2'/%3E%3C/svg%3E")`, backgroundSize: 'cover' }}></div>
+      <section 
+        className="relative bg-[#051622] text-white py-20 sm:py-32 overflow-hidden bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('https://i.pinimg.com/1200x/b0/97/fd/b097fd4721f2d2e3ac4fc665d328cc00.jpg')" }}
+      >
+        {/* Dark Overlay for readability */}
+        <div className="absolute inset-0 bg-[#051622]/80 z-0"></div>
+        
+        <div className="absolute inset-0 opacity-[0.05] pointer-events-none z-0" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='1000' height='1000' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 100 Q 250 50 500 100 T 1000 100 M0 200 Q 250 150 500 200 T 1000 200' stroke='white' fill='transparent' stroke-width='2'/%3E%3C/svg%3E")`, backgroundSize: 'cover' }}></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
           <motion.span 
             initial={{ opacity: 0, y: 20 }}

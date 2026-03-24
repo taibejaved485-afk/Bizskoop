@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Phone, Mail, Facebook, Twitter, Linkedin, Youtube, Clock, Globe, Search, X, Loader2 } from 'lucide-react';
+import { Phone, Mail, Facebook, Twitter, Linkedin, Youtube, Clock, Globe, Search, X, Loader2, Star, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 interface HeaderProps {
@@ -44,14 +44,14 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
   }, []);
 
   const serviceItems = [
-    { label: "Company Secretarial 🏢", id: "company-secretarial" },
-    { label: "Accounting & Bookkeeping 📊", id: "accounting" },
-    { label: "Tax Compliance Services 📑", id: "tax" },
-    { label: "Business Licensing Services 📜", id: "licensing" },
-    { label: "Local Council Licensing 🏛️", id: "local-licensing" },
-    { label: "Corporate Services 🤝", id: "corporate" },
-    { label: "Expatriate & Immigration Support 🛂", id: "visa" },
-    { label: "Buy & Sell Business 🔄", id: "buy-sell" },
+    { label: "Company Secretarial", id: "company-secretarial", desc: "SSM Compliance & Governance" },
+    { label: "Accounting & Bookkeeping", id: "accounting", desc: "Financial Reporting & Audit" },
+    { label: "Tax Compliance Services", id: "tax", desc: "LHDN Filing & Strategy" },
+    { label: "Business Licensing Services", id: "licensing", desc: "Trade & Professional Permits" },
+    { label: "Local Council Licensing", id: "local-licensing", desc: "PBT & DBKL Approvals" },
+    { label: "Corporate Services", id: "corporate", desc: "Strategic Advisory & Setup" },
+    { label: "Expatriate & Immigration", id: "visa", desc: "Employment Pass & Visas" },
+    { label: "Buy & Sell Business", id: "buy-sell", desc: "M&A and Business Valuation" },
   ];
 
   return (
@@ -172,23 +172,74 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
                   <svg className={`w-3.5 h-3.5 transition-transform duration-300 ${isServicesOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7"/></svg>
                 </button>
                 
-                <div className={`absolute top-full left-1/2 -translate-x-1/2 pt-1 transition-all duration-300 ${isServicesOpen ? 'opacity-100 translate-y-0 visible' : 'opacity-0 -translate-y-2 invisible'}`}>
-                  <ul className="bg-white border border-slate-100 rounded-xl shadow-2xl overflow-hidden min-w-[300px] py-2 list-none">
-                    {serviceItems.map((item, index) => (
-                      <li key={index}>
-                        <button 
-                          onClick={() => {
-                            onNavigate(item.id);
-                            setIsServicesOpen(false);
-                          }}
-                          className={`w-full text-left block px-6 py-4 text-[13px] font-bold hover:bg-slate-50 hover:text-gold transition-all duration-200 border-b border-slate-50 last:border-0 uppercase tracking-wide whitespace-nowrap ${currentPage === item.id ? 'text-gold bg-slate-50' : 'text-royal-blue'}`}
-                        >
-                          {item.label}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <AnimatePresence>
+                  {isServicesOpen && (
+                    <div className="absolute left-1/2 -translate-x-1/2 top-full pt-4 w-[1000px] z-50">
+                      <motion.div 
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        transition={{ duration: 0.2, ease: "easeOut" }}
+                        className="bg-white rounded-[40px] shadow-2xl border-4 border-white overflow-hidden grid grid-cols-12"
+                      >
+                        {/* Left Panel: Featured / Promo */}
+                        <div className="col-span-4 bg-royal-blue p-10 text-white relative overflow-hidden group/dropdown-hero">
+                          <div className="absolute inset-0 z-0">
+                            <img 
+                              src="https://i.pinimg.com/1200x/b0/97/fd/b097fd4721f2d2e3ac4fc665d328cc00.jpg" 
+                              className="w-full h-full object-cover opacity-20 group-hover/dropdown-hero:scale-110 transition-transform duration-700"
+                              alt="Dropdown Background"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-br from-royal-blue via-royal-blue/80 to-transparent"></div>
+                          </div>
+                          <div className="relative z-10">
+                            <div className="w-12 h-12 bg-gold rounded-2xl flex items-center justify-center text-royal-blue mb-6 shadow-lg group-hover/dropdown-hero:rotate-12 transition-transform">
+                              <Star className="w-6 h-6 fill-current" />
+                            </div>
+                            <h3 className="text-2xl font-black mb-4 uppercase tracking-tight text-white">Premium Launch Package</h3>
+                            <p className="text-blue-100 text-sm mb-8 leading-relaxed font-bold">Everything you need to start your Malaysia business in one flat fee. Zero bureaucracy, 100% success rate.</p>
+                            <button 
+                              onClick={() => {
+                                onNavigate('contact');
+                                setIsServicesOpen(false);
+                              }}
+                              className="px-8 py-4 bg-white text-royal-blue font-black rounded-xl hover:bg-gold transition-all shadow-xl uppercase tracking-widest text-[10px]"
+                            >
+                              Get Started Now
+                            </button>
+                          </div>
+                        </div>
+                        
+                        {/* Right Panel: Services Grid */}
+                        <div className="col-span-8 p-10 bg-slate-50/50">
+                          <div className="grid grid-cols-2 gap-x-10 gap-y-8">
+                            {serviceItems.map((item, idx) => (
+                              <motion.button
+                                key={item.id}
+                                initial={{ opacity: 0, x: -10 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: idx * 0.05 }}
+                                onClick={() => {
+                                  onNavigate(item.id);
+                                  setIsServicesOpen(false);
+                                }}
+                                className="flex items-start gap-5 group/item text-left p-2 rounded-2xl hover:bg-white hover:shadow-xl hover:shadow-royal-blue/5 transition-all duration-300"
+                              >
+                                <div className="w-12 h-12 rounded-xl bg-white shadow-sm border border-slate-100 flex items-center justify-center text-royal-blue group-hover/item:bg-royal-blue group-hover/item:text-white group-hover/item:scale-110 transition-all duration-300">
+                                  <Star className="w-6 h-6" strokeWidth={2.5} />
+                                </div>
+                                <div>
+                                  <p className="font-black text-slate-900 text-sm uppercase tracking-tight group-hover/item:text-royal-blue transition-colors">{item.label}</p>
+                                  <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mt-1 group-hover/item:text-slate-700 transition-colors">{item.desc}</p>
+                                </div>
+                              </motion.button>
+                            ))}
+                          </div>
+                        </div>
+                      </motion.div>
+                    </div>
+                  )}
+                </AnimatePresence>
               </div>
               
               <button 
