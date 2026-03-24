@@ -2,13 +2,19 @@ import React from 'react';
 import AnimatedCounter from './AnimatedCounter.tsx';
 import TypingText from './TypingText.tsx';
 import Airplane from './Airplane.tsx';
-import { motion } from 'motion/react';
+import { motion, useScroll, useTransform } from 'motion/react';
 
 const Hero: React.FC = () => {
+  const { scrollY } = useScroll();
+  const y1 = useTransform(scrollY, [0, 500], [0, 200]);
+  const y2 = useTransform(scrollY, [0, 500], [0, -150]);
+  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+
   return (
-    <div className="relative pt-20 pb-32 overflow-hidden min-h-[85vh] flex items-center">
-      {/* 1. Background Image Layer with Sophisticated Overlay */}
+    <div className="relative pt-20 pb-32 overflow-hidden min-h-[90vh] flex items-center">
+      {/* 1. Background Image Layer with Parallax */}
       <motion.div 
+        style={{ y: y1 }}
         initial={{ scale: 1.1, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ duration: 1.5, ease: "easeOut" }}
@@ -24,6 +30,36 @@ const Hero: React.FC = () => {
         <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white to-transparent"></div>
       </motion.div>
       
+      {/* Floating Decorative Elements */}
+      <div className="absolute inset-0 z-1 pointer-events-none overflow-hidden">
+        <motion.div 
+          animate={{ 
+            y: [0, -40, 0],
+            x: [0, 20, 0],
+            rotate: [0, 10, 0]
+          }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/4 right-[10%] w-32 h-32 border-2 border-royal-blue/10 rounded-full"
+        />
+        <motion.div 
+          animate={{ 
+            y: [0, 50, 0],
+            x: [0, -30, 0],
+            rotate: [0, -15, 0]
+          }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+          className="absolute bottom-1/4 left-[5%] w-48 h-48 border border-gold/20 rounded-[40px]"
+        />
+        <motion.div 
+          animate={{ 
+            scale: [1, 1.2, 1],
+            opacity: [0.1, 0.2, 0.1]
+          }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/3 left-1/4 w-64 h-64 bg-royal-blue/5 rounded-full blur-[80px]"
+        />
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <motion.div 
@@ -41,58 +77,91 @@ const Hero: React.FC = () => {
               Fast-Track Approval Specialists
             </motion.div>
             
-            <motion.h1 
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-              className="text-5xl lg:text-7xl font-black text-slate-900 mb-8 leading-[1.1] tracking-tight"
-            >
-              Launch Your <br/>
-              <span className="text-royal-blue">Malaysia Business</span> <br/>
-              with Zero Friction.
-            </motion.h1>
+            <div className="overflow-hidden">
+              <motion.h1 
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: {
+                      staggerChildren: 0.1,
+                      delayChildren: 0.4
+                    }
+                  }
+                }}
+                className="text-5xl lg:text-7xl font-black text-slate-900 mb-8 leading-[1.1] tracking-tight"
+              >
+                {["Launch", "Your", "Malaysia", "Business"].map((word, i) => (
+                  <motion.span 
+                    key={i}
+                    variants={{
+                      hidden: { opacity: 0, y: 50 },
+                      visible: { opacity: 1, y: 0 }
+                    }}
+                    className={`inline-block mr-4 ${word === "Malaysia" || word === "Business" ? "text-royal-blue" : ""}`}
+                  >
+                    {word}
+                  </motion.span>
+                ))}
+                <motion.span 
+                  variants={{
+                    hidden: { opacity: 0, y: 50 },
+                    visible: { opacity: 1, y: 0 }
+                  }}
+                  className="block"
+                >
+                  with Zero Friction.
+                </motion.span>
+              </motion.h1>
+            </div>
             
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
+              transition={{ delay: 1.2 }}
               className="text-xl text-slate-800 mb-12 leading-relaxed max-w-xl font-bold bg-white/30 backdrop-blur-[2px] rounded-lg p-2 min-h-[5rem]"
             >
               <TypingText 
                 text="From Company Incorporation to Employment Passes. We bypass the bureaucracy. 100% Compliant. No Hidden Fees. Fast Results."
                 speed={25}
-                delay={800}
+                delay={1500}
               />
             </motion.div>
             
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8 }}
+              transition={{ delay: 1.8 }}
               className="flex flex-col sm:flex-row items-center gap-5"
             >
-              <a 
+              <motion.a 
+                whileHover={{ scale: 1.05, y: -5 }}
+                whileTap={{ scale: 0.95 }}
                 href="#wizard" 
-                className="liquid-box w-full sm:w-auto px-10 py-5 bg-action-red text-white font-black rounded-2xl transition-all shadow-2xl shadow-red-600/20 transform hover:-translate-y-1 text-center uppercase tracking-widest group"
+                className="liquid-box w-full sm:w-auto px-10 py-5 bg-action-red text-white font-black rounded-2xl transition-all shadow-2xl shadow-red-600/20 text-center uppercase tracking-widest group"
                 style={{ '--fill-color': '#990000' } as React.CSSProperties}
               >
                 <div className="liquid-wave"></div>
-                <span>Start My Business Wizard</span>
-              </a>
-              <a 
+                <span className="relative z-10">Start My Business Wizard</span>
+              </motion.a>
+              <motion.a 
+                whileHover={{ scale: 1.05, y: -5 }}
+                whileTap={{ scale: 0.95 }}
                 href="#visa" 
                 className="liquid-box w-full sm:w-auto px-10 py-5 bg-white/90 backdrop-blur-md text-royal-blue font-black rounded-2xl border-2 border-[#003366] transition-all text-center uppercase tracking-widest hover:text-white group"
                 style={{ '--fill-color': '#003366' } as React.CSSProperties}
               >
                 <div className="liquid-wave"></div>
-                <span>Check Visa Status</span>
-              </a>
+                <span className="relative z-10">Check Visa Status</span>
+              </motion.a>
             </motion.div>
 
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ delay: 1, duration: 1 }}
+              transition={{ delay: 2.2, duration: 1 }}
               className="mt-16 flex items-center gap-10 opacity-100"
             >
               <div className="flex flex-col">
@@ -119,9 +188,10 @@ const Hero: React.FC = () => {
           </motion.div>
           
           <motion.div 
+            style={{ y: y2 }}
             initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ duration: 1, ease: "backOut", delay: 0.5 }}
+            transition={{ duration: 1, ease: "backOut", delay: 0.8 }}
             className="relative group"
           >
             <div className="absolute inset-0 bg-royal-blue/10 rounded-[40px] -rotate-3 scale-105 group-hover:rotate-0 transition-transform duration-500"></div>
@@ -169,7 +239,7 @@ const Hero: React.FC = () => {
             <motion.div 
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2, duration: 0.8 }}
+              transition={{ delay: 1.5, duration: 0.8 }}
               className="absolute -bottom-10 -left-10 p-[2px] rounded-[32px] z-20 overflow-hidden group/card transform hover:scale-105 hover:-rotate-1 transition-all duration-500 shadow-2xl max-w-xs"
             >
               {/* Rotating Glow Layer - Only visible on hover */}
@@ -191,5 +261,6 @@ const Hero: React.FC = () => {
     </div>
   );
 };
+
 
 export default Hero;

@@ -37,42 +37,87 @@ const AboutPage: React.FC = () => {
     <div className="bg-white min-h-screen">
       {/* Hero Header for About Page */}
       <section 
-        className="relative bg-[#051622] text-white py-20 sm:py-32 overflow-hidden bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('https://i.pinimg.com/1200x/b0/97/fd/b097fd4721f2d2e3ac4fc665d328cc00.jpg')" }}
+        className="relative bg-[#051622] text-white py-24 sm:py-40 overflow-hidden"
       >
-        {/* Dark Overlay for readability */}
-        <div className="absolute inset-0 bg-[#051622]/80 z-0"></div>
+        {/* Parallax Background Image */}
+        <motion.div 
+          initial={{ scale: 1.1, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
+          style={{ 
+            backgroundImage: "url('https://i.pinimg.com/1200x/b0/97/fd/b097fd4721f2d2e3ac4fc665d328cc00.jpg')",
+          }}
+        />
         
-        <div className="absolute inset-0 opacity-[0.05] pointer-events-none z-0" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='1000' height='1000' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 100 Q 250 50 500 100 T 1000 100 M0 200 Q 250 150 500 200 T 1000 200' stroke='white' fill='transparent' stroke-width='2'/%3E%3C/svg%3E")`, backgroundSize: 'cover' }}></div>
+        {/* Dark Overlay for readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#051622]/90 via-[#051622]/70 to-[#051622]/90 z-1"></div>
+        
+        {/* Floating Elements */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-2">
+          <motion.div 
+            animate={{ 
+              y: [0, -20, 0],
+              rotate: [0, 5, 0]
+            }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-20 left-[10%] w-32 h-32 bg-accent-yellow/10 rounded-full blur-3xl"
+          />
+          <motion.div 
+            animate={{ 
+              y: [0, 30, 0],
+              x: [0, 20, 0]
+            }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            className="absolute bottom-20 right-[15%] w-48 h-48 bg-royal-blue/10 rounded-full blur-3xl"
+          />
+        </div>
+
+        <div className="absolute inset-0 opacity-[0.05] pointer-events-none z-2" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='1000' height='1000' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 100 Q 250 50 500 100 T 1000 100 M0 200 Q 250 150 500 200 T 1000 200' stroke='white' fill='transparent' stroke-width='2'/%3E%3C/svg%3E")`, backgroundSize: 'cover' }}></div>
+        
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <motion.span 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-accent-yellow font-black text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.5em] block mb-6"
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: { opacity: 0 },
+              visible: {
+                opacity: 1,
+                transition: {
+                  staggerChildren: 0.2
+                }
+              }
+            }}
           >
-            The BizFlow Narrative
-          </motion.span>
-          <motion.h1 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-3xl sm:text-5xl lg:text-7xl font-black mb-6 sm:mb-8 leading-tight tracking-tighter uppercase"
-          >
-            Pioneering Your <br/>
-            <span className="text-accent-yellow">Malaysia Success</span>
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="text-base sm:text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed font-medium"
-          >
-            We aren't just consultants. We are your strategic execution partners, bridging the gap between global ambition and local compliance.
-          </motion.p>
+            <motion.span 
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0 }
+              }}
+              className="text-accent-yellow font-black text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.5em] block mb-6 px-4 py-1 border border-accent-yellow/30 rounded-full w-fit mx-auto backdrop-blur-sm"
+            >
+              The BizFlow Narrative
+            </motion.span>
+            <motion.h1 
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0 }
+              }}
+              className="text-4xl sm:text-6xl lg:text-8xl font-black mb-6 sm:mb-8 leading-tight tracking-tighter uppercase"
+            >
+              Pioneering Your <br/>
+              <span className="text-accent-yellow inline-block hover:scale-105 transition-transform cursor-default">Malaysia Success</span>
+            </motion.h1>
+            <motion.p 
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0 }
+              }}
+              className="text-base sm:text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed font-medium"
+            >
+              We aren't just consultants. We are your strategic execution partners, bridging the gap between global ambition and local compliance.
+            </motion.p>
+          </motion.div>
         </div>
       </section>
 
@@ -85,7 +130,13 @@ const AboutPage: React.FC = () => {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
             
             {/* Left Side (Visuals) */}
-            <div className="relative animate-fadeIn">
+            <motion.div 
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="relative"
+            >
               {/* Main Image with Rotating Border */}
               <div className="group relative p-[4px] rounded-2xl overflow-hidden shadow-2xl z-10 transition-all duration-500">
                 {/* Rotating Glow Layer */}
@@ -101,7 +152,13 @@ const AboutPage: React.FC = () => {
               </div>
 
               {/* Secondary Image with Rotating Border */}
-              <div className="group absolute -bottom-10 -right-4 lg:-right-10 w-[55%] aspect-square p-[4px] rounded-2xl overflow-hidden shadow-2xl z-20 transition-all duration-500 hidden sm:block">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="group absolute -bottom-10 -right-4 lg:-right-10 w-[55%] aspect-square p-[4px] rounded-2xl overflow-hidden shadow-2xl z-20 transition-all duration-500 hidden sm:block"
+              >
                 {/* Rotating Glow Layer */}
                 <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
@@ -112,52 +169,118 @@ const AboutPage: React.FC = () => {
                     alt="Consultation" 
                   />
                 </div>
-              </div>
+              </motion.div>
               
-              <div className="absolute bottom-6 sm:bottom-10 left-[-10px] sm:left-[-20px] bg-[#051622] text-white p-6 sm:p-10 rounded-2xl shadow-2xl z-30">
+              <motion.div 
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="absolute bottom-6 sm:bottom-10 left-[-10px] sm:left-[-20px] bg-[#051622] text-white p-6 sm:p-10 rounded-2xl shadow-2xl z-30"
+              >
                 <p className="text-3xl sm:text-5xl font-black mb-1 leading-none">
                   <AnimatedCounter target="12+" duration={1500} />
                 </p>
                 <p className="text-[9px] sm:text-[11px] font-bold uppercase tracking-[0.2em] text-blue-200">Experiences</p>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
 
             {/* Right Side (Content) */}
-            <div className="space-y-8 lg:pl-10 text-center lg:text-left">
+            <motion.div 
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+              className="space-y-8 lg:pl-10 text-center lg:text-left"
+            >
               <div>
-                <span className="text-[#051622] font-black text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] block mb-4">Core Principles</span>
-                <h2 className="text-3xl sm:text-4xl lg:text-6xl font-black text-[#051622] leading-[1.1] mb-6 sm:mb-8 tracking-tighter uppercase">
+                <motion.span 
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5 }}
+                  className="text-[#051622] font-black text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] block mb-4"
+                >
+                  Core Principles
+                </motion.span>
+                <motion.h2 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  className="text-3xl sm:text-4xl lg:text-6xl font-black text-[#051622] leading-[1.1] mb-6 sm:mb-8 tracking-tighter uppercase"
+                >
                   We Execute Our <br className="hidden sm:block"/> Ideas From Start <br className="hidden sm:block"/> To Finish
-                </h2>
-                <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-medium mb-6">
+                </motion.h2>
+                <motion.p 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                  className="text-slate-600 text-base sm:text-lg leading-relaxed font-medium mb-6"
+                >
                   BizFlow was founded on the principle that business incorporation should be a catalyst for growth, not a bureaucratic hurdle. In the dynamic Malaysian landscape, speed and compliance are the twin engines of success.
-                </p>
-                <p className="text-slate-600 text-base sm:text-lg leading-relaxed font-medium">
+                </motion.p>
+                <motion.p 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                  className="text-slate-600 text-base sm:text-lg leading-relaxed font-medium"
+                >
                   Our team of licensed company secretaries, chartered accountants, and immigration specialists work in synergy to provide a 360-degree support ecosystem for foreign founders.
-                </p>
+                </motion.p>
               </div>
 
               {/* Feature List */}
-              <div className="space-y-4">
+              <motion.div 
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={{
+                  hidden: { opacity: 0 },
+                  visible: {
+                    opacity: 1,
+                    transition: {
+                      staggerChildren: 0.1,
+                      delayChildren: 0.5
+                    }
+                  }
+                }}
+                className="space-y-4"
+              >
                 {[
                   "End-to-End Execution",
                   "Clear Client Guidance",
                   "Strategic & Compliant Planning"
                 ].map((feature, idx) => (
-                  <div key={idx} className="flex items-center gap-5 group cursor-default">
+                  <motion.div 
+                    key={idx} 
+                    variants={{
+                      hidden: { opacity: 0, x: 20 },
+                      visible: { opacity: 1, x: 0 }
+                    }}
+                    className="flex items-center gap-5 group cursor-default"
+                  >
                     <div className="w-8 h-8 rounded-full border-2 border-[#051622]/10 flex items-center justify-center text-[#051622] bg-slate-50 group-hover:bg-[#051622] group-hover:text-white group-hover:border-[#051622] transition-all duration-300 shadow-sm group-hover:shadow-md group-hover:scale-110">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                       </svg>
                     </div>
                     <span className="font-bold text-[#051622] text-sm uppercase tracking-widest group-hover:text-royal-blue transition-colors duration-300">{feature}</span>
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
 
               {/* Stats Card */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-8 pt-6">
-                <div className="flex items-center gap-5 bg-[#051622] p-5 pr-10 rounded-xl text-white shadow-2xl border-l-4 border-[#E91E63]">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                className="flex flex-col sm:flex-row items-stretch sm:items-center gap-8 pt-6"
+              >
+                <div className="flex items-center gap-5 bg-[#051622] p-5 pr-10 rounded-xl text-white shadow-2xl border-l-4 border-[#E91E63] hover:scale-105 transition-transform duration-300">
                   <div className="w-14 h-14 rounded-lg bg-white/5 flex items-center justify-center">
                     <svg className="w-7 h-7 text-accent-yellow" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
@@ -171,8 +294,8 @@ const AboutPage: React.FC = () => {
                     <p className="text-[10px] font-bold text-blue-200 uppercase tracking-widest">Successful Cases</p>
                   </div>
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -185,7 +308,21 @@ const AboutPage: React.FC = () => {
             <h2 className="text-3xl sm:text-4xl lg:text-6xl font-black text-royal-blue uppercase tracking-tight">Our Basic Work Process</h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={{
+              hidden: { opacity: 0 },
+              visible: {
+                opacity: 1,
+                transition: {
+                  staggerChildren: 0.2
+                }
+              }
+            }}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16"
+          >
             {[
               {
                 title: "Understand Your Requirements",
@@ -216,7 +353,14 @@ const AboutPage: React.FC = () => {
                 )
               }
             ].map((item, i) => (
-              <div key={i} className="group relative p-[2px] rounded-[26px] overflow-hidden transition-all duration-500 hover:-translate-y-2">
+              <motion.div 
+                key={i} 
+                variants={{
+                  hidden: { opacity: 0, y: 30 },
+                  visible: { opacity: 1, y: 0 }
+                }}
+                className="group relative p-[2px] rounded-[26px] overflow-hidden transition-all duration-500 hover:-translate-y-2"
+              >
                 {/* Rotating Glow Layer */}
                 <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
@@ -227,9 +371,9 @@ const AboutPage: React.FC = () => {
                   <h3 className="text-xl font-black text-royal-blue mb-4 leading-snug uppercase tracking-tight group-hover:text-gold transition-colors">{item.title}</h3>
                   <p className="text-slate-500 font-medium text-sm leading-relaxed group-hover:text-slate-700 transition-colors">{item.desc}</p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
 
           {/* Trust Bar */}
           <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 lg:p-10 flex flex-col lg:flex-row items-center justify-between gap-8 border border-slate-100">
@@ -269,7 +413,21 @@ const AboutPage: React.FC = () => {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-10">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={{
+              hidden: { opacity: 0 },
+              visible: {
+                opacity: 1,
+                transition: {
+                  staggerChildren: 0.2
+                }
+              }
+            }}
+            className="grid md:grid-cols-3 gap-10"
+          >
             {[
               { 
                 title: "Transparency", 
@@ -293,7 +451,14 @@ const AboutPage: React.FC = () => {
                 )
               }
             ].map((v, i) => (
-              <div key={i} className="group relative p-[2px] rounded-[42px] overflow-hidden transition-all duration-500 hover:-translate-y-3">
+              <motion.div 
+                key={i} 
+                variants={{
+                  hidden: { opacity: 0, scale: 0.9 },
+                  visible: { opacity: 1, scale: 1 }
+                }}
+                className="group relative p-[2px] rounded-[42px] overflow-hidden transition-all duration-500 hover:-translate-y-3"
+              >
                 {/* Rotating Glow Layer */}
                 <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
@@ -318,9 +483,9 @@ const AboutPage: React.FC = () => {
                   {/* Bottom Border Accent */}
                   <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-1 bg-gold group-hover:w-1/2 transition-all duration-500 rounded-full"></div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -338,10 +503,28 @@ const AboutPage: React.FC = () => {
             <div className="w-16 h-1.5 bg-gold mx-auto mt-6 rounded-full"></div>
           </div>
 
-          <div className="space-y-4">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={{
+              hidden: { opacity: 0 },
+              visible: {
+                opacity: 1,
+                transition: {
+                  staggerChildren: 0.1
+                }
+              }
+            }}
+            className="space-y-4"
+          >
             {faqs.map((faq, index) => (
-              <div 
+              <motion.div 
                 key={index} 
+                variants={{
+                  hidden: { opacity: 0, x: -20 },
+                  visible: { opacity: 1, x: 0 }
+                }}
                 className={`border-2 rounded-[20px] sm:rounded-[24px] transition-all duration-300 ${activeFaq === index ? 'border-gold bg-white shadow-2xl' : 'border-slate-200 bg-white/50 hover:bg-white hover:border-slate-300'}`}
               >
                 <button 
@@ -366,9 +549,9 @@ const AboutPage: React.FC = () => {
                     </p>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
           
           <div className="mt-16 sm:mt-20 text-center">
             <div className="inline-block p-1 rounded-full bg-slate-100 mb-8">
