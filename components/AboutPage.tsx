@@ -431,7 +431,7 @@ const AboutPage: React.FC = () => {
                   <div className="w-24 h-24 rounded-[24px] bg-navy-dark text-white flex items-center justify-center mb-10 shadow-xl group-hover:bg-royal-blue group-hover:scale-110 group-hover:rotate-[15deg] transition-all duration-500">
                     {item.icon}
                   </div>
-                  <h3 className="text-2xl font-black text-royal-blue mb-6 leading-snug uppercase tracking-tight group-hover:text-gold transition-colors">{item.title}</h3>
+                  <h3 className="text-lg sm:text-xl lg:text-2xl font-black text-royal-blue mb-6 leading-snug uppercase tracking-tight group-hover:text-gold transition-colors">{item.title}</h3>
                   <p className="text-slate-500 font-medium text-base leading-relaxed group-hover:text-slate-700 transition-colors">{item.desc}</p>
                   
                   {/* Step Number Badge */}

@@ -577,7 +577,7 @@ const CompanySecretarial: React.FC = () => {
                 {/* Rotating Glow Layer */}
                 <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
-                <div className="relative h-full bg-[#051622] p-12 sm:p-16 rounded-[46px] shadow-2xl border border-white/5 text-center group-hover:border-gold/50 transition-all duration-500 overflow-hidden z-10">
+                <div className="relative h-full bg-[#051622] p-8 sm:p-10 rounded-[46px] shadow-2xl border border-white/5 text-center group-hover:border-gold/50 transition-all duration-500 overflow-hidden z-10">
                   {/* Decorative Element */}
                   <div className="absolute top-0 right-0 w-32 h-32 bg-gold/5 rounded-bl-full translate-x-16 -translate-y-16 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-700"></div>
                   
@@ -585,7 +585,7 @@ const CompanySecretarial: React.FC = () => {
                     {p.step}
                   </div>
                   
-                  <h3 className="text-3xl font-black text-white uppercase mb-8 tracking-tight group-hover:text-gold transition-colors">
+                  <h3 className="text-lg sm:text-xl lg:text-2xl font-black text-white uppercase mb-8 tracking-tight group-hover:text-gold transition-colors">
                     {p.title}
                   </h3>
                   

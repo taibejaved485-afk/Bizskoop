@@ -359,7 +359,7 @@ const LocalCouncilLicensing: React.FC = () => {
                     {p.icon}
                   </div>
                   <span className="text-4xl font-black text-slate-100 absolute top-8 right-8 group-hover:text-gold/10 transition-colors duration-500">{p.step}</span>
-                  <h4 className="text-xl font-black text-navy-dark mb-4 uppercase tracking-tight">{p.title}</h4>
+                  <h4 className="text-lg sm:text-xl font-black text-navy-dark mb-4 uppercase tracking-tight">{p.title}</h4>
                   <p className="text-slate-500 text-sm font-medium leading-relaxed">{p.desc}</p>
                 </div>
               </motion.div>
