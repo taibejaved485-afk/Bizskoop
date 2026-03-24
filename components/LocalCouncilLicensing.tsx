@@ -4,8 +4,14 @@ const LocalCouncilLicensing: React.FC = () => {
   return (
     <div className="bg-white min-h-screen">
       {/* 1. Hero Section (Navy & Gold) */}
-      <section className="relative bg-navy-dark text-white py-32 overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-gold/5 -skew-x-12 translate-x-1/4"></div>
+      <section 
+        className="relative bg-navy-dark text-white py-32 overflow-hidden bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('https://i.pinimg.com/1200x/b0/97/fd/b097fd4721f2d2e3ac4fc665d328cc00.jpg')" }}
+      >
+        {/* Dark Overlay for readability */}
+        <div className="absolute inset-0 bg-navy-dark/80 z-0"></div>
+        
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-gold/5 -skew-x-12 translate-x-1/4 z-0"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl">
             <h1 className="text-5xl lg:text-7xl font-black mb-8 leading-tight tracking-tighter uppercase animate-fadeIn">
