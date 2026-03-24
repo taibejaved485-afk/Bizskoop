@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { motion } from 'motion/react';
 import AnimatedCounter from './AnimatedCounter';
 
 const AboutPage: React.FC = () => {
@@ -38,14 +39,34 @@ const AboutPage: React.FC = () => {
       <section className="relative bg-[#051622] text-white py-20 sm:py-32 overflow-hidden">
         <div className="absolute inset-0 opacity-[0.05] pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='1000' height='1000' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 100 Q 250 50 500 100 T 1000 100 M0 200 Q 250 150 500 200 T 1000 200' stroke='white' fill='transparent' stroke-width='2'/%3E%3C/svg%3E")`, backgroundSize: 'cover' }}></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <span className="text-accent-yellow font-black text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.5em] block mb-6 animate-fadeIn">The BizFlow Narrative</span>
-          <h1 className="text-3xl sm:text-5xl lg:text-7xl font-black mb-6 sm:mb-8 leading-tight tracking-tighter uppercase animate-fadeIn">
+          <motion.span 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-accent-yellow font-black text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.5em] block mb-6"
+          >
+            The BizFlow Narrative
+          </motion.span>
+          <motion.h1 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-3xl sm:text-5xl lg:text-7xl font-black mb-6 sm:mb-8 leading-tight tracking-tighter uppercase"
+          >
             Pioneering Your <br/>
             <span className="text-accent-yellow">Malaysia Success</span>
-          </h1>
-          <p className="text-base sm:text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed font-medium animate-fadeIn" style={{ animationDelay: '0.2s' }}>
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="text-base sm:text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed font-medium"
+          >
             We aren't just consultants. We are your strategic execution partners, bridging the gap between global ambition and local compliance.
-          </p>
+          </motion.p>
         </div>
       </section>
 
@@ -59,20 +80,34 @@ const AboutPage: React.FC = () => {
             
             {/* Left Side (Visuals) */}
             <div className="relative animate-fadeIn">
-              <div className="relative w-full aspect-[4/5] overflow-hidden rounded-2xl shadow-2xl z-10 border-4 border-white">
-                <img 
-                  src="https://i.pinimg.com/1200x/95/15/92/951592f4a2d51c5a3195039997a306c9.jpg" 
-                  className="w-full h-full object-cover" 
-                  alt="BizFlow Team" 
-                />
+              {/* Main Image with Rotating Border */}
+              <div className="group relative p-[4px] rounded-2xl overflow-hidden shadow-2xl z-10 transition-all duration-500">
+                {/* Rotating Glow Layer */}
+                <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                <div className="relative w-full aspect-[4/5] overflow-hidden rounded-xl bg-white z-10">
+                  <img 
+                    src="https://i.pinimg.com/1200x/95/15/92/951592f4a2d51c5a3195039997a306c9.jpg" 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                    alt="BizFlow Team" 
+                  />
+                </div>
               </div>
-              <div className="absolute -bottom-10 -right-4 lg:-right-10 w-[55%] aspect-square rounded-2xl overflow-hidden shadow-2xl z-20 border-8 border-white hidden sm:block">
-                <img 
-                  src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=800" 
-                  className="w-full h-full object-cover" 
-                  alt="Consultation" 
-                />
+
+              {/* Secondary Image with Rotating Border */}
+              <div className="group absolute -bottom-10 -right-4 lg:-right-10 w-[55%] aspect-square p-[4px] rounded-2xl overflow-hidden shadow-2xl z-20 transition-all duration-500 hidden sm:block">
+                {/* Rotating Glow Layer */}
+                <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                <div className="relative w-full h-full overflow-hidden rounded-xl bg-white z-10">
+                  <img 
+                    src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&q=80&w=800" 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                    alt="Consultation" 
+                  />
+                </div>
               </div>
+              
               <div className="absolute bottom-6 sm:bottom-10 left-[-10px] sm:left-[-20px] bg-[#051622] text-white p-6 sm:p-10 rounded-2xl shadow-2xl z-30">
                 <p className="text-3xl sm:text-5xl font-black mb-1 leading-none">
                   <AnimatedCounter target="12+" duration={1500} />
