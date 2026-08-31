@@ -11,7 +11,7 @@ const Hero: React.FC = () => {
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
   return (
-    <div className="relative pt-20 pb-32 overflow-hidden min-h-[90vh] flex items-center">
+    <div className="relative pt-16 pb-24 overflow-hidden min-h-[80vh] flex items-center">
       {/* 1. Background Image Layer with Parallax */}
       <motion.div 
         style={{ y: y1 }}
@@ -61,7 +61,7 @@ const Hero: React.FC = () => {
       </div>
 
       <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-10 sm:gap-12 items-center">
           <motion.div 
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -71,7 +71,7 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-50/90 backdrop-blur-sm border border-blue-100 text-royal-blue text-xs font-black uppercase tracking-widest mb-8 shadow-sm"
+              className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-blue-50/90 backdrop-blur-sm border border-blue-100 text-royal-blue text-[10px] sm:text-xs font-black uppercase tracking-widest mb-5 shadow-sm"
             >
               <span className="flex h-2 w-2 rounded-full bg-accent-yellow animate-pulse"></span>
               Fast-Track Approval Specialists
@@ -91,7 +91,7 @@ const Hero: React.FC = () => {
                     }
                   }
                 }}
-                className="text-5xl lg:text-7xl font-black text-slate-900 mb-8 leading-[1.1] tracking-tight"
+                className="text-3xl sm:text-5xl lg:text-[54px] font-black text-slate-900 mb-5 leading-[1.1] tracking-tight"
               >
                 {["Launch", "Your", "Malaysia", "Business"].map((word, i) => (
                   <motion.span 
@@ -100,7 +100,7 @@ const Hero: React.FC = () => {
                       hidden: { opacity: 0, y: 50 },
                       visible: { opacity: 1, y: 0 }
                     }}
-                    className={`inline-block mr-4 ${word === "Malaysia" || word === "Business" ? "text-royal-blue" : ""}`}
+                    className={`inline-block mr-3 ${word === "Malaysia" || word === "Business" ? "text-royal-blue" : ""}`}
                   >
                     {word}
                   </motion.span>
@@ -121,7 +121,7 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.2 }}
-              className="text-xl text-slate-800 mb-12 leading-relaxed max-w-xl font-bold bg-white/30 backdrop-blur-[2px] rounded-lg p-2 min-h-[5rem]"
+              className="text-base sm:text-lg text-slate-800 mb-6 leading-relaxed max-w-lg font-bold bg-white/30 backdrop-blur-[2px] rounded-lg p-2 min-h-[4rem]"
             >
               <TypingText 
                 text="From Company Incorporation to Employment Passes. We bypass the bureaucracy. 100% Compliant. No Hidden Fees. Fast Results."
@@ -134,23 +134,23 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.8 }}
-              className="flex flex-col sm:flex-row items-center gap-5"
+              className="flex flex-col sm:flex-row items-center gap-4"
             >
               <motion.a 
-                whileHover={{ scale: 1.05, y: -5 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.03, y: -3 }}
+                whileTap={{ scale: 0.97 }}
                 href="#wizard" 
-                className="liquid-box w-full sm:w-auto px-10 py-5 bg-action-red text-white font-black rounded-2xl transition-all shadow-2xl shadow-red-600/20 text-center uppercase tracking-widest group"
+                className="liquid-box w-full sm:w-auto px-6 py-3 bg-action-red text-white font-black rounded-xl transition-all shadow-lg text-center uppercase tracking-widest group text-xs"
                 style={{ '--fill-color': '#990000' } as React.CSSProperties}
               >
                 <div className="liquid-wave"></div>
                 <span className="relative z-10">Start My Business Wizard</span>
               </motion.a>
               <motion.a 
-                whileHover={{ scale: 1.05, y: -5 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.03, y: -3 }}
+                whileTap={{ scale: 0.97 }}
                 href="#visa" 
-                className="liquid-box w-full sm:w-auto px-10 py-5 bg-white/90 backdrop-blur-md text-royal-blue font-black rounded-2xl border-2 border-[#003366] transition-all text-center uppercase tracking-widest hover:text-white group"
+                className="liquid-box w-full sm:w-auto px-6 py-3 bg-white/90 backdrop-blur-md text-royal-blue font-black rounded-xl border border-[#003366] transition-all text-center uppercase tracking-widest hover:text-white group text-xs"
                 style={{ '--fill-color': '#003366' } as React.CSSProperties}
               >
                 <div className="liquid-wave"></div>
@@ -162,27 +162,27 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 2.2, duration: 1 }}
-              className="mt-16 flex items-center gap-10 opacity-100"
+              className="mt-10 flex items-center gap-8 opacity-100"
             >
               <div className="flex flex-col">
-                <span className="text-3xl font-black text-royal-blue">
+                <span className="text-2xl font-black text-royal-blue">
                   <AnimatedCounter target="500+" />
                 </span>
-                <span className="text-[10px] font-bold text-slate-700 uppercase tracking-widest">Setup Successful</span>
+                <span className="text-[9px] font-bold text-slate-700 uppercase tracking-widest">Setup Successful</span>
               </div>
-              <div className="w-px h-10 bg-slate-400"></div>
+              <div className="w-px h-8 bg-slate-400"></div>
               <div className="flex flex-col">
-                <span className="text-3xl font-black text-royal-blue">
+                <span className="text-2xl font-black text-royal-blue">
                   <AnimatedCounter target="100%" />
                 </span>
-                <span className="text-[10px] font-bold text-slate-700 uppercase tracking-widest">SSM Compliance</span>
+                <span className="text-[9px] font-bold text-slate-700 uppercase tracking-widest">SSM Compliance</span>
               </div>
-              <div className="w-px h-10 bg-slate-400"></div>
+              <div className="w-px h-8 bg-slate-400"></div>
               <div className="flex flex-col">
-                <span className="text-3xl font-black text-royal-blue">
+                <span className="text-2xl font-black text-royal-blue">
                   <AnimatedCounter target="4.9/5" />
                 </span>
-                <span className="text-[10px] font-bold text-slate-700 uppercase tracking-widest">Google Rated</span>
+                <span className="text-[9px] font-bold text-slate-700 uppercase tracking-widest">Google Rated</span>
               </div>
             </motion.div>
           </motion.div>
@@ -194,12 +194,12 @@ const Hero: React.FC = () => {
             transition={{ duration: 1, ease: "backOut", delay: 0.8 }}
             className="relative group"
           >
-            <div className="absolute inset-0 bg-royal-blue/10 rounded-[40px] -rotate-3 scale-105 group-hover:rotate-0 transition-transform duration-500"></div>
+            <div className="absolute inset-0 bg-royal-blue/10 rounded-3xl -rotate-3 scale-102 group-hover:rotate-0 transition-transform duration-500"></div>
             
             {/* Floating Airplane Animation */}
             <motion.div 
               animate={{ 
-                y: [0, -20, 0],
+                y: [0, -15, 0],
                 rotate: [0, 5, 0]
               }}
               transition={{ 
@@ -207,14 +207,14 @@ const Hero: React.FC = () => {
                 repeat: Infinity, 
                 ease: "easeInOut" 
               }}
-              className="absolute -top-12 -right-12 z-30 hidden xl:block"
+              className="absolute -top-10 -right-10 z-30 hidden xl:block"
             >
-              <Airplane size={80} color="#D4AF37" />
+              <Airplane size={64} color="#D4AF37" />
             </motion.div>
             
             <motion.div 
               animate={{ 
-                x: [0, 30, 0],
+                x: [0, 20, 0],
                 y: [0, 10, 0]
               }}
               transition={{ 
@@ -222,37 +222,37 @@ const Hero: React.FC = () => {
                 repeat: Infinity, 
                 ease: "easeInOut" 
               }}
-              className="absolute top-1/2 -left-20 z-0 opacity-20 hidden lg:block"
+              className="absolute top-1/2 -left-16 z-0 opacity-20 hidden lg:block"
             >
-              <Airplane size={120} color="#003366" />
+              <Airplane size={96} color="#003366" />
             </motion.div>
 
             <motion.img 
-              whileHover={{ scale: 1.02 }}
+              whileHover={{ scale: 1.01 }}
               transition={{ duration: 0.5 }}
               src="https://i.pinimg.com/736x/4f/d6/45/4fd64566a496266abfb11dda065cbc2b.jpg" 
-              className="relative rounded-[40px] shadow-2xl border-8 border-white object-cover aspect-square z-10"
+              className="relative rounded-3xl shadow-2xl border-4 border-white object-cover aspect-square max-h-[380px] mx-auto z-10"
               alt="Elite Business Environment"
             />
             
             {/* Enhanced Testimonial Card with Rotating Glow Border */}
             <motion.div 
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.5, duration: 0.8 }}
-              className="absolute -bottom-10 -left-10 p-[2px] rounded-[32px] z-20 overflow-hidden group/card transform hover:scale-105 hover:-rotate-1 transition-all duration-500 shadow-2xl max-w-xs"
+              className="absolute -bottom-6 -left-6 p-[1.5px] rounded-[24px] z-20 overflow-hidden group/card transform hover:scale-103 transition-all duration-500 shadow-xl max-w-[240px]"
             >
               {/* Rotating Glow Layer - Only visible on hover */}
               <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#003366_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
               
               {/* Inner Content Box */}
-              <div className="relative bg-accent-yellow p-8 rounded-[30px] border-4 border-white z-10 h-full">
-                <div className="flex text-royal-blue mb-2">
-                  {[1,2,3,4,5].map(i => <span key={i} className="text-lg group-hover/card:scale-125 transition-transform duration-300" style={{ transitionDelay: `${i * 50}ms` }}>★</span>)}
+              <div className="relative bg-accent-yellow p-5 rounded-[22px] border-2 border-white z-10 h-full">
+                <div className="flex text-royal-blue mb-1.5">
+                  {[1,2,3,4,5].map(i => <span key={i} className="text-sm group-hover/card:scale-110 transition-transform duration-300" style={{ transitionDelay: `${i * 30}ms` }}>★</span>)}
                 </div>
-                <p className="text-royal-blue font-black text-sm mb-1 uppercase tracking-tight group-hover/card:translate-x-1 transition-transform">"Best service in KL"</p>
-                <p className="text-royal-blue/80 text-xs leading-tight font-bold">Bizskoop handled everything from SSM to my EP in under 3 weeks. Incredible speed!</p>
-                <p className="text-royal-blue font-black text-[10px] mt-4 uppercase">— John D., Tech Founder</p>
+                <p className="text-royal-blue font-black text-xs mb-1 uppercase tracking-tight">"Best service in KL"</p>
+                <p className="text-royal-blue/80 text-[10px] leading-tight font-bold">Bizskoop handled everything from SSM to my EP in under 3 weeks. Incredible speed!</p>
+                <p className="text-royal-blue font-black text-[9px] mt-3 uppercase">— John D., Tech Founder</p>
               </div>
             </motion.div>
           </motion.div>
