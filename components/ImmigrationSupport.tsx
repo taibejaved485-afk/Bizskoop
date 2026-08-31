@@ -53,7 +53,7 @@ const ImmigrationSupport: React.FC = () => {
   return (
     <div className="bg-white min-h-screen font-sans selection:bg-gold/30">
       {/* 1. Hero Section (Navy & Gold) */}
-      <section className="relative bg-navy-dark text-white py-20 sm:py-32 lg:py-40 overflow-hidden min-h-[70vh] flex items-center">
+      <section className="relative bg-navy-dark text-white py-12 sm:py-16 lg:py-20 overflow-hidden flex items-center">
         <motion.div 
           style={{ y: yHero, opacity: opacityHero, scale: scaleHero }}
           className="absolute inset-0 z-0"
@@ -73,15 +73,15 @@ const ImmigrationSupport: React.FC = () => {
               key={i}
               className="absolute bg-gold/10 rounded-full blur-3xl"
               style={{
-                width: Math.random() * 400 + 200,
-                height: Math.random() * 400 + 200,
+                width: Math.random() * 300 + 150,
+                height: Math.random() * 300 + 150,
                 top: `${Math.random() * 100}%`,
                 left: `${Math.random() * 100}%`,
               }}
               animate={{
-                x: [0, 50, -50, 0],
-                y: [0, -50, 50, 0],
-                scale: [1, 1.1, 0.9, 1],
+                x: [0, 30, -30, 0],
+                y: [0, -30, 30, 0],
+                scale: [1, 1.05, 0.95, 1],
               }}
               transition={{
                 duration: Math.random() * 10 + 10,
@@ -91,6 +91,7 @@ const ImmigrationSupport: React.FC = () => {
             />
           ))}
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,51,102,0.8)_100%)]" />
+          <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-white/60 to-transparent z-0"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -111,7 +112,7 @@ const ImmigrationSupport: React.FC = () => {
                 hidden: { opacity: 0, x: -20 },
                 visible: { opacity: 1, x: 0 }
               }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/20 border border-gold/30 text-gold text-xs font-bold uppercase tracking-widest mb-8"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold/20 border border-gold/30 text-gold text-[9px] sm:text-xs font-bold uppercase tracking-widest mb-4 shadow-xl"
             >
               <Globe className="w-3 h-3" />
               Global Mobility Solutions
@@ -122,11 +123,9 @@ const ImmigrationSupport: React.FC = () => {
                 hidden: { opacity: 0, y: 30 },
                 visible: { opacity: 1, y: 0 }
               }}
-              className="text-5xl sm:text-7xl lg:text-8xl font-black mb-8 leading-[0.9] tracking-tighter uppercase"
+              className="text-2xl sm:text-4xl lg:text-5xl font-black mb-3 leading-tight tracking-tight uppercase"
             >
-              Expatriate <br />
-              <span className="text-gold italic">& Immigration</span> <br />
-              Support
+              Expatriate & Immigration Support
             </motion.h1>
 
             <motion.p 
@@ -134,7 +133,7 @@ const ImmigrationSupport: React.FC = () => {
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0 }
               }}
-              className="text-lg sm:text-2xl text-blue-100/80 mb-12 leading-relaxed font-medium max-w-2xl"
+              className="text-xs sm:text-sm lg:text-base text-blue-100/80 mb-6 leading-relaxed font-medium max-w-2xl"
             >
               Simplify the visa process for your international talent. From Employment Passes to Dependent Visas, we ensure a smooth transition for your global team into Malaysia.
             </motion.p>
@@ -144,22 +143,22 @@ const ImmigrationSupport: React.FC = () => {
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0 }
               }}
-              className="flex flex-wrap gap-6"
+              className="flex flex-wrap gap-4"
             >
               <motion.a 
-                whileHover={{ scale: 1.05, backgroundColor: '#fff' }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.03, backgroundColor: '#fff' }}
+                whileTap={{ scale: 0.97 }}
                 href="#assessment" 
-                className="px-10 py-5 bg-gold text-navy-dark font-black rounded-xl transition-all shadow-2xl shadow-gold/20 uppercase tracking-widest text-sm flex items-center gap-3"
+                className="px-6 py-3 bg-gold text-navy-dark font-black rounded-xl transition-all shadow-lg uppercase tracking-widest text-[10px] sm:text-xs flex items-center gap-2"
               >
                 Start Visa Assessment
                 <Plane className="w-4 h-4" />
               </motion.a>
               <motion.a 
-                whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,255,255,0.2)' }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.03, backgroundColor: 'rgba(255,255,255,0.2)' }}
+                whileTap={{ scale: 0.97 }}
                 href="#categories" 
-                className="px-10 py-5 bg-white/10 text-white border-2 border-white/20 font-black rounded-xl transition-all uppercase tracking-widest text-sm backdrop-blur-sm flex items-center gap-3"
+                className="px-6 py-3 bg-white/10 text-white border border-white/20 font-black rounded-xl transition-all uppercase tracking-widest text-[10px] sm:text-xs backdrop-blur-sm flex items-center gap-2"
               >
                 View Categories
                 <Users className="w-4 h-4" />

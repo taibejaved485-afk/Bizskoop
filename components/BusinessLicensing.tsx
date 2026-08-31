@@ -8,24 +8,25 @@ const BusinessLicensing: React.FC = () => {
     <div className="bg-white min-h-screen">
       {/* 1. Hero Section (Navy & Gold) */}
       <section 
-        className="relative bg-navy-dark text-white py-20 sm:py-32 overflow-hidden bg-cover bg-center bg-no-repeat min-h-[70vh] flex items-center"
+        className="relative bg-navy-dark text-white py-12 sm:py-16 lg:py-20 overflow-hidden bg-cover bg-center bg-no-repeat flex items-center"
       >
         <motion.div 
           style={{ y: yHero }}
-          initial={{ scale: 1.1 }}
+          initial={{ scale: 1.05 }}
           animate={{ scale: 1 }}
           transition={{ duration: 1.5 }}
           className="absolute inset-0 z-0"
         >
           <img 
             src="https://i.pinimg.com/1200x/b0/97/fd/b097fd4721f2d2e3ac4fc665d328cc00.jpg" 
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover opacity-40"
             alt="Background"
           />
         </motion.div>
         
         {/* Dark Overlay for readability */}
         <div className="absolute inset-0 bg-navy-dark/80 z-0"></div>
+        <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-white/60 to-transparent z-0"></div>
         
         <motion.div 
           initial={{ opacity: 0, x: 100 }}
@@ -49,23 +50,34 @@ const BusinessLicensing: React.FC = () => {
             }}
             className="max-w-3xl text-center sm:text-left"
           >
+            <motion.div 
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0 }
+              }}
+              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-gold/20 backdrop-blur-xl border border-gold/30 text-gold text-[9px] sm:text-sm font-black uppercase tracking-[0.3em] mb-4 shadow-xl"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-gold"></span>
+              </span>
+              Operational Compliance
+            </motion.div>
             <motion.h1 
               variants={{
                 hidden: { opacity: 0, y: 30 },
                 visible: { opacity: 1, y: 0 }
               }}
-              className="text-4xl sm:text-5xl lg:text-7xl font-black mb-6 sm:mb-8 leading-tight tracking-tighter uppercase"
+              className="text-2xl sm:text-4xl lg:text-5xl font-black mb-3 leading-tight tracking-tight uppercase"
             >
-              Navigate Malaysian <br className="hidden sm:block"/>
-              <span className="text-gold">Business Licensing</span> <br className="hidden sm:block"/>
-              With Ease
+              Navigate Malaysian <span className="text-gold">Business Licensing</span> With Ease
             </motion.h1>
             <motion.p 
               variants={{
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0 }
               }}
-              className="text-base sm:text-xl text-blue-100 mb-8 sm:mb-12 leading-relaxed font-medium"
+              className="text-xs sm:text-sm lg:text-base text-blue-100 mb-6 leading-relaxed font-medium max-w-2xl"
             >
               From general trade licenses to industry-specific permits, we handle the bureaucracy so you can start operating faster. Total compliance, zero guesswork.
             </motion.p>
@@ -74,13 +86,13 @@ const BusinessLicensing: React.FC = () => {
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0 }
               }}
-              className="flex justify-center sm:justify-start gap-6"
+              className="flex justify-center sm:justify-start"
             >
               <motion.a 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 href="#licensing-contact" 
-                className="px-8 sm:px-10 py-4 sm:py-5 bg-gold text-navy-dark font-black rounded-lg hover:bg-white transition shadow-xl uppercase tracking-widest text-xs sm:text-sm w-full sm:w-auto text-center"
+                className="px-6 py-3 bg-gold text-navy-dark font-black rounded-xl transition shadow-lg uppercase tracking-[0.2em] text-[10px] sm:text-xs text-center w-full sm:w-auto"
               >
                 Check License Requirements
               </motion.a>

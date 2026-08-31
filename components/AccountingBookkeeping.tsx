@@ -166,7 +166,7 @@ const AccountingBookkeeping: React.FC = () => {
   return (
     <div className="bg-white min-h-screen selection:bg-gold selection:text-navy-dark" ref={containerRef}>
       {/* 1. Hero Section */}
-      <section className="relative bg-[#051622] text-white py-20 sm:py-32 lg:py-40 overflow-hidden min-h-[70vh] flex items-center">
+      <section className="relative bg-[#051622] text-white py-12 sm:py-16 lg:py-20 overflow-hidden flex items-center">
         {/* Parallax Background Image */}
         <motion.div 
           style={{ y: yHero, scale: scaleHero, opacity: opacityHero }}
@@ -182,40 +182,28 @@ const AccountingBookkeeping: React.FC = () => {
         
         {/* Advanced Multi-layered Overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#051622] via-[#051622]/80 to-[#051622] z-1"></div>
-        <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-white to-transparent z-1"></div>
+        <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-white/60 to-transparent z-1"></div>
         
         {/* Floating Decorative Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-2">
           <motion.div 
             animate={{ 
-              y: [0, -40, 0],
+              y: [0, -30, 0],
               rotate: [0, 10, 0],
-              scale: [1, 1.1, 1]
+              scale: [1, 1.05, 1]
             }}
             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-20 left-[10%] w-48 h-48 bg-gold/10 rounded-full blur-3xl"
+            className="absolute top-10 left-[10%] w-48 h-48 bg-gold/10 rounded-full blur-3xl"
           />
           <motion.div 
             animate={{ 
-              y: [0, 60, 0],
-              x: [0, 30, 0],
-              scale: [1, 1.2, 1]
+              y: [0, 40, 0],
+              x: [0, 20, 0],
+              scale: [1, 1.1, 1]
             }}
             transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="absolute bottom-20 right-[15%] w-64 h-64 bg-royal-blue/10 rounded-full blur-3xl"
+            className="absolute bottom-10 right-[15%] w-64 h-64 bg-royal-blue/10 rounded-full blur-3xl"
           />
-          
-          {/* Animated Dots Grid */}
-          <div className="absolute top-40 right-[10%] grid grid-cols-4 gap-4 opacity-20">
-            {[...Array(16)].map((_, i) => (
-              <motion.div 
-                key={i} 
-                animate={{ opacity: [0.2, 1, 0.2] }}
-                transition={{ duration: 2, delay: i * 0.1, repeat: Infinity }}
-                className="w-2 h-2 bg-gold rounded-full"
-              />
-            ))}
-          </div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center lg:text-left">
@@ -239,31 +227,29 @@ const AccountingBookkeeping: React.FC = () => {
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0 }
               }}
-              className="inline-flex items-center gap-3 px-6 py-2.5 rounded-full bg-gold/20 backdrop-blur-xl border border-gold/30 text-gold text-[10px] sm:text-xs font-black uppercase tracking-[0.4em] sm:tracking-[0.6em] mb-10 shadow-2xl"
+              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-gold/20 backdrop-blur-xl border border-gold/30 text-gold text-[9px] sm:text-sm font-black uppercase tracking-[0.3em] mb-4 shadow-xl"
             >
-              <span className="relative flex h-2.5 w-2.5">
+              <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-gold"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-gold"></span>
               </span>
               Financial Precision
             </motion.div>
             <motion.h1 
               variants={{
-                hidden: { opacity: 0, y: 50, rotateX: -20 },
-                visible: { opacity: 1, y: 0, rotateX: 0 }
-              }}
-              className="text-5xl sm:text-7xl lg:text-8xl font-black mb-8 leading-[0.9] tracking-tighter uppercase"
-            >
-              Strategic <br/>
-              <span className="text-gold">Accounting</span> <br/>
-              & Bookkeeping
-            </motion.h1>
-            <motion.p 
-              variants={{
                 hidden: { opacity: 0, y: 30 },
                 visible: { opacity: 1, y: 0 }
               }}
-              className="text-lg sm:text-2xl text-blue-100 max-w-3xl leading-relaxed font-medium drop-shadow-lg mb-12"
+              className="text-2xl sm:text-4xl lg:text-5xl font-black mb-3 leading-tight tracking-tight uppercase"
+            >
+              Strategic <span className="text-gold">Accounting</span> & Bookkeeping
+            </motion.h1>
+            <motion.p 
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0 }
+              }}
+              className="text-xs sm:text-sm lg:text-base text-blue-100 max-w-2xl leading-relaxed font-medium mb-6"
             >
               Transform your financial data into a strategic asset. We provide real-time, audit-ready bookkeeping and expert accounting services for Malaysian SMEs.
             </motion.p>
@@ -272,21 +258,21 @@ const AccountingBookkeeping: React.FC = () => {
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0 }
               }}
-              className="flex flex-col sm:flex-row gap-6"
+              className="flex flex-col sm:flex-row gap-4"
             >
               <motion.a 
-                whileHover={{ scale: 1.05, backgroundColor: "#fff", color: "#051622" }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.03, backgroundColor: "#fff", color: "#051622" }}
+                whileTap={{ scale: 0.97 }}
                 href="#accounting-contact" 
-                className="px-10 py-5 bg-gold text-navy-dark font-black rounded-2xl transition shadow-2xl uppercase tracking-[0.3em] text-xs text-center"
+                className="px-6 py-3 bg-gold text-navy-dark font-black rounded-xl transition shadow-lg uppercase tracking-[0.2em] text-[10px] sm:text-xs text-center"
               >
                 Get Started
               </motion.a>
               <motion.a 
-                whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.1)" }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.03, backgroundColor: "rgba(255,255,255,0.1)" }}
+                whileTap={{ scale: 0.97 }}
                 href="#expertise" 
-                className="px-10 py-5 bg-white/5 backdrop-blur-md border border-white/20 text-white font-black rounded-2xl transition shadow-2xl uppercase tracking-[0.3em] text-xs text-center"
+                className="px-6 py-3 bg-white/5 backdrop-blur-md border border-white/20 text-white font-black rounded-xl transition shadow-lg uppercase tracking-[0.2em] text-[10px] sm:text-xs text-center"
               >
                 View Services
               </motion.a>
