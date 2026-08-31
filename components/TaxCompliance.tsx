@@ -166,7 +166,7 @@ const TaxCompliance: React.FC = () => {
   return (
     <div className="bg-white min-h-screen selection:bg-gold selection:text-navy-dark" ref={containerRef}>
       {/* 1. Hero Section */}
-      <section className="relative bg-[#051622] text-white py-24 sm:py-40 lg:py-56 overflow-hidden min-h-[90vh] flex items-center">
+      <section className="relative bg-[#051622] text-white py-12 sm:py-16 lg:py-20 overflow-hidden flex items-center">
         {/* Parallax Background Image */}
         <motion.div 
           style={{ y: yHero, scale: scaleHero, opacity: opacityHero }}
@@ -249,21 +249,21 @@ const TaxCompliance: React.FC = () => {
             </motion.div>
             <motion.h1 
               variants={{
-                hidden: { opacity: 0, y: 50, rotateX: -20 },
-                visible: { opacity: 1, y: 0, rotateX: 0 }
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0 }
               }}
-              className="text-5xl sm:text-7xl lg:text-9xl font-black mb-8 leading-[0.9] tracking-tighter uppercase"
+              className="text-2xl sm:text-4xl lg:text-5xl font-black mb-4 leading-tight tracking-tight uppercase"
             >
-              Expert <br/>
-              <span className="text-gold">Tax Compliance</span> <br/>
+              Expert <br className="hidden sm:block"/>
+              <span className="text-gold">Tax Compliance</span> <br className="hidden sm:block"/>
               & Advisory
             </motion.h1>
             <motion.p 
               variants={{
-                hidden: { opacity: 0, y: 30 },
+                hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0 }
               }}
-              className="text-lg sm:text-2xl text-blue-100 max-w-3xl leading-relaxed font-medium drop-shadow-lg mb-12"
+              className="text-xs sm:text-base text-blue-100 max-w-3xl leading-relaxed font-medium mb-6"
             >
               Navigate the complexities of Malaysian tax law with confidence. We provide strategic tax planning and comprehensive compliance services for businesses and individuals.
             </motion.p>

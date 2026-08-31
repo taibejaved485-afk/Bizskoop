@@ -118,14 +118,14 @@ const Services: React.FC = () => {
   ];
 
   return (
-    <section id="services" className="py-24 lg:py-40 bg-white relative overflow-hidden">
+    <section id="services" className="pt-4 sm:pt-6 pb-6 sm:pb-8 bg-white relative overflow-hidden">
       {/* Background decoration */}
       <motion.div 
         style={{ y: yHero }}
         className="absolute top-0 right-0 w-96 h-96 bg-royal-blue opacity-[0.02] rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"
       ></motion.div>
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24">
         <motion.div 
           initial="hidden"
           whileInView="visible"
@@ -139,14 +139,14 @@ const Services: React.FC = () => {
               }
             }
           }}
-          className="max-w-4xl mb-16 lg:mb-24 text-center lg:text-left"
+          className="w-full mb-10 lg:mb-14 text-center lg:text-left"
         >
           <motion.span 
             variants={{
               hidden: { opacity: 0, x: -20 },
               visible: { opacity: 1, x: 0 }
             }}
-            className="text-gold font-black text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.5em] block mb-4"
+            className="text-gold font-black text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.5em] block mb-3"
           >
             Core Strategic Units
           </motion.span>
@@ -155,11 +155,9 @@ const Services: React.FC = () => {
               hidden: { opacity: 0, y: 30 },
               visible: { opacity: 1, y: 0 }
             }}
-            className="text-4xl sm:text-5xl lg:text-7xl font-black text-royal-blue leading-[1.05] tracking-tighter uppercase mb-8"
+            className="text-lg sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-black text-royal-blue leading-tight tracking-tight uppercase mb-6 whitespace-nowrap overflow-hidden text-ellipsis sm:overflow-visible"
           >
-            The Mandatory <br/>
-            <span className="text-gold">Operational</span> <br/>
-            Framework.
+            The Mandatory <span className="text-gold">Operational</span> Framework.
           </motion.h2>
           <motion.p 
             variants={{
@@ -186,7 +184,7 @@ const Services: React.FC = () => {
         </div>
 
         {/* Enhanced Bottom trust bar for services */}
-        <div className="mt-16 lg:mt-24 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="mt-8 lg:mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
             { label: "Authorized Handling", title: "SSM Licensed Secretarial Unit", icon: "🏢" },
             { label: "Authorized Handling", title: "ESD / MDEC Registered Agent", icon: "🛂" },

@@ -97,7 +97,7 @@ const ContactPage: React.FC = () => {
   return (
     <div className="bg-white min-h-screen selection:bg-gold selection:text-navy-dark" ref={containerRef}>
       {/* 1. Hero Section with Background Image */}
-      <section className="relative text-white py-20 sm:py-32 lg:py-48 overflow-hidden group min-h-[80vh] flex items-center">
+      <section className="relative text-white py-12 sm:py-16 lg:py-20 overflow-hidden group flex items-center">
         {/* Background Image Layer with Parallax */}
         <motion.div 
           style={{ y: yHero, scale: scaleHero, opacity: opacityHero }}
@@ -146,7 +146,7 @@ const ContactPage: React.FC = () => {
 
         {/* Advanced Multi-layered Overlay */}
         <div className="absolute inset-0 bg-navy-dark/60 lg:bg-gradient-to-r lg:from-navy-dark lg:via-navy-dark/80 lg:to-transparent z-0"></div>
-        <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-white to-transparent z-0"></div>
+        <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-white/70 to-transparent z-0"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
           <motion.div 
@@ -162,38 +162,36 @@ const ContactPage: React.FC = () => {
                 }
               }
             }}
-            className="max-w-3xl text-center sm:text-left"
+            className="max-w-5xl text-center sm:text-left"
           >
             <motion.div 
               variants={{
                 hidden: { opacity: 0, x: -30 },
                 visible: { opacity: 1, x: 0 }
               }}
-              className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-gold/20 backdrop-blur-xl border border-gold/30 text-gold text-[9px] sm:text-[11px] font-black uppercase tracking-[0.4em] mb-8 shadow-2xl"
+              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-gold/20 backdrop-blur-xl border border-gold/30 text-gold text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] mb-4 shadow-xl"
             >
-              <span className="relative flex h-2.5 w-2.5">
+              <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-gold"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-gold"></span>
               </span>
               Global Business Gateway
             </motion.div>
             <motion.h1 
               variants={{
-                hidden: { opacity: 0, y: 50, rotateX: -20 },
-                visible: { opacity: 1, y: 0, rotateX: 0 }
-              }}
-              className="text-5xl sm:text-6xl lg:text-9xl font-black mb-8 leading-[0.9] tracking-tighter uppercase"
-            >
-              Strategic <br className="hidden sm:block"/>
-              <span className="text-gold inline-block hover:scale-105 transition-transform cursor-default">Partnership</span> <br className="hidden sm:block"/>
-              Starts Here
-            </motion.h1>
-            <motion.p 
-              variants={{
                 hidden: { opacity: 0, y: 30 },
                 visible: { opacity: 1, y: 0 }
               }}
-              className="text-lg sm:text-2xl text-blue-100 mb-12 leading-relaxed font-medium max-w-2xl drop-shadow-lg mx-auto sm:mx-0"
+              className="text-2xl sm:text-4xl lg:text-5xl font-black mb-3 leading-tight tracking-tight uppercase whitespace-normal sm:whitespace-nowrap"
+            >
+              Strategic <span className="text-gold">Partnership</span> Starts Here
+            </motion.h1>
+            <motion.p 
+              variants={{
+                hidden: { opacity: 0, y: 20 },
+                visible: { opacity: 1, y: 0 }
+              }}
+              className="text-xs sm:text-sm text-blue-100/90 mb-6 leading-relaxed font-medium max-w-2xl mx-auto sm:mx-0"
             >
               Connect with Malaysia's leading business strategists. Whether you are launching a startup or scaling an enterprise, we provide the authority and compliance you need.
             </motion.p>
@@ -203,22 +201,22 @@ const ContactPage: React.FC = () => {
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0 }
               }}
-              className="flex flex-wrap justify-center sm:justify-start gap-4 sm:gap-8"
+              className="flex flex-wrap justify-center sm:justify-start gap-4 sm:gap-6"
             >
-              <div className="flex -space-x-4">
+              <div className="flex -space-x-2">
                 {[1, 2, 3, 4].map((i) => (
                   <motion.div 
                     key={i}
-                    whileHover={{ y: -5, zIndex: 10 }}
-                    className="w-12 h-12 rounded-full border-2 border-white bg-slate-200 overflow-hidden shadow-lg"
+                    whileHover={{ y: -3, zIndex: 10 }}
+                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-white bg-slate-200 overflow-hidden shadow-md"
                   >
                     <img src={`https://i.pravatar.cc/150?u=${i}`} alt="Expert" className="w-full h-full object-cover" />
                   </motion.div>
                 ))}
               </div>
-              <div className="text-left">
-                <p className="text-gold font-black text-sm uppercase tracking-widest">Expert Consultation</p>
-                <p className="text-blue-100 text-xs font-medium">Available for private briefing</p>
+              <div className="text-left flex flex-col justify-center">
+                <p className="text-gold font-black text-xs uppercase tracking-wider leading-none mb-1">Expert Consultation</p>
+                <p className="text-blue-100 text-[10px] font-medium leading-none">Available for private briefing</p>
               </div>
             </motion.div>
           </motion.div>

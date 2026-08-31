@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Header from './components/Header.tsx';
 import Hero from './components/Hero.tsx';
 import Services from './components/Services.tsx';
-import AIServiceTool from './components/AIServiceTool.tsx';
+import { AIToolsSection } from './components/AIServiceTool.tsx';
 import Footer from './components/Footer.tsx';
 import CompanySecretarial from './components/CompanySecretarial.tsx';
 import AccountingBookkeeping from './components/AccountingBookkeeping.tsx';
@@ -18,6 +18,7 @@ import AboutPage from './components/AboutPage.tsx';
 import AnimatedCounter from './components/AnimatedCounter.tsx';
 import ServiceGrid from './components/ServiceGrid.tsx';
 import TypingText from './components/TypingText.tsx';
+import SectionDivider from './components/SectionDivider.tsx';
 import { MessageCircle } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -49,8 +50,13 @@ const App: React.FC = () => {
           >
             <div className="bg-royal-blue rounded-[40px] p-8 sm:p-10 shadow-2xl border-4 border-white flex flex-col md:flex-row items-center justify-between gap-10 transition-all duration-500 hover:shadow-gold/20 hover:scale-[1.02] hover:-translate-y-1 hover:border-gold/20 group">
               <div className="flex -space-x-4">
-                {[1,2,3,4].map(i => (
-                  <img key={i} src={`https://picsum.photos/100/100?random=${i}`} className="w-16 h-16 rounded-2xl border-4 border-royal-blue object-cover shadow-lg group-hover:rotate-3 transition-transform duration-300" alt="Founder" />
+                {[
+                  "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=100&h=100&q=80",
+                  "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&h=100&q=80",
+                  "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=100&h=100&q=80",
+                  "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=100&h=100&q=80"
+                ].map((src, i) => (
+                  <img key={i} src={src} className="w-16 h-16 rounded-2xl border-4 border-royal-blue object-cover shadow-lg group-hover:rotate-3 transition-transform duration-300" alt="Founder" />
                 ))}
                 <div className="w-16 h-16 rounded-2xl border-4 border-royal-blue bg-gold flex items-center justify-center text-royal-blue text-xs font-black shadow-lg">
                   <AnimatedCounter target="+500" />
@@ -75,6 +81,8 @@ const App: React.FC = () => {
               </div>
             </div>
           </motion.div>
+
+          <SectionDivider variant="gold" />
 
           {/* SECTION ID: ABOUT (PART 1: THE NARRATIVE) */}
           <section id="about" className="py-16 sm:py-24 relative overflow-hidden scroll-mt-20 group/about-section">
@@ -113,7 +121,7 @@ const App: React.FC = () => {
 
             <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='1000' height='1000' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 100 Q 250 50 500 100 T 1000 100' stroke='%23051622' fill='transparent' stroke-width='1'/%3E%3C/svg%3E")`, backgroundSize: 'cover' }}></div>
             
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24 relative z-10">
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-24 items-center">
                 <motion.div 
                   initial={{ opacity: 0, x: -50 }}
@@ -264,6 +272,8 @@ const App: React.FC = () => {
             </div>
           </section>
 
+          <SectionDivider variant="gradient" />
+
           {/* SECTION ID: CTA-STATS (PART 2: STATS GRID) */}
           <section id="cta-stats" className="bg-slate-50 py-16 sm:py-20 border-y border-slate-100 relative overflow-hidden">
             {/* Background Decorative Elements */}
@@ -330,8 +340,10 @@ const App: React.FC = () => {
             </div>
           </section>
 
+          <SectionDivider variant="subtle" />
+
           {/* NEW HIGH-IMPACT DARK CTA SECTION (PART 3: FINAL CALL TO ACTION) */}
-          <section id="final-cta" className="relative py-20 sm:py-32 overflow-hidden group">
+          <section id="final-cta" className="relative py-8 sm:py-12 overflow-hidden group">
             <motion.div 
               initial={{ scale: 1.2, opacity: 0 }}
               whileInView={{ scale: 1, opacity: 1 }}
@@ -353,7 +365,7 @@ const App: React.FC = () => {
               className="absolute inset-0 bg-gradient-to-br from-royal-blue/20 via-transparent to-gold/10 z-1 pointer-events-none"
             />
 
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24 relative z-10">
               <motion.div 
                 initial="hidden"
                 whileInView="visible"
@@ -367,23 +379,23 @@ const App: React.FC = () => {
                     }
                   }
                 }}
-                className="max-w-3xl space-y-6 sm:space-y-8 text-center lg:text-left"
+                className="max-w-5xl space-y-4 sm:space-y-6 text-center lg:text-left"
               >
                 <motion.h2 
                   variants={{
                     hidden: { opacity: 0, y: 30 },
                     visible: { opacity: 1, y: 0 }
                   }}
-                  className="text-3xl sm:text-4xl lg:text-7xl font-black text-white leading-[1.1] uppercase tracking-tighter group-hover:translate-x-2 transition-transform duration-500"
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-white leading-tight uppercase tracking-tight group-hover:translate-x-2 transition-transform duration-500"
                 >
-                  Ready To Simplify Your <br className="hidden lg:block"/> Business In Malaysia?
+                  Ready To Simplify Your Business In Malaysia?
                 </motion.h2>
                 <motion.p 
                   variants={{
                     hidden: { opacity: 0, y: 20 },
                     visible: { opacity: 1, y: 0 }
                   }}
-                  className="text-blue-100/70 text-lg sm:text-xl font-medium max-w-2xl leading-relaxed mx-auto lg:mx-0"
+                  className="text-blue-100/70 text-base sm:text-lg font-medium max-w-3xl leading-relaxed mx-auto lg:mx-0"
                 >
                   Get expert support for company registration, licensing, immigration, visas, and compliance — handled professionally from start to approval.
                 </motion.p>
@@ -392,13 +404,13 @@ const App: React.FC = () => {
                     hidden: { opacity: 0, y: 20 },
                     visible: { opacity: 1, y: 0 }
                   }}
-                  className="pt-4 sm:pt-6 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6"
+                  className="pt-2 sm:pt-4 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6"
                 >
                   <motion.button 
                     whileHover={{ scale: 1.05, y: -5 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => handleNavigate('contact')}
-                    className="w-full sm:w-auto px-10 sm:px-16 py-5 sm:py-7 bg-gold text-navy-dark font-black rounded-2xl shadow-2xl hover:shadow-gold/40 uppercase tracking-[0.3em] text-[12px] sm:text-sm"
+                    className="w-full sm:w-auto px-8 sm:px-12 py-4 sm:py-5 bg-gold text-navy-dark font-black rounded-2xl shadow-2xl hover:shadow-gold/40 uppercase tracking-[0.25em] text-[11px] sm:text-xs"
                   >
                     Get Expert Consultation
                   </motion.button>
@@ -420,10 +432,14 @@ const App: React.FC = () => {
             </div>
           </section>
 
+          <SectionDivider variant="blue" />
           <Services />
+          
+          <SectionDivider variant="gold" />
           <ServiceGrid onNavigate={handleNavigate} />
-          <AIServiceTool id="wizard" type="roadmap" title="Smart Setup Wizard" subtitle="Receive a hard-hitting compliance roadmap in 15 seconds." />
-          <AIServiceTool id="visa" type="visa" title="Official Visa Checker" subtitle="Verify your eligibility for Malaysia's passes instantly." />
+          
+          <SectionDivider variant="gradient" />
+          <AIToolsSection />
         </>
       ) : (
         <motion.div

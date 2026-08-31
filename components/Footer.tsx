@@ -7,9 +7,9 @@ const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-white pt-20 overflow-hidden">
+    <footer className="relative bg-white pt-0 overflow-hidden">
       {/* Wavy Top with Silhouette */}
-      <div className="relative w-full h-32 sm:h-48 -mb-px">
+      <div className="relative w-full h-24 sm:h-36 -mb-px">
         <svg 
           viewBox="0 0 1440 320" 
           className="absolute bottom-0 w-full h-full preserve-3d"
@@ -35,25 +35,25 @@ const Footer: React.FC = () => {
           </g>
         </svg>
         
-        {/* Floating Icons (Like the shoes/balloons in the image) */}
+        {/* Floating Icons */}
         <motion.div 
           animate={{ y: [0, -20, 0] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-10 left-[15%] text-gold/20 hidden lg:block"
+          className="absolute top-6 left-[15%] text-gold/20 hidden lg:block"
         >
-          <Globe size={64} strokeWidth={1} />
+          <Globe size={52} strokeWidth={1} />
         </motion.div>
         <motion.div 
           animate={{ y: [0, -15, 0], rotate: [0, 5, 0] }}
           transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute top-20 right-[20%] text-gold/10 hidden lg:block"
+          className="absolute top-12 right-[20%] text-gold/10 hidden lg:block"
         >
-          <ShieldCheck size={80} strokeWidth={1} />
+          <ShieldCheck size={64} strokeWidth={1} />
         </motion.div>
       </div>
 
       {/* Main Footer Content */}
-      <div className="bg-[#051622] text-white pb-12 lg:pb-16 relative z-10">
+      <div className="bg-[#051622] text-white pb-3 lg:pb-4 relative z-10">
         {/* Background Image Overlay */}
         <div 
           className="absolute inset-0 opacity-15 pointer-events-none select-none"
@@ -65,8 +65,8 @@ const Footer: React.FC = () => {
           }}
         ></div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 py-16 border-b border-white/5">
+        <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24 relative z-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 py-10 lg:py-12 border-b border-white/10">
             
             {/* Column 1: Newsletter */}
             <div className="space-y-8">
@@ -152,7 +152,7 @@ const Footer: React.FC = () => {
           </div>
 
           {/* Bottom Trust Bar */}
-          <div className="py-12 flex flex-col items-center gap-10">
+          <div className="pt-6 pb-2 flex flex-col items-center gap-4">
             <div className="flex flex-wrap justify-center items-center gap-8 lg:gap-16 opacity-40 grayscale hover:grayscale-0 transition-all duration-700">
               <div className="flex items-center gap-2">
                 <ShieldCheck size={24} className="text-gold" />
@@ -174,7 +174,7 @@ const Footer: React.FC = () => {
               </div>
             </div>
 
-            <div className="text-center space-y-4">
+            <div className="text-center space-y-1.5">
               <p className="text-[10px] font-bold text-blue-100/30 uppercase tracking-[0.3em]">
                 Part of BizFlow Group, serving entrepreneurs worldwide.
               </p>
