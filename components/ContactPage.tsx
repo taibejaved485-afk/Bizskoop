@@ -148,7 +148,7 @@ const ContactPage: React.FC = () => {
         <div className="absolute inset-0 bg-navy-dark/60 lg:bg-gradient-to-r lg:from-navy-dark lg:via-navy-dark/80 lg:to-transparent z-0"></div>
         <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-white/70 to-transparent z-0"></div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20">
+        <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24 relative z-20">
           <motion.div 
             initial="hidden"
             animate="visible"
@@ -162,7 +162,7 @@ const ContactPage: React.FC = () => {
                 }
               }
             }}
-            className="max-w-5xl text-center sm:text-left"
+            className="w-full text-center sm:text-left"
           >
             <motion.div 
               variants={{
@@ -235,9 +235,9 @@ const ContactPage: React.FC = () => {
           className="absolute bottom-40 left-0 w-96 h-96 bg-royal-blue/5 rounded-full blur-[120px] -z-10"
         />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
-            {/* Left: Contact Details */}
+        <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24">
+          <div className="grid lg:grid-cols-12 gap-16 lg:gap-20 items-start">
+            {/* Left: Contact Details (5 cols) */}
             <motion.div 
               initial="hidden"
               whileInView="visible"
@@ -251,7 +251,7 @@ const ContactPage: React.FC = () => {
                   }
                 }
               }}
-              className="text-center sm:text-left"
+              className="lg:col-span-5 text-center sm:text-left"
             >
               <motion.div
                 variants={{
@@ -335,13 +335,13 @@ const ContactPage: React.FC = () => {
               </motion.div>
             </motion.div>
 
-            {/* Right: Contact Form */}
+            {/* Right: Contact Form (7 cols) */}
             <motion.div 
               initial={{ opacity: 0, y: 100 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-              className="relative group"
+              className="relative group lg:col-span-7 w-full"
             >
               {/* Rotating Glow Layer */}
               <div className="absolute inset-[-20px] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_8s_linear_infinite] opacity-20 blur-2xl rounded-[60px]"></div>
@@ -381,7 +381,7 @@ const ContactPage: React.FC = () => {
                         value={formData.fullName}
                         onChange={handleChange}
                         placeholder="e.g. Alexander Graham" 
-                        className={`w-full px-7 py-4 sm:py-5 bg-slate-50 border-2 ${errors.fullName ? 'border-rose-500' : 'border-slate-50'} rounded-2xl focus:border-gold focus:bg-white outline-none font-medium transition-all duration-300 text-sm sm:text-base shadow-inner`} 
+                        className={`w-full px-7 py-4 sm:py-5 bg-slate-50 border-2 ${errors.fullName ? 'border-rose-500' : 'border-slate-200/80 focus:border-gold'} rounded-2xl focus:bg-white outline-none font-medium transition-all duration-300 text-sm sm:text-base`} 
                       />
                       {errors.fullName && <p className="text-rose-500 text-[10px] mt-1 font-bold ml-1">{errors.fullName}</p>}
                     </div>
@@ -394,7 +394,7 @@ const ContactPage: React.FC = () => {
                         value={formData.email}
                         onChange={handleChange}
                         placeholder="name@company.com" 
-                        className={`w-full px-7 py-4 sm:py-5 bg-slate-50 border-2 ${errors.email ? 'border-rose-500' : 'border-slate-50'} rounded-2xl focus:border-gold focus:bg-white outline-none font-medium transition-all duration-300 text-sm sm:text-base shadow-inner`} 
+                        className={`w-full px-7 py-4 sm:py-5 bg-slate-50 border-2 ${errors.email ? 'border-rose-500' : 'border-slate-200/80 focus:border-gold'} rounded-2xl focus:bg-white outline-none font-medium transition-all duration-300 text-sm sm:text-base`} 
                       />
                       {errors.email && <p className="text-rose-500 text-[10px] mt-1 font-bold ml-1">{errors.email}</p>}
                     </div>
@@ -410,7 +410,7 @@ const ContactPage: React.FC = () => {
                         value={formData.companyName}
                         onChange={handleChange}
                         placeholder="Entity Name" 
-                        className="w-full px-7 py-4 sm:py-5 bg-slate-50 border-2 border-slate-50 rounded-2xl focus:border-gold focus:bg-white outline-none font-medium transition-all duration-300 text-sm sm:text-base shadow-inner" 
+                        className="w-full px-7 py-4 sm:py-5 bg-slate-50 border-2 border-slate-200/80 focus:border-gold focus:bg-white outline-none font-medium transition-all duration-300 text-sm sm:text-base" 
                       />
                     </div>
                     <div className="space-y-2">
@@ -422,7 +422,7 @@ const ContactPage: React.FC = () => {
                         value={formData.phoneNumber}
                         onChange={handleChange}
                         placeholder="+60 12..." 
-                        className={`w-full px-7 py-4 sm:py-5 bg-slate-50 border-2 ${errors.phoneNumber ? 'border-rose-500' : 'border-slate-50'} rounded-2xl focus:border-gold focus:bg-white outline-none font-medium transition-all duration-300 text-sm sm:text-base shadow-inner`} 
+                        className={`w-full px-7 py-4 sm:py-5 bg-slate-50 border-2 ${errors.phoneNumber ? 'border-rose-500' : 'border-slate-200/80 focus:border-gold'} rounded-2xl focus:bg-white outline-none font-medium transition-all duration-300 text-sm sm:text-base`} 
                       />
                       {errors.phoneNumber && <p className="text-rose-500 text-[10px] mt-1 font-bold ml-1">{errors.phoneNumber}</p>}
                     </div>
@@ -436,7 +436,7 @@ const ContactPage: React.FC = () => {
                         name="service"
                         value={formData.service}
                         onChange={handleChange}
-                        className={`w-full px-7 py-4 sm:py-5 bg-slate-50 border-2 ${errors.service ? 'border-rose-500' : 'border-slate-50'} rounded-2xl focus:border-gold focus:bg-white outline-none font-medium text-slate-500 appearance-none transition-all duration-300 text-sm sm:text-base shadow-inner`}
+                        className={`w-full px-7 py-4 sm:py-5 bg-slate-50 border-2 ${errors.service ? 'border-rose-500' : 'border-slate-200/80 focus:border-gold'} rounded-2xl focus:bg-white outline-none font-medium text-slate-500 appearance-none transition-all duration-300 text-sm sm:text-base`}
                       >
                         <option value="">Select a Primary Service</option>
                         <option value="incorporation">Sdn Bhd Incorporation</option>
@@ -462,7 +462,7 @@ const ContactPage: React.FC = () => {
                       value={formData.message}
                       onChange={handleChange}
                       placeholder="Describe your business goals or compliance requirements..." 
-                      className={`w-full h-40 px-7 py-5 bg-slate-50 border-2 ${errors.message ? 'border-rose-500' : 'border-slate-50'} rounded-2xl focus:border-gold focus:bg-white outline-none font-medium resize-none transition-all duration-300 text-sm sm:text-base shadow-inner`}
+                      className={`w-full h-40 px-7 py-5 bg-slate-50 border-2 ${errors.message ? 'border-rose-500' : 'border-slate-200/80 focus:border-gold'} rounded-2xl focus:bg-white outline-none font-medium resize-none transition-all duration-300 text-sm sm:text-base`}
                     ></motion.textarea>
                     {errors.message && <p className="text-rose-500 text-[10px] mt-1 font-bold ml-1">{errors.message}</p>}
                   </div>

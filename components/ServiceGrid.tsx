@@ -1,6 +1,5 @@
 
 import React from 'react';
-import TypingText from './TypingText.tsx';
 
 interface ServiceGridProps {
   onNavigate: (page: string) => void;
@@ -24,14 +23,14 @@ const ServiceGridCard: React.FC<{
 
   return (
     <div 
-      className="group relative p-[2px] rounded-[28px] overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-royal-blue/15"
+      className="group relative p-[2px] bg-slate-200/80 rounded-[28px] overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-royal-blue/15"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Rotating Gold/Navy Glow Border Layer on Hover */}
       <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,#003366_70%,transparent_100%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-      <div className="relative h-full bg-white p-7 sm:p-8 rounded-[26px] border border-slate-100 shadow-sm transition-all duration-500 z-10 flex flex-col justify-between">
+      <div className="relative h-full bg-white p-7 sm:p-8 rounded-[26px] border border-transparent shadow-sm transition-all duration-500 z-10 flex flex-col justify-between">
         
         <div>
           {/* Top Row: Icon + Badge */}
@@ -49,14 +48,9 @@ const ServiceGridCard: React.FC<{
             {service.title}
           </h3>
 
-          {/* Description with Typing effect */}
+          {/* Description */}
           <div className="text-slate-500 font-medium text-xs sm:text-sm leading-relaxed mb-6 min-h-[3.5rem]">
-            <TypingText 
-              text={service.desc}
-              speed={18}
-              delay={idx * 100}
-              start={isHovered}
-            />
+            {service.desc}
           </div>
 
           {/* Highlights / Features pills */}
@@ -190,7 +184,7 @@ const ServiceGrid: React.FC<ServiceGridProps> = ({ onNavigate }) => {
   ];
 
   return (
-    <section className="pt-4 sm:pt-6 pb-10 sm:pb-14 bg-white relative overflow-hidden">
+    <section className="pt-16 sm:pt-24 pb-12 sm:pb-16 bg-white relative overflow-hidden">
       <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24">
         {/* Header */}
         <div className="text-center mb-8 sm:mb-10">

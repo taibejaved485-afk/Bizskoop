@@ -1,6 +1,5 @@
 
 import React from 'react';
-import TypingText from './TypingText.tsx';
 import { motion, AnimatePresence, useScroll, useTransform } from 'motion/react';
 import { Building2, Globe2, FileText, ArrowRight } from 'lucide-react';
 
@@ -15,31 +14,31 @@ const ServiceCard: React.FC<{
 
   return (
     <motion.div 
-      initial={{ opacity: 0, scale: 0.9 }}
-      whileInView={{ opacity: 1, scale: 1 }}
+      initial={{ opacity: 0, scale: 0.92, y: 30 }}
+      whileInView={{ opacity: 1, scale: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.8, delay: index * 0.1, ease: [0.21, 1.11, 0.81, 0.99] }}
-      className="group relative p-[1px] rounded-[42px] overflow-hidden transition-all duration-700 hover:-translate-y-2"
+      transition={{ duration: 0.8, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
+      className="group relative p-[2px] rounded-[42px] overflow-hidden transition-all duration-700 hover:-translate-y-2.5"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Animated Border Gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-200 via-slate-100 to-slate-200 group-hover:from-gold/50 group-hover:via-gold/20 group-hover:to-gold/50 transition-all duration-700"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-300 via-slate-200 to-slate-300 group-hover:from-gold group-hover:via-gold/30 group-hover:to-royal-blue/30 transition-all duration-700"></div>
 
       {/* Rotating Glow Layer - Only visible on hover */}
       <div className="absolute inset-[-150%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_6s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 
-      <div className="relative h-full bg-white p-8 sm:p-10 lg:p-12 rounded-[41px] border border-transparent shadow-sm group-hover:shadow-[0_40px_80px_-15px_rgba(0,51,102,0.15)] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] cursor-pointer overflow-hidden z-10">
+      <div className="relative h-full bg-white p-8 sm:p-10 lg:p-12 rounded-[41px] border border-transparent shadow-sm group-hover:shadow-[0_40px_80px_-15px_rgba(0,51,102,0.18)] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] cursor-pointer overflow-hidden z-10">
         
-        {/* NEW: Subtle Background Pattern */}
+        {/* Subtle Background Pattern */}
         <div className="absolute inset-0 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity duration-700 pointer-events-none" 
-             style={{ backgroundImage: 'radial-gradient(#003366 1px, transparent 1px)', backgroundSize: '24px 24px' }}>
+             style={{ backgroundImage: 'radial-gradient(#003366 1.5px, transparent 1.5px)', backgroundSize: '24px 24px' }}>
         </div>
 
         {/* Glass Overlay on Hover */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-slate-50/50 group-hover:to-gold/[0.03] transition-all duration-700"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-slate-50/50 group-hover:to-gold/[0.04] transition-all duration-700"></div>
 
-        {/* NEW: Floating Particles */}
+        {/* Floating Particles */}
         <div className="absolute top-12 right-12 w-2 h-2 bg-gold rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700 group-hover:-translate-y-6 delay-100"></div>
         <div className="absolute bottom-24 left-12 w-1.5 h-1.5 bg-royal-blue rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700 group-hover:-translate-y-8 delay-200"></div>
         <div className="absolute top-1/2 right-8 w-1 h-1 bg-gold/50 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700 group-hover:-translate-y-4 delay-300"></div>
@@ -47,7 +46,7 @@ const ServiceCard: React.FC<{
         {/* Icon Container with Parallax Effect */}
         <div className="relative z-20">
           <div className="w-20 h-20 bg-royal-blue rounded-[24px] flex items-center justify-center text-white mb-10 group-hover:bg-gold group-hover:scale-110 group-hover:rotate-[8deg] group-hover:translate-x-2 group-hover:-translate-y-2 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] shadow-2xl shadow-royal-blue/20 group-hover:shadow-gold/30 relative overflow-hidden">
-            {/* NEW: Shine effect on icon box */}
+            {/* Shine effect on icon box */}
             <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent translate-y-full group-hover:-translate-y-full transition-transform duration-1000 ease-in-out"></div>
             <div className="group-hover:scale-110 transition-transform duration-500 relative z-10">
               {icon}
@@ -59,17 +58,12 @@ const ServiceCard: React.FC<{
             <h3 className="text-2xl font-black text-royal-blue mb-4 uppercase tracking-tighter group-hover:text-gold transition-colors duration-300 relative z-10">
               {title}
             </h3>
-            {/* NEW: Arrow Icon appearing next to title */}
+            {/* Arrow Icon appearing next to title */}
              <ArrowRight className="text-gold opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 mt-1" />
           </div>
 
           <div className="text-slate-500 font-medium leading-relaxed mb-10 text-sm group-hover:text-slate-700 transition-colors min-h-[5rem] relative z-10">
-            <TypingText 
-              text={desc}
-              speed={15}
-              delay={index * 200}
-              start={isHovered}
-            />
+            {desc}
           </div>
 
           {/* Tags Section */}
@@ -85,7 +79,7 @@ const ServiceCard: React.FC<{
         {/* Hover Accent Bar */}
         <div className="absolute bottom-0 left-0 w-full h-1.5 bg-transparent group-hover:bg-gold transition-all duration-700"></div>
         
-        {/* NEW: Corner Accent */}
+        {/* Corner Accent */}
         <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-gold/10 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-bl-[40px] pointer-events-none"></div>
       </div>
     </motion.div>
@@ -118,7 +112,7 @@ const Services: React.FC = () => {
   ];
 
   return (
-    <section id="services" className="pt-4 sm:pt-6 pb-6 sm:pb-8 bg-white relative overflow-hidden">
+    <section id="services" className="pt-16 sm:pt-24 pb-8 sm:pb-12 bg-white relative overflow-hidden">
       {/* Background decoration */}
       <motion.div 
         style={{ y: yHero }}

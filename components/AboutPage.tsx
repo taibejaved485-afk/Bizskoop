@@ -119,7 +119,7 @@ const AboutPage: React.FC = () => {
                 hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0 }
               }}
-              className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-gold/20 backdrop-blur-xl border border-gold/30 text-gold text-[10px] sm:text-xs font-black uppercase tracking-[0.3em] sm:tracking-[0.5em] mb-4 shadow-2xl mx-auto"
+              className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-gold/20 backdrop-blur-xl border border-gold/30 text-gold text-[9px] sm:text-xs font-black uppercase tracking-[0.25em] sm:tracking-[0.35em] mb-3 shadow-xl mx-auto"
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span>
@@ -129,20 +129,20 @@ const AboutPage: React.FC = () => {
             </motion.div>
             <motion.h1 
               variants={{
-                hidden: { opacity: 0, y: 30 },
+                hidden: { opacity: 0, y: 20 },
                 visible: { opacity: 1, y: 0 }
               }}
-              className="text-2xl sm:text-4xl lg:text-5xl font-black mb-4 leading-tight tracking-tight uppercase"
+              className="text-xl sm:text-3xl lg:text-4xl font-black mb-3 leading-tight tracking-tight uppercase"
             >
               Pioneering Your <br className="hidden sm:block" />
               <span className="text-gold inline-block hover:scale-105 transition-transform cursor-default">Malaysia Success</span>
             </motion.h1>
             <motion.p 
               variants={{
-                hidden: { opacity: 0, y: 20 },
+                hidden: { opacity: 0, y: 15 },
                 visible: { opacity: 1, y: 0 }
               }}
-              className="text-xs sm:text-base text-blue-100/90 max-w-2xl mx-auto leading-relaxed font-medium"
+              className="text-xs sm:text-sm lg:text-base text-blue-100/90 max-w-xl mx-auto leading-relaxed font-medium"
             >
               We aren't just consultants. We are your strategic execution partners, bridging the gap between global ambition and local compliance.
             </motion.p>
@@ -151,7 +151,7 @@ const AboutPage: React.FC = () => {
       </section>
 
       {/* Premium Content Section */}
-      <section id="about" className="relative py-10 sm:py-14 overflow-hidden bg-white">
+      <section id="about" className="relative py-8 sm:py-12 overflow-hidden bg-white">
         {/* Topography Pattern */}
         <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='1000' height='1000' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 100 Q 250 50 500 100 T 1000 100 M0 200 Q 250 150 500 200 T 1000 200 M0 300 Q 250 250 500 300 T 1000 300' stroke='%23051622' fill='transparent' stroke-width='1.5'/%3E%3C/svg%3E")`, backgroundSize: 'cover' }}></div>
         
@@ -239,7 +239,7 @@ const AboutPage: React.FC = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5 }}
-                  className="text-gold font-black text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.5em] block mb-2"
+                  className="text-gold font-black text-[9px] sm:text-xs uppercase tracking-[0.25em] sm:tracking-[0.35em] block mb-2"
                 >
                   Core Principles
                 </motion.span>
@@ -248,25 +248,25 @@ const AboutPage: React.FC = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.2 }}
-                  className="text-2xl sm:text-3xl lg:text-4xl font-black text-navy-dark leading-snug mb-4 tracking-tight uppercase"
+                  className="text-xl sm:text-2xl lg:text-3xl font-black text-navy-dark leading-snug mb-3 tracking-tight uppercase"
                 >
                   We Execute Our Ideas From Start To Finish
                 </motion.h2>
                 <motion.p 
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.3 }}
-                  className="text-slate-600 text-sm sm:text-base leading-relaxed font-medium mb-4"
+                  className="text-slate-600 text-xs sm:text-sm lg:text-base leading-relaxed font-medium mb-3"
                 >
                   BizFlow was founded on the principle that business incorporation should be a catalyst for growth, not a bureaucratic hurdle. In the dynamic Malaysian landscape, speed and compliance are the twin engines of success.
                 </motion.p>
                 <motion.p 
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.4 }}
-                  className="text-slate-600 text-sm sm:text-base leading-relaxed font-medium"
+                  className="text-slate-600 text-xs sm:text-sm lg:text-base leading-relaxed font-medium"
                 >
                   Our team of licensed company secretaries, chartered accountants, and immigration specialists work in synergy to provide a 360-degree support ecosystem for foreign founders.
                 </motion.p>

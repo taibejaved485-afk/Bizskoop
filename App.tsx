@@ -85,7 +85,7 @@ const App: React.FC = () => {
           <SectionDivider variant="gold" />
 
           {/* SECTION ID: ABOUT (PART 1: THE NARRATIVE) */}
-          <section id="about" className="py-16 sm:py-24 relative overflow-hidden scroll-mt-20 group/about-section">
+          <section id="about" className="py-12 sm:py-16 relative overflow-hidden scroll-mt-20 group/about-section">
             <div className="absolute inset-0 z-0">
               <motion.img 
                 initial={{ scale: 1.1 }}
@@ -130,7 +130,7 @@ const App: React.FC = () => {
                   transition={{ duration: 0.8 }}
                   className="relative group/about-img"
                 >
-                  <div className="relative w-full aspect-[4/5] overflow-hidden rounded-2xl shadow-2xl z-10 border-4 border-white transition-all duration-500 group-hover/about-img:border-gold">
+                  <div className="relative w-full aspect-[4/3] overflow-hidden rounded-2xl shadow-2xl z-10 border-4 border-white transition-all duration-500 group-hover/about-img:border-gold">
                     <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1000" className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" alt="BizFlow Executive" />
                   </div>
                   <motion.div 
@@ -138,7 +138,7 @@ const App: React.FC = () => {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.4, duration: 0.8 }}
-                    className="absolute -bottom-10 -right-4 lg:-right-10 w-[55%] aspect-square rounded-2xl overflow-hidden shadow-2xl z-20 border-8 border-white hidden sm:block transition-all duration-500 group-hover/about-img:border-gold group-hover/about-img:-translate-y-2"
+                    className="absolute -bottom-8 -right-4 lg:-right-8 w-[50%] aspect-square rounded-2xl overflow-hidden shadow-xl z-20 border-4 border-white hidden sm:block transition-all duration-500 group-hover/about-img:border-gold group-hover/about-img:-translate-y-1"
                   >
                     <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&q=80&w=800" className="w-full h-full object-cover" alt="Team Consultation" />
                   </motion.div>
@@ -147,9 +147,9 @@ const App: React.FC = () => {
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 0.6, duration: 0.8 }}
-                    className="absolute bottom-6 sm:bottom-10 left-[-10px] sm:left-[-20px] bg-[#051622] text-white p-6 lg:p-10 rounded-2xl shadow-2xl z-30 border-b-4 border-gold group-hover/about-img:scale-110 transition-transform"
+                    className="absolute bottom-4 sm:bottom-6 left-[-8px] sm:left-[-16px] bg-[#051622] text-white p-4 lg:p-8 rounded-2xl shadow-xl z-30 border-b-4 border-gold group-hover/about-img:scale-105 transition-transform"
                   >
-                    <p className="text-3xl sm:text-4xl lg:text-5xl font-black mb-1 leading-none tracking-tighter">
+                    <p className="text-2xl sm:text-3xl lg:text-4xl font-black mb-1 leading-none tracking-tighter">
                       <AnimatedCounter target="12+" duration={1500} />
                     </p>
                     <p className="text-[8px] sm:text-[10px] font-bold uppercase tracking-[0.3em] text-blue-200">Experiences</p>
@@ -182,7 +182,7 @@ const App: React.FC = () => {
                         hidden: { opacity: 0, y: 10 },
                         visible: { opacity: 1, y: 0 }
                       }}
-                      className="text-[#051622] font-black text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] block mb-4"
+                      className="text-[#051622] font-black text-[9px] sm:text-xs uppercase tracking-[0.25em] sm:tracking-[0.35em] block mb-3"
                     >
                       Our Narrative
                     </motion.span>
@@ -191,7 +191,7 @@ const App: React.FC = () => {
                         hidden: { opacity: 0, y: 20 },
                         visible: { opacity: 1, y: 0 }
                       }}
-                      className="text-3xl sm:text-4xl lg:text-6xl font-black text-[#051622] leading-[1.1] mb-6 sm:mb-8 tracking-tighter uppercase"
+                      className="text-2xl sm:text-3xl lg:text-5xl font-black text-[#051622] leading-[1.1] mb-4 sm:mb-6 tracking-tight uppercase"
                     >
                       We Execute Our <br className="hidden sm:block"/> Ideas From Start <br className="hidden sm:block"/> To Finish
                     </motion.h2>
@@ -200,7 +200,7 @@ const App: React.FC = () => {
                         hidden: { opacity: 0, y: 20 },
                         visible: { opacity: 1, y: 0 }
                       }}
-                      className="text-slate-600 text-base sm:text-lg leading-relaxed font-medium mb-8 sm:mb-10 min-h-[5rem] sm:min-h-[6rem]"
+                      className="text-slate-600 text-xs sm:text-sm lg:text-base leading-relaxed font-medium mb-6 sm:mb-8 min-h-[4rem]"
                     >
                       <TypingText 
                         text="BizFlow is Malaysia’s premium strategic launchpad for global entrepreneurs. We handle the heavy lifting of compliance and operational setup so you can focus on building your empire from day one."
@@ -249,21 +249,26 @@ const App: React.FC = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 1 }}
-                    className="flex flex-col sm:flex-row items-stretch sm:items-center gap-6 sm:gap-8 pt-6"
+                    className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6 pt-6"
                   >
-                    <button onClick={() => handleNavigate('about')} className="px-10 sm:px-12 py-4 sm:py-5 bg-[#E91E63] text-white font-black rounded-xl hover:bg-[#C2185B] hover:scale-105 transition-all shadow-xl uppercase tracking-[0.2em] text-[10px] sm:text-xs">Discover More</button>
-                    <motion.div 
-                      whileHover={{ x: 10 }}
-                      className="flex items-center gap-5 bg-[#051622] p-4 sm:p-5 pr-8 sm:pr-10 rounded-xl text-white shadow-2xl border-l-4 border-gold transition-transform cursor-default"
+                    <button 
+                      onClick={() => handleNavigate('about')} 
+                      className="h-16 sm:h-20 flex items-center justify-center px-8 sm:px-10 bg-[#E91E63] text-white font-black rounded-xl hover:bg-[#C2185B] hover:scale-105 transition-all shadow-xl uppercase tracking-[0.2em] text-[10px] sm:text-xs"
                     >
-                      <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-lg bg-white/5 flex items-center justify-center">
-                        <svg className="w-6 h-6 sm:w-7 sm:h-7 text-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" /><path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" /></svg>
+                      Discover More
+                    </button>
+                    <motion.div 
+                      whileHover={{ x: 5 }}
+                      className="h-16 sm:h-20 flex items-center gap-4 sm:gap-5 bg-[#051622] px-4 sm:px-6 rounded-xl text-white shadow-2xl border-l-4 border-gold transition-transform cursor-default"
+                    >
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-white/5 flex items-center justify-center shrink-0">
+                        <svg className="w-5 h-5 sm:w-6 sm:h-6 text-gold" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" /><path fillRule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clipRule="evenodd" /></svg>
                       </div>
                       <div className="text-left">
-                        <p className="text-xl sm:text-2xl font-black leading-none mb-1">
+                        <p className="text-lg sm:text-xl font-black leading-none mb-1">
                           <AnimatedCounter target="1500+" duration={2500} />
                         </p>
-                        <p className="text-[8px] sm:text-[10px] font-bold text-blue-200 uppercase tracking-widest">Successful Cases</p>
+                        <p className="text-[8px] sm:text-[10px] font-bold text-blue-200 uppercase tracking-widest whitespace-nowrap">Successful Cases</p>
                       </div>
                     </motion.div>
                   </motion.div>
