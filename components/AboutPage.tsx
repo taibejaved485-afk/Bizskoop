@@ -99,7 +99,7 @@ const AboutPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+        <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24 relative z-10 text-center">
           <motion.div
             initial="hidden"
             animate="visible"

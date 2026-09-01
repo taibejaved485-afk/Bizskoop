@@ -35,7 +35,7 @@ const BusinessLicensing: React.FC = () => {
           className="absolute top-0 right-0 w-1/2 h-full bg-gold/5 -skew-x-12 translate-x-1/4 z-0"
         ></motion.div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24 relative z-10">
           <motion.div 
             initial="hidden"
             animate="visible"
@@ -103,14 +103,14 @@ const BusinessLicensing: React.FC = () => {
 
       {/* 2. Why Licensing is Crucial Section */}
       <section className="py-16 sm:py-24 bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+        <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24">
+          <div className="grid lg:grid-cols-12 gap-16 lg:gap-24 items-center">
             <motion.div 
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="lg:w-1/2 order-2 lg:order-1 text-center lg:text-left"
+              className="lg:col-span-7 order-2 lg:order-1 text-center lg:text-left w-full"
             >
               <h2 className="text-gold font-black text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.4em] mb-4">Operational Compliance</h2>
               <h3 className="text-3xl sm:text-4xl font-black text-royal-blue mb-6 sm:mb-8 uppercase tracking-tight">Protect Your <br className="hidden sm:block"/>Business Assets.</h3>
@@ -161,7 +161,7 @@ const BusinessLicensing: React.FC = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="lg:w-1/2 order-1 lg:order-2 w-full"
+              className="lg:col-span-5 order-1 lg:order-2 w-full"
             >
               <div className="relative">
                 <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 w-20 sm:w-24 h-20 sm:h-24 bg-gold/10 rounded-2xl -z-10"></div>
@@ -178,7 +178,7 @@ const BusinessLicensing: React.FC = () => {
 
       {/* 3. Core Licensing Support Grid */}
       <section className="py-16 sm:py-24 bg-slate-50 border-y border-slate-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -262,7 +262,7 @@ const BusinessLicensing: React.FC = () => {
 
       {/* 4. The BizFlow Approval Process */}
       <section className="py-16 sm:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

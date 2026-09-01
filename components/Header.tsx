@@ -174,7 +174,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
                 
                 <AnimatePresence>
                   {isServicesOpen && (
-                    <div className="absolute left-1/2 -translate-x-1/2 top-full pt-4 w-[1000px] z-50">
+                    <div className="absolute left-1/2 -translate-x-1/2 top-full pt-4 w-[1200px] z-50">
                       <motion.div 
                         initial={{ opacity: 0, y: 10, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -182,37 +182,9 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
                         transition={{ duration: 0.2, ease: "easeOut" }}
                         className="bg-white rounded-[40px] shadow-2xl border-4 border-white overflow-hidden grid grid-cols-12"
                       >
-                        {/* Left Panel: Featured / Promo */}
-                        <div className="col-span-4 bg-royal-blue p-10 text-white relative overflow-hidden group/dropdown-hero">
-                          <div className="absolute inset-0 z-0">
-                            <img 
-                              src="https://i.pinimg.com/1200x/b0/97/fd/b097fd4721f2d2e3ac4fc665d328cc00.jpg" 
-                              className="w-full h-full object-cover opacity-20 group-hover/dropdown-hero:scale-110 transition-transform duration-700"
-                              alt="Dropdown Background"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-br from-royal-blue via-royal-blue/80 to-transparent"></div>
-                          </div>
-                          <div className="relative z-10">
-                            <div className="w-12 h-12 bg-gold rounded-2xl flex items-center justify-center text-royal-blue mb-6 shadow-lg group-hover/dropdown-hero:rotate-12 transition-transform">
-                              <Star className="w-6 h-6 fill-current" />
-                            </div>
-                            <h3 className="text-2xl font-black mb-4 uppercase tracking-tight text-white">Premium Launch Package</h3>
-                            <p className="text-blue-100 text-sm mb-8 leading-relaxed font-bold">Everything you need to start your Malaysia business in one flat fee. Zero bureaucracy, 100% success rate.</p>
-                            <button 
-                              onClick={() => {
-                                onNavigate('contact');
-                                setIsServicesOpen(false);
-                              }}
-                              className="px-8 py-4 bg-white text-royal-blue font-black rounded-xl hover:bg-gold transition-all shadow-xl uppercase tracking-widest text-[10px]"
-                            >
-                              Get Started Now
-                            </button>
-                          </div>
-                        </div>
-                        
-                        {/* Right Panel: Services Grid */}
-                        <div className="col-span-8 p-10 bg-slate-50/50">
-                          <div className="grid grid-cols-2 gap-x-10 gap-y-8">
+                        {/* Right Panel: Services Grid - now full-width 12 columns */}
+                        <div className="col-span-12 p-10 bg-white">
+                          <div className="grid grid-cols-4 gap-x-8 gap-y-8">
                             {serviceItems.map((item, idx) => (
                               <motion.button
                                 key={item.id}
@@ -223,9 +195,9 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
                                   onNavigate(item.id);
                                   setIsServicesOpen(false);
                                 }}
-                                className="flex items-start gap-5 group/item text-left p-2 rounded-2xl hover:bg-white hover:shadow-xl hover:shadow-royal-blue/5 transition-all duration-300"
+                                className="flex items-start gap-5 group/item text-left p-4 rounded-2xl hover:bg-slate-50 hover:shadow-xl hover:shadow-royal-blue/5 border border-transparent hover:border-slate-100 transition-all duration-300"
                               >
-                                <div className="w-12 h-12 rounded-xl bg-white shadow-sm border border-slate-100 flex items-center justify-center text-royal-blue group-hover/item:bg-royal-blue group-hover/item:text-white group-hover/item:scale-110 transition-all duration-300">
+                                <div className="w-12 h-12 rounded-xl bg-slate-50 shadow-sm border border-slate-100 flex items-center justify-center text-royal-blue group-hover/item:bg-royal-blue group-hover/item:text-white group-hover/item:scale-110 transition-all duration-300">
                                   <Star className="w-6 h-6" strokeWidth={2.5} />
                                 </div>
                                 <div>

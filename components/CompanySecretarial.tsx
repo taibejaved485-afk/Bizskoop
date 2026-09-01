@@ -292,14 +292,14 @@ const CompanySecretarial: React.FC = () => {
         {/* Topography Pattern */}
         <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='1000' height='1000' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 100 Q 250 50 500 100 T 1000 100 M0 200 Q 250 150 500 200 T 1000 200 M0 300 Q 250 250 500 300 T 1000 300' stroke='%23051622' fill='transparent' stroke-width='1.5'/%3E%3C/svg%3E")`, backgroundSize: 'cover' }}></div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col lg:flex-row items-center gap-20 lg:gap-32">
+        <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24 relative z-10">
+          <div className="grid lg:grid-cols-12 gap-16 lg:gap-24 items-center">
             <motion.div 
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="lg:w-1/2 relative"
+              className="lg:col-span-5 relative w-full"
             >
               {/* Main Image with Liquid Box Effect */}
               <div className="group relative p-[4px] rounded-[40px] overflow-hidden shadow-2xl z-10 transition-all duration-500">
@@ -330,7 +330,7 @@ const CompanySecretarial: React.FC = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="lg:w-1/2"
+              className="lg:col-span-7 w-full"
             >
               <motion.span 
                 initial={{ opacity: 0, y: 10 }}

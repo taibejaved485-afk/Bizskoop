@@ -30,18 +30,8 @@ const ServiceCard: React.FC<{
 
       <div className="relative h-full bg-white p-8 sm:p-10 lg:p-12 rounded-[41px] border border-transparent shadow-sm group-hover:shadow-[0_40px_80px_-15px_rgba(0,51,102,0.18)] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] cursor-pointer overflow-hidden z-10">
         
-        {/* Subtle Background Pattern */}
-        <div className="absolute inset-0 opacity-[0.03] group-hover:opacity-[0.06] transition-opacity duration-700 pointer-events-none" 
-             style={{ backgroundImage: 'radial-gradient(#003366 1.5px, transparent 1.5px)', backgroundSize: '24px 24px' }}>
-        </div>
-
         {/* Glass Overlay on Hover */}
         <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-slate-50/50 group-hover:to-gold/[0.04] transition-all duration-700"></div>
-
-        {/* Floating Particles */}
-        <div className="absolute top-12 right-12 w-2 h-2 bg-gold rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700 group-hover:-translate-y-6 delay-100"></div>
-        <div className="absolute bottom-24 left-12 w-1.5 h-1.5 bg-royal-blue rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700 group-hover:-translate-y-8 delay-200"></div>
-        <div className="absolute top-1/2 right-8 w-1 h-1 bg-gold/50 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-700 group-hover:-translate-y-4 delay-300"></div>
 
         {/* Icon Container with Parallax Effect */}
         <div className="relative z-20">

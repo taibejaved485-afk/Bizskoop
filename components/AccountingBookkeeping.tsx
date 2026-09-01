@@ -206,7 +206,7 @@ const AccountingBookkeeping: React.FC = () => {
           />
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center lg:text-left">
+        <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24 relative z-10 text-center lg:text-left">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -283,14 +283,14 @@ const AccountingBookkeeping: React.FC = () => {
 
       {/* 2. Why It Matters Section */}
       <section className="py-24 sm:py-32 bg-white overflow-hidden relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="flex flex-col lg:flex-row items-center gap-20 lg:gap-32">
+        <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24 relative z-10">
+          <div className="grid lg:grid-cols-12 gap-16 lg:gap-24 items-center">
             <motion.div 
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="lg:w-1/2 relative"
+              className="lg:col-span-5 relative w-full"
             >
               {/* Main Image with Liquid Box Effect */}
               <div className="group relative p-[4px] rounded-[40px] overflow-hidden shadow-2xl z-10 transition-all duration-500">
@@ -320,7 +320,7 @@ const AccountingBookkeeping: React.FC = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="lg:w-1/2"
+              className="lg:col-span-7 w-full"
             >
               <motion.span 
                 className="text-gold font-black text-[10px] sm:text-xs uppercase tracking-[0.4em] sm:tracking-[0.6em] block mb-6"
@@ -384,7 +384,7 @@ const AccountingBookkeeping: React.FC = () => {
 
       {/* 3. Scope of Expertise */}
       <section id="expertise" className="py-24 sm:py-32 bg-slate-50 border-y border-slate-100 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24 relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -520,7 +520,7 @@ const AccountingBookkeeping: React.FC = () => {
       {/* 5. Lead Gen Footer */}
       <section className="py-32 bg-white relative" id="accounting-contact">
         <div className="absolute inset-0 bg-[#051622] pointer-events-none"></div>
-        <div className="max-w-7xl mx-auto px-4 relative z-10">
+        <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24 relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}

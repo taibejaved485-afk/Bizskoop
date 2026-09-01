@@ -92,7 +92,7 @@ const LocalCouncilLicensing: React.FC = () => {
           <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-white/60 to-transparent z-0"></div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24 relative z-10">
           <motion.div 
             initial="hidden"
             animate="visible"
@@ -181,14 +181,14 @@ const LocalCouncilLicensing: React.FC = () => {
         {/* Background Decoration */}
         <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50 -skew-x-12 translate-x-1/2 -z-10" />
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
+        <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24">
+          <div className="grid lg:grid-cols-12 gap-16 lg:gap-24 items-center">
             <motion.div 
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="lg:w-1/2 relative"
+              className="lg:col-span-5 relative w-full"
             >
               <div className="relative z-10">
                 <motion.div
@@ -230,7 +230,7 @@ const LocalCouncilLicensing: React.FC = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="lg:w-1/2"
+              className="lg:col-span-7 w-full"
             >
               <h2 className="text-gold font-black text-xs uppercase tracking-[0.4em] mb-6">Local Jurisdiction</h2>
               <h3 className="text-4xl sm:text-6xl font-black text-navy-dark mb-8 leading-tight tracking-tighter uppercase">
@@ -284,7 +284,7 @@ const LocalCouncilLicensing: React.FC = () => {
 
       {/* 3. Common Council Coverage Grid */}
       <section className="py-24 sm:py-32 bg-slate-50 relative overflow-hidden" id="coverage">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24 relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -324,7 +324,7 @@ const LocalCouncilLicensing: React.FC = () => {
 
       {/* 4. The On-Site Roadmap */}
       <section className="py-24 sm:py-32 bg-white overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
