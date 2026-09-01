@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './components/Header.tsx';
 import Hero from './components/Hero.tsx';
 import Services from './components/Services.tsx';
@@ -20,18 +20,46 @@ import ServiceGrid from './components/ServiceGrid.tsx';
 import TypingText from './components/TypingText.tsx';
 import SectionDivider from './components/SectionDivider.tsx';
 import { LegalModal } from './components/LegalModal.tsx';
+import { AdminPage } from './components/AdminPage.tsx';
 import { MessageCircle } from 'lucide-react';
 import { motion } from 'motion/react';
+import { ErrorBoundary } from './components/ErrorBoundary.tsx';
 
 // App Component - Main Entry Point
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState('home');
   const [selectedPolicy, setSelectedPolicy] = useState<string | null>(null);
 
+  // Handle URL path changes for routing and back/forward browser buttons
+  useEffect(() => {
+    const syncRoute = () => {
+      const path = window.location.pathname;
+      if (path === '/admin') {
+        setCurrentPage('admin');
+      } else {
+        setCurrentPage('home');
+      }
+    };
+
+    syncRoute();
+    window.addEventListener('popstate', syncRoute);
+    return () => window.removeEventListener('popstate', syncRoute);
+  }, []);
+
   const handleNavigate = (page: string) => {
-    setCurrentPage(page);
+    if (page === 'admin') {
+      window.history.pushState(null, '', '/admin');
+      setCurrentPage('admin');
+    } else {
+      window.history.pushState(null, '', '/');
+      setCurrentPage(page);
+    }
     window.scrollTo(0, 0);
   };
+
+  if (currentPage === 'admin') {
+    return <AdminPage onClose={() => handleNavigate('home')} />;
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -484,7 +512,11 @@ const App: React.FC = () => {
         </motion.div>
       )}
 
-      <Footer onOpenPolicy={(policy) => setSelectedPolicy(policy)} onNavigate={handleNavigate} />
+      <Footer 
+        onOpenPolicy={(policy) => setSelectedPolicy(policy)} 
+        onNavigate={handleNavigate} 
+        onOpenAdmin={() => handleNavigate('admin')}
+      />
 
       <LegalModal 
         isOpen={selectedPolicy !== null} 

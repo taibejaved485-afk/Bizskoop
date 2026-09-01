@@ -323,7 +323,7 @@ const LocalCouncilLicensing: React.FC = () => {
       </section>
 
       {/* 4. The On-Site Roadmap */}
-      <section className="py-24 sm:py-32 bg-white overflow-hidden">
+      <section className="pt-24 pb-8 sm:pt-32 sm:pb-12 bg-white overflow-hidden">
         <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -368,13 +368,13 @@ const LocalCouncilLicensing: React.FC = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-24 sm:py-32 bg-slate-50">
+      <section className="pt-8 pb-12 sm:pt-12 sm:pb-16 bg-slate-50">
         <div className="max-w-4xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-12"
           >
             <h2 className="text-4xl font-black text-navy-dark uppercase tracking-tighter mb-4">Common Inquiries</h2>
             <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">Everything you need to know about Council Licensing</p>
@@ -423,7 +423,7 @@ const LocalCouncilLicensing: React.FC = () => {
       </section>
 
       {/* 5. Lead Gen Footer */}
-      <section className="py-24 sm:py-40 bg-white relative overflow-hidden" id="apply">
+      <section className="pt-8 pb-24 sm:pt-12 sm:pb-32 bg-white relative overflow-hidden" id="apply">
         {/* Background Animation */}
         <div className="absolute inset-0 pointer-events-none">
           <motion.div

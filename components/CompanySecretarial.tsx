@@ -496,13 +496,13 @@ const CompanySecretarial: React.FC = () => {
       </section>
 
       {/* 4. Execution Roadmap */}
-      <section className="py-24 sm:py-32 bg-white relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="pt-24 pb-8 sm:pt-32 sm:pb-12 bg-white relative overflow-hidden">
+        <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-24"
+            className="text-center mb-16 sm:mb-20"
           >
             <motion.span 
               initial={{ opacity: 0, y: 10 }}
@@ -516,7 +516,7 @@ const CompanySecretarial: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-4xl lg:text-7xl font-black text-navy-dark uppercase tracking-tighter leading-none"
+              className="text-3xl sm:text-5xl lg:text-6xl font-black text-navy-dark uppercase tracking-tighter leading-none"
             >
               Our Execution Roadmap
             </motion.h2>
@@ -535,7 +535,7 @@ const CompanySecretarial: React.FC = () => {
                 }
               }
             }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8"
           >
             {[
               { step: "01", title: "Requirements", desc: "Deep dive into your regulatory goals and business structure." },
@@ -558,29 +558,29 @@ const CompanySecretarial: React.FC = () => {
                     }
                   }
                 }}
-                className="group relative p-[2px] rounded-[48px] overflow-hidden transition-all duration-500 hover:-translate-y-6"
+                className="group relative p-[2px] rounded-[32px] overflow-hidden transition-all duration-500 hover:-translate-y-4"
               >
                 {/* Rotating Glow Layer */}
                 <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
-                <div className="relative h-full bg-[#051622] p-8 sm:p-10 rounded-[46px] shadow-2xl border border-white/5 text-center group-hover:border-gold/50 transition-all duration-500 overflow-hidden z-10">
+                <div className="relative h-full bg-[#051622] p-6 sm:p-8 rounded-[30px] shadow-2xl border border-white/5 text-center group-hover:border-gold/50 transition-all duration-500 overflow-hidden z-10">
                   {/* Decorative Element */}
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-gold/5 rounded-bl-full translate-x-16 -translate-y-16 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-700"></div>
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-gold/5 rounded-bl-full translate-x-12 -translate-y-12 group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-700"></div>
                   
-                  <div className="w-20 h-20 rounded-[24px] bg-white/5 text-gold flex items-center justify-center mx-auto mb-12 shadow-sm border border-white/10 group-hover:bg-gold group-hover:text-navy-dark group-hover:scale-110 group-hover:rotate-[12deg] transition-all duration-500 font-black text-2xl">
+                  <div className="w-14 h-14 rounded-[16px] bg-white/5 text-gold flex items-center justify-center mx-auto mb-6 shadow-sm border border-white/10 group-hover:bg-gold group-hover:text-navy-dark group-hover:scale-110 group-hover:rotate-[12deg] transition-all duration-500 font-black text-xl">
                     {p.step}
                   </div>
                   
-                  <h3 className="text-lg sm:text-xl lg:text-2xl font-black text-white uppercase mb-8 tracking-tight group-hover:text-gold transition-colors">
+                  <h3 className="text-sm sm:text-base font-black text-white uppercase mb-4 tracking-tight group-hover:text-gold transition-colors">
                     {p.title}
                   </h3>
                   
-                  <p className="text-blue-100/60 text-lg font-medium leading-relaxed group-hover:text-white transition-colors">
+                  <p className="text-blue-100/60 text-xs sm:text-sm font-medium leading-relaxed group-hover:text-white transition-colors">
                     {p.desc}
                   </p>
 
                   {/* Bottom Border Accent */}
-                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-1.5 bg-gold group-hover:w-1/2 transition-all duration-500 rounded-full"></div>
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-1 bg-gold group-hover:w-1/2 transition-all duration-500 rounded-full"></div>
                 </div>
               </motion.div>
             ))}
@@ -589,14 +589,14 @@ const CompanySecretarial: React.FC = () => {
       </section>
 
       {/* 5. FAQ Section */}
-      <section className="py-24 sm:py-32 bg-slate-50 relative overflow-hidden">
+      <section className="pt-8 pb-12 sm:pt-12 sm:pb-16 bg-slate-50 relative overflow-hidden">
         {/* Subtle Watermark Overlay */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-[0.03] pointer-events-none select-none flex items-center justify-center">
             <span className="text-[200px] sm:text-[400px] font-black uppercase text-navy-dark border-8 sm:border-[16px] border-navy-dark p-20 sm:p-40 rounded-full rotate-12">SSM</span>
         </div>
         
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-20">
+          <div className="text-center mb-12">
             <motion.span 
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -690,7 +690,7 @@ const CompanySecretarial: React.FC = () => {
       </section>
 
       {/* 6. Lead Gen Footer */}
-      <section className="py-32 bg-white relative" id="secretarial-contact">
+      <section className="pt-8 pb-24 sm:pt-12 sm:pb-32 bg-white relative" id="secretarial-contact">
         <div className="absolute inset-0 bg-[#051622] pointer-events-none"></div>
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: `radial-gradient(#D4AF37 1px, transparent 1px)`, backgroundSize: '40px 40px' }}></div>
         

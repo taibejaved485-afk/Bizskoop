@@ -383,7 +383,7 @@ const TaxCompliance: React.FC = () => {
       </section>
 
       {/* 3. Scope of Expertise */}
-      <section id="expertise" className="py-24 sm:py-32 bg-slate-50 border-y border-slate-100 relative overflow-hidden">
+      <section id="expertise" className="pt-24 pb-8 sm:pt-32 sm:pb-12 bg-slate-50 border-y border-slate-100 relative overflow-hidden">
         <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24 relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
@@ -456,9 +456,9 @@ const TaxCompliance: React.FC = () => {
       </section>
 
       {/* 4. FAQ Section */}
-      <section className="py-24 sm:py-32 bg-white relative overflow-hidden">
+      <section className="pt-8 pb-12 sm:pt-12 sm:pb-16 bg-white relative overflow-hidden">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-20">
+          <div className="text-center mb-12">
             <motion.span 
               className="text-gold font-black text-[10px] sm:text-xs uppercase tracking-[0.4em] sm:tracking-[0.6em] mb-4 block"
             >
@@ -518,7 +518,7 @@ const TaxCompliance: React.FC = () => {
       </section>
 
       {/* 5. Lead Gen Footer */}
-      <section className="py-32 bg-white relative" id="tax-contact">
+      <section className="pt-8 pb-24 sm:pt-12 sm:pb-32 bg-white relative" id="tax-contact">
         <div className="absolute inset-0 bg-[#051622] pointer-events-none"></div>
         <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24 relative z-10">
           <motion.div 

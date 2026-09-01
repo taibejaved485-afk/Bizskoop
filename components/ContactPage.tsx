@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
+import { saveNewLead } from '../services/leadStorage.ts';
 
 const ContactPage: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -77,6 +78,17 @@ const ContactPage: React.FC = () => {
       setIsSubmitting(true);
       try {
         await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        // Save lead using central leadStorage
+        saveNewLead({
+          fullName: formData.fullName,
+          email: formData.email,
+          companyName: formData.companyName || 'N/A',
+          phoneNumber: formData.phoneNumber,
+          service: formData.service || 'general',
+          message: formData.message
+        });
+
         setSubmitStatus('success');
         setFormData({
           fullName: '',

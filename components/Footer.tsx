@@ -1,15 +1,52 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { Facebook, Instagram, Linkedin, Twitter, Youtube, ArrowRight, ShieldCheck, Globe, CreditCard } from 'lucide-react';
+import { Facebook, Instagram, Linkedin, Twitter, Youtube, ArrowRight, ShieldCheck, Globe, CreditCard, Lock } from 'lucide-react';
 
 interface FooterProps {
   onOpenPolicy?: (policy: string) => void;
   onNavigate?: (page: string) => void;
+  onOpenAdmin?: () => void;
 }
 
-const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate }) => {
+const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate, onOpenAdmin }) => {
   const currentYear = new Date().getFullYear();
+
+  const [config, setConfig] = useState({
+    companyName: 'BIZFLOW',
+    phone: '+60 3 2771 8000',
+    email: 'info@bizflow.com',
+    address: 'Level 09, Integra Tower, The Intermark, 348 Jalan Tun Razak, 50400 Kuala Lumpur, Malaysia',
+    whatsapp: '+601124244993',
+    heroTitle: 'STRATEGIC CONSULTANCY'
+  });
+
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  useEffect(() => {
+    const loadConfig = () => {
+      const storedConfig = localStorage.getItem('bizflow_site_config');
+      if (storedConfig) {
+        setConfig(JSON.parse(storedConfig));
+      }
+    };
+
+    const updateUnreadCount = () => {
+      const leads = JSON.parse(localStorage.getItem('bizflow_leads') || '[]');
+      const count = leads.filter((lead: any) => lead.status === 'unread').length;
+      setUnreadCount(count);
+    };
+
+    loadConfig();
+    updateUnreadCount();
+
+    window.addEventListener('bizflow_config_updated', loadConfig);
+    window.addEventListener('storage', updateUnreadCount);
+    return () => {
+      window.removeEventListener('bizflow_config_updated', loadConfig);
+      window.removeEventListener('storage', updateUnreadCount);
+    };
+  }, []);
 
   return (
     <footer className="relative bg-white pt-0 overflow-hidden">
@@ -75,7 +112,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate }) => {
             
             {/* Column 1: Newsletter */}
             <div className="space-y-8">
-              <h4 className="text-lg font-black uppercase tracking-tighter">BizFlow's Newsletter</h4>
+              <h4 className="text-lg font-black uppercase tracking-tighter">{config.companyName}'s Newsletter</h4>
               <p className="text-blue-100/50 text-sm font-medium leading-relaxed">
                 Stay updated with the latest Malaysian regulatory changes and business insights.
               </p>
@@ -111,7 +148,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate }) => {
                 ))}
               </ul>
               <div className="pt-4">
-                <h5 className="text-[10px] font-black uppercase tracking-widest text-gold mb-4">Follow BizFlow</h5>
+                <h5 className="text-[10px] font-black uppercase tracking-widest text-gold mb-4">Follow {config.companyName}</h5>
                 <div className="flex gap-4">
                   {[Facebook, Instagram, Linkedin, Twitter].map((Icon, i) => (
                     <a key={i} href="#" className="text-white/40 hover:text-gold transition-colors">
@@ -157,8 +194,8 @@ const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate }) => {
                 ))}
               </ul>
               <div className="pt-4 space-y-2">
-                <p className="text-white font-black text-lg tracking-tight">+60 3 2771 8000</p>
-                <p className="text-blue-100/50 text-sm font-bold">info@bizflow.com</p>
+                <p className="text-white font-black text-lg tracking-tight">{config.phone}</p>
+                <p className="text-blue-100/50 text-sm font-bold">{config.email}</p>
               </div>
             </div>
 
@@ -167,17 +204,15 @@ const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate }) => {
               <h4 className="text-lg font-black uppercase tracking-tighter">Contact</h4>
               <div className="space-y-6">
                 <div>
-                  <p className="text-white font-black text-sm uppercase mb-1">BizFlow Strategic</p>
+                  <p className="text-white font-black text-sm uppercase mb-1">{config.companyName} Strategic</p>
                   <p className="text-blue-100/50 text-xs font-bold leading-relaxed">
                     Company number: 202401012345 (123456-X)
                   </p>
                 </div>
                 <div>
                   <p className="text-white font-black text-sm uppercase mb-1">Head office:</p>
-                  <p className="text-blue-100/50 text-xs font-bold leading-relaxed">
-                    Level 09, Integra Tower, The Intermark,<br/>
-                    348 Jalan Tun Razak, 50400 Kuala Lumpur,<br/>
-                    Malaysia
+                  <p className="text-blue-100/50 text-xs font-bold leading-relaxed whitespace-pre-line">
+                    {config.address}
                   </p>
                 </div>
               </div>
@@ -209,10 +244,26 @@ const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate }) => {
 
             <div className="text-center space-y-1.5">
               <p className="text-[10px] font-bold text-blue-100/30 uppercase tracking-[0.3em]">
-                Part of BizFlow Group, serving entrepreneurs worldwide.
+                Part of {config.companyName} Group, serving entrepreneurs worldwide.
               </p>
-              <p className="text-[11px] font-black text-blue-100/20 uppercase tracking-widest">
-                © 2024-{currentYear} BIZFLOW. ALL RIGHTS RESERVED.
+              <p className="text-[11px] font-black text-blue-100/20 uppercase tracking-widest flex items-center justify-center gap-1.5">
+                © 2024-{currentYear} {config.companyName.toUpperCase()}. ALL RIGHTS RESERVED.
+                <button 
+                  onClick={() => onOpenAdmin && onOpenAdmin()}
+                  className="relative inline-flex items-center justify-center w-5 h-5 rounded-md border border-white/5 bg-white/5 opacity-[0.35] hover:opacity-100 text-gold hover:text-white transition-all duration-300 ml-1.5 cursor-pointer outline-none hover:bg-gold/10 hover:border-gold/30"
+                  title="Authorised Admin Control"
+                >
+                  <Lock size={11} />
+                  {/* Notification Badge */}
+                  {unreadCount > 0 && (
+                    <span className="absolute -top-1.5 -right-1.5 flex h-3 w-3">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-3 w-3 bg-gold border border-royal-blue text-[8px] font-black text-royal-blue items-center justify-center">
+                        {unreadCount > 9 ? '9+' : unreadCount}
+                      </span>
+                    </span>
+                  )}
+                </button>
               </p>
             </div>
           </div>

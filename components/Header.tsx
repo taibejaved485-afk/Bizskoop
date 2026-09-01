@@ -17,6 +17,29 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const searchInputRef = useRef<HTMLInputElement>(null);
 
+  const [config, setConfig] = useState({
+    companyName: 'BIZFLOW',
+    phone: '+60 3 2771 8000',
+    email: 'info@bizflow.com',
+    address: 'Level 09, Integra Tower, The Intermark, 348 Jalan Tun Razak, 50400 Kuala Lumpur, Malaysia',
+    whatsapp: '+601124244993',
+    heroTitle: 'STRATEGIC CONSULTANCY'
+  });
+
+  useEffect(() => {
+    const loadConfig = () => {
+      const storedConfig = localStorage.getItem('bizflow_site_config');
+      if (storedConfig) {
+        setConfig(JSON.parse(storedConfig));
+      }
+    };
+
+    loadConfig();
+
+    window.addEventListener('bizflow_config_updated', loadConfig);
+    return () => window.removeEventListener('bizflow_config_updated', loadConfig);
+  }, []);
+
   useEffect(() => {
     if (searchQuery.length > 0) {
       setIsSearching(true);
@@ -65,13 +88,13 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
             <motion.a 
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              href="tel:+60327718000" 
+              href={`tel:${config.phone.replace(/\s+/g, '')}`} 
               className="flex items-center gap-2.5 hover:text-gold transition-all duration-300 group relative"
             >
               <div className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-gold/20 transition-colors">
                 <Phone size={12} className="text-gold group-hover:scale-110 transition-transform" />
               </div>
-              <span className="font-black tracking-tight">+60 3 2771 8000</span>
+              <span className="font-black tracking-tight">{config.phone}</span>
               <div className="absolute -bottom-1 left-8 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300"></div>
             </motion.a>
             
@@ -79,13 +102,13 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              href="mailto:info@bizskoop.com" 
+              href={`mailto:${config.email}`} 
               className="hidden sm:flex items-center gap-2.5 hover:text-gold transition-all duration-300 group relative"
             >
               <div className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-gold/20 transition-colors">
                 <Mail size={12} className="text-gold group-hover:scale-110 transition-transform" />
               </div>
-              <span className="font-black tracking-tight">info@bizskoop.com</span>
+              <span className="font-black tracking-tight">{config.email}</span>
               <div className="absolute -bottom-1 left-8 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300"></div>
             </motion.a>
             
@@ -145,11 +168,11 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
               onClick={() => onNavigate('home')}
             >
               <div className="w-10 h-10 bg-royal-blue rounded-lg flex items-center justify-center shadow-lg group-hover:bg-navy-dark transition-colors">
-                <span className="text-white font-black text-xl">B</span>
+                <span className="text-white font-black text-xl">{config.companyName.charAt(0)}</span>
               </div>
               <div className="flex flex-col">
-                <span className="text-2xl font-black tracking-tighter text-royal-blue leading-none uppercase">BIZFLOW</span>
-                <span className="text-[10px] font-bold tracking-[0.2em] text-slate-400">STRATEGIC CONSULTANCY</span>
+                <span className="text-2xl font-black tracking-tighter text-royal-blue leading-none uppercase">{config.companyName}</span>
+                <span className="text-[10px] font-bold tracking-[0.2em] text-slate-400">{config.heroTitle}</span>
               </div>
             </div>
             

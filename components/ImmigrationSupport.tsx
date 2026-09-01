@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
+import { saveNewLead } from '../services/leadStorage.ts';
 import { 
   Globe, 
   UserCheck, 
@@ -25,9 +26,32 @@ const ImmigrationSupport: React.FC = () => {
   const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setFormStatus('submitting');
+    
+    const form = e.currentTarget;
+    const nameInput = form.querySelector('input[placeholder="John Doe"]') as HTMLInputElement;
+    const nationalityInput = form.querySelector('input[placeholder="e.g. British, Singaporean"]') as HTMLInputElement;
+    const companyInput = form.querySelector('input[placeholder="Your Company Sdn Bhd"]') as HTMLInputElement;
+    const dateInput = form.querySelector('input[type="date"]') as HTMLInputElement;
+    const msgInput = form.querySelector('textarea') as HTMLTextAreaElement;
+
+    const name = nameInput?.value || 'Anonymous Relocation Client';
+    const nationality = nationalityInput?.value || 'N/A';
+    const companyName = companyInput?.value || 'N/A';
+    const startDate = dateInput?.value || 'N/A';
+    const msg = msgInput?.value || '';
+
+    saveNewLead({
+      fullName: name,
+      email: 'mobility@bizflow-client.com',
+      companyName: companyName,
+      phoneNumber: `Nationality: ${nationality} | Start Date: ${startDate}`,
+      service: 'visa',
+      message: msg
+    });
+
     setTimeout(() => setFormStatus('success'), 1500);
   };
 
@@ -353,7 +377,7 @@ const ImmigrationSupport: React.FC = () => {
       </section>
 
       {/* 4. The Immigration Roadmap */}
-      <section className="py-24 sm:py-32 bg-white overflow-hidden">
+      <section className="pt-24 pb-8 sm:pt-32 sm:pb-12 bg-white overflow-hidden">
         <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -398,13 +422,13 @@ const ImmigrationSupport: React.FC = () => {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-24 sm:py-32 bg-slate-50">
+      <section className="pt-8 pb-12 sm:pt-12 sm:pb-16 bg-slate-50">
         <div className="max-w-4xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-12"
           >
             <h2 className="text-4xl font-black text-navy-dark uppercase tracking-tighter mb-4">Common Inquiries</h2>
             <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">Everything you need to know about Immigration</p>
@@ -453,7 +477,7 @@ const ImmigrationSupport: React.FC = () => {
       </section>
 
       {/* 5. Lead Gen Footer */}
-      <section className="py-24 sm:py-40 bg-white relative overflow-hidden" id="assessment">
+      <section className="pt-8 pb-24 sm:pt-12 sm:pb-32 bg-white relative overflow-hidden" id="assessment">
         {/* Background Animation */}
         <div className="absolute inset-0 pointer-events-none">
           <motion.div
