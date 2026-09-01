@@ -465,21 +465,30 @@ const BuySellBusiness: React.FC = () => {
           />
         </div>
 
-        <div className="max-w-5xl mx-auto px-4 relative z-10">
+        <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24 relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="bg-navy-dark p-8 sm:p-20 rounded-[50px] shadow-3xl border-t-8 border-gold relative overflow-hidden"
+            className="bg-gradient-to-br from-navy-dark via-[#061e31] to-[#041421] p-8 sm:p-20 rounded-[50px] shadow-[0_40px_100px_rgba(0,0,0,0.5)] border-t-8 border-gold relative overflow-hidden group/form border border-white/5"
           >
-            <div className="absolute top-0 right-0 p-10 opacity-10">
-              <Handshake className="w-40 h-40 text-white" />
+            {/* Elegant Background Visual Accents */}
+            <div className="absolute top-0 right-0 p-10 opacity-[0.03] pointer-events-none group-hover/form:opacity-[0.07] transition-all duration-700">
+              <Handshake className="w-96 h-96 text-white" />
             </div>
+            <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -top-20 right-1/4 w-80 h-80 bg-royal-blue/20 rounded-full blur-3xl pointer-events-none" />
 
-            <div className="max-w-3xl mx-auto text-center mb-16">
-              <h2 className="text-3xl sm:text-5xl font-black text-white mb-6 uppercase tracking-tighter">Your Next Big Move <br /><span className="text-gold italic">Starts Here.</span></h2>
-              <p className="text-blue-100/70 font-medium text-lg">Confidentiality is our currency. Tell us about your investment or exit goals.</p>
+            <div className="max-w-3xl mx-auto text-center mb-16 relative z-10">
+              <span className="text-gold font-black text-xs uppercase tracking-[0.4em] mb-4 block">SECURE TRANSACTION PORTAL</span>
+              <h2 className="text-4xl sm:text-6xl font-black text-white mb-6 uppercase tracking-tighter leading-tight">
+                Your Next Big Move <br />
+                <span className="text-gold bg-gradient-to-r from-gold via-amber-300 to-yellow-500 bg-clip-text text-transparent italic">Starts Here.</span>
+              </h2>
+              <p className="text-blue-100/70 font-medium text-lg leading-relaxed max-w-2xl mx-auto">
+                Confidentiality is our primary currency. Tell us about your investment parameters or exit goals, and we will contact you privately.
+              </p>
             </div>
             
             <AnimatePresence mode="wait">
@@ -487,77 +496,86 @@ const BuySellBusiness: React.FC = () => {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-12"
+                  className="text-center py-16 relative z-10 max-w-lg mx-auto bg-white/[0.02] backdrop-blur-md rounded-3xl border border-white/5 p-12 shadow-2xl"
                 >
-                  <div className="w-20 h-20 bg-gold rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-gold/40">
-                    <ShieldCheck className="w-10 h-10 text-navy-dark" />
+                  <div className="w-24 h-24 bg-gradient-to-tr from-gold to-yellow-400 rounded-full flex items-center justify-center mx-auto mb-8 shadow-[0_20px_50px_rgba(212,175,55,0.3)]">
+                    <ShieldCheck className="w-12 h-12 text-navy-dark" />
                   </div>
-                  <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-4">Inquiry Secured</h3>
-                  <p className="text-blue-100/60 font-medium">Our M&A director will contact you privately within 24 hours.</p>
+                  <h3 className="text-3xl font-black text-white uppercase tracking-tight mb-4">Inquiry Secured</h3>
+                  <p className="text-blue-100/80 font-medium leading-relaxed">
+                    Thank you. Our Managing Director of Mergers & Acquisitions will contact you directly via private channels within 24 hours.
+                  </p>
                 </motion.div>
               ) : (
                 <motion.form 
                   onSubmit={handleSubmit}
                   exit={{ opacity: 0, y: -20 }}
-                  className="grid grid-cols-1 md:grid-cols-2 gap-8"
+                  className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-6xl mx-auto relative z-10"
                 >
-                  <div className="space-y-6">
-                    <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest font-black text-gold/50 ml-2">Full Name</label>
+                  <div className="space-y-8">
+                    <div className="space-y-3">
+                      <label className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-black text-gold/80 ml-1">Full Name</label>
                       <input 
                         required
                         type="text" 
-                        placeholder="John Doe" 
-                        className="w-full px-8 py-5 bg-white/5 border border-white/10 rounded-2xl focus:border-gold outline-none font-medium text-white transition-all placeholder:text-white/20" 
+                        placeholder="e.g. Tan Sri Ahmad" 
+                        className="w-full px-8 py-5 bg-white/[0.03] border border-white/10 rounded-2xl focus:border-gold focus:bg-white/[0.08] focus:ring-4 focus:ring-gold/15 outline-none font-semibold text-white transition-all placeholder:text-white/20 shadow-inner" 
                       />
                     </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest font-black text-gold/50 ml-2">I am a...</label>
-                      <select 
-                        required
-                        className="w-full px-8 py-5 bg-white/5 border border-white/10 rounded-2xl focus:border-gold outline-none font-medium text-white/50 transition-all appearance-none"
-                      >
-                        <option value="" className="bg-navy-dark">Select Role</option>
-                        <option value="buyer" className="bg-navy-dark">Potential Buyer / Investor</option>
-                        <option value="seller" className="bg-navy-dark">Business Owner / Seller</option>
-                      </select>
+                    <div className="space-y-3">
+                      <label className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-black text-gold/80 ml-1">I am a...</label>
+                      <div className="relative">
+                        <select 
+                          required
+                          className="w-full px-8 py-5 bg-white/[0.03] border border-white/10 rounded-2xl focus:border-gold focus:bg-white/[0.08] focus:ring-4 focus:ring-gold/15 outline-none font-semibold text-white transition-all appearance-none cursor-pointer"
+                        >
+                          <option value="" className="bg-[#051622] text-white">Select Role</option>
+                          <option value="buyer" className="bg-[#051622] text-white">Potential Buyer / Institutional Investor</option>
+                          <option value="seller" className="bg-[#051622] text-white">Business Owner / Managing Director (Seller)</option>
+                        </select>
+                        <div className="absolute right-8 top-1/2 -translate-y-1/2 pointer-events-none text-gold/60">
+                          <ChevronDown size={20} />
+                        </div>
+                      </div>
                     </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest font-black text-gold/50 ml-2">Target Industry</label>
+                    <div className="space-y-3">
+                      <label className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-black text-gold/80 ml-1">Target Industry / Sector</label>
                       <input 
                         required
                         type="text" 
-                        placeholder="e.g. F&B, Logistics" 
-                        className="w-full px-8 py-5 bg-white/5 border border-white/10 rounded-2xl focus:border-gold outline-none font-medium text-white transition-all placeholder:text-white/20" 
+                        placeholder="e.g. F&B Franchise, Tech, Logistics, Manufacturing" 
+                        className="w-full px-8 py-5 bg-white/[0.03] border border-white/10 rounded-2xl focus:border-gold focus:bg-white/[0.08] focus:ring-4 focus:ring-gold/15 outline-none font-semibold text-white transition-all placeholder:text-white/20 shadow-inner" 
                       />
                     </div>
                   </div>
-                  <div className="space-y-6">
-                    <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest font-black text-gold/50 ml-2">Budget / Asking Price (MYR)</label>
-                      <input 
-                        required
-                        type="text" 
-                        placeholder="e.g. 5,000,000" 
-                        className="w-full px-8 py-5 bg-white/5 border border-white/10 rounded-2xl focus:border-gold outline-none font-medium text-white transition-all placeholder:text-white/20" 
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest font-black text-gold/50 ml-2">Additional Details</label>
-                      <textarea 
-                        required
-                        placeholder="Tell us about the business profile..." 
-                        className="w-full h-[124px] px-8 py-5 bg-white/5 border border-white/10 rounded-2xl focus:border-gold outline-none font-medium resize-none text-white transition-all placeholder:text-white/20"
-                      ></textarea>
+                  <div className="space-y-8 flex flex-col justify-between">
+                    <div className="space-y-8">
+                      <div className="space-y-3">
+                        <label className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-black text-gold/80 ml-1">Target Budget / Valuation (MYR)</label>
+                        <input 
+                          required
+                          type="text" 
+                          placeholder="e.g. MYR 5,000,000 - 20,000,000" 
+                          className="w-full px-8 py-5 bg-white/[0.03] border border-white/10 rounded-2xl focus:border-gold focus:bg-white/[0.08] focus:ring-4 focus:ring-gold/15 outline-none font-semibold text-white transition-all placeholder:text-white/20 shadow-inner" 
+                        />
+                      </div>
+                      <div className="space-y-3">
+                        <label className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-black text-gold/80 ml-1">Additional Confidential Details</label>
+                        <textarea 
+                          required
+                          placeholder="Briefly state your exit triggers, current revenue scale, or acquisition criteria..." 
+                          className="w-full h-[124px] px-8 py-5 bg-white/[0.03] border border-white/10 rounded-2xl focus:border-gold focus:bg-white/[0.08] focus:ring-4 focus:ring-gold/15 outline-none font-semibold resize-none text-white transition-all placeholder:text-white/20 shadow-inner"
+                        ></textarea>
+                      </div>
                     </div>
                     <motion.button 
                       disabled={formStatus === 'submitting'}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full py-5 bg-gold text-navy-dark font-black rounded-2xl hover:bg-white transition-all shadow-2xl shadow-gold/20 uppercase tracking-widest text-xs flex items-center justify-center gap-3 disabled:opacity-50"
+                      whileHover={{ scale: 1.01, y: -2 }}
+                      whileTap={{ scale: 0.99 }}
+                      className="w-full py-5 bg-gradient-to-r from-gold via-amber-400 to-gold hover:from-white hover:to-white text-navy-dark hover:text-royal-blue font-black rounded-2xl transition-all shadow-[0_15px_40px_rgba(212,175,55,0.25)] hover:shadow-[0_15px_40px_rgba(255,255,255,0.2)] uppercase tracking-[0.2em] text-xs flex items-center justify-center gap-3 disabled:opacity-50 mt-4 duration-300"
                     >
-                      {formStatus === 'submitting' ? 'Securing...' : 'Request Private Briefing'}
-                      <Lock className="w-4 h-4" />
+                      {formStatus === 'submitting' ? 'Securing Portal Link...' : 'Request Private M&A Briefing'}
+                      <Lock className="w-4 h-4 animate-pulse" />
                     </motion.button>
                   </div>
                 </motion.form>
