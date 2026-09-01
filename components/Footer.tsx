@@ -3,7 +3,12 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Facebook, Instagram, Linkedin, Twitter, Youtube, ArrowRight, ShieldCheck, Globe, CreditCard } from 'lucide-react';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  onOpenPolicy?: (policy: string) => void;
+  onNavigate?: (page: string) => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate }) => {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -92,10 +97,16 @@ const Footer: React.FC = () => {
               <ul className="space-y-4">
                 {['Privacy Policy', 'Terms of Service', 'Refund Policy', 'Compliance Standards', 'Data Protection'].map((item) => (
                   <li key={item}>
-                    <a href="#" className="text-blue-100/50 hover:text-gold text-sm font-bold transition-colors flex items-center gap-2 group">
+                    <button 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (onOpenPolicy) onOpenPolicy(item);
+                      }}
+                      className="text-blue-100/50 hover:text-gold text-sm font-bold transition-colors flex items-center gap-2 group text-left bg-transparent border-none p-0 cursor-pointer outline-none"
+                    >
                       <div className="w-1.5 h-1.5 rounded-full bg-gold/30 group-hover:bg-gold transition-colors"></div>
                       {item}
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -117,9 +128,31 @@ const Footer: React.FC = () => {
               <ul className="space-y-4">
                 {['FAQs', 'About us at BizFlow', 'BizFlow Legal', 'Our Methodology', 'Global Network'].map((item) => (
                   <li key={item}>
-                    <a href="#" className="text-blue-100/50 hover:text-gold text-sm font-bold transition-colors">
+                    <button 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (item === 'About us at BizFlow' && onNavigate) {
+                          onNavigate('about');
+                        } else if (item === 'FAQs' && onNavigate) {
+                          onNavigate('about');
+                          setTimeout(() => {
+                            const element = document.getElementById('faq');
+                            if (element) {
+                              element.scrollIntoView({ behavior: 'smooth' });
+                            } else {
+                              window.scrollTo({ top: 1200, behavior: 'smooth' });
+                            }
+                          }, 100);
+                        } else if (item === 'BizFlow Legal' && onOpenPolicy) {
+                          onOpenPolicy('Privacy Policy');
+                        } else if (onNavigate) {
+                          onNavigate('about');
+                        }
+                      }}
+                      className="text-blue-100/50 hover:text-gold text-sm font-bold transition-colors text-left bg-transparent border-none p-0 cursor-pointer outline-none"
+                    >
                       {item}
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>

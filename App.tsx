@@ -19,12 +19,14 @@ import AnimatedCounter from './components/AnimatedCounter.tsx';
 import ServiceGrid from './components/ServiceGrid.tsx';
 import TypingText from './components/TypingText.tsx';
 import SectionDivider from './components/SectionDivider.tsx';
+import { LegalModal } from './components/LegalModal.tsx';
 import { MessageCircle } from 'lucide-react';
 import { motion } from 'motion/react';
 
 // App Component - Main Entry Point
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState('home');
+  const [selectedPolicy, setSelectedPolicy] = useState<string | null>(null);
 
   const handleNavigate = (page: string) => {
     setCurrentPage(page);
@@ -482,7 +484,13 @@ const App: React.FC = () => {
         </motion.div>
       )}
 
-      <Footer />
+      <Footer onOpenPolicy={(policy) => setSelectedPolicy(policy)} onNavigate={handleNavigate} />
+
+      <LegalModal 
+        isOpen={selectedPolicy !== null} 
+        onClose={() => setSelectedPolicy(null)} 
+        policyType={selectedPolicy || 'Privacy Policy'} 
+      />
       
       {/* Floating WhatsApp Button */}
       <a 
