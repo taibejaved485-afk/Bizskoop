@@ -686,7 +686,7 @@ const ContactPage: React.FC = () => {
                             <button 
                               type="button" 
                               onClick={handleNextStep}
-                              className="w-full py-4.5 bg-navy-dark hover:bg-gold hover:text-navy-dark text-gold font-black rounded-xl transition-all duration-300 shadow-md uppercase tracking-[0.2em] text-[10px] sm:text-xs flex items-center justify-center gap-3 cursor-pointer"
+                              className="w-full py-5 bg-navy-dark hover:bg-gold hover:text-navy-dark text-gold font-black rounded-xl transition-all duration-300 shadow-md uppercase tracking-[0.2em] text-[10px] sm:text-xs flex items-center justify-center gap-3 cursor-pointer"
                             >
                               <span>Proceed to Scope Details</span>
                               <ArrowRight size={14} />
@@ -771,7 +771,7 @@ const ContactPage: React.FC = () => {
                             <button 
                               type="button" 
                               onClick={handlePrevStep}
-                              className="col-span-1 py-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-black rounded-xl transition-all duration-300 uppercase tracking-widest text-[9px] flex items-center justify-center gap-1 cursor-pointer"
+                              className="col-span-1 py-5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-black rounded-xl transition-all duration-300 uppercase tracking-widest text-[9px] flex items-center justify-center gap-1 cursor-pointer"
                             >
                               <ArrowLeft size={12} />
                               <span>Back</span>
@@ -780,7 +780,7 @@ const ContactPage: React.FC = () => {
                             <button 
                               type="submit" 
                               disabled={isSubmitting}
-                              className="col-span-2 py-4 bg-navy-dark hover:bg-gold hover:text-navy-dark text-gold font-black rounded-xl transition-all duration-300 shadow-md uppercase tracking-[0.2em] text-[10px] flex items-center justify-center gap-3 cursor-pointer"
+                              className="col-span-2 py-5 bg-navy-dark hover:bg-gold hover:text-navy-dark text-gold font-black rounded-xl transition-all duration-300 shadow-md uppercase tracking-[0.2em] text-[10px] flex items-center justify-center gap-3 cursor-pointer"
                             >
                               {isSubmitting ? (
                                 <motion.div 

@@ -21,6 +21,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [announcement, setAnnouncement] = useState<AnnouncementConfig | null>(null);
+  const [activeSection, setActiveSection] = useState('home');
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   const [config, setConfig] = useState({
@@ -76,10 +77,46 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
+
+      // Scroll Spy Logic
+      if (currentPage === 'home') {
+        const sections = ['home', 'about', 'services', 'faq'];
+        const scrollPosition = window.scrollY + 160; // offset buffer for sticky header height
+
+        for (const section of sections) {
+          const element = document.getElementById(section);
+          if (element) {
+            const top = element.offsetTop;
+            const height = element.offsetHeight;
+            if (scrollPosition >= top && scrollPosition < top + height) {
+              setActiveSection(section);
+              break;
+            }
+          }
+        }
+      } else {
+        setActiveSection(currentPage);
+      }
     };
+
+    // Run once initially
+    handleScroll();
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [currentPage]);
+
+  const handleNavClick = (sectionId: string) => {
+    if (currentPage === 'home' && ['home', 'about', 'services', 'faq'].includes(sectionId)) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setActiveSection(sectionId);
+        return;
+      }
+    }
+    onNavigate(sectionId);
+  };
 
   const serviceItems = [
     { label: "Company Secretarial", id: "company-secretarial", desc: "SSM Compliance & Governance" },
@@ -273,7 +310,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
           <div className={`flex justify-between items-center transition-all duration-500 ${isScrolled ? 'h-16' : 'h-20'}`}>
             <div 
               className="flex-shrink-0 flex items-center gap-3 cursor-pointer group"
-              onClick={() => onNavigate('home')}
+              onClick={() => handleNavClick('home')}
             >
               <div className="w-10 h-10 bg-royal-blue rounded-lg flex items-center justify-center shadow-lg group-hover:bg-navy-dark transition-colors">
                 <span className="text-white font-black text-xl">{config.companyName.charAt(0)}</span>
@@ -285,10 +322,10 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
             </div>
             
             <div className="hidden lg:flex items-center justify-center flex-1 gap-10">
-              <button onClick={() => onNavigate('home')} className={`nav-link uppercase ${currentPage === 'home' ? 'text-gold' : 'text-royal-blue'}`}>{t('nav_home')}</button>
+              <button onClick={() => handleNavClick('home')} className={`nav-link uppercase ${activeSection === 'home' ? 'text-gold font-black' : 'text-royal-blue'}`}>{t('nav_home')}</button>
               <button 
-                onClick={() => onNavigate('about')} 
-                className={`nav-link uppercase ${currentPage === 'about' ? 'text-gold' : 'text-royal-blue'}`}
+                onClick={() => handleNavClick('about')} 
+                className={`nav-link uppercase ${activeSection === 'about' ? 'text-gold font-black' : 'text-royal-blue'}`}
               >
                 {t('nav_about')}
               </button>
@@ -298,7 +335,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
                 onMouseEnter={() => setIsServicesOpen(true)}
                 onMouseLeave={() => setIsServicesOpen(false)}
               >
-                <button className={`nav-link uppercase flex items-center gap-1.5 focus:outline-none py-4 ${currentPage.includes('service') || currentPage !== 'home' && currentPage !== 'about' && currentPage !== 'contact' ? 'text-gold' : 'text-royal-blue'}`}>
+                <button className={`nav-link uppercase flex items-center gap-1.5 focus:outline-none py-4 ${activeSection === 'services' || currentPage.includes('service') || (currentPage !== 'home' && currentPage !== 'about' && currentPage !== 'faq' && currentPage !== 'contact') ? 'text-gold font-black' : 'text-royal-blue'}`}>
                   {t('nav_services')}
                   <svg className={`w-3.5 h-3.5 transition-transform duration-300 ${isServicesOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7"/></svg>
                 </button>
@@ -344,10 +381,17 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
                   )}
                 </AnimatePresence>
               </div>
+
+              <button 
+                onClick={() => handleNavClick('faq')} 
+                className={`nav-link uppercase ${activeSection === 'faq' ? 'text-gold font-black' : 'text-royal-blue'}`}
+              >
+                {t('nav_faq')}
+              </button>
               
               <button 
-                onClick={() => onNavigate('contact')} 
-                className={`nav-link uppercase ${currentPage === 'contact' ? 'text-gold' : 'text-royal-blue'}`}
+                onClick={() => handleNavClick('contact')} 
+                className={`nav-link uppercase ${activeSection === 'contact' ? 'text-gold font-black' : 'text-royal-blue'}`}
               >
                 {t('nav_contact')}
               </button>
@@ -504,16 +548,22 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
                 {/* Primary Nav Links */}
                 <div className="space-y-3">
                   <button 
-                    onClick={() => { onNavigate('home'); setIsMobileMenuOpen(false); }} 
-                    className={`block w-full text-left font-black text-xl uppercase tracking-tight py-1 transition-colors ${currentPage === 'home' ? 'text-gold' : 'text-white hover:text-gold'}`}
+                    onClick={() => { handleNavClick('home'); setIsMobileMenuOpen(false); }} 
+                    className={`block w-full text-left font-black text-xl uppercase tracking-tight py-1 transition-colors ${activeSection === 'home' ? 'text-gold' : 'text-white hover:text-gold'}`}
                   >
                     {t('nav_home')}
                   </button>
                   <button 
-                    onClick={() => { onNavigate('about'); setIsMobileMenuOpen(false); }} 
-                    className={`block w-full text-left font-black text-xl uppercase tracking-tight py-1 transition-colors ${currentPage === 'about' ? 'text-gold' : 'text-white hover:text-gold'}`}
+                    onClick={() => { handleNavClick('about'); setIsMobileMenuOpen(false); }} 
+                    className={`block w-full text-left font-black text-xl uppercase tracking-tight py-1 transition-colors ${activeSection === 'about' ? 'text-gold' : 'text-white hover:text-gold'}`}
                   >
                     {t('nav_about')}
+                  </button>
+                  <button 
+                    onClick={() => { handleNavClick('faq'); setIsMobileMenuOpen(false); }} 
+                    className={`block w-full text-left font-black text-xl uppercase tracking-tight py-1 transition-colors ${activeSection === 'faq' ? 'text-gold' : 'text-white hover:text-gold'}`}
+                  >
+                    {t('nav_faq')}
                   </button>
                 </div>
 
