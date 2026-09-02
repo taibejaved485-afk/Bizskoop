@@ -14,7 +14,11 @@ import {
   RefreshCw,
   MapPin,
   Plane,
-  Target
+  Target,
+  User,
+  Building2,
+  Calendar,
+  MessageSquare
 } from 'lucide-react';
 
 const ImmigrationSupport: React.FC = () => {
@@ -490,21 +494,31 @@ const ImmigrationSupport: React.FC = () => {
           />
         </div>
 
-        <div className="max-w-5xl mx-auto px-4 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="bg-navy-dark p-8 sm:p-20 rounded-[50px] shadow-3xl border-t-8 border-gold relative overflow-hidden"
+            className="bg-gradient-to-br from-[#0b1c2c] via-[#081725] to-[#040e18] p-8 sm:p-16 lg:p-20 rounded-[40px] shadow-3xl border border-white/10 relative overflow-hidden"
           >
-            <div className="absolute top-0 right-0 p-10 opacity-10">
-              <Plane className="w-40 h-40 text-white" />
+            {/* Soft Premium Ambient Light Glows */}
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-gold/10 rounded-full blur-[130px] pointer-events-none" />
+            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-royal-blue/15 rounded-full blur-[130px] pointer-events-none" />
+
+            <div className="absolute top-0 right-0 p-10 opacity-5">
+              <Plane className="w-48 h-48 text-white" />
             </div>
 
-            <div className="max-w-3xl mx-auto text-center mb-16">
-              <h2 className="text-3xl sm:text-5xl font-black text-white mb-6 uppercase tracking-tighter">Ready to Hire <br /><span className="text-gold italic">International Talent?</span></h2>
-              <p className="text-blue-100/70 font-medium text-lg">Get your professional visa assessment from our licensed mobility specialists.</p>
+            <div className="max-w-3xl mx-auto text-center mb-16 relative z-10">
+              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white mb-5 uppercase tracking-tighter leading-none">
+                Ready to Hire <br />
+                <span className="text-gold italic font-black">International Talent?</span>
+              </h2>
+              <div className="w-20 h-1.5 bg-gold/80 mx-auto mb-6 rounded-full"></div>
+              <p className="text-slate-300 font-semibold text-sm sm:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed">
+                Get your professional visa assessment from our licensed mobility specialists.
+              </p>
             </div>
             
             <AnimatePresence mode="wait">
@@ -512,7 +526,7 @@ const ImmigrationSupport: React.FC = () => {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-12"
+                  className="text-center py-12 relative z-10"
                 >
                   <div className="w-20 h-20 bg-gold rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-gold/40">
                     <ShieldCheck className="w-10 h-10 text-navy-dark" />
@@ -524,62 +538,92 @@ const ImmigrationSupport: React.FC = () => {
                 <motion.form 
                   onSubmit={handleSubmit}
                   exit={{ opacity: 0, y: -20 }}
-                  className="grid grid-cols-1 md:grid-cols-2 gap-8"
+                  className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6 relative z-10"
                 >
                   <div className="space-y-6">
-                    <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest font-black text-gold/50 ml-2">Full Name</label>
-                      <input 
-                        required
-                        type="text" 
-                        placeholder="John Doe" 
-                        className="w-full px-8 py-5 bg-white/5 border border-white/10 rounded-2xl focus:border-gold outline-none font-medium text-white transition-all placeholder:text-white/20" 
-                      />
+                    <div className="space-y-2 relative group">
+                      <label className="text-[10px] sm:text-[11px] uppercase tracking-widest font-black text-gold/80 ml-1 block">Full Name</label>
+                      <div className="relative">
+                        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-gold transition-colors pointer-events-none">
+                          <User className="w-5 h-5" strokeWidth={2} />
+                        </div>
+                        <input 
+                          required
+                          type="text" 
+                          placeholder="John Doe" 
+                          className="w-full pl-14 pr-6 py-4.5 bg-white/[0.02] hover:bg-white/[0.05] focus:bg-white/[0.07] border border-white/10 hover:border-white/20 focus:border-gold/60 rounded-xl outline-none font-semibold text-white transition-all placeholder:text-slate-500 text-sm focus:shadow-[0_0_15px_rgba(212,175,55,0.08)]" 
+                        />
+                      </div>
                     </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest font-black text-gold/50 ml-2">Nationality of Candidate</label>
-                      <input 
-                        required
-                        type="text" 
-                        placeholder="e.g. British, Singaporean" 
-                        className="w-full px-8 py-5 bg-white/5 border border-white/10 rounded-2xl focus:border-gold outline-none font-medium text-white transition-all placeholder:text-white/20" 
-                      />
+
+                    <div className="space-y-2 relative group">
+                      <label className="text-[10px] sm:text-[11px] uppercase tracking-widest font-black text-gold/80 ml-1 block">Nationality of Candidate</label>
+                      <div className="relative">
+                        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-gold transition-colors pointer-events-none">
+                          <Globe className="w-5 h-5" strokeWidth={2} />
+                        </div>
+                        <input 
+                          required
+                          type="text" 
+                          placeholder="e.g. British, Singaporean" 
+                          className="w-full pl-14 pr-6 py-4.5 bg-white/[0.02] hover:bg-white/[0.05] focus:bg-white/[0.07] border border-white/10 hover:border-white/20 focus:border-gold/60 rounded-xl outline-none font-semibold text-white transition-all placeholder:text-slate-500 text-sm focus:shadow-[0_0_15px_rgba(212,175,55,0.08)]" 
+                        />
+                      </div>
                     </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest font-black text-gold/50 ml-2">Company Name</label>
-                      <input 
-                        required
-                        type="text" 
-                        placeholder="Your Company Sdn Bhd" 
-                        className="w-full px-8 py-5 bg-white/5 border border-white/10 rounded-2xl focus:border-gold outline-none font-medium text-white transition-all placeholder:text-white/20" 
-                      />
+
+                    <div className="space-y-2 relative group">
+                      <label className="text-[10px] sm:text-[11px] uppercase tracking-widest font-black text-gold/80 ml-1 block">Company Name</label>
+                      <div className="relative">
+                        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-gold transition-colors pointer-events-none">
+                          <Building2 className="w-5 h-5" strokeWidth={2} />
+                        </div>
+                        <input 
+                          required
+                          type="text" 
+                          placeholder="Your Company Sdn Bhd" 
+                          className="w-full pl-14 pr-6 py-4.5 bg-white/[0.02] hover:bg-white/[0.05] focus:bg-white/[0.07] border border-white/10 hover:border-white/20 focus:border-gold/60 rounded-xl outline-none font-semibold text-white transition-all placeholder:text-slate-500 text-sm focus:shadow-[0_0_15px_rgba(212,175,55,0.08)]" 
+                        />
+                      </div>
                     </div>
                   </div>
+
                   <div className="space-y-6">
-                    <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest font-black text-gold/50 ml-2">Expected Start Date</label>
-                      <input 
-                        required
-                        type="date" 
-                        className="w-full px-8 py-5 bg-white/5 border border-white/10 rounded-2xl focus:border-gold outline-none font-medium text-white/50 transition-all" 
-                      />
+                    <div className="space-y-2 relative group">
+                      <label className="text-[10px] sm:text-[11px] uppercase tracking-widest font-black text-gold/80 ml-1 block">Expected Start Date</label>
+                      <div className="relative">
+                        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-gold transition-colors pointer-events-none">
+                          <Calendar className="w-5 h-5" strokeWidth={2} />
+                        </div>
+                        <input 
+                          required
+                          type="date" 
+                          className="w-full pl-14 pr-6 py-4.5 bg-white/[0.02] hover:bg-white/[0.05] focus:bg-white/[0.07] border border-white/10 hover:border-white/20 focus:border-gold/60 rounded-xl outline-none font-semibold text-slate-300 transition-all text-sm focus:shadow-[0_0_15px_rgba(212,175,55,0.08)] [color-scheme:dark]" 
+                        />
+                      </div>
                     </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest font-black text-gold/50 ml-2">Hiring Needs</label>
-                      <textarea 
-                        required
-                        placeholder="Tell us more about the role..." 
-                        className="w-full h-[124px] px-8 py-5 bg-white/5 border border-white/10 rounded-2xl focus:border-gold outline-none font-medium resize-none text-white transition-all placeholder:text-white/20"
-                      ></textarea>
+
+                    <div className="space-y-2 relative group">
+                      <label className="text-[10px] sm:text-[11px] uppercase tracking-widest font-black text-gold/80 ml-1 block">Hiring Needs</label>
+                      <div className="relative">
+                        <div className="absolute left-5 top-6 text-slate-400 group-focus-within:text-gold transition-colors pointer-events-none">
+                          <MessageSquare className="w-5 h-5" strokeWidth={2} />
+                        </div>
+                        <textarea 
+                          required
+                          placeholder="Tell us more about the role..." 
+                          className="w-full h-[112px] pl-14 pr-6 py-4 bg-white/[0.02] hover:bg-white/[0.05] focus:bg-white/[0.07] border border-white/10 hover:border-white/20 focus:border-gold/60 rounded-xl outline-none font-semibold resize-none text-white transition-all placeholder:text-slate-500 text-sm focus:shadow-[0_0_15px_rgba(212,175,55,0.08)]"
+                        ></textarea>
+                      </div>
                     </div>
+
                     <motion.button 
                       disabled={formStatus === 'submitting'}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full py-5 bg-gold text-navy-dark font-black rounded-2xl hover:bg-white transition-all shadow-2xl shadow-gold/20 uppercase tracking-widest text-xs flex items-center justify-center gap-3 disabled:opacity-50"
+                      whileHover={{ scale: 1.015, boxShadow: "0 10px 25px -5px rgba(212, 175, 55, 0.4)" }}
+                      whileTap={{ scale: 0.985 }}
+                      className="w-full py-4.5 bg-gradient-to-r from-gold via-yellow-400 to-gold text-navy-dark font-black rounded-xl hover:brightness-110 transition-all uppercase tracking-widest text-xs flex items-center justify-center gap-2.5 disabled:opacity-50 cursor-pointer shadow-lg"
                     >
                       {formStatus === 'submitting' ? 'Processing...' : 'Request Assessment'}
-                      <Plane className="w-4 h-4" />
+                      <Plane className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                     </motion.button>
                   </div>
                 </motion.form>

@@ -11,7 +11,9 @@ import {
   Clock, 
   Smartphone,
   Layout,
-  PenTool
+  PenTool,
+  User,
+  FileText
 } from 'lucide-react';
 
 const LocalCouncilLicensing: React.FC = () => {
@@ -423,7 +425,7 @@ const LocalCouncilLicensing: React.FC = () => {
       </section>
 
       {/* 5. Lead Gen Footer */}
-      <section className="pt-8 pb-24 sm:pt-12 sm:pb-32 bg-white relative overflow-hidden" id="apply">
+      <section className="pt-6 pb-16 sm:pt-10 sm:pb-20 bg-white relative overflow-hidden" id="apply">
         {/* Background Animation */}
         <div className="absolute inset-0 pointer-events-none">
           <motion.div
@@ -436,21 +438,31 @@ const LocalCouncilLicensing: React.FC = () => {
           />
         </div>
 
-        <div className="max-w-5xl mx-auto px-4 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="bg-navy-dark p-8 sm:p-20 rounded-[50px] shadow-3xl border-t-8 border-gold relative overflow-hidden"
+            className="bg-gradient-to-br from-[#0b1c2c] via-[#081725] to-[#040e18] p-8 sm:p-14 rounded-[40px] shadow-[0_40px_100px_rgba(0,0,0,0.5)] border border-white/10 relative overflow-hidden group/form"
           >
-            <div className="absolute top-0 right-0 p-10 opacity-10">
-              <Building className="w-40 h-40 text-white" />
+            {/* Soft Premium Ambient Light Glows */}
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-gold/10 rounded-full blur-[130px] pointer-events-none" />
+            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-royal-blue/15 rounded-full blur-[130px] pointer-events-none" />
+
+            <div className="absolute top-0 right-0 p-10 opacity-[0.02] pointer-events-none group-hover/form:opacity-[0.05] transition-all duration-700">
+              <Building className="w-48 h-48 text-white" />
             </div>
 
-            <div className="max-w-3xl mx-auto text-center mb-16">
-              <h2 className="text-3xl sm:text-5xl font-black text-white mb-6 uppercase tracking-tighter">Need Your Signboard <br /><span className="text-gold italic">Approved Fast?</span></h2>
-              <p className="text-blue-100/70 font-medium text-lg">Don't wait for a summons. Get your premise and signage licensed by our professional liaison team.</p>
+            <div className="max-w-3xl mx-auto text-center mb-10 relative z-10">
+              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white mb-5 uppercase tracking-tighter leading-none">
+                Need Your Signboard <br />
+                <span className="text-gold italic font-black">Approved Fast?</span>
+              </h2>
+              <div className="w-20 h-1.5 bg-gold/80 mx-auto mb-5 rounded-full"></div>
+              <p className="text-slate-300 font-semibold text-sm sm:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed">
+                Don't wait for a summons. Get your premise and signage licensed by our professional liaison team.
+              </p>
             </div>
             
             <AnimatePresence mode="wait">
@@ -458,66 +470,92 @@ const LocalCouncilLicensing: React.FC = () => {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-12"
+                  className="text-center py-12 relative z-10 max-w-lg mx-auto bg-white/[0.02] backdrop-blur-md rounded-3xl border border-white/5 p-10 shadow-2xl"
                 >
-                  <div className="w-20 h-20 bg-gold rounded-full flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-gold/40">
+                  <div className="w-20 h-20 bg-gradient-to-tr from-gold to-yellow-400 rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_20px_50px_rgba(212,175,55,0.3)]">
                     <ShieldCheck className="w-10 h-10 text-navy-dark" />
                   </div>
-                  <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-4">Application Initiated</h3>
-                  <p className="text-blue-100/60 font-medium">Our licensing specialist will contact you within 24 hours.</p>
+                  <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-3">Application Initiated</h3>
+                  <p className="text-blue-100/80 font-medium leading-relaxed text-sm">
+                    Thank you. Our licensing specialist will contact you within 24 hours.
+                  </p>
                 </motion.div>
               ) : (
                 <motion.form 
                   onSubmit={handleSubmit}
                   exit={{ opacity: 0, y: -20 }}
-                  className="grid grid-cols-1 md:grid-cols-2 gap-8"
+                  className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6 max-w-6xl mx-auto relative z-10"
                 >
                   <div className="space-y-6">
-                    <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest font-black text-gold/50 ml-2">Full Name</label>
-                      <input 
-                        required
-                        type="text" 
-                        placeholder="John Doe" 
-                        className="w-full px-8 py-5 bg-white/5 border border-white/10 rounded-2xl focus:border-gold outline-none font-medium text-white transition-all placeholder:text-white/20" 
-                      />
+                    <div className="space-y-2 relative group">
+                      <label className="text-[10px] sm:text-[11px] uppercase tracking-widest font-black text-gold/80 ml-1 block">Full Name</label>
+                      <div className="relative">
+                        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-gold transition-colors pointer-events-none">
+                          <User className="w-5 h-5" strokeWidth={2} />
+                        </div>
+                        <input 
+                          required
+                          type="text" 
+                          placeholder="John Doe" 
+                          className="w-full pl-14 pr-6 py-4.5 bg-white/[0.02] hover:bg-white/[0.05] focus:bg-white/[0.07] border border-white/10 hover:border-white/20 focus:border-gold/60 rounded-xl outline-none font-semibold text-white transition-all placeholder:text-slate-500 text-sm focus:shadow-[0_0_15px_rgba(212,175,55,0.08)]" 
+                        />
+                      </div>
                     </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest font-black text-gold/50 ml-2">Premise Location (City)</label>
-                      <input 
-                        required
-                        type="text" 
-                        placeholder="e.g. Kuala Lumpur, Petaling Jaya" 
-                        className="w-full px-8 py-5 bg-white/5 border border-white/10 rounded-2xl focus:border-gold outline-none font-medium text-white transition-all placeholder:text-white/20" 
-                      />
+
+                    <div className="space-y-2 relative group">
+                      <label className="text-[10px] sm:text-[11px] uppercase tracking-widest font-black text-gold/80 ml-1 block">Premise Location (City)</label>
+                      <div className="relative">
+                        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-gold transition-colors pointer-events-none">
+                          <MapPin className="w-5 h-5" strokeWidth={2} />
+                        </div>
+                        <input 
+                          required
+                          type="text" 
+                          placeholder="e.g. Kuala Lumpur, Petaling Jaya" 
+                          className="w-full pl-14 pr-6 py-4.5 bg-white/[0.02] hover:bg-white/[0.05] focus:bg-white/[0.07] border border-white/10 hover:border-white/20 focus:border-gold/60 rounded-xl outline-none font-semibold text-white transition-all placeholder:text-slate-500 text-sm focus:shadow-[0_0_15px_rgba(212,175,55,0.08)]" 
+                        />
+                      </div>
                     </div>
-                    <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest font-black text-gold/50 ml-2">Phone Number</label>
-                      <input 
-                        required
-                        type="tel" 
-                        placeholder="+60 12-345 6789" 
-                        className="w-full px-8 py-5 bg-white/5 border border-white/10 rounded-2xl focus:border-gold outline-none font-medium text-white transition-all placeholder:text-white/20" 
-                      />
+
+                    <div className="space-y-2 relative group">
+                      <label className="text-[10px] sm:text-[11px] uppercase tracking-widest font-black text-gold/80 ml-1 block">Phone Number</label>
+                      <div className="relative">
+                        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-gold transition-colors pointer-events-none">
+                          <Smartphone className="w-5 h-5" strokeWidth={2} />
+                        </div>
+                        <input 
+                          required
+                          type="tel" 
+                          placeholder="+60 12-345 6789" 
+                          className="w-full pl-14 pr-6 py-4.5 bg-white/[0.02] hover:bg-white/[0.05] focus:bg-white/[0.07] border border-white/10 hover:border-white/20 focus:border-gold/60 rounded-xl outline-none font-semibold text-white transition-all placeholder:text-slate-500 text-sm focus:shadow-[0_0_15px_rgba(212,175,55,0.08)]" 
+                        />
+                      </div>
                     </div>
                   </div>
+
                   <div className="space-y-6">
-                    <div className="space-y-2">
-                      <label className="text-[10px] uppercase tracking-widest font-black text-gold/50 ml-2">Business Description</label>
-                      <textarea 
-                        required
-                        placeholder="Describe your business and license status..." 
-                        className="w-full h-[124px] px-8 py-5 bg-white/5 border border-white/10 rounded-2xl focus:border-gold outline-none font-medium resize-none text-white transition-all placeholder:text-white/20"
-                      ></textarea>
+                    <div className="space-y-2 relative group">
+                      <label className="text-[10px] sm:text-[11px] uppercase tracking-widest font-black text-gold/80 ml-1 block">Business Description</label>
+                      <div className="relative">
+                        <div className="absolute left-5 top-6 text-slate-400 group-focus-within:text-gold transition-colors pointer-events-none">
+                          <FileText className="w-5 h-5" strokeWidth={2} />
+                        </div>
+                        <textarea 
+                          required
+                          placeholder="Describe your business and license status..." 
+                          className="w-full h-[112px] pl-14 pr-6 py-4 bg-white/[0.02] hover:bg-white/[0.05] focus:bg-white/[0.07] border border-white/10 hover:border-white/20 focus:border-gold/60 rounded-xl outline-none font-semibold resize-none text-white transition-all placeholder:text-slate-500 text-sm focus:shadow-[0_0_15px_rgba(212,175,55,0.08)]"
+                        ></textarea>
+                      </div>
                     </div>
+
                     <motion.button 
                       disabled={formStatus === 'submitting'}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      className="w-full py-5 bg-gold text-navy-dark font-black rounded-2xl hover:bg-white transition-all shadow-2xl shadow-gold/20 uppercase tracking-widest text-xs flex items-center justify-center gap-3 disabled:opacity-50"
+                      whileHover={{ scale: 1.015, boxShadow: "0 10px 25px -5px rgba(212, 175, 55, 0.4)" }}
+                      whileTap={{ scale: 0.985 }}
+                      className="w-full py-4.5 bg-gradient-to-r from-gold via-yellow-400 to-gold text-navy-dark font-black rounded-xl hover:brightness-110 transition-all uppercase tracking-widest text-xs flex items-center justify-center gap-2.5 disabled:opacity-50 cursor-pointer shadow-lg"
                     >
                       {formStatus === 'submitting' ? 'Processing...' : 'Apply Now'}
-                      <CheckCircle className="w-4 h-4" />
+                      <CheckCircle className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                     </motion.button>
                   </div>
                 </motion.form>

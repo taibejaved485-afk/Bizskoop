@@ -1137,6 +1137,9 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
                         </div>
 
                         <div className="flex items-center gap-4 sm:gap-6 shrink-0">
+                          {/* Notes Header Column on Desktop */}
+                          <span className="hidden lg:inline-block text-slate-600 text-[10px] font-black uppercase tracking-wider w-40 text-center">Notes</span>
+
                           <button 
                             onClick={() => handleSort('status')}
                             className={`flex items-center gap-1.5 hover:text-slate-900 transition-colors cursor-pointer group ${sortField === 'status' ? 'text-amber-700 font-bold' : ''}`}
@@ -1182,7 +1185,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
                             onClick={() => setSelectedLead(lead)}
                             className={`p-5 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 cursor-pointer hover:bg-slate-50 transition-all ${lead.status === 'unread' ? 'border-l-4 border-amber-500 bg-amber-50/50' : 'border-l-4 border-transparent'} ${selectedLeadIds.includes(lead.id) ? 'bg-amber-50/30' : ''}`}
                           >
-                            <div className="flex items-center gap-4 flex-1">
+                            <div className="flex items-center gap-4 flex-1 min-w-0">
                               <input 
                                 type="checkbox"
                                 checked={selectedLeadIds.includes(lead.id)}
@@ -1190,7 +1193,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
                                 onClick={(e) => e.stopPropagation()}
                                 className="w-4 h-4 text-gold rounded border-slate-300 focus:ring-gold cursor-pointer shrink-0"
                               />
-                              <div className="space-y-1.5 flex-1">
+                              <div className="space-y-1.5 flex-1 min-w-0">
                                 <div className="flex flex-wrap items-center gap-3">
                                   <h4 className={`text-sm font-black ${lead.status === 'unread' ? 'text-amber-700' : 'text-slate-900'}`}>
                                     {lead.fullName}
@@ -1204,11 +1207,11 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
                                     </span>
                                   )}
                                 </div>
-                                 <p className="text-slate-600 text-xs font-medium">
+                                <p className="text-slate-600 text-xs font-medium">
                                   <span className="text-slate-900 font-bold">{lead.companyName}</span> • {lead.email} • {lead.phoneNumber}
                                 </p>
                                 {lead.notes && (
-                                  <div className="bg-amber-50/80 border border-amber-200/60 rounded-xl px-3 py-1.5 text-xs text-amber-900 font-medium flex items-center gap-2 mt-1 max-w-xl">
+                                  <div className="bg-amber-50/80 border border-amber-200/60 rounded-xl px-3 py-1.5 text-xs text-amber-900 font-medium flex items-center gap-2 mt-1 max-w-xl lg:hidden">
                                     <FileText size={12} className="text-amber-600 shrink-0" />
                                     <span className="truncate"><strong>Admin Note:</strong> {lead.notes}</span>
                                   </div>
@@ -1217,6 +1220,27 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
                                   {new Date(lead.date).toLocaleString()}
                                 </p>
                               </div>
+                            </div>
+
+                            {/* Notes Column Preview on Desktop */}
+                            <div className="hidden lg:flex items-center justify-center w-40 shrink-0" onClick={(e) => e.stopPropagation()}>
+                              {lead.notes ? (
+                                <button 
+                                  onClick={(e) => handleOpenNotes(lead, e)}
+                                  className="flex items-center gap-1.5 bg-amber-50 text-amber-800 border border-amber-200 hover:bg-amber-100 rounded-xl px-3 py-1.5 text-[10px] font-black uppercase tracking-wider max-w-full transition-all shadow-sm"
+                                  title={lead.notes}
+                                >
+                                  <FileText size={13} className="text-amber-600 shrink-0" />
+                                  <span className="truncate max-w-[100px]">{lead.notes}</span>
+                                </button>
+                              ) : (
+                                <button
+                                  onClick={(e) => handleOpenNotes(lead, e)}
+                                  className="flex items-center gap-1 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-xl px-2.5 py-1.5 text-[10px] font-black uppercase tracking-wider transition-all border border-dashed border-slate-200"
+                                >
+                                  <Plus size={11} /> Note
+                                </button>
+                              )}
                             </div>
 
                             <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
@@ -1995,6 +2019,30 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
                           <div className="bg-slate-50 p-5 rounded-2xl border border-slate-100 text-xs text-slate-700 leading-relaxed font-medium">
                             {selectedLead.message}
                           </div>
+                        </div>
+
+                        {/* Current Notes Section inside detailed modal */}
+                        <div className="space-y-2 border-t border-slate-100 pt-4">
+                          <div className="flex items-center justify-between">
+                            <p className="text-[10px] uppercase tracking-widest font-black text-slate-500">Admin Remarks / Notes:</p>
+                            <button
+                              onClick={(e) => {
+                                handleOpenNotes(selectedLead, e);
+                                setSelectedLead(null); // Close detail modal so note modal displays clearly
+                              }}
+                              className="text-[10px] text-amber-700 hover:text-amber-800 hover:underline uppercase tracking-wider font-black flex items-center gap-1 cursor-pointer"
+                            >
+                              <Edit3 size={11} /> Edit Remarks
+                            </button>
+                          </div>
+                          {selectedLead.notes ? (
+                            <div className="bg-amber-50/60 p-4 rounded-2xl border border-amber-200/50 text-xs text-amber-950 font-semibold leading-relaxed flex items-start gap-2.5 shadow-sm">
+                              <FileText size={15} className="text-amber-600 shrink-0 mt-0.5" />
+                              <p className="whitespace-pre-wrap">{selectedLead.notes}</p>
+                            </div>
+                          ) : (
+                            <p className="text-xs text-slate-400 italic">No administrative remarks captured yet.</p>
+                          )}
                         </div>
 
                         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">

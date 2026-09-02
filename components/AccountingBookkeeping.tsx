@@ -383,25 +383,25 @@ const AccountingBookkeeping: React.FC = () => {
       </section>
 
       {/* 3. Scope of Expertise */}
-      <section id="expertise" className="pt-24 pb-8 sm:pt-32 sm:pb-12 bg-slate-50 border-y border-slate-100 relative overflow-hidden">
+      <section id="expertise" className="py-12 sm:py-16 bg-slate-50 border-y border-slate-100 relative overflow-hidden">
         <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24 relative z-10">
           <motion.div 
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-24"
+            className="text-center mb-12"
           >
             <motion.span 
-              className="text-gold font-black text-[10px] sm:text-xs uppercase tracking-[0.4em] sm:tracking-[0.6em] block mb-4"
+              className="text-gold font-black text-[9px] sm:text-[10px] uppercase tracking-[0.4em] sm:tracking-[0.6em] block mb-2"
             >
               Our Solutions
             </motion.span>
             <motion.h3 
-              className="text-4xl lg:text-7xl font-black text-navy-dark uppercase tracking-tighter leading-none"
+              className="text-3xl sm:text-4xl lg:text-5xl font-black text-navy-dark uppercase tracking-tighter leading-none"
             >
               Accounting Expertise
             </motion.h3>
-            <div className="w-24 h-2 bg-gold mx-auto mt-8 rounded-full shadow-lg"></div>
+            <div className="w-16 h-1 bg-gold mx-auto mt-4 rounded-full shadow-md"></div>
           </motion.div>
           
           <motion.div 
@@ -413,41 +413,41 @@ const AccountingBookkeeping: React.FC = () => {
               visible: {
                 opacity: 1,
                 transition: {
-                  staggerChildren: 0.15
+                  staggerChildren: 0.1
                 }
               }
             }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
           >
             {expertiseItems.map((s, i) => (
               <motion.div 
                 key={i} 
                 variants={{
-                  hidden: { opacity: 0, y: 50, scale: 0.9 },
+                  hidden: { opacity: 0, y: 30, scale: 0.95 },
                   visible: { 
                     opacity: 1, 
                     y: 0, 
                     scale: 1,
                     transition: {
                       type: "spring",
-                      stiffness: 100,
-                      damping: 15
+                      stiffness: 120,
+                      damping: 18
                     }
                   }
                 }}
-                className="group relative p-[2px] rounded-[40px] overflow-hidden transition-all duration-500 hover:-translate-y-4"
+                className="group relative p-[1px] rounded-3xl overflow-hidden transition-all duration-500 hover:-translate-y-2"
               >
                 <div className="absolute inset-[-200%] bg-[conic-gradient(from_0deg,transparent_30%,#D4AF37_50%,transparent_70%)] animate-[spin_4s_linear_infinite] opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 
-                <div className="relative h-full bg-white p-12 lg:p-16 rounded-[38px] border border-slate-100 shadow-lg group-hover:shadow-2xl transition-all duration-500 z-10 flex flex-col items-center text-center">
-                  <div className="w-24 h-24 rounded-[24px] bg-navy-dark text-white flex items-center justify-center mb-10 group-hover:bg-royal-blue group-hover:scale-110 group-hover:rotate-[15deg] transition-all duration-500 shadow-xl">
+                <div className="relative h-full bg-white p-8 sm:p-10 rounded-[23px] border border-slate-100 shadow-md group-hover:shadow-xl transition-all duration-500 z-10 flex flex-col items-center text-center">
+                  <div className="w-16 h-16 rounded-2xl bg-navy-dark text-white flex items-center justify-center mb-6 group-hover:bg-royal-blue group-hover:scale-105 group-hover:rotate-[12deg] transition-all duration-500 shadow-md">
                     {s.icon}
                   </div>
-                  <h4 className="text-2xl font-black text-navy-dark mb-6 uppercase tracking-tight group-hover:text-gold transition-colors leading-tight">{s.title}</h4>
-                  <p className="text-slate-500 text-base font-medium leading-relaxed group-hover:text-slate-700 transition-colors">
+                  <h4 className="text-lg sm:text-xl font-black text-navy-dark mb-4 uppercase tracking-tight group-hover:text-gold transition-colors leading-tight">{s.title}</h4>
+                  <p className="text-slate-500 text-sm font-semibold leading-relaxed group-hover:text-slate-700 transition-colors">
                     {s.desc}
                   </p>
-                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-1.5 bg-gold group-hover:w-1/2 transition-all duration-500 rounded-full"></div>
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-1 bg-gold group-hover:w-1/2 transition-all duration-500 rounded-full"></div>
                 </div>
               </motion.div>
             ))}
@@ -457,40 +457,40 @@ const AccountingBookkeeping: React.FC = () => {
 
       {/* 4. FAQ Section */}
       <section className="pt-8 pb-12 sm:pt-12 sm:pb-16 bg-white relative overflow-hidden">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center mb-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-10">
             <motion.span 
-              className="text-gold font-black text-[10px] sm:text-xs uppercase tracking-[0.4em] sm:tracking-[0.6em] mb-4 block"
+              className="text-gold font-black text-[9px] sm:text-[10px] uppercase tracking-[0.4em] sm:tracking-[0.6em] mb-2 block"
             >
               Common Enquiries
             </motion.span>
             <motion.h2 
-              className="text-4xl sm:text-5xl lg:text-7xl font-black text-royal-blue uppercase tracking-tight leading-none"
+              className="text-3xl sm:text-4xl lg:text-5xl font-black text-royal-blue uppercase tracking-tight leading-none"
             >
               Accounting FAQ
             </motion.h2>
-            <div className="w-24 h-2 bg-gold mx-auto mt-8 rounded-full"></div>
+            <div className="w-16 h-1 bg-gold mx-auto mt-4 rounded-full"></div>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-4">
             {faqs.map((faq, index) => (
               <motion.div 
                 key={index} 
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className={`border-2 rounded-[32px] transition-all duration-500 ${activeFaq === index ? 'border-gold bg-white shadow-2xl' : 'border-slate-200 bg-white/50 hover:bg-white hover:border-slate-300'}`}
+                className={`border rounded-2xl transition-all duration-500 ${activeFaq === index ? 'border-gold bg-white shadow-lg' : 'border-slate-200 bg-white/50 hover:bg-white hover:border-slate-300'}`}
               >
                 <button 
                   onClick={() => toggleFaq(index)}
-                  className="w-full text-left px-8 sm:px-12 py-8 sm:py-10 flex items-center justify-between focus:outline-none group"
+                  className="w-full text-left px-6 sm:px-8 py-5 sm:py-6 flex items-center justify-between focus:outline-none group"
                 >
-                  <div className="flex flex-col gap-2 pr-6">
-                    <span className="text-[10px] sm:text-[12px] font-black text-gold uppercase tracking-[0.3em] mb-2">{faq.category}</span>
-                    <span className="font-black text-royal-blue uppercase text-sm sm:text-lg lg:text-xl tracking-tight leading-snug group-hover:text-gold transition-colors">{faq.question}</span>
+                  <div className="flex flex-col gap-1 pr-4">
+                    <span className="text-[8px] sm:text-[9px] font-black text-gold uppercase tracking-[0.25em] mb-0.5">{faq.category}</span>
+                    <span className="font-black text-royal-blue uppercase text-xs sm:text-sm lg:text-base tracking-tight leading-snug group-hover:text-gold transition-colors">{faq.question}</span>
                   </div>
-                  <div className={`w-12 h-12 sm:w-16 h-16 rounded-full border-2 flex items-center justify-center shrink-0 transition-all duration-500 ${activeFaq === index ? 'border-gold bg-gold text-white rotate-180' : 'border-slate-200 text-slate-400 group-hover:border-gold group-hover:text-gold group-hover:scale-110'}`}>
-                    <svg className="w-6 h-6 sm:w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" /></svg>
+                  <div className={`w-8 h-8 sm:w-10 h-10 rounded-full border flex items-center justify-center shrink-0 transition-all duration-500 ${activeFaq === index ? 'border-gold bg-gold text-white rotate-180' : 'border-slate-200 text-slate-400 group-hover:border-gold group-hover:text-gold group-hover:scale-105'}`}>
+                    <svg className="w-4 h-4 sm:w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7" /></svg>
                   </div>
                 </button>
                 <AnimatePresence>
@@ -499,12 +499,12 @@ const AccountingBookkeeping: React.FC = () => {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                       className="overflow-hidden"
                     >
-                      <div className="px-8 sm:px-12 pb-10 sm:pb-14 pt-2">
-                        <div className="h-px w-full bg-slate-100 mb-8"></div>
-                        <p className="text-slate-600 font-medium leading-relaxed text-base sm:text-lg lg:text-xl">
+                      <div className="px-6 sm:px-8 pb-5 sm:pb-6 pt-1">
+                        <div className="h-px w-full bg-slate-100 mb-4"></div>
+                        <p className="text-slate-600 font-semibold leading-relaxed text-xs sm:text-sm">
                           {faq.answer}
                         </p>
                       </div>

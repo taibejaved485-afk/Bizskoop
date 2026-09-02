@@ -21,6 +21,7 @@ import TypingText from './components/TypingText.tsx';
 import SectionDivider from './components/SectionDivider.tsx';
 import { LegalModal } from './components/LegalModal.tsx';
 import { AdminPage } from './components/AdminPage.tsx';
+import { FAQSection } from './components/FAQSection.tsx';
 import { MessageCircle } from 'lucide-react';
 import { motion } from 'motion/react';
 import { ErrorBoundary } from './components/ErrorBoundary.tsx';
@@ -472,6 +473,9 @@ const App: React.FC = () => {
           
           <SectionDivider variant="gold" />
           <ServiceGrid onNavigate={handleNavigate} />
+          
+          <SectionDivider variant="blue" />
+          <FAQSection />
           
           <SectionDivider variant="gradient" />
           <AIToolsSection />

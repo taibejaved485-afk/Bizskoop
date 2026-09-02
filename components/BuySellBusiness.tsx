@@ -12,7 +12,11 @@ import {
   Handshake, 
   FileText,
   UserCheck,
-  Lock
+  Lock,
+  User,
+  Building2,
+  DollarSign,
+  MessageSquare
 } from 'lucide-react';
 
 const BuySellBusiness: React.FC = () => {
@@ -452,7 +456,7 @@ const BuySellBusiness: React.FC = () => {
       </section>
 
       {/* 5. Lead Gen Footer */}
-      <section className="pt-8 pb-24 sm:pt-12 sm:pb-32 bg-white relative overflow-hidden" id="contact">
+      <section className="pt-6 pb-16 sm:pt-10 sm:pb-20 bg-white relative overflow-hidden" id="contact">
         {/* Background Animation */}
         <div className="absolute inset-0 pointer-events-none">
           <motion.div
@@ -465,28 +469,31 @@ const BuySellBusiness: React.FC = () => {
           />
         </div>
 
-        <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="bg-gradient-to-br from-navy-dark via-[#061e31] to-[#041421] p-8 sm:p-20 rounded-[50px] shadow-[0_40px_100px_rgba(0,0,0,0.5)] border-t-8 border-gold relative overflow-hidden group/form border border-white/5"
+            className="bg-gradient-to-br from-[#0b1c2c] via-[#081725] to-[#040e18] p-8 sm:p-14 rounded-[40px] shadow-[0_40px_100px_rgba(0,0,0,0.5)] border border-white/10 relative overflow-hidden group/form"
           >
+            {/* Soft Premium Ambient Light Glows */}
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-gold/10 rounded-full blur-[130px] pointer-events-none" />
+            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-royal-blue/15 rounded-full blur-[130px] pointer-events-none" />
+
             {/* Elegant Background Visual Accents */}
-            <div className="absolute top-0 right-0 p-10 opacity-[0.03] pointer-events-none group-hover/form:opacity-[0.07] transition-all duration-700">
+            <div className="absolute top-0 right-0 p-10 opacity-[0.02] pointer-events-none group-hover/form:opacity-[0.05] transition-all duration-700">
               <Handshake className="w-96 h-96 text-white" />
             </div>
-            <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-gold/10 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute -top-20 right-1/4 w-80 h-80 bg-royal-blue/20 rounded-full blur-3xl pointer-events-none" />
 
-            <div className="max-w-3xl mx-auto text-center mb-16 relative z-10">
-              <span className="text-gold font-black text-xs uppercase tracking-[0.4em] mb-4 block">SECURE TRANSACTION PORTAL</span>
-              <h2 className="text-4xl sm:text-6xl font-black text-white mb-6 uppercase tracking-tighter leading-tight">
+            <div className="max-w-3xl mx-auto text-center mb-10 relative z-10">
+              <span className="text-gold font-black text-[10px] sm:text-xs uppercase tracking-[0.4em] mb-3 block">SECURE TRANSACTION PORTAL</span>
+              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white mb-5 uppercase tracking-tighter leading-none">
                 Your Next Big Move <br />
-                <span className="text-gold bg-gradient-to-r from-gold via-amber-300 to-yellow-500 bg-clip-text text-transparent italic">Starts Here.</span>
+                <span className="text-gold italic font-black">Starts Here.</span>
               </h2>
-              <p className="text-blue-100/70 font-medium text-lg leading-relaxed max-w-2xl mx-auto">
+              <div className="w-20 h-1.5 bg-gold/80 mx-auto mb-5 rounded-full"></div>
+              <p className="text-slate-300 font-semibold text-sm sm:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed">
                 Confidentiality is our primary currency. Tell us about your investment parameters or exit goals, and we will contact you privately.
               </p>
             </div>
@@ -496,13 +503,13 @@ const BuySellBusiness: React.FC = () => {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-16 relative z-10 max-w-lg mx-auto bg-white/[0.02] backdrop-blur-md rounded-3xl border border-white/5 p-12 shadow-2xl"
+                  className="text-center py-12 relative z-10 max-w-lg mx-auto bg-white/[0.02] backdrop-blur-md rounded-3xl border border-white/5 p-10 shadow-2xl"
                 >
-                  <div className="w-24 h-24 bg-gradient-to-tr from-gold to-yellow-400 rounded-full flex items-center justify-center mx-auto mb-8 shadow-[0_20px_50px_rgba(212,175,55,0.3)]">
-                    <ShieldCheck className="w-12 h-12 text-navy-dark" />
+                  <div className="w-20 h-20 bg-gradient-to-tr from-gold to-yellow-400 rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_20px_50px_rgba(212,175,55,0.3)]">
+                    <ShieldCheck className="w-10 h-10 text-navy-dark" />
                   </div>
-                  <h3 className="text-3xl font-black text-white uppercase tracking-tight mb-4">Inquiry Secured</h3>
-                  <p className="text-blue-100/80 font-medium leading-relaxed">
+                  <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-3">Inquiry Secured</h3>
+                  <p className="text-blue-100/80 font-medium leading-relaxed text-sm">
                     Thank you. Our Managing Director of Mergers & Acquisitions will contact you directly via private channels within 24 hours.
                   </p>
                 </motion.div>
@@ -510,72 +517,98 @@ const BuySellBusiness: React.FC = () => {
                 <motion.form 
                   onSubmit={handleSubmit}
                   exit={{ opacity: 0, y: -20 }}
-                  className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-6xl mx-auto relative z-10"
+                  className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6 max-w-6xl mx-auto relative z-10"
                 >
-                  <div className="space-y-8">
-                    <div className="space-y-3">
-                      <label className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-black text-gold/80 ml-1">Full Name</label>
-                      <input 
-                        required
-                        type="text" 
-                        placeholder="e.g. Tan Sri Ahmad" 
-                        className="w-full px-8 py-5 bg-white/[0.03] border border-white/10 rounded-2xl focus:border-gold focus:bg-white/[0.08] focus:ring-4 focus:ring-gold/15 outline-none font-semibold text-white transition-all placeholder:text-white/20 shadow-inner" 
-                      />
-                    </div>
-                    <div className="space-y-3">
-                      <label className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-black text-gold/80 ml-1">I am a...</label>
+                  <div className="space-y-6">
+                    <div className="space-y-2 relative group">
+                      <label className="text-[10px] sm:text-[11px] uppercase tracking-widest font-black text-gold/80 ml-1 block">Full Name</label>
                       <div className="relative">
+                        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-gold transition-colors pointer-events-none">
+                          <User className="w-5 h-5" strokeWidth={2} />
+                        </div>
+                        <input 
+                          required
+                          type="text" 
+                          placeholder="e.g. Tan Sri Ahmad" 
+                          className="w-full pl-14 pr-6 py-4.5 bg-white/[0.02] hover:bg-white/[0.05] focus:bg-white/[0.07] border border-white/10 hover:border-white/20 focus:border-gold/60 rounded-xl outline-none font-semibold text-white transition-all placeholder:text-slate-500 text-sm focus:shadow-[0_0_15px_rgba(212,175,55,0.08)]" 
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2 relative group">
+                      <label className="text-[10px] sm:text-[11px] uppercase tracking-widest font-black text-gold/80 ml-1 block">I am a...</label>
+                      <div className="relative">
+                        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-gold transition-colors pointer-events-none">
+                          <Briefcase className="w-5 h-5" strokeWidth={2} />
+                        </div>
                         <select 
                           required
-                          className="w-full px-8 py-5 bg-white/[0.03] border border-white/10 rounded-2xl focus:border-gold focus:bg-white/[0.08] focus:ring-4 focus:ring-gold/15 outline-none font-semibold text-white transition-all appearance-none cursor-pointer"
+                          className="w-full pl-14 pr-10 py-4.5 bg-white/[0.02] hover:bg-white/[0.05] focus:bg-[#081725] border border-white/10 hover:border-white/20 focus:border-gold/60 rounded-xl outline-none font-semibold text-slate-300 transition-all text-sm focus:shadow-[0_0_15px_rgba(212,175,55,0.08)] appearance-none cursor-pointer"
                         >
-                          <option value="" className="bg-[#051622] text-white">Select Role</option>
-                          <option value="buyer" className="bg-[#051622] text-white">Potential Buyer / Institutional Investor</option>
-                          <option value="seller" className="bg-[#051622] text-white">Business Owner / Managing Director (Seller)</option>
+                          <option value="" className="bg-[#051622] text-slate-400">Select Role</option>
+                          <option value="buyer" className="bg-[#051622] text-white">Potential Buyer / Investor</option>
+                          <option value="seller" className="bg-[#051622] text-white">Business Owner (Seller)</option>
                         </select>
-                        <div className="absolute right-8 top-1/2 -translate-y-1/2 pointer-events-none text-gold/60">
-                          <ChevronDown size={20} />
+                        <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                          <ChevronDown size={16} />
                         </div>
                       </div>
                     </div>
-                    <div className="space-y-3">
-                      <label className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-black text-gold/80 ml-1">Target Industry / Sector</label>
-                      <input 
-                        required
-                        type="text" 
-                        placeholder="e.g. F&B Franchise, Tech, Logistics, Manufacturing" 
-                        className="w-full px-8 py-5 bg-white/[0.03] border border-white/10 rounded-2xl focus:border-gold focus:bg-white/[0.08] focus:ring-4 focus:ring-gold/15 outline-none font-semibold text-white transition-all placeholder:text-white/20 shadow-inner" 
-                      />
+
+                    <div className="space-y-2 relative group">
+                      <label className="text-[10px] sm:text-[11px] uppercase tracking-widest font-black text-gold/80 ml-1 block">Target Industry / Sector</label>
+                      <div className="relative">
+                        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-gold transition-colors pointer-events-none">
+                          <Building2 className="w-5 h-5" strokeWidth={2} />
+                        </div>
+                        <input 
+                          required
+                          type="text" 
+                          placeholder="e.g. F&B, Tech, Logistics, Manufacturing" 
+                          className="w-full pl-14 pr-6 py-4.5 bg-white/[0.02] hover:bg-white/[0.05] focus:bg-white/[0.07] border border-white/10 hover:border-white/20 focus:border-gold/60 rounded-xl outline-none font-semibold text-white transition-all placeholder:text-slate-500 text-sm focus:shadow-[0_0_15px_rgba(212,175,55,0.08)]" 
+                        />
+                      </div>
                     </div>
                   </div>
-                  <div className="space-y-8 flex flex-col justify-between">
-                    <div className="space-y-8">
-                      <div className="space-y-3">
-                        <label className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-black text-gold/80 ml-1">Target Budget / Valuation (MYR)</label>
+
+                  <div className="space-y-6">
+                    <div className="space-y-2 relative group">
+                      <label className="text-[10px] sm:text-[11px] uppercase tracking-widest font-black text-gold/80 ml-1 block">Target Budget / Valuation (MYR)</label>
+                      <div className="relative">
+                        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-gold transition-colors pointer-events-none">
+                          <DollarSign className="w-5 h-5" strokeWidth={2} />
+                        </div>
                         <input 
                           required
                           type="text" 
                           placeholder="e.g. MYR 5,000,000 - 20,000,000" 
-                          className="w-full px-8 py-5 bg-white/[0.03] border border-white/10 rounded-2xl focus:border-gold focus:bg-white/[0.08] focus:ring-4 focus:ring-gold/15 outline-none font-semibold text-white transition-all placeholder:text-white/20 shadow-inner" 
+                          className="w-full pl-14 pr-6 py-4.5 bg-white/[0.02] hover:bg-white/[0.05] focus:bg-white/[0.07] border border-white/10 hover:border-white/20 focus:border-gold/60 rounded-xl outline-none font-semibold text-white transition-all placeholder:text-slate-500 text-sm focus:shadow-[0_0_15px_rgba(212,175,55,0.08)]" 
                         />
                       </div>
-                      <div className="space-y-3">
-                        <label className="text-[10px] sm:text-xs uppercase tracking-[0.25em] font-black text-gold/80 ml-1">Additional Confidential Details</label>
+                    </div>
+
+                    <div className="space-y-2 relative group">
+                      <label className="text-[10px] sm:text-[11px] uppercase tracking-widest font-black text-gold/80 ml-1 block">Additional Confidential Details</label>
+                      <div className="relative">
+                        <div className="absolute left-5 top-6 text-slate-400 group-focus-within:text-gold transition-colors pointer-events-none">
+                          <MessageSquare className="w-5 h-5" strokeWidth={2} />
+                        </div>
                         <textarea 
                           required
-                          placeholder="Briefly state your exit triggers, current revenue scale, or acquisition criteria..." 
-                          className="w-full h-[124px] px-8 py-5 bg-white/[0.03] border border-white/10 rounded-2xl focus:border-gold focus:bg-white/[0.08] focus:ring-4 focus:ring-gold/15 outline-none font-semibold resize-none text-white transition-all placeholder:text-white/20 shadow-inner"
+                          placeholder="Briefly state your exit triggers or acquisition criteria..." 
+                          className="w-full h-[112px] pl-14 pr-6 py-4 bg-white/[0.02] hover:bg-white/[0.05] focus:bg-white/[0.07] border border-white/10 hover:border-white/20 focus:border-gold/60 rounded-xl outline-none font-semibold resize-none text-white transition-all placeholder:text-slate-500 text-sm focus:shadow-[0_0_15px_rgba(212,175,55,0.08)]"
                         ></textarea>
                       </div>
                     </div>
+
                     <motion.button 
                       disabled={formStatus === 'submitting'}
-                      whileHover={{ scale: 1.01, y: -2 }}
-                      whileTap={{ scale: 0.99 }}
-                      className="w-full py-5 bg-gradient-to-r from-gold via-amber-400 to-gold hover:from-white hover:to-white text-navy-dark hover:text-royal-blue font-black rounded-2xl transition-all shadow-[0_15px_40px_rgba(212,175,55,0.25)] hover:shadow-[0_15px_40px_rgba(255,255,255,0.2)] uppercase tracking-[0.2em] text-xs flex items-center justify-center gap-3 disabled:opacity-50 mt-4 duration-300"
+                      whileHover={{ scale: 1.015, boxShadow: "0 10px 25px -5px rgba(212, 175, 55, 0.4)" }}
+                      whileTap={{ scale: 0.985 }}
+                      className="w-full py-4.5 bg-gradient-to-r from-gold via-yellow-400 to-gold text-navy-dark font-black rounded-xl hover:brightness-110 transition-all uppercase tracking-widest text-xs flex items-center justify-center gap-2.5 disabled:opacity-50 cursor-pointer shadow-lg"
                     >
-                      {formStatus === 'submitting' ? 'Securing Portal Link...' : 'Request Private M&A Briefing'}
-                      <Lock className="w-4 h-4 animate-pulse" />
+                      {formStatus === 'submitting' ? 'Securing Link...' : 'Request Private M&A Briefing'}
+                      <Lock className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                     </motion.button>
                   </div>
                 </motion.form>

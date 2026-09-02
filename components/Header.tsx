@@ -266,17 +266,17 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
                 
                 <AnimatePresence>
                   {isServicesOpen && (
-                    <div className="absolute left-1/2 -translate-x-1/2 top-full pt-4 w-[1200px] z-50">
+                    <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 w-[90vw] max-w-[1000px] z-50">
                       <motion.div 
                         initial={{ opacity: 0, y: 10, scale: 0.95 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 10, scale: 0.95 }}
                         transition={{ duration: 0.2, ease: "easeOut" }}
-                        className="bg-white rounded-[40px] shadow-2xl border-4 border-white overflow-hidden grid grid-cols-12"
+                        className="bg-white rounded-3xl shadow-2xl border border-slate-100 overflow-hidden grid grid-cols-12"
                       >
-                        {/* Right Panel: Services Grid - now full-width 12 columns */}
-                        <div className="col-span-12 p-10 bg-white">
-                          <div className="grid grid-cols-4 gap-x-8 gap-y-8">
+                        {/* Right Panel: Services Grid */}
+                        <div className="col-span-12 p-5 sm:p-6 bg-white">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5">
                             {serviceItems.map((item, idx) => (
                               <motion.button
                                 key={item.id}
@@ -287,14 +287,14 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
                                   onNavigate(item.id);
                                   setIsServicesOpen(false);
                                 }}
-                                className="flex items-start gap-5 group/item text-left p-4 rounded-2xl hover:bg-slate-50 hover:shadow-xl hover:shadow-royal-blue/5 border border-transparent hover:border-slate-100 transition-all duration-300"
+                                className="flex items-start gap-3.5 group/item text-left p-2.5 rounded-xl hover:bg-slate-50 hover:shadow-lg hover:shadow-royal-blue/5 border border-transparent hover:border-slate-100 transition-all duration-300"
                               >
-                                <div className="w-12 h-12 rounded-xl bg-slate-50 shadow-sm border border-slate-100 flex items-center justify-center text-royal-blue group-hover/item:bg-royal-blue group-hover/item:text-white group-hover/item:scale-110 transition-all duration-300">
-                                  <Star className="w-6 h-6" strokeWidth={2.5} />
+                                <div className="w-9 h-9 rounded-lg bg-slate-50 shadow-sm border border-slate-100 flex items-center justify-center text-royal-blue group-hover/item:bg-royal-blue group-hover/item:text-white group-hover/item:scale-110 transition-all duration-300 shrink-0">
+                                  <Star className="w-4 h-4" strokeWidth={2.5} />
                                 </div>
-                                <div>
-                                  <p className="font-black text-slate-900 text-sm uppercase tracking-tight group-hover/item:text-royal-blue transition-colors">{item.label}</p>
-                                  <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mt-1 group-hover/item:text-slate-700 transition-colors">{item.desc}</p>
+                                <div className="min-w-0">
+                                  <p className="font-black text-slate-900 text-[11px] uppercase tracking-tight group-hover/item:text-royal-blue transition-colors truncate">{item.label}</p>
+                                  <p className="text-slate-400 text-[9px] font-bold uppercase tracking-widest mt-0.5 group-hover/item:text-slate-600 transition-colors truncate">{item.desc}</p>
                                 </div>
                               </motion.button>
                             ))}

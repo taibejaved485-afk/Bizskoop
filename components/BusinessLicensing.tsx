@@ -1,9 +1,20 @@
-import React from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
+import React, { useState } from 'react';
+import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
+import { User, Phone, Briefcase, FileText, CheckCircle, ShieldCheck } from 'lucide-react';
 
 const BusinessLicensing: React.FC = () => {
   const { scrollY } = useScroll();
   const yHero = useTransform(scrollY, [0, 500], [0, 200]);
+  const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormStatus('submitting');
+    setTimeout(() => {
+      setFormStatus('success');
+    }, 1500);
+  };
+
   return (
     <div className="bg-white min-h-screen">
       {/* 1. Hero Section (Navy & Gold) */}
@@ -319,43 +330,126 @@ const BusinessLicensing: React.FC = () => {
       </section>
 
       {/* 5. Lead Gen Footer */}
-      <section className="py-16 sm:py-32 bg-slate-50 border-t border-slate-100" id="licensing-contact">
-        <div className="max-w-4xl mx-auto px-4">
+      <section className="pt-6 pb-16 sm:pt-10 sm:pb-20 bg-white relative overflow-hidden" id="licensing-contact">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="bg-white p-8 sm:p-12 lg:p-16 rounded-[30px] sm:rounded-[40px] shadow-2xl border-2 border-gold/20"
+            className="bg-gradient-to-br from-[#0b1c2c] via-[#081725] to-[#040e18] p-8 sm:p-14 rounded-[40px] shadow-[0_40px_100px_rgba(0,0,0,0.5)] border border-white/10 relative overflow-hidden group/form"
           >
-            <h2 className="text-2xl sm:text-3xl font-black text-royal-blue mb-4 text-center uppercase tracking-tight">Not Sure Which License You Need?</h2>
-            <p className="text-slate-600 text-center mb-10 sm:mb-12 font-medium text-sm sm:text-base">Don't risk operating illegally. Get an expert opinion on your licensing roadmap.</p>
+            {/* Soft Premium Ambient Light Glows */}
+            <div className="absolute top-0 left-1/4 w-96 h-96 bg-gold/10 rounded-full blur-[130px] pointer-events-none" />
+            <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-royal-blue/15 rounded-full blur-[130px] pointer-events-none" />
+
+            <div className="max-w-3xl mx-auto text-center mb-10 relative z-10">
+              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black text-white mb-5 uppercase tracking-tighter leading-none">
+                Not Sure Which <br />
+                <span className="text-gold italic font-black">License You Need?</span>
+              </h2>
+              <div className="w-20 h-1.5 bg-gold/80 mx-auto mb-5 rounded-full"></div>
+              <p className="text-slate-300 font-semibold text-sm sm:text-base lg:text-lg max-w-2xl mx-auto leading-relaxed">
+                Don't risk operating illegally. Get an expert opinion on your licensing roadmap.
+              </p>
+            </div>
             
-            <form className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-              <div className="space-y-4 sm:space-y-6">
-                <motion.input 
-                  whileFocus={{ scale: 1.02 }}
-                  type="text" placeholder="Full Name" className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-xl focus:border-gold outline-none font-medium text-sm transition-all" />
-                <motion.input 
-                  whileFocus={{ scale: 1.02 }}
-                  type="text" placeholder="Business Industry (e.g. Retail, SaaS)" className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-xl focus:border-gold outline-none font-medium text-sm transition-all" />
-                <motion.input 
-                  whileFocus={{ scale: 1.02 }}
-                  type="tel" placeholder="Phone Number" className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-xl focus:border-gold outline-none font-medium text-sm transition-all" />
-              </div>
-              <div className="space-y-4 sm:space-y-6">
-                <motion.textarea 
-                  whileFocus={{ scale: 1.02 }}
-                  placeholder="Tell us about your business activity and planned location..." className="w-full h-[156px] px-6 py-4 bg-slate-50 border border-slate-100 rounded-xl focus:border-gold outline-none font-medium resize-none text-sm transition-all"></motion.textarea>
-                <motion.button 
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-full py-5 bg-navy-dark text-gold font-black rounded-xl hover:bg-black transition shadow-xl uppercase tracking-widest text-[10px] sm:text-xs"
+            <AnimatePresence mode="wait">
+              {formStatus === 'success' ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="text-center py-12 relative z-10 max-w-lg mx-auto bg-white/[0.02] backdrop-blur-md rounded-3xl border border-white/5 p-10 shadow-2xl"
                 >
-                  Check My Requirements
-                </motion.button>
-              </div>
-            </form>
+                  <div className="w-20 h-20 bg-gradient-to-tr from-gold to-yellow-400 rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_20px_50px_rgba(212,175,55,0.3)]">
+                    <ShieldCheck className="w-10 h-10 text-navy-dark" />
+                  </div>
+                  <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-3">Inquiry Secured</h3>
+                  <p className="text-blue-100/80 font-medium leading-relaxed text-sm">
+                    Thank you. Our licensing specialists are reviewing your roadmap and will reach out with expert solutions within 24 hours.
+                  </p>
+                </motion.div>
+              ) : (
+                <motion.form 
+                  onSubmit={handleSubmit}
+                  exit={{ opacity: 0, y: -20 }}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6 max-w-6xl mx-auto relative z-10"
+                >
+                  <div className="space-y-6">
+                    <div className="space-y-2 relative group">
+                      <label className="text-[10px] sm:text-[11px] uppercase tracking-widest font-black text-gold/80 ml-1 block">Full Name</label>
+                      <div className="relative">
+                        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-gold transition-colors pointer-events-none">
+                          <User className="w-5 h-5" strokeWidth={2} />
+                        </div>
+                        <input 
+                          required
+                          type="text" 
+                          placeholder="John Doe" 
+                          className="w-full pl-14 pr-6 py-4.5 bg-white/[0.02] hover:bg-white/[0.05] focus:bg-white/[0.07] border border-white/10 hover:border-white/20 focus:border-gold/60 rounded-xl outline-none font-semibold text-white transition-all placeholder:text-slate-500 text-sm focus:shadow-[0_0_15px_rgba(212,175,55,0.08)]" 
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2 relative group">
+                      <label className="text-[10px] sm:text-[11px] uppercase tracking-widest font-black text-gold/80 ml-1 block">Business Industry</label>
+                      <div className="relative">
+                        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-gold transition-colors pointer-events-none">
+                          <Briefcase className="w-5 h-5" strokeWidth={2} />
+                        </div>
+                        <input 
+                          required
+                          type="text" 
+                          placeholder="e.g. Retail, SaaS" 
+                          className="w-full pl-14 pr-6 py-4.5 bg-white/[0.02] hover:bg-white/[0.05] focus:bg-white/[0.07] border border-white/10 hover:border-white/20 focus:border-gold/60 rounded-xl outline-none font-semibold text-white transition-all placeholder:text-slate-500 text-sm focus:shadow-[0_0_15px_rgba(212,175,55,0.08)]" 
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2 relative group">
+                      <label className="text-[10px] sm:text-[11px] uppercase tracking-widest font-black text-gold/80 ml-1 block">Phone Number</label>
+                      <div className="relative">
+                        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-gold transition-colors pointer-events-none">
+                          <Phone className="w-5 h-5" strokeWidth={2} />
+                        </div>
+                        <input 
+                          required
+                          type="tel" 
+                          placeholder="+60 12-345 6789" 
+                          className="w-full pl-14 pr-6 py-4.5 bg-white/[0.02] hover:bg-white/[0.05] focus:bg-white/[0.07] border border-white/10 hover:border-white/20 focus:border-gold/60 rounded-xl outline-none font-semibold text-white transition-all placeholder:text-slate-500 text-sm focus:shadow-[0_0_15px_rgba(212,175,55,0.08)]" 
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-6">
+                    <div className="space-y-2 relative group">
+                      <label className="text-[10px] sm:text-[11px] uppercase tracking-widest font-black text-gold/80 ml-1 block">Business Activities & Planned Location</label>
+                      <div className="relative">
+                        <div className="absolute left-5 top-6 text-slate-400 group-focus-within:text-gold transition-colors pointer-events-none">
+                          <FileText className="w-5 h-5" strokeWidth={2} />
+                        </div>
+                        <textarea 
+                          required
+                          placeholder="Tell us about your business activity and planned location..." 
+                          className="w-full h-[112px] pl-14 pr-6 py-4 bg-white/[0.02] hover:bg-white/[0.05] focus:bg-white/[0.07] border border-white/10 hover:border-white/20 focus:border-gold/60 rounded-xl outline-none font-semibold resize-none text-white transition-all placeholder:text-slate-500 text-sm focus:shadow-[0_0_15px_rgba(212,175,55,0.08)]"
+                        ></textarea>
+                      </div>
+                    </div>
+
+                    <motion.button 
+                      disabled={formStatus === 'submitting'}
+                      whileHover={{ scale: 1.015, boxShadow: "0 10px 25px -5px rgba(212, 175, 55, 0.4)" }}
+                      whileTap={{ scale: 0.985 }}
+                      className="w-full py-4.5 bg-gradient-to-r from-gold via-yellow-400 to-gold text-navy-dark font-black rounded-xl hover:brightness-110 transition-all uppercase tracking-widest text-xs flex items-center justify-center gap-2.5 disabled:opacity-50 cursor-pointer shadow-lg"
+                    >
+                      {formStatus === 'submitting' ? 'Checking...' : 'Check My Requirements'}
+                      <CheckCircle className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
+                    </motion.button>
+                  </div>
+                </motion.form>
+              )}
+            </AnimatePresence>
           </motion.div>
         </div>
       </section>
