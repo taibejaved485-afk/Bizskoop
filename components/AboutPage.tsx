@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'motion/react';
+import { ShieldCheck } from 'lucide-react';
 import AnimatedCounter from './AnimatedCounter';
 
 const AboutPage: React.FC = () => {
@@ -337,6 +338,34 @@ const AboutPage: React.FC = () => {
               </motion.div>
             </motion.div>
           </div>
+
+          {/* Accredited Regulatory Body Affiliations */}
+          <div className="border-t border-slate-100 mt-12 pt-10">
+            <p className="text-center text-slate-400 text-[10px] sm:text-xs font-black uppercase tracking-[0.25em] mb-6">Accredited Authority & Compliance Frameworks</p>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+              {[
+                { label: "SSM Licensed", agency: "Suruhanjaya Syarikat M'sia", details: "Certified Corporate Secretary & Legal Incorp Division", num: "SSM No: CA-18239" },
+                { label: "MIA Certified", agency: "Malaysian Inst of Accountants", details: "Registered Chartered Tax Consultants & Public Accountants", num: "MIA Member: 40921" },
+                { label: "ESD Authorized", agency: "Expatriate Services Division", details: "Premium Talent Pass & Corporate Mobility Approvals", num: "ESD Gate ID: ESD-48" },
+                { label: "MDEC MD Partner", agency: "Malaysia Digital Economy", details: "Expedited Tech Status & Start-up Incentives", num: "MDEC Status Architect" }
+              ].map((badge, bidx) => (
+                <motion.div 
+                  key={bidx}
+                  whileHover={{ y: -4, borderColor: "#D4AF37", boxShadow: "0 10px 20px -5px rgba(212,175,55,0.08)" }}
+                  className="bg-slate-50 border border-slate-150 rounded-xl p-4 sm:p-5 text-left transition-all duration-300 relative group overflow-hidden"
+                >
+                  <div className="absolute top-0 right-0 w-8 h-8 bg-gold/5 rounded-bl-lg"></div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <ShieldCheck size={14} className="text-gold shrink-0" />
+                    <span className="text-[11px] font-black text-navy-dark uppercase tracking-wider">{badge.label}</span>
+                  </div>
+                  <p className="text-[10px] text-slate-800 font-extrabold mb-1">{badge.agency}</p>
+                  <p className="text-[9px] text-slate-500 font-bold leading-normal mb-1.5">{badge.details}</p>
+                  <span className="text-[8px] px-2 py-0.5 rounded-full bg-navy-dark/5 text-slate-500 font-black tracking-wider uppercase block w-fit">{badge.num}</span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -473,6 +502,58 @@ const AboutPage: React.FC = () => {
         </div>
       </section>
 
+      {/* Historical Milestones Timeline */}
+      <section className="py-12 sm:py-16 bg-white relative overflow-hidden">
+        <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24">
+          <div className="text-center mb-12">
+            <span className="text-gold font-black text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.5em] block mb-2">Our Historic Trajectory</span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-navy-dark uppercase tracking-tight leading-snug">The Journey of Excellence</h2>
+            <div className="w-16 h-1 bg-gold mx-auto mt-4 rounded-full"></div>
+          </div>
+
+          <div className="relative max-w-6xl mx-auto">
+            {/* Horizontal Connector Line for Desktop */}
+            <div className="absolute top-[40px] left-[10%] right-[10%] h-[2px] bg-slate-100 hidden lg:block z-0">
+              <motion.div 
+                initial={{ width: 0 }}
+                whileInView={{ width: "100%" }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.5, ease: "easeInOut" }}
+                className="h-full bg-gradient-to-r from-navy-dark via-gold to-[#D4AF37]"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+              {[
+                { year: "2014", title: "The Foundation", desc: "Started in Kuala Lumpur with 3 specialized consultants, assisting regional founders with initial SSM company incorporations." },
+                { year: "2018", title: "Global Talent Mobilization", desc: "Launched our premium expatriate mobility wing, securing direct portal links for streamlined ESD and Employment Pass (EP) clearances." },
+                { year: "2021", title: "Technology Gateway", desc: "Partnered directly with MDEC to assist tech unicorns, web3 leaders, and fintech hubs in obtaining specialized Malaysia Digital (MD) status." },
+                { year: "2026", title: "Executive Market Dominance", desc: "Now recognized as Kuala Lumpur's leading boutique advisory, having processed over 1,500 successful market entry portfolios." }
+              ].map((milestone, midx) => (
+                <motion.div 
+                  key={midx}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: midx * 0.15 }}
+                  className="flex flex-col items-center text-center group cursor-default"
+                >
+                  {/* Circle Badge */}
+                  <div className="w-20 h-20 rounded-full bg-slate-50 border-2 border-slate-100 flex items-center justify-center text-navy-dark shadow-md group-hover:bg-navy-dark group-hover:text-gold group-hover:border-gold group-hover:scale-110 transition-all duration-500 mb-5 relative">
+                    <span className="font-black text-base tracking-tight">{milestone.year}</span>
+                    <div className="absolute inset-0 rounded-full border border-gold/0 group-hover:border-gold/40 group-hover:animate-ping pointer-events-none"></div>
+                  </div>
+                  <h4 className="text-sm sm:text-base font-black text-royal-blue uppercase tracking-tight mb-2 group-hover:text-gold transition-colors">{milestone.title}</h4>
+                  <p className="text-slate-500 font-medium text-xs sm:text-sm leading-relaxed max-w-[240px]">
+                    {milestone.desc}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Corporate Values Section */}
       <section className="py-10 sm:py-14 bg-white relative overflow-hidden">
         {/* Subtle Background Accent */}
@@ -582,6 +663,98 @@ const AboutPage: React.FC = () => {
               </motion.div>
             ))}
           </motion.div>
+        </div>
+      </section>
+
+      {/* Leadership & Advisory Spotlight */}
+      <section className="py-12 sm:py-16 bg-white relative overflow-hidden border-t border-slate-100">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-gold/5 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-royal-blue/5 rounded-full blur-[100px] pointer-events-none"></div>
+        
+        <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24">
+          <div className="text-center mb-12">
+            <span className="text-gold font-black text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.5em] block mb-2">Architects of Success</span>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-navy-dark uppercase tracking-tight leading-snug">Leadership & Board</h2>
+            <div className="w-16 h-1 bg-gold mx-auto mt-4 rounded-full"></div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            {[
+              {
+                name: "Tariq Javed",
+                role: "Senior Founding Partner",
+                credentials: "15+ Years Regional Corporate Architect",
+                bio: "Tariq leads our strategic restructuring and foreign equity portfolios. He has structured over 400 market-entry vehicles for global tech platforms and holding groups.",
+                image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=600",
+                tag: "MIA Fellow"
+              },
+              {
+                name: "Sharifah Aminah",
+                role: "Principal Secretary & Registrar",
+                credentials: "Licensed Secretary (SSM), Former MDEC Advisor",
+                bio: "Sharifah governs our regulatory division, dealing directly with SSM and municipal licensing frameworks. Her expertise guarantees seamless compliance for foreign enterprises.",
+                image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=600",
+                tag: "Licensed Secretary"
+              },
+              {
+                name: "Marcus Chen",
+                role: "Director of Expatriate Mobility",
+                credentials: "Talent Mobility Architect, Ex-ESD Liaison",
+                bio: "Marcus handles corporate mobility pathways, specializing in high-net-worth residency, Employment Passes, and specialized digital hub talent acquisition programs.",
+                image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=600",
+                tag: "Global Mobility Ex"
+              }
+            ].map((leader, lidx) => (
+              <motion.div 
+                key={lidx}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: lidx * 0.15 }}
+                className="group relative bg-slate-50 border border-slate-150 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2 cursor-default flex flex-col justify-between"
+              >
+                <div>
+                  {/* Photo Layer */}
+                  <div className="relative w-full aspect-[4/3] overflow-hidden bg-slate-200">
+                    <img 
+                      src={leader.image} 
+                      alt={leader.name} 
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/40 to-transparent" />
+                    <span className="absolute top-4 right-4 text-[8px] sm:text-[9px] font-black uppercase tracking-widest bg-gold text-navy-dark px-2.5 py-1 rounded-full shadow-md">
+                      {leader.tag}
+                    </span>
+                  </div>
+
+                  {/* Info Layer */}
+                  <div className="p-6">
+                    <p className="text-gold font-black text-[9px] sm:text-[10px] uppercase tracking-widest mb-1">{leader.role}</p>
+                    <h3 className="text-base sm:text-lg font-black text-navy-dark uppercase mb-1 tracking-tight group-hover:text-gold transition-colors">{leader.name}</h3>
+                    <p className="text-[10px] text-slate-400 font-extrabold uppercase mb-3 leading-tight">{leader.credentials}</p>
+                    <p className="text-xs text-slate-500 font-medium leading-relaxed">
+                      {leader.bio}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Secure Contact Trigger */}
+                <div className="px-6 pb-6 pt-2">
+                  <motion.a 
+                    whileTap={{ scale: 0.95 }}
+                    href="https://wa.me/601124244993"
+                    className="w-full py-2.5 rounded-xl border border-navy-dark/10 bg-white text-royal-blue text-[9px] font-black uppercase tracking-widest flex items-center justify-center gap-2 group-hover:bg-navy-dark group-hover:text-white group-hover:border-navy-dark transition-all duration-300"
+                  >
+                    Direct Consultation
+                    <svg className="w-3 h-3 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </motion.a>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
