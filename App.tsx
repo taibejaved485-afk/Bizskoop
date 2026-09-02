@@ -533,7 +533,7 @@ const App: React.FC = () => {
         href="https://wa.me/601124244993" 
         target="_blank" 
         rel="noopener noreferrer"
-        className="fixed bottom-8 right-8 z-50 group"
+        className="fixed bottom-24 sm:bottom-8 right-6 sm:right-8 z-[9999] group cursor-pointer"
       >
         <div className="relative">
           {/* Pulsing Effect */}
