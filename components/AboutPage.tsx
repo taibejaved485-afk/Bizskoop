@@ -765,7 +765,7 @@ const AboutPage: React.FC = () => {
             <span className="text-[200px] sm:text-[400px] font-black uppercase text-navy-dark border-8 sm:border-[16px] border-navy-dark p-20 sm:p-40 rounded-full -rotate-6">ADVISORY</span>
         </div>
         
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-10">
             <motion.span 
               initial={{ opacity: 0, y: 10 }}
