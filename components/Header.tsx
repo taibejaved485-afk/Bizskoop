@@ -383,13 +383,6 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
               </div>
 
               <button 
-                onClick={() => handleNavClick('faq')} 
-                className={`nav-link uppercase ${activeSection === 'faq' ? 'text-gold font-black' : 'text-royal-blue'}`}
-              >
-                {t('nav_faq')}
-              </button>
-              
-              <button 
                 onClick={() => handleNavClick('contact')} 
                 className={`nav-link uppercase ${activeSection === 'contact' ? 'text-gold font-black' : 'text-royal-blue'}`}
               >
@@ -558,12 +551,6 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
                     className={`block w-full text-left font-black text-xl uppercase tracking-tight py-1 transition-colors ${activeSection === 'about' ? 'text-gold' : 'text-white hover:text-gold'}`}
                   >
                     {t('nav_about')}
-                  </button>
-                  <button 
-                    onClick={() => { handleNavClick('faq'); setIsMobileMenuOpen(false); }} 
-                    className={`block w-full text-left font-black text-xl uppercase tracking-tight py-1 transition-colors ${activeSection === 'faq' ? 'text-gold' : 'text-white hover:text-gold'}`}
-                  >
-                    {t('nav_faq')}
                   </button>
                 </div>
 

@@ -474,8 +474,6 @@ const App: React.FC = () => {
           <SectionDivider variant="gold" />
           <ServiceGrid onNavigate={handleNavigate} />
           
-          <SectionDivider variant="blue" />
-          <FAQSection />
           
           <SectionDivider variant="gradient" />
           <AIToolsSection />
