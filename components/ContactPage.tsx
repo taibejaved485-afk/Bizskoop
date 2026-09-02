@@ -57,9 +57,6 @@ const ContactPage: React.FC = () => {
   const [klTime, setKlTime] = useState('');
   const [deskStatus, setDeskStatus] = useState({ label: '', color: '', description: '' });
 
-  // Accordion faq state
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
-
   useEffect(() => {
     const updateTime = () => {
       try {
@@ -102,25 +99,6 @@ const ContactPage: React.FC = () => {
     const interval = setInterval(updateTime, 1000);
     return () => clearInterval(interval);
   }, []);
-
-  const liaisonFaqs = [
-    {
-      q: "Do you charge for the initial corporate briefing?",
-      a: "No, our initial 20-minute diagnostic briefing is entirely complimentary. We analyze your corporate structure, licensing gaps, or visa requirements, and provide a clear, binding quote."
-    },
-    {
-      q: "Are client briefings covered under NDAs?",
-      a: "Absolutely. We treat all corporate inquiries, intellectual property details, and expansion plans with strict confidentiality. Standard NDAs can be executed prior to our first Zoom or physical meeting."
-    },
-    {
-      q: "What is the typical SLA for urgent Sdn Bhd incorporations?",
-      a: "Once SSM registration fees are cleared and documentation is signed digitally via our portal, we can incorporate a standard company within 24 to 48 hours."
-    },
-    {
-      q: "Do you assist with physical office space setup in KLCC?",
-      a: "Yes. Through our Corporate Services division, we provide premium virtual office addresses, shared co-working desks, and support for dedicated corporate commercial leasing compliance."
-    }
-  ];
 
   const validateStep1 = () => {
     const newErrors: { [key: string]: string } = {};
@@ -409,15 +387,15 @@ const ContactPage: React.FC = () => {
                   </div>
                   <div className="flex-1 space-y-0.5">
                     <div className="flex items-center justify-between">
-                      <span className="text-[9px] font-black uppercase tracking-widest text-slate-400">Current Local Time (KL)</span>
-                      <span className="text-[9px] font-black uppercase tracking-widest text-gold">{klTime || 'Updating...'}</span>
+                      <span className="text-[11px] font-black uppercase tracking-widest text-slate-400">Current Local Time (KL)</span>
+                      <span className="text-[11px] font-black uppercase tracking-widest text-gold">{klTime || 'Updating...'}</span>
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <span className={`w-1.5 h-1.5 rounded-full ${deskStatus.color} shrink-0 animate-ping`}></span>
-                      <span className={`w-1.5 h-1.5 rounded-full ${deskStatus.color} shrink-0`}></span>
-                      <p className="text-[10px] font-black text-slate-800 uppercase tracking-wide">{deskStatus.label}</p>
+                      <span className={`w-2 h-2 rounded-full ${deskStatus.color} shrink-0 animate-ping`}></span>
+                      <span className={`w-2 h-2 rounded-full ${deskStatus.color} shrink-0`}></span>
+                      <p className="text-[12px] font-black text-slate-800 uppercase tracking-wide">{deskStatus.label}</p>
                     </div>
-                    <p className="text-[9px] text-slate-500 font-bold tracking-wide uppercase leading-none">{deskStatus.description}</p>
+                    <p className="text-[11px] text-slate-500 font-bold tracking-wide uppercase leading-none">{deskStatus.description}</p>
                   </div>
                 </div>
               </motion.div>
@@ -464,51 +442,7 @@ const ContactPage: React.FC = () => {
                 ))}
               </div>
 
-              {/* Accordion FAQ Guide */}
-              <motion.div
-                variants={{
-                  hidden: { opacity: 0, y: 20 },
-                  visible: { opacity: 1, y: 0 }
-                }}
-                className="bg-white border border-slate-200/80 rounded-2xl p-5 sm:p-6 text-left space-y-4"
-              >
-                <div className="flex items-center gap-2.5 border-b border-slate-100 pb-3">
-                  <HelpCircle className="text-gold shrink-0" size={15} />
-                  <h4 className="text-[10px] sm:text-[11px] font-black uppercase tracking-widest text-slate-800 leading-none">Briefing & Liaison Guidelines</h4>
-                </div>
-                
-                <div className="space-y-3.5">
-                  {liaisonFaqs.map((faq, idx) => (
-                    <div key={idx} className="border-b border-slate-100/60 pb-3 last:border-b-0 last:pb-0">
-                      <button
-                        type="button"
-                        onClick={() => setOpenFaq(openFaq === idx ? null : idx)}
-                        className="w-full flex items-center justify-between text-left py-1.5 text-xs font-bold text-slate-850 hover:text-gold transition-colors cursor-pointer"
-                      >
-                        <span className="leading-snug">{faq.q}</span>
-                        <ChevronDown 
-                          size={13} 
-                          className={`text-slate-400 transition-transform duration-300 shrink-0 ml-3 ${openFaq === idx ? 'rotate-180 text-gold' : ''}`} 
-                        />
-                      </button>
-                      <AnimatePresence initial={false}>
-                        {openFaq === idx && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1, marginTop: 6, marginBottom: 4 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            className="overflow-hidden"
-                          >
-                            <p className="text-[11px] text-slate-500 font-semibold leading-relaxed pr-4">
-                              {faq.a}
-                            </p>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
+              {/* Accordion FAQ Guide (Removed as requested) */}
             </motion.div>
 
             {/* Right: Interactive Multi-Step Contact Form (7 cols) */}
