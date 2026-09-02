@@ -511,7 +511,7 @@ const AboutPage: React.FC = () => {
             <div className="w-16 h-1 bg-gold mx-auto mt-4 rounded-full"></div>
           </div>
 
-          <div className="relative max-w-6xl mx-auto">
+          <div className="relative w-full max-w-7xl mx-auto">
             {/* Horizontal Connector Line for Desktop */}
             <div className="absolute top-[40px] left-[10%] right-[10%] h-[2px] bg-slate-100 hidden lg:block z-0">
               <motion.div 
@@ -544,7 +544,7 @@ const AboutPage: React.FC = () => {
                     <div className="absolute inset-0 rounded-full border border-gold/0 group-hover:border-gold/40 group-hover:animate-ping pointer-events-none"></div>
                   </div>
                   <h4 className="text-sm sm:text-base font-black text-royal-blue uppercase tracking-tight mb-2 group-hover:text-gold transition-colors">{milestone.title}</h4>
-                  <p className="text-slate-500 font-medium text-xs sm:text-sm leading-relaxed max-w-[240px]">
+                  <p className="text-slate-500 font-medium text-xs sm:text-sm leading-relaxed max-w-[280px]">
                     {milestone.desc}
                   </p>
                 </motion.div>
@@ -678,7 +678,7 @@ const AboutPage: React.FC = () => {
             <div className="w-16 h-1 bg-gold mx-auto mt-4 rounded-full"></div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-7xl mx-auto">
             {[
               {
                 name: "Tariq Javed",
@@ -715,12 +715,12 @@ const AboutPage: React.FC = () => {
               >
                 <div>
                   {/* Photo Layer */}
-                  <div className="relative w-full aspect-[4/3] overflow-hidden bg-slate-200">
+                  <div className="relative w-full aspect-[4/5] overflow-hidden bg-slate-200">
                     <img 
                       src={leader.image} 
                       alt={leader.name} 
                       referrerPolicy="no-referrer"
-                      className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                      className="w-full h-full object-cover object-top transition-transform duration-1000 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/40 to-transparent" />
                     <span className="absolute top-4 right-4 text-[8px] sm:text-[9px] font-black uppercase tracking-widest bg-gold text-navy-dark px-2.5 py-1 rounded-full shadow-md">
