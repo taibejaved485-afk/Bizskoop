@@ -429,66 +429,129 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
-      <div className={`lg:hidden fixed inset-0 z-[60] bg-royal-blue transition-transform duration-500 ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-        <div className="p-6">
-          <div className="flex justify-between items-center mb-12">
-            <span className="text-white font-black text-2xl uppercase tracking-tighter">BIZFLOW</span>
-            <button onClick={() => setIsMobileMenuOpen(false)} className="text-white">
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" /></svg>
-            </button>
-          </div>
-          <div className="space-y-6">
-            <div className="relative mb-4">
-              <input 
-                type="text" 
-                placeholder="Search services..." 
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-6 py-4 bg-white/10 border border-white/20 rounded-xl text-white placeholder:text-white/40 outline-none focus:border-gold transition-all font-bold"
-              />
-              <div className="absolute right-4 top-1/2 -translate-y-1/2">
-                {isSearching ? (
-                  <Loader2 className="text-gold animate-spin" size={20} />
-                ) : (
-                  <Search className="text-white/40" size={20} />
-                )}
-              </div>
-            </div>
+      {/* Mobile Menu Backdrop and Slide-in Drawer */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <>
+            {/* Backdrop overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 0.5 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="lg:hidden fixed inset-0 bg-slate-950/80 backdrop-blur-xs z-[999]"
+            />
 
-            {/* Mobile Language Switches */}
-            <div className="flex items-center justify-between py-3 px-4 bg-white/5 border border-white/10 rounded-xl mb-4">
-              <span className="text-white/60 text-xs font-black uppercase tracking-wider">Choose Language</span>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setLanguage('EN')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-black transition-all ${language === 'EN' ? 'bg-gold text-slate-900 shadow-lg' : 'bg-white/5 text-white/60'}`}
+            {/* Slide-in Drawer container */}
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', damping: 25, stiffness: 220 }}
+              className="lg:hidden fixed top-0 right-0 h-full w-[85vw] max-w-[380px] bg-gradient-to-b from-royal-blue to-[#051622] z-[1000] shadow-2xl flex flex-col"
+            >
+              <div className="flex justify-between items-center px-6 py-5 border-b border-white/10 shrink-0">
+                <span className="text-white font-black text-2xl uppercase tracking-tighter">BIZFLOW</span>
+                <button 
+                  onClick={() => setIsMobileMenuOpen(false)} 
+                  className="p-1.5 rounded-lg bg-white/5 text-white hover:bg-white/10 transition-colors focus:outline-none cursor-pointer"
                 >
-                  🇺🇸 EN
-                </button>
-                <button
-                  onClick={() => setLanguage('BM')}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-black transition-all ${language === 'BM' ? 'bg-gold text-slate-900 shadow-lg' : 'bg-white/5 text-white/60'}`}
-                >
-                  🇲🇾 BM
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
                 </button>
               </div>
-            </div>
 
-            <button onClick={() => { onNavigate('home'); setIsMobileMenuOpen(false); }} className="block w-full text-left text-white text-3xl font-black uppercase">{t('nav_home')}</button>
-            <button onClick={() => { onNavigate('about'); setIsMobileMenuOpen(false); }} className="block w-full text-left text-white text-3xl font-black uppercase">{t('nav_about')}</button>
-            <div className="pt-4 border-t border-white/10">
-              <p className="text-accent-yellow font-black text-xs uppercase tracking-widest mb-4">{t('nav_services')}</p>
-              <div className="grid grid-cols-1 gap-4">
-                {serviceItems.slice(0, 4).map((item) => (
-                  <button key={item.id} onClick={() => { onNavigate(item.id); setIsMobileMenuOpen(false); }} className="text-blue-100 text-lg font-bold uppercase text-left">{item.label}</button>
-                ))}
+              {/* Scrollable Content Zone */}
+              <div className="flex-1 overflow-y-auto px-6 py-6 space-y-6 scrollbar-thin">
+                {/* Mobile Search */}
+                <div className="relative group">
+                  <input 
+                    type="text" 
+                    placeholder="Search services..." 
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="w-full pl-12 pr-6 py-3.5 bg-white/10 border border-white/15 focus:border-gold rounded-xl text-white text-xs placeholder:text-white/40 outline-none transition-all font-bold"
+                  />
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2">
+                    {isSearching ? (
+                      <Loader2 className="text-gold animate-spin" size={16} />
+                    ) : (
+                      <Search className="text-white/40" size={16} />
+                    )}
+                  </div>
+                </div>
+
+                {/* Mobile Language Switches */}
+                <div className="flex items-center justify-between py-2.5 px-4 bg-white/5 border border-white/10 rounded-xl">
+                  <span className="text-white/50 text-[10px] font-black uppercase tracking-wider">Language</span>
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      onClick={() => setLanguage('EN')}
+                      className={`px-2.5 py-1 rounded-lg text-[10px] font-black transition-all cursor-pointer ${language === 'EN' ? 'bg-gold text-slate-900 shadow-md' : 'bg-white/5 text-white/50'}`}
+                    >
+                      🇺🇸 EN
+                    </button>
+                    <button
+                      onClick={() => setLanguage('BM')}
+                      className={`px-2.5 py-1 rounded-lg text-[10px] font-black transition-all cursor-pointer ${language === 'BM' ? 'bg-gold text-slate-900 shadow-md' : 'bg-white/5 text-white/50'}`}
+                    >
+                      🇲🇾 BM
+                    </button>
+                  </div>
+                </div>
+
+                {/* Primary Nav Links */}
+                <div className="space-y-3">
+                  <button 
+                    onClick={() => { onNavigate('home'); setIsMobileMenuOpen(false); }} 
+                    className={`block w-full text-left font-black text-xl uppercase tracking-tight py-1 transition-colors ${currentPage === 'home' ? 'text-gold' : 'text-white hover:text-gold'}`}
+                  >
+                    {t('nav_home')}
+                  </button>
+                  <button 
+                    onClick={() => { onNavigate('about'); setIsMobileMenuOpen(false); }} 
+                    className={`block w-full text-left font-black text-xl uppercase tracking-tight py-1 transition-colors ${currentPage === 'about' ? 'text-gold' : 'text-white hover:text-gold'}`}
+                  >
+                    {t('nav_about')}
+                  </button>
+                </div>
+
+                {/* All Corporate Services (Scroll-safe, beautiful hierarchy) */}
+                <div className="pt-5 border-t border-white/10">
+                  <p className="text-accent-yellow font-black text-[10px] uppercase tracking-widest mb-3.5">{t('nav_services')}</p>
+                  <div className="grid grid-cols-1 gap-2">
+                    {serviceItems.map((item) => (
+                      <button 
+                        key={item.id} 
+                        onClick={() => { onNavigate(item.id); setIsMobileMenuOpen(false); }} 
+                        className={`text-left py-2.5 px-3 rounded-lg text-xs font-bold uppercase tracking-wide transition-all border ${
+                          currentPage === item.id 
+                            ? 'bg-gold/10 text-gold border-gold/30' 
+                            : 'bg-white/[0.02] hover:bg-white/5 text-blue-100 border-white/5 hover:border-white/10'
+                        }`}
+                      >
+                        <div className="font-black text-white">{item.label}</div>
+                        <div className="text-[9px] text-white/40 normal-case font-semibold tracking-normal mt-0.5">{item.desc}</div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
-            <button onClick={() => { onNavigate('contact'); setIsMobileMenuOpen(false); }} className="block w-full py-5 bg-white text-royal-blue font-black rounded-xl uppercase tracking-widest text-center mt-8">{t('nav_contact')}</button>
-          </div>
-        </div>
-      </div>
+
+              {/* Drawer Sticky Footer with Quick Action */}
+              <div className="p-6 border-t border-white/10 bg-black/10 shrink-0">
+                <button 
+                  onClick={() => { onNavigate('contact'); setIsMobileMenuOpen(false); }} 
+                  className="w-full py-4 bg-white text-royal-blue hover:bg-gold hover:text-slate-900 transition-all font-black rounded-xl uppercase tracking-widest text-xs text-center shadow-lg cursor-pointer"
+                >
+                  {t('nav_contact')}
+                </button>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </header>
   );
 };
