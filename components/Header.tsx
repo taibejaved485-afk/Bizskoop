@@ -1,7 +1,9 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Phone, Mail, Facebook, Twitter, Linkedin, Youtube, Clock, Globe, Search, X, Loader2, Star, ChevronDown } from 'lucide-react';
+import { Phone, Mail, Facebook, Twitter, Linkedin, Youtube, Clock, Globe, Search, X, Loader2, Star, ChevronDown, Bell, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { getStoredAnnouncement, ANNOUNCEMENT_UPDATED_EVENT } from '../services/leadStorage.ts';
+import { AnnouncementConfig } from '../types.ts';
 
 interface HeaderProps {
   onNavigate: (page: string) => void;
@@ -15,6 +17,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [announcement, setAnnouncement] = useState<AnnouncementConfig | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   const [config, setConfig] = useState({
@@ -32,12 +35,21 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
       if (storedConfig) {
         setConfig(JSON.parse(storedConfig));
       }
+      setAnnouncement(getStoredAnnouncement());
     };
 
     loadConfig();
 
+    const handleAnnouncement = () => {
+      setAnnouncement(getStoredAnnouncement());
+    };
+
     window.addEventListener('bizflow_config_updated', loadConfig);
-    return () => window.removeEventListener('bizflow_config_updated', loadConfig);
+    window.addEventListener(ANNOUNCEMENT_UPDATED_EVENT, handleAnnouncement);
+    return () => {
+      window.removeEventListener('bizflow_config_updated', loadConfig);
+      window.removeEventListener(ANNOUNCEMENT_UPDATED_EVENT, handleAnnouncement);
+    };
   }, []);
 
   useEffect(() => {
@@ -79,6 +91,63 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
 
   return (
     <header className={`sticky top-0 z-50 sticky-header ${isScrolled ? 'scrolled' : ''}`}>
+      {announcement?.enabled && (
+        <div className={`text-white text-[11px] sm:text-xs py-2 transition-all duration-300 relative overflow-hidden select-none ${
+          announcement.theme === 'royal' 
+            ? 'bg-gradient-to-r from-blue-900 via-indigo-950 to-slate-900 border-b border-blue-500/30'
+            : announcement.theme === 'emerald'
+            ? 'bg-gradient-to-r from-emerald-950 via-teal-900 to-slate-900 border-b border-emerald-500/30'
+            : announcement.theme === 'crimson'
+            ? 'bg-gradient-to-r from-rose-950 via-red-900 to-slate-900 border-b border-rose-500/30'
+            : 'bg-gradient-to-r from-amber-950 via-amber-900 to-slate-900 border-b border-amber-500/30'
+        }`}>
+          {announcement.marqueeEffect ? (
+            <div className="w-full overflow-hidden flex items-center">
+              <div className="animate-marquee-ltr flex items-center gap-16 whitespace-nowrap">
+                {[1, 2, 3, 4].map((i) => (
+                  <div key={i} className="flex items-center gap-6 shrink-0">
+                    <span className="shrink-0 px-2 py-0.5 rounded-full bg-white/10 text-gold text-[9px] font-black uppercase tracking-widest border border-white/10 flex items-center gap-1">
+                      <Bell size={10} className="animate-pulse text-gold" />
+                      {announcement.badgeText || 'ANNOUNCEMENT'}
+                    </span>
+                    <p className="font-bold text-slate-100 flex items-center gap-2">
+                      <span>{announcement.message}</span>
+                      {announcement.ctaText && (
+                        <button 
+                          onClick={() => onNavigate(announcement.ctaUrl || 'contact')}
+                          className="inline-flex items-center gap-1 text-gold hover:text-white font-black text-[10px] uppercase tracking-wider ml-2 underline decoration-gold/50 hover:decoration-white transition-all cursor-pointer"
+                        >
+                          {announcement.ctaText} <ArrowRight size={10} />
+                        </button>
+                      )}
+                    </p>
+                    <span className="text-gold font-bold opacity-40">✦</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <div className="max-w-7xl mx-auto px-4 flex items-center justify-between gap-3">
+              <div className="flex items-center gap-2.5 overflow-hidden">
+                <span className="shrink-0 px-2 py-0.5 rounded-full bg-white/10 text-gold text-[9px] font-black uppercase tracking-widest border border-white/10 flex items-center gap-1">
+                  <Bell size={10} className="animate-pulse text-gold" />
+                  {announcement.badgeText || 'ANNOUNCEMENT'}
+                </span>
+                <p className="truncate font-medium text-slate-100">{announcement.message}</p>
+              </div>
+              {announcement.ctaText && (
+                <button 
+                  onClick={() => onNavigate(announcement.ctaUrl || 'contact')}
+                  className="shrink-0 flex items-center gap-1.5 text-gold hover:text-white font-bold text-[10px] uppercase tracking-wider transition-colors cursor-pointer group"
+                >
+                  <span>{announcement.ctaText}</span>
+                  <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+      )}
       <div className={`bg-[#051622] text-white py-2.5 text-[10px] sm:text-[11px] font-medium tracking-wider border-b border-white/5 transition-all duration-700 relative overflow-hidden ${isScrolled ? 'h-0 py-0 opacity-0 overflow-hidden border-none' : 'h-auto opacity-100'}`}>
         {/* Subtle background glow */}
         <div className="absolute top-0 left-1/4 w-1/2 h-full bg-gold/5 blur-[50px] pointer-events-none"></div>

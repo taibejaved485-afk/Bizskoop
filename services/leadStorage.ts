@@ -1,7 +1,178 @@
-import { Lead } from '../types.ts';
+import { Lead, ServicePricingItem, AnnouncementConfig, ActivityLog } from '../types.ts';
 
 const LEADS_STORAGE_KEY = 'bizflow_leads';
 export const LEADS_UPDATED_EVENT = 'bizflow_leads_updated';
+export const PRICING_UPDATED_EVENT = 'bizflow_pricing_updated';
+export const ANNOUNCEMENT_UPDATED_EVENT = 'bizflow_announcement_updated';
+export const AUDIT_LOGS_KEY = 'bizflow_audit_logs';
+
+export const DEFAULT_PRICING_MATRIX: ServicePricingItem[] = [
+  {
+    id: 'price_incorp',
+    serviceKey: 'incorporation',
+    serviceName: 'Sdn Bhd Company Incorporation',
+    category: 'Corporate Setup',
+    basePriceMYR: 1499,
+    governmentFeeMYR: 1010,
+    processingTime: '2 - 3 Working Days',
+    popularBadge: true,
+    features: [
+      'SSM Name Search & Reservation (1 Name)',
+      'Digital Certificate of Incorporation (Form 9 / Section 17)',
+      'Free 1st Year Company Secretary Appointment',
+      'Electronic Statutory Registers & Minute Books',
+      'Resolution for Corporate Bank Account Opening'
+    ]
+  },
+  {
+    id: 'price_sec',
+    serviceKey: 'company-secretarial',
+    serviceName: 'Named Company Secretary Retainer',
+    category: 'Governance & Compliance',
+    basePriceMYR: 90,
+    governmentFeeMYR: 0,
+    processingTime: 'Continuous Monthly',
+    popularBadge: false,
+    features: [
+      'Licensed SSM Qualified Company Secretary',
+      'Maintenance of Register of Members & Directors',
+      'Annual Return (AR) Preparation & SSM Filing',
+      'Preparation of Standard Board Resolutions',
+      'Registered Office Address Facility'
+    ]
+  },
+  {
+    id: 'price_acct',
+    serviceKey: 'accounting',
+    serviceName: 'Accounting & Statutory Bookkeeping',
+    category: 'Finance & Accounts',
+    basePriceMYR: 450,
+    governmentFeeMYR: 0,
+    processingTime: 'Monthly / Quarterly Cycle',
+    popularBadge: true,
+    features: [
+      'Monthly Balance Sheet, P&L, & General Ledger',
+      'Bank Reconciliation & Accounts Payable/Receivable',
+      'Cloud Accounting Setup (Xero / QuickBooks / SQL)',
+      'SST-02 Filing & Tax Invoicing Support',
+      'Year-End Audit Working Paper Preparation'
+    ]
+  },
+  {
+    id: 'price_tax',
+    serviceKey: 'tax',
+    serviceName: 'Corporate & Personal Tax Compliance',
+    category: 'LHDN Taxation',
+    basePriceMYR: 1200,
+    governmentFeeMYR: 100,
+    processingTime: '5 - 7 Working Days',
+    popularBadge: false,
+    features: [
+      'Corporate Tax Return (Form C) Computation & e-Filing',
+      'CP204 Tax Estimate Preparation & Amendment (CP204A)',
+      'Director Form BE/B Personal Tax Filing',
+      'Capital Allowance & Tax Incentive Maximization',
+      'LHDN Audit Representation & Query Handling'
+    ]
+  },
+  {
+    id: 'price_visa',
+    serviceKey: 'visa',
+    serviceName: 'Employment Pass (EP I/II) & Expatriate Visa',
+    category: 'Immigration & ESD',
+    basePriceMYR: 2800,
+    governmentFeeMYR: 1500,
+    processingTime: '14 - 21 Working Days',
+    popularBadge: true,
+    features: [
+      'MYXpats / ESD Company Account Registration',
+      'EP Category I (RM10,000+) & EP Category II (RM5,000+) Filing',
+      'Professional Visa Documentation & MIDA Support',
+      'Dependent Pass (DP) & Long-Term Social Visit Pass',
+      'End-to-end Passport Endorsement Escort'
+    ]
+  },
+  {
+    id: 'price_license',
+    serviceKey: 'licensing',
+    serviceName: 'Premise & DBKL Local Council Licensing',
+    category: 'Local Permits',
+    basePriceMYR: 1800,
+    governmentFeeMYR: 800,
+    processingTime: '10 - 14 Working Days',
+    popularBadge: false,
+    features: [
+      'Premise Business License & Signboard License',
+      'Bomba (Fire Department) Safety Compliance Clearance',
+      'Health & Food Handling License for F&B/Retail',
+      'WRT (Wholesale, Retail, Trade) Ministry of Domestic Trade Permit',
+      'Local Council Site Inspection Coordination'
+    ]
+  }
+];
+
+export const DEFAULT_ANNOUNCEMENT: AnnouncementConfig = {
+  enabled: true,
+  message: '🇲🇾 2026 Malaysia Corporate Advisory: SSM Filing Deadlines & Fast-Track ESD Employment Pass Applications are now open.',
+  ctaText: 'Book Free Consult',
+  ctaUrl: 'contact',
+  badgeText: 'EXECUTIVE UPDATE',
+  theme: 'gold',
+  marqueeEffect: true
+};
+
+export const getStoredPricingMatrix = (): ServicePricingItem[] => {
+  try {
+    const raw = localStorage.getItem('bizflow_pricing_matrix');
+    if (!raw) {
+      localStorage.setItem('bizflow_pricing_matrix', JSON.stringify(DEFAULT_PRICING_MATRIX));
+      return DEFAULT_PRICING_MATRIX;
+    }
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : DEFAULT_PRICING_MATRIX;
+  } catch {
+    return DEFAULT_PRICING_MATRIX;
+  }
+};
+
+export const getStoredAnnouncement = (): AnnouncementConfig => {
+  try {
+    const raw = localStorage.getItem('bizflow_announcement');
+    if (!raw) {
+      localStorage.setItem('bizflow_announcement', JSON.stringify(DEFAULT_ANNOUNCEMENT));
+      return DEFAULT_ANNOUNCEMENT;
+    }
+    return JSON.parse(raw);
+  } catch {
+    return DEFAULT_ANNOUNCEMENT;
+  }
+};
+
+export const getStoredAuditLogs = (): ActivityLog[] => {
+  try {
+    const raw = localStorage.getItem(AUDIT_LOGS_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+};
+
+export const logAdminAudit = (action: string) => {
+  try {
+    const logs = getStoredAuditLogs();
+    const newEntry: ActivityLog = {
+      id: 'log_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6),
+      action,
+      timestamp: new Date().toISOString()
+    };
+    const updated = [newEntry, ...logs].slice(0, 50); // keep latest 50
+    localStorage.setItem(AUDIT_LOGS_KEY, JSON.stringify(updated));
+  } catch (err) {
+    console.error('Failed to log admin audit:', err);
+  }
+};
 
 export const DEFAULT_LEADS: Lead[] = [
   {

@@ -63,6 +63,7 @@ export interface Lead {
   message?: string;
   status: 'unread' | 'read' | 'in-progress' | 'resolved';
   date: string;
+  notes?: string;
 }
 
 export interface VisaFormData {
@@ -95,4 +96,26 @@ export interface ActivityLog {
   id: string;
   action: string;
   timestamp: string;
+}
+
+export interface ServicePricingItem {
+  id: string;
+  serviceKey: string;
+  serviceName: string;
+  category: string;
+  basePriceMYR: number;
+  governmentFeeMYR: number;
+  processingTime: string;
+  features: string[];
+  popularBadge?: boolean;
+}
+
+export interface AnnouncementConfig {
+  enabled: boolean;
+  message: string;
+  ctaText?: string;
+  ctaUrl?: string;
+  badgeText?: string;
+  theme: 'gold' | 'royal' | 'emerald' | 'crimson';
+  marqueeEffect?: boolean;
 }
