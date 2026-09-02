@@ -127,7 +127,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
               </div>
             </div>
           ) : (
-            <div className="max-w-7xl mx-auto px-4 flex items-center justify-between gap-3">
+            <div className="w-full px-4 sm:px-6 lg:px-10 flex items-center justify-between gap-3">
               <div className="flex items-center gap-2.5 overflow-hidden">
                 <span className="shrink-0 px-2 py-0.5 rounded-full bg-white/10 text-gold text-[9px] font-black uppercase tracking-widest border border-white/10 flex items-center gap-1">
                   <Bell size={10} className="animate-pulse text-gold" />
@@ -152,7 +152,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
         {/* Subtle background glow */}
         <div className="absolute top-0 left-1/4 w-1/2 h-full bg-gold/5 blur-[50px] pointer-events-none"></div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center relative z-10">
+        <div className="w-full px-4 sm:px-6 lg:px-10 flex justify-between items-center relative z-10">
           <div className="flex items-center gap-6 sm:gap-10">
             <motion.a 
               initial={{ opacity: 0, y: -10 }}

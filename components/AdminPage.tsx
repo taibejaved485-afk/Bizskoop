@@ -758,9 +758,9 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
       ) : (
         
         /* FULLY AUTHORIZED ADMIN DASHBOARD */
-        <div className="w-full min-h-screen bg-slate-100 flex flex-col md:flex-row overflow-y-auto">
+        <div className="w-full min-h-screen md:h-screen bg-slate-100 flex flex-col md:flex-row md:overflow-hidden overflow-y-auto">
             {/* SIDEBAR NAVIGATION */}
-            <div className="w-full md:w-80 bg-white border-r border-slate-200 p-6 md:p-8 flex flex-col justify-between shrink-0 shadow-sm">
+            <div className="w-full md:w-80 md:h-screen md:sticky md:top-0 bg-white border-r border-slate-200 p-6 md:p-8 flex flex-col justify-between shrink-0 shadow-sm md:overflow-y-auto">
               <div className="space-y-8">
                 {/* Branding */}
                 <div className="flex items-center gap-4">
@@ -860,15 +860,9 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
                 <div className="flex items-center justify-between gap-4">
                   <button 
                     onClick={handleLogout}
-                    className="flex items-center gap-2 text-red-600 hover:text-red-700 font-bold text-[10px] uppercase tracking-widest transition-colors cursor-pointer"
+                    className="w-full py-3 bg-red-50/50 hover:bg-red-100/80 border border-red-200/40 flex items-center justify-center gap-2 text-red-600 hover:text-red-700 font-bold text-[10px] uppercase tracking-widest transition-all cursor-pointer rounded-xl"
                   >
                     <LogOut size={14} /> Logout
-                  </button>
-                  <button 
-                    onClick={onClose}
-                    className="flex items-center gap-2 text-slate-500 hover:text-slate-900 font-bold text-[10px] uppercase tracking-widest transition-colors cursor-pointer"
-                  >
-                    <X size={14} /> Exit
                   </button>
                 </div>
               </div>

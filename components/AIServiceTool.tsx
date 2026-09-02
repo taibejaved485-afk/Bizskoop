@@ -46,13 +46,6 @@ export const AIServiceToolCard: React.FC<ToolProps> = ({ id, type, title, subtit
           <div className="w-10 h-10 rounded-xl bg-royal-blue/5 text-royal-blue flex items-center justify-center font-bold shadow-sm transition-all duration-500 group-hover:bg-gold group-hover:text-navy-dark group-hover:scale-110 group-hover:rotate-6">
             {type === 'visa' ? <ShieldCheck className="w-5 h-5" /> : <Cpu className="w-5 h-5" />}
           </div>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-royal-blue/5 rounded-full text-[10px] font-black uppercase tracking-[0.2em] text-royal-blue group-hover:bg-gold/10 group-hover:text-gold transition-colors">
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-gold"></span>
-            </span>
-            {type === 'visa' ? 'Immigration AI' : 'Strategic AI'}
-          </span>
         </div>
         <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight uppercase mb-2 group-hover:text-royal-blue transition-colors duration-300">{title}</h3>
         <p className="text-xs sm:text-sm text-slate-500 font-medium leading-relaxed">
