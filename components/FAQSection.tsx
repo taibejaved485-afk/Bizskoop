@@ -116,7 +116,7 @@ export const FAQSection: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="w-full py-20 sm:py-28 bg-[#040e18] text-white border-t border-b border-white/5 relative overflow-hidden">
+    <section id="faq" className="w-full py-12 sm:py-16 bg-[#040e18] text-white border-t border-b border-white/5 relative overflow-hidden">
       {/* Interactive Cyberpunk Atmospheric Backdrops */}
       <div className="absolute top-[-10%] left-[-10%] w-[50%] aspect-square bg-royal-blue/10 rounded-full blur-[160px] pointer-events-none" />
       <div className="absolute bottom-[-10%] right-[-10%] w-[50%] aspect-square bg-gold/5 rounded-full blur-[160px] pointer-events-none" />
@@ -130,8 +130,8 @@ export const FAQSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
           {/* Left Column (Sticky Title & Control Hub) */}
-          <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-8">
-            <div className="space-y-4">
+          <div className="lg:col-span-6 lg:sticky lg:top-28 space-y-6 w-full">
+            <div className="space-y-3">
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-gold/10 border border-gold/20 rounded-full">
                 <Sparkles className="w-3.5 h-3.5 text-gold animate-pulse" />
                 <span className="text-gold font-black text-[9px] uppercase tracking-[0.25em]">
@@ -139,57 +139,57 @@ export const FAQSection: React.FC = () => {
                 </span>
               </div>
               
-              <h2 className="text-4xl sm:text-5xl font-black uppercase tracking-tighter leading-none text-white">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tighter leading-none text-white">
                 {t('faq_title_1')}<br />
                 <span className="bg-gradient-to-r from-gold via-yellow-300 to-amber-500 bg-clip-text text-transparent">
                   {t('faq_title_2')}
                 </span>
               </h2>
               
-              <p className="text-slate-400 font-semibold text-sm sm:text-base leading-relaxed max-w-md pt-2">
+              <p className="text-slate-400 font-semibold text-xs sm:text-sm leading-relaxed max-w-md pt-1">
                 {t('faq_subtitle')}
               </p>
             </div>
 
             {/* Quick Consultation Portal Card */}
-            <div className="bg-gradient-to-br from-white/[0.03] to-white/[0.01] border border-white/10 rounded-3xl p-6 relative overflow-hidden group">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-gold/5 rounded-full blur-xl group-hover:bg-gold/10 transition-colors duration-500" />
-              <h4 className="text-sm font-black uppercase tracking-wider text-gold mb-2">Need a Custom Setup?</h4>
-              <p className="text-xs text-slate-400 font-semibold leading-relaxed mb-4">
+            <div className="bg-gradient-to-br from-white/[0.03] to-white/[0.01] border border-white/10 rounded-2xl p-5 relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-gold/5 rounded-full blur-lg group-hover:bg-gold/10 transition-colors duration-500" />
+              <h4 className="text-xs font-black uppercase tracking-wider text-gold mb-1.5">Need a Custom Setup?</h4>
+              <p className="text-[11px] text-slate-400 font-semibold leading-relaxed mb-3">
                 Ask our specialized AI Corporate Advisor in real-time or get instant help with SSM guidelines.
               </p>
               <a 
                 href="#ai-tool" 
-                className="inline-flex items-center gap-2 text-xs font-black text-white hover:text-gold transition-colors"
+                className="inline-flex items-center gap-1.5 text-[11px] font-black text-white hover:text-gold transition-colors"
               >
                 <span>Launch Advisor Engine</span>
-                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
               </a>
             </div>
           </div>
 
           {/* Right Column (Accordion List & Quick Filters) */}
-          <div className="lg:col-span-7 space-y-8 w-full">
+          <div className="lg:col-span-6 space-y-6 w-full">
             
             {/* Search and Filters inside Right Box */}
-            <div className="space-y-5 p-5 bg-white/[0.02] border border-white/15 rounded-3xl backdrop-blur-md">
+            <div className="space-y-4 p-4 bg-white/[0.02] border border-white/15 rounded-2xl backdrop-blur-md">
               
               {/* Modern Search */}
               <div className="relative group">
-                <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-gold transition-colors pointer-events-none">
-                  <Search className="w-5 h-5" strokeWidth={2.5} />
+                <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-gold transition-colors pointer-events-none">
+                  <Search className="w-4 h-4" strokeWidth={2.5} />
                 </div>
                 <input 
                   type="text" 
                   placeholder={t('faq_search_placeholder')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-14 pr-6 py-4.5 bg-white/[0.02] hover:bg-white/[0.04] focus:bg-white/[0.06] border border-white/10 focus:border-gold/60 rounded-2xl outline-none font-semibold text-white transition-all text-sm placeholder:text-slate-500 focus:shadow-[0_0_20px_rgba(212,175,55,0.08)]" 
+                  className="w-full pl-11 pr-5 py-3 bg-white/[0.02] hover:bg-white/[0.04] focus:bg-white/[0.06] border border-white/10 focus:border-gold/60 rounded-xl outline-none font-semibold text-white transition-all text-xs placeholder:text-slate-500 focus:shadow-[0_0_15px_rgba(212,175,55,0.06)]" 
                 />
               </div>
 
               {/* High Contrast Filter Tabs */}
-              <div className="flex flex-wrap gap-2 pt-1">
+              <div className="flex flex-wrap gap-1.5 pt-1">
                 {categories.map((category) => (
                   <button
                     key={category}
@@ -197,9 +197,9 @@ export const FAQSection: React.FC = () => {
                       setSelectedCategory(category);
                       setActiveIndex(null);
                     }}
-                    className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all cursor-pointer ${
+                    className={`px-3 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-widest transition-all cursor-pointer ${
                       selectedCategory === category 
-                        ? 'bg-gold text-[#040e18] shadow-[0_10px_25px_-5px_rgba(212,175,55,0.3)] font-black' 
+                        ? 'bg-gold text-[#040e18] shadow-[0_8px_20px_-5px_rgba(212,175,55,0.25)] font-black' 
                         : 'bg-white/5 text-slate-400 hover:text-white border border-white/5 hover:border-white/15'
                     }`}
                   >
@@ -210,7 +210,7 @@ export const FAQSection: React.FC = () => {
             </div>
 
             {/* Enhanced Accordion Feed */}
-            <div className="space-y-4">
+            <div className="space-y-3">
               <AnimatePresence mode="popLayout">
                 {filteredFaqs.length > 0 ? (
                   filteredFaqs.map((faq, index) => {
@@ -221,26 +221,27 @@ export const FAQSection: React.FC = () => {
                         initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.98 }}
-                        transition={{ duration: 0.3 }}
+                        whileHover={!isOpen ? { y: -1, scale: 1.002 } : {}}
+                        transition={{ duration: 0.25, ease: "easeOut" }}
                         key={faq.id}
-                        className={`bg-white/[0.02] rounded-2xl border transition-all duration-300 overflow-hidden ${
+                        className={`bg-white/[0.02] rounded-xl border transition-all duration-300 overflow-hidden ${
                           isOpen 
-                            ? 'border-gold/50 shadow-2xl bg-gradient-to-b from-white/[0.04] to-white/[0.01]' 
-                            : 'border-white/5 hover:border-white/15'
+                            ? 'border-gold/60 shadow-[0_15px_30px_-15px_rgba(212,175,55,0.12)] bg-gradient-to-b from-white/[0.05] to-white/[0.01]' 
+                            : 'border-white/5 hover:border-gold/30 hover:bg-white/[0.03] hover:shadow-[0_8px_20px_-10px_rgba(255,255,255,0.04)]'
                         }`}
                       >
                         {/* Interactive Header */}
                         <button
                           onClick={() => toggleFAQ(index)}
-                          className="w-full px-6 py-5 sm:px-8 sm:py-6 flex items-center justify-between text-left focus:outline-none cursor-pointer group"
+                          className="w-full px-5 py-3.5 sm:px-6 sm:py-4 flex items-center justify-between text-left focus:outline-none cursor-pointer group"
                         >
-                          <div className="flex items-start gap-4">
-                            <div className={`p-3 rounded-xl shrink-0 transition-all duration-300 ${
-                              isOpen ? 'bg-gold/10 text-gold shadow-[0_0_15px_rgba(212,175,55,0.15)]' : 'bg-white/5 text-slate-400 group-hover:bg-white/10 group-hover:text-white'
+                          <div className="flex items-center gap-3.5">
+                            <div className={`p-2.5 rounded-lg shrink-0 transition-all duration-300 ${
+                              isOpen ? 'bg-gold/10 text-gold shadow-[0_0_15px_rgba(212,175,55,0.15)]' : 'bg-white/5 text-slate-400 group-hover:bg-gold/10 group-hover:text-gold'
                             }`}>
                               {faq.icon}
                             </div>
-                            <span className={`font-black text-sm sm:text-base tracking-tight leading-snug transition-colors duration-300 ${
+                            <span className={`font-black text-xs sm:text-sm tracking-tight leading-snug transition-colors duration-300 ${
                               isOpen ? 'text-gold' : 'text-slate-200 group-hover:text-white'
                             }`}>
                               {faq.question}
@@ -248,9 +249,9 @@ export const FAQSection: React.FC = () => {
                           </div>
                           
                           <div className={`ml-4 p-1.5 rounded-full border shrink-0 transition-all duration-300 ${
-                            isOpen ? 'border-gold text-gold rotate-180 bg-gold/5' : 'border-white/10 text-slate-500 group-hover:text-slate-300'
+                            isOpen ? 'border-gold text-[#040e18] bg-gold rotate-180' : 'border-white/10 text-slate-500 group-hover:text-gold group-hover:border-gold/50'
                           }`}>
-                            <ChevronDown className="w-4 h-4 transition-transform" />
+                            <ChevronDown className="w-3.5 h-3.5 transition-transform" />
                           </div>
                         </button>
 
@@ -263,7 +264,7 @@ export const FAQSection: React.FC = () => {
                               exit={{ height: 0, opacity: 0 }}
                               transition={{ duration: 0.3, ease: "easeInOut" }}
                             >
-                              <div className="px-6 pb-6 sm:px-8 sm:pb-8 pt-1 text-slate-300 text-sm sm:text-base font-semibold leading-relaxed border-t border-white/5 whitespace-pre-line bg-white/[0.01]">
+                              <div className="px-5 pb-5 sm:px-6 sm:pb-5 pt-1.5 text-slate-300 text-xs sm:text-sm font-semibold leading-relaxed border-t border-white/5 whitespace-pre-line bg-white/[0.01]">
                                 {faq.answer}
                               </div>
                             </motion.div>
@@ -275,11 +276,11 @@ export const FAQSection: React.FC = () => {
                 ) : (
                   <motion.div 
                     layout
-                    className="text-center py-16 bg-white/[0.02] rounded-3xl border border-white/5 shadow-2xl"
+                    className="text-center py-12 bg-white/[0.02] rounded-2xl border border-white/5 shadow-2xl"
                   >
-                    <HelpCircle className="w-12 h-12 text-slate-500 mx-auto mb-4 animate-bounce" />
-                    <h3 className="text-lg font-black text-white uppercase tracking-tight">{t('faq_no_results')}</h3>
-                    <p className="text-slate-400 font-semibold text-xs sm:text-sm mt-1">{t('faq_no_results_sub')}</p>
+                    <HelpCircle className="w-10 h-10 text-slate-500 mx-auto mb-3 animate-bounce" />
+                    <h3 className="text-sm font-black text-white uppercase tracking-tight">{t('faq_no_results')}</h3>
+                    <p className="text-slate-400 font-semibold text-[11px] sm:text-xs mt-1">{t('faq_no_results_sub')}</p>
                   </motion.div>
                 )}
               </AnimatePresence>
