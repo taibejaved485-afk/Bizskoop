@@ -1,6 +1,6 @@
 {
-  "name": "Bizskoop",
-  "description": "Bizskoop - The definitive launchpad for international businesses in Malaysia. Expert services in company formation, regulatory licensing, and immigration support.",
+  "name": "Bizskoop | SSM Malaysia Business Formation & Licensing Expert",
+  "description": "Bizskoop is Malaysia's leading launchpad for international businesses. Expert services in SSM company formation, licensing, compliance, and immigration support.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
