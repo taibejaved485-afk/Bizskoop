@@ -4,6 +4,7 @@ import { Phone, Mail, Facebook, Twitter, Linkedin, Youtube, Clock, Globe, Search
 import { motion, AnimatePresence } from 'motion/react';
 import { getStoredAnnouncement, ANNOUNCEMENT_UPDATED_EVENT } from '../services/leadStorage.ts';
 import { AnnouncementConfig } from '../types.ts';
+import { useLanguage } from './LanguageContext.tsx';
 
 interface HeaderProps {
   onNavigate: (page: string) => void;
@@ -11,12 +12,14 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
+  const { language, setLanguage, t } = useLanguage();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isLangOpen, setIsLangOpen] = useState(false);
   const [announcement, setAnnouncement] = useState<AnnouncementConfig | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -148,7 +151,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
           )}
         </div>
       )}
-      <div className={`bg-[#051622] text-white py-2.5 text-[10px] sm:text-[11px] font-medium tracking-wider border-b border-white/5 transition-all duration-700 relative overflow-hidden ${isScrolled ? 'h-0 py-0 opacity-0 overflow-hidden border-none' : 'h-auto opacity-100'}`}>
+      <div className={`bg-[#051622] text-white py-2.5 text-[10px] sm:text-[11px] font-medium tracking-wider border-b border-white/5 transition-all duration-700 relative ${isScrolled ? 'h-0 py-0 opacity-0 overflow-hidden border-none' : 'h-auto opacity-100'}`}>
         {/* Subtle background glow */}
         <div className="absolute top-0 left-1/4 w-1/2 h-full bg-gold/5 blur-[50px] pointer-events-none"></div>
         
@@ -190,19 +193,55 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
           </div>
           
           <div className="flex items-center gap-8">
-            <div className="hidden xl:flex items-center gap-3 px-4 py-1.5 bg-white/5 rounded-full border border-white/10 hover:border-gold/30 transition-colors group cursor-default">
+             <div className="hidden xl:flex items-center gap-3 px-4 py-1.5 bg-white/5 rounded-full border border-white/10 hover:border-gold/30 transition-colors group cursor-default">
               <div className="relative">
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
                 <div className="absolute inset-0 w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></div>
               </div>
-              <span className="uppercase text-[9px] font-black tracking-[0.2em] text-white/60 group-hover:text-gold transition-colors">Professional Business Launchpad</span>
+              <span className="uppercase text-[9px] font-black tracking-[0.2em] text-white/60 group-hover:text-gold transition-colors">{t('nav_professional_launchpad')}</span>
             </div>
             
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2 pr-4 border-r border-white/10 group cursor-pointer">
-                <Globe size={12} className="text-gold group-hover:rotate-12 transition-transform" />
-                <span className="uppercase text-[9px] font-black text-white/60 group-hover:text-white transition-colors">EN</span>
-                <svg className="w-2.5 h-2.5 text-white/30 group-hover:text-gold transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7"/></svg>
+              <div className="relative">
+                <button 
+                  onClick={() => setIsLangOpen(!isLangOpen)}
+                  className="flex items-center gap-2 pr-4 border-r border-white/10 group cursor-pointer focus:outline-none"
+                >
+                  <Globe size={12} className="text-gold group-hover:rotate-12 transition-transform" />
+                  <span className="uppercase text-[9px] font-black text-white/60 group-hover:text-white transition-colors">{language}</span>
+                  <svg className={`w-2.5 h-2.5 text-white/30 group-hover:text-gold transition-transform duration-200 ${isLangOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7"/></svg>
+                </button>
+
+                <AnimatePresence>
+                  {isLangOpen && (
+                    <>
+                      {/* Full-screen backdrop to handle click-away dismissals cleanly */}
+                      <div 
+                        className="fixed inset-0 z-40 bg-transparent cursor-default"
+                        onClick={() => setIsLangOpen(false)}
+                      />
+                      <motion.div
+                        initial={{ opacity: 0, y: 5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 5 }}
+                        className="absolute right-2 top-full mt-2 bg-[#051622] border border-white/10 rounded-xl overflow-hidden py-1.5 w-32 shadow-2xl z-50"
+                      >
+                        <button
+                          onClick={() => { setLanguage('EN'); setIsLangOpen(false); }}
+                          className={`w-full text-left px-3 py-1.5 text-[10px] font-black uppercase tracking-wider flex items-center gap-2 hover:bg-white/5 transition-colors ${language === 'EN' ? 'text-gold' : 'text-white/60'}`}
+                        >
+                          🇺🇸 English
+                        </button>
+                        <button
+                          onClick={() => { setLanguage('BM'); setIsLangOpen(false); }}
+                          className={`w-full text-left px-3 py-1.5 text-[10px] font-black uppercase tracking-wider flex items-center gap-2 hover:bg-white/5 transition-colors ${language === 'BM' ? 'text-gold' : 'text-white/60'}`}
+                        >
+                          🇲🇾 Melayu
+                        </button>
+                      </motion.div>
+                    </>
+                  )}
+                </AnimatePresence>
               </div>
               
               <div className="flex items-center gap-2.5">
@@ -246,12 +285,12 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
             </div>
             
             <div className="hidden lg:flex items-center justify-center flex-1 gap-10">
-              <button onClick={() => onNavigate('home')} className={`nav-link uppercase ${currentPage === 'home' ? 'text-gold' : 'text-royal-blue'}`}>Home</button>
+              <button onClick={() => onNavigate('home')} className={`nav-link uppercase ${currentPage === 'home' ? 'text-gold' : 'text-royal-blue'}`}>{t('nav_home')}</button>
               <button 
                 onClick={() => onNavigate('about')} 
                 className={`nav-link uppercase ${currentPage === 'about' ? 'text-gold' : 'text-royal-blue'}`}
               >
-                About Us
+                {t('nav_about')}
               </button>
               
               <div 
@@ -260,7 +299,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
                 onMouseLeave={() => setIsServicesOpen(false)}
               >
                 <button className={`nav-link uppercase flex items-center gap-1.5 focus:outline-none py-4 ${currentPage.includes('service') || currentPage !== 'home' && currentPage !== 'about' && currentPage !== 'contact' ? 'text-gold' : 'text-royal-blue'}`}>
-                  Services
+                  {t('nav_services')}
                   <svg className={`w-3.5 h-3.5 transition-transform duration-300 ${isServicesOpen ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M19 9l-7 7-7-7"/></svg>
                 </button>
                 
@@ -310,7 +349,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
                 onClick={() => onNavigate('contact')} 
                 className={`nav-link uppercase ${currentPage === 'contact' ? 'text-gold' : 'text-royal-blue'}`}
               >
-                Contact
+                {t('nav_contact')}
               </button>
             </div>
 
@@ -400,7 +439,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
             </button>
           </div>
           <div className="space-y-6">
-            <div className="relative mb-8">
+            <div className="relative mb-4">
               <input 
                 type="text" 
                 placeholder="Search services..." 
@@ -416,17 +455,37 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
                 )}
               </div>
             </div>
-            <button onClick={() => { onNavigate('home'); setIsMobileMenuOpen(false); }} className="block w-full text-left text-white text-3xl font-black uppercase">Home</button>
-            <button onClick={() => { onNavigate('about'); setIsMobileMenuOpen(false); }} className="block w-full text-left text-white text-3xl font-black uppercase">About Us</button>
+
+            {/* Mobile Language Switches */}
+            <div className="flex items-center justify-between py-3 px-4 bg-white/5 border border-white/10 rounded-xl mb-4">
+              <span className="text-white/60 text-xs font-black uppercase tracking-wider">Choose Language</span>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setLanguage('EN')}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-black transition-all ${language === 'EN' ? 'bg-gold text-slate-900 shadow-lg' : 'bg-white/5 text-white/60'}`}
+                >
+                  🇺🇸 EN
+                </button>
+                <button
+                  onClick={() => setLanguage('BM')}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-black transition-all ${language === 'BM' ? 'bg-gold text-slate-900 shadow-lg' : 'bg-white/5 text-white/60'}`}
+                >
+                  🇲🇾 BM
+                </button>
+              </div>
+            </div>
+
+            <button onClick={() => { onNavigate('home'); setIsMobileMenuOpen(false); }} className="block w-full text-left text-white text-3xl font-black uppercase">{t('nav_home')}</button>
+            <button onClick={() => { onNavigate('about'); setIsMobileMenuOpen(false); }} className="block w-full text-left text-white text-3xl font-black uppercase">{t('nav_about')}</button>
             <div className="pt-4 border-t border-white/10">
-              <p className="text-accent-yellow font-black text-xs uppercase tracking-widest mb-4">Our Services</p>
+              <p className="text-accent-yellow font-black text-xs uppercase tracking-widest mb-4">{t('nav_services')}</p>
               <div className="grid grid-cols-1 gap-4">
                 {serviceItems.slice(0, 4).map((item) => (
                   <button key={item.id} onClick={() => { onNavigate(item.id); setIsMobileMenuOpen(false); }} className="text-blue-100 text-lg font-bold uppercase text-left">{item.label}</button>
                 ))}
               </div>
             </div>
-            <button onClick={() => { onNavigate('contact'); setIsMobileMenuOpen(false); }} className="block w-full py-5 bg-white text-royal-blue font-black rounded-xl uppercase tracking-widest text-center mt-12">Contact Us</button>
+            <button onClick={() => { onNavigate('contact'); setIsMobileMenuOpen(false); }} className="block w-full py-5 bg-white text-royal-blue font-black rounded-xl uppercase tracking-widest text-center mt-8">{t('nav_contact')}</button>
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ChevronDown, Search, HelpCircle, Building2, DollarSign, Clock, ShieldCheck, FileText } from 'lucide-react';
+import { ChevronDown, Search, HelpCircle, Building2, DollarSign, Clock, ShieldCheck, FileText, ArrowRight, Sparkles } from 'lucide-react';
+import { useLanguage } from './LanguageContext.tsx';
 
 interface FAQItem {
   id: string;
@@ -11,61 +12,102 @@ interface FAQItem {
 }
 
 export const FAQSection: React.FC = () => {
+  const { language, t } = useLanguage();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
+  const isBM = language === 'BM';
+
   const faqs: FAQItem[] = [
     {
       id: 'sdn-bhd',
-      category: 'Registration',
-      question: 'What is a Sdn Bhd company and what are the requirements to register one?',
-      answer: 'A Sdn Bhd (Sendirian Berhad) is a private limited company in Malaysia. It is a separate legal entity from its owners, limiting their personal liability. The core requirements to incorporate one are:\n\n• Minimum 1 shareholder (can be foreign or local)\n• Minimum 1 director residing in Malaysia (can be a foreigner with a valid visa)\n• A physical registered office address in Malaysia\n• An appointed licensed Company Secretary (within 30 days of incorporation)',
+      category: isBM ? 'Pendaftaran' : 'Registration',
+      question: isBM 
+        ? 'Apakah syarikat Sdn Bhd dan apakah syarat untuk mendaftarkannya?' 
+        : 'What is a Sdn Bhd company and what are the requirements to register one?',
+      answer: isBM
+        ? 'Sdn Bhd (Sendirian Berhad) adalah syarikat sendirian berhad di Malaysia. Ia merupakan entiti undang-undang yang berasingan daripada pemiliknya, mengehadkan liabiliti peribadi mereka. Syarat utama untuk menubuhkannya adalah:\n\n• Minimum 1 pemegang saham (boleh jadi warganegara asing atau tempatan)\n• Minimum 1 pengarah yang menetap di Malaysia (boleh jadi warga asing dengan visa sah)\n• Alamat pejabat berdaftar fizikal di Malaysia\n• Setiausaha Syarikat berlesen yang dilantik (dalam tempoh 30 hari dari penubuhan)'
+        : 'A Sdn Bhd (Sendirian Berhad) is a private limited company in Malaysia. It is a separate legal entity from its owners, limiting their personal liability. The core requirements to incorporate one are:\n\n• Minimum 1 shareholder (can be foreign or local)\n• Minimum 1 director residing in Malaysia (can be a foreigner with a valid visa)\n• A physical registered office address in Malaysia\n• An appointed licensed Company Secretary (within 30 days of incorporation)',
       icon: <Building2 className="w-5 h-5 text-gold" />
     },
     {
       id: 'foreigner-ownership',
-      category: 'Ownership',
-      question: 'Can a foreign founder fully own 100% of a Malaysian Sdn Bhd company?',
-      answer: 'Yes! In most business sectors, foreigners can own 100% of a Malaysian Sdn Bhd company without needing a local partner. However, certain regulated industries (such as education, oil and gas, agriculture, and wholesale/retail trade) may still require a percentage of local Malaysian equity or specific regulatory approvals.',
+      category: isBM ? 'Pemilikan' : 'Ownership',
+      question: isBM
+        ? 'Bolehkah pengasas asing memiliki 100% pegangan saham syarikat Sdn Bhd di Malaysia?'
+        : 'Can a foreign founder fully own 100% of a Malaysian Sdn Bhd company?',
+      answer: isBM
+        ? 'Ya! Bagi kebanyakan sektor perniagaan, warga asing boleh memiliki 100% syarikat Sdn Bhd di Malaysia tanpa memerlukan rakan kongsi tempatan. Walau bagaimanapun, industri terkawal tertentu (seperti pendidikan, minyak dan gas, pertanian, serta perdagangan borong/runcit) mungkin masih memerlukan peratusan ekuiti tempatan Malaysia atau kelulusan kawal selia tertentu.'
+        : 'Yes! In most business sectors, foreigners can own 100% of a Malaysian Sdn Bhd company without needing a local partner. However, certain regulated industries (such as education, oil and gas, agriculture, and wholesale/retail trade) may still require a percentage of local Malaysian equity or specific regulatory approvals.',
       icon: <ShieldCheck className="w-5 h-5 text-gold" />
     },
     {
       id: 'paid-up-capital',
-      category: 'Capital',
-      question: 'What is the minimum paid-up capital required for a Sdn Bhd?',
-      answer: 'The minimum paid-up capital to register a Sdn Bhd is just RM1. However, if you plan to hire foreign talent or apply for an Employment Pass (EP) visa, the minimum paid-up capital requirements are higher:\n\n• RM500,000 for 100% local Malaysian-owned businesses\n• RM1,000,000 for 100% foreign-owned businesses\n• RM350,000 for joint ventures (with at least 30% local Malaysian shareholding)',
+      category: isBM ? 'Modal' : 'Capital',
+      question: isBM
+        ? 'Apakah modal berbayar minimum yang diperlukan untuk Sdn Bhd?'
+        : 'What is the minimum paid-up capital required for a Sdn Bhd?',
+      answer: isBM
+        ? 'Modal berbayar minimum untuk mendaftarkan Sdn Bhd adalah hanya RM1. Walau bagaimanapun, jika anda merancang untuk mengambil pekerja asing atau memohon visa Pas Penggajian (EP), keperluan modal berbayar minimum adalah lebih tinggi:\n\n• RM500,000 untuk perniagaan milik penuh tempatan Malaysia\n• RM1,000,000 untuk perniagaan milik penuh asing\n• RM350,000 untuk usaha sama (dengan sekurang-kurangnya 30% pegangan saham tempatan Malaysia)'
+        : 'The minimum paid-up capital to register a Sdn Bhd is just RM1. However, if you plan to hire foreign talent or apply for an Employment Pass (EP) visa, the minimum paid-up capital requirements are higher:\n\n• RM500,000 for 100% local Malaysian-owned businesses\n• RM1,000,000 for 100% foreign-owned businesses\n• RM350,000 for joint ventures (with at least 30% local Malaysian shareholding)',
       icon: <DollarSign className="w-5 h-5 text-gold" />
     },
     {
       id: 'timeline',
-      category: 'Registration',
-      question: 'How long does it take to fully incorporate a company in Malaysia?',
-      answer: 'Once all incorporation documents are digitally signed and submitted to the Companies Commission of Malaysia (SSM), approval typically takes between 3 to 5 working days. This timeline is subject to SSM portal availability and potential query responses.',
+      category: isBM ? 'Pendaftaran' : 'Registration',
+      question: isBM
+        ? 'Berapakah masa yang diambil untuk menubuhkan syarikat sepenuhnya di Malaysia?'
+        : 'How long does it take to fully incorporate a company in Malaysia?',
+      answer: isBM
+        ? 'Sebaik sahaja semua dokumen penubuhan ditandatangani secara digital dan diserahkan kepada Suruhanjaya Syarikat Malaysia (SSM), kelulusan biasanya mengambil masa antara 3 hingga 5 hari bekerja. Garis masa ini tertakluk kepada ketersediaan portal SSM dan pertanyaan pertanyaan berpotensi.'
+        : 'Once all incorporation documents are digitally signed and submitted to the Companies Commission of Malaysia (SSM), approval typically takes between 3 to 5 working days. This timeline is subject to SSM portal availability and potential query responses.',
       icon: <Clock className="w-5 h-5 text-gold" />
     },
     {
       id: 'compliance',
-      category: 'Compliance',
-      question: 'What are the ongoing annual compliance obligations for a Sdn Bhd?',
-      answer: 'Every registered Sdn Bhd in Malaysia must fulfill these annual compliance duties to maintain active status:\n\n• Prepare and file Audited Financial Statements within 6 months of the financial year-end\n• File an Annual Return with SSM within 30 days of the incorporation anniversary date\n• Lodge corporate tax estimates (CP204) and file annual corporate tax returns (Form C)\n• Retain a licensed Company Secretary to manage statutory registers',
+      category: isBM ? 'Pematuhan' : 'Compliance',
+      question: isBM
+        ? 'Apakah tanggungjawab pematuhan tahunan yang berterusan untuk syarikat Sdn Bhd?'
+        : 'What are the ongoing annual compliance obligations for a Sdn Bhd?',
+      answer: isBM
+        ? 'Setiap Sdn Bhd yang berdaftar di Malaysia mesti memenuhi tanggungjawab pematuhan tahunan ini untuk mengekalkan status aktif:\n\n• Sediakan dan failkan Penyata Kewangan Diaudit dalam tempoh 6 bulan dari akhir tahun kewangan\n• Failkan Penyata Tahunan dengan SSM dalam tempoh 30 hari dari tarikh ulang tahun penubuhan\n• Hantar anggaran cukai korporat (CP204) dan failkan borang cukai korporat tahunan (Borang C)\n• Melantik Setiausaha Syarikat berlesen untuk menguruskan daftar berkanun'
+        : 'Every registered Sdn Bhd in Malaysia must fulfill these annual compliance duties to maintain active status:\n\n• Prepare and file Audited Financial Statements within 6 months of the financial year-end\n• File an Annual Return with SSM within 30 days of the incorporation anniversary date\n• Lodge corporate tax estimates (CP204) and file annual corporate tax returns (Form C)\n• Retain a licensed Company Secretary to manage statutory registers',
       icon: <FileText className="w-5 h-5 text-gold" />
     },
     {
       id: 'virtual-office',
-      category: 'Compliance',
-      question: 'Do I need a physical office address to register a company?',
-      answer: 'Yes, Malaysian law requires every company to maintain a registered office address in Malaysia where all official communications and notices can be sent. Many startups and foreign founders use virtual registered office services provided by their Company Secretary to meet this legal requirement cost-effectively.',
+      category: isBM ? 'Pematuhan' : 'Compliance',
+      question: isBM
+        ? 'Adakah saya memerlukan alamat pejabat fizikal untuk mendaftarkan syarikat?'
+        : 'Do I need a physical office address to register a company?',
+      answer: isBM
+        ? 'Ya, undang-undang Malaysia menetapkan bahawa setiap syarikat mesti mengekalkan alamat pejabat berdaftar di Malaysia di mana semua komunikasi rasmi boleh dihantar. Ramai pengasas asing menggunakan perkhidmatan pejabat maya berdaftar yang disediakan oleh Setiausaha Syarikat mereka untuk memenuhi keperluan undang-undang ini secara jimat.'
+        : 'Yes, Malaysian law requires every company to maintain a registered office address in Malaysia where all official communications and notices can be sent. Many startups and foreign founders use virtual registered office services provided by their Company Secretary to meet this legal requirement cost-effectively.',
       icon: <HelpCircle className="w-5 h-5 text-gold" />
     }
   ];
 
-  const categories = ['All', 'Registration', 'Ownership', 'Capital', 'Compliance'];
+  const categories = isBM 
+    ? ['Semua', 'Pendaftaran', 'Pemilikan', 'Modal', 'Pematuhan']
+    : ['All', 'Registration', 'Ownership', 'Capital', 'Compliance'];
+
+  // Map user selected category back to corresponding key
+  const getCategoryKey = (cat: string) => {
+    if (cat === 'Semua' || cat === 'All') return 'All';
+    if (cat === 'Pendaftaran' || cat === 'Registration') return 'Registration';
+    if (cat === 'Pemilikan' || cat === 'Ownership') return 'Ownership';
+    if (cat === 'Modal' || cat === 'Capital') return 'Capital';
+    if (cat === 'Pematuhan' || cat === 'Compliance') return 'Compliance';
+    return cat;
+  };
 
   const filteredFaqs = faqs.filter(faq => {
     const matchesSearch = faq.question.toLowerCase().includes(searchQuery.toLowerCase()) || 
                           faq.answer.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === 'All' || faq.category === selectedCategory;
+    const catKey = getCategoryKey(selectedCategory);
+    const faqCatKey = getCategoryKey(faq.category);
+    const matchesCategory = catKey === 'All' || faqCatKey === catKey;
     return matchesSearch && matchesCategory;
   });
 
@@ -74,138 +116,176 @@ export const FAQSection: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="py-16 sm:py-24 bg-slate-50 border-y border-slate-100 relative overflow-hidden">
-      {/* Dynamic Background Glows */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-gold/5 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-royal-blue/5 rounded-full blur-[120px] pointer-events-none" />
+    <section id="faq" className="w-full py-20 sm:py-28 bg-[#040e18] text-white border-t border-b border-white/5 relative overflow-hidden">
+      {/* Interactive Cyberpunk Atmospheric Backdrops */}
+      <div className="absolute top-[-10%] left-[-10%] w-[50%] aspect-square bg-royal-blue/10 rounded-full blur-[160px] pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[50%] aspect-square bg-gold/5 rounded-full blur-[160px] pointer-events-none" />
+      
+      {/* Grid Mesh lines for premium structure look */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
 
-      <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24 relative z-10">
+      <div className="w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 xl:px-20 relative z-10">
         
-        {/* Section Header */}
-        <div className="max-w-3xl mx-auto text-center mb-12">
-          <span className="text-gold font-black text-[10px] sm:text-xs uppercase tracking-[0.4em] mb-3 block">
-            HAVE QUESTIONS?
-          </span>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-navy-dark uppercase tracking-tighter leading-none mb-5">
-            Frequently Asked <br />
-            <span className="text-royal-blue">Questions</span>
-          </h2>
-          <div className="w-16 h-1 bg-gold/80 mx-auto mb-6 rounded-full"></div>
-          <p className="text-slate-500 font-semibold text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-            Find immediate answers regarding company incorporation, foreign ownership, paid-up capital limits, and statutory compliance in Malaysia.
-          </p>
-        </div>
-
-        {/* Search & Filter Controls */}
-        <div className="max-w-4xl mx-auto mb-12 space-y-6">
-          {/* Search Input */}
-          <div className="relative group max-w-2xl mx-auto">
-            <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-gold transition-colors pointer-events-none">
-              <Search className="w-5 h-5" strokeWidth={2} />
+        {/* Sleek Layout Split: Left Brand Column / Right Accordion Column */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          
+          {/* Left Column (Sticky Title & Control Hub) */}
+          <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-8">
+            <div className="space-y-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-gold/10 border border-gold/20 rounded-full">
+                <Sparkles className="w-3.5 h-3.5 text-gold animate-pulse" />
+                <span className="text-gold font-black text-[9px] uppercase tracking-[0.25em]">
+                  {t('faq_eyebrow')}
+                </span>
+              </div>
+              
+              <h2 className="text-4xl sm:text-5xl font-black uppercase tracking-tighter leading-none text-white">
+                {t('faq_title_1')}<br />
+                <span className="bg-gradient-to-r from-gold via-yellow-300 to-amber-500 bg-clip-text text-transparent">
+                  {t('faq_title_2')}
+                </span>
+              </h2>
+              
+              <p className="text-slate-400 font-semibold text-sm sm:text-base leading-relaxed max-w-md pt-2">
+                {t('faq_subtitle')}
+              </p>
             </div>
-            <input 
-              type="text" 
-              placeholder="Search for answers (e.g. 'foreigner', 'SSM', 'capital')..." 
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-14 pr-6 py-4 bg-white border border-slate-200/80 rounded-2xl outline-none font-semibold text-slate-700 transition-all text-sm shadow-sm focus:border-gold/60 focus:ring-4 focus:ring-gold/5" 
-            />
-          </div>
 
-          {/* Category Tabs */}
-          <div className="flex flex-wrap justify-center gap-2.5 sm:gap-3">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => {
-                  setSelectedCategory(category);
-                  setActiveIndex(null); // Close active accordion when category changes
-                }}
-                className={`px-5 py-2.5 rounded-full text-xs font-black uppercase tracking-widest transition-all cursor-pointer ${
-                  selectedCategory === category 
-                    ? 'bg-[#051622] text-gold border border-gold/10 shadow-lg' 
-                    : 'bg-white text-slate-500 hover:text-navy-dark border border-slate-200 hover:border-slate-300'
-                }`}
+            {/* Quick Consultation Portal Card */}
+            <div className="bg-gradient-to-br from-white/[0.03] to-white/[0.01] border border-white/10 rounded-3xl p-6 relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-gold/5 rounded-full blur-xl group-hover:bg-gold/10 transition-colors duration-500" />
+              <h4 className="text-sm font-black uppercase tracking-wider text-gold mb-2">Need a Custom Setup?</h4>
+              <p className="text-xs text-slate-400 font-semibold leading-relaxed mb-4">
+                Ask our specialized AI Corporate Advisor in real-time or get instant help with SSM guidelines.
+              </p>
+              <a 
+                href="#ai-tool" 
+                className="inline-flex items-center gap-2 text-xs font-black text-white hover:text-gold transition-colors"
               >
-                {category}
-              </button>
-            ))}
+                <span>Launch Advisor Engine</span>
+                <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              </a>
+            </div>
           </div>
-        </div>
 
-        {/* FAQ Accordion Grid/List */}
-        <div className="max-w-4xl mx-auto space-y-4">
-          <AnimatePresence mode="popLayout">
-            {filteredFaqs.length > 0 ? (
-              filteredFaqs.map((faq, index) => {
-                const isOpen = activeIndex === index;
-                return (
-                  <motion.div
-                    layout
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.3 }}
-                    key={faq.id}
-                    className={`bg-white rounded-2xl border transition-all duration-300 overflow-hidden ${
-                      isOpen 
-                        ? 'border-gold/50 shadow-md ring-4 ring-gold/5' 
-                        : 'border-slate-200/80 hover:border-slate-300 shadow-sm'
+          {/* Right Column (Accordion List & Quick Filters) */}
+          <div className="lg:col-span-7 space-y-8 w-full">
+            
+            {/* Search and Filters inside Right Box */}
+            <div className="space-y-5 p-5 bg-white/[0.02] border border-white/15 rounded-3xl backdrop-blur-md">
+              
+              {/* Modern Search */}
+              <div className="relative group">
+                <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-gold transition-colors pointer-events-none">
+                  <Search className="w-5 h-5" strokeWidth={2.5} />
+                </div>
+                <input 
+                  type="text" 
+                  placeholder={t('faq_search_placeholder')}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full pl-14 pr-6 py-4.5 bg-white/[0.02] hover:bg-white/[0.04] focus:bg-white/[0.06] border border-white/10 focus:border-gold/60 rounded-2xl outline-none font-semibold text-white transition-all text-sm placeholder:text-slate-500 focus:shadow-[0_0_20px_rgba(212,175,55,0.08)]" 
+                />
+              </div>
+
+              {/* High Contrast Filter Tabs */}
+              <div className="flex flex-wrap gap-2 pt-1">
+                {categories.map((category) => (
+                  <button
+                    key={category}
+                    onClick={() => {
+                      setSelectedCategory(category);
+                      setActiveIndex(null);
+                    }}
+                    className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all cursor-pointer ${
+                      selectedCategory === category 
+                        ? 'bg-gold text-[#040e18] shadow-[0_10px_25px_-5px_rgba(212,175,55,0.3)] font-black' 
+                        : 'bg-white/5 text-slate-400 hover:text-white border border-white/5 hover:border-white/15'
                     }`}
                   >
-                    {/* Header/Question Trigger */}
-                    <button
-                      onClick={() => toggleFAQ(index)}
-                      className="w-full px-6 py-5 sm:px-8 sm:py-6 flex items-center justify-between text-left focus:outline-none cursor-pointer group"
-                    >
-                      <div className="flex items-start gap-4">
-                        <div className={`p-2.5 rounded-xl shrink-0 transition-all duration-300 ${
-                          isOpen ? 'bg-gold/10 text-gold' : 'bg-slate-100 text-slate-500 group-hover:bg-slate-200'
-                        }`}>
-                          {faq.icon}
-                        </div>
-                        <span className={`font-black text-sm sm:text-base tracking-tight leading-snug transition-colors duration-300 ${
-                          isOpen ? 'text-navy-dark' : 'text-[#051622] group-hover:text-royal-blue'
-                        }`}>
-                          {faq.question}
-                        </span>
-                      </div>
-                      <div className={`ml-4 p-1 rounded-full border shrink-0 transition-all duration-300 ${
-                        isOpen ? 'border-gold text-gold rotate-180 bg-gold/5' : 'border-slate-200 text-slate-400 group-hover:text-slate-600'
-                      }`}>
-                        <ChevronDown className="w-5 h-5 transition-transform" />
-                      </div>
-                    </button>
+                    {category}
+                  </button>
+                ))}
+              </div>
+            </div>
 
-                    {/* Answer Collapsible Section */}
-                    <AnimatePresence initial={false}>
-                      {isOpen && (
-                        <motion.div
-                          initial={{ height: 0, opacity: 0 }}
-                          animate={{ height: "auto", opacity: 1 }}
-                          exit={{ height: 0, opacity: 0 }}
-                          transition={{ duration: 0.3, ease: "easeInOut" }}
+            {/* Enhanced Accordion Feed */}
+            <div className="space-y-4">
+              <AnimatePresence mode="popLayout">
+                {filteredFaqs.length > 0 ? (
+                  filteredFaqs.map((faq, index) => {
+                    const isOpen = activeIndex === index;
+                    return (
+                      <motion.div
+                        layout
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.98 }}
+                        transition={{ duration: 0.3 }}
+                        key={faq.id}
+                        className={`bg-white/[0.02] rounded-2xl border transition-all duration-300 overflow-hidden ${
+                          isOpen 
+                            ? 'border-gold/50 shadow-2xl bg-gradient-to-b from-white/[0.04] to-white/[0.01]' 
+                            : 'border-white/5 hover:border-white/15'
+                        }`}
+                      >
+                        {/* Interactive Header */}
+                        <button
+                          onClick={() => toggleFAQ(index)}
+                          className="w-full px-6 py-5 sm:px-8 sm:py-6 flex items-center justify-between text-left focus:outline-none cursor-pointer group"
                         >
-                          <div className="px-6 pb-6 sm:px-8 sm:pb-8 pt-1 text-slate-600 text-sm sm:text-base font-semibold leading-relaxed border-t border-slate-100/80 whitespace-pre-line bg-slate-50/50">
-                            {faq.answer}
+                          <div className="flex items-start gap-4">
+                            <div className={`p-3 rounded-xl shrink-0 transition-all duration-300 ${
+                              isOpen ? 'bg-gold/10 text-gold shadow-[0_0_15px_rgba(212,175,55,0.15)]' : 'bg-white/5 text-slate-400 group-hover:bg-white/10 group-hover:text-white'
+                            }`}>
+                              {faq.icon}
+                            </div>
+                            <span className={`font-black text-sm sm:text-base tracking-tight leading-snug transition-colors duration-300 ${
+                              isOpen ? 'text-gold' : 'text-slate-200 group-hover:text-white'
+                            }`}>
+                              {faq.question}
+                            </span>
                           </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
+                          
+                          <div className={`ml-4 p-1.5 rounded-full border shrink-0 transition-all duration-300 ${
+                            isOpen ? 'border-gold text-gold rotate-180 bg-gold/5' : 'border-white/10 text-slate-500 group-hover:text-slate-300'
+                          }`}>
+                            <ChevronDown className="w-4 h-4 transition-transform" />
+                          </div>
+                        </button>
+
+                        {/* Answer Block */}
+                        <AnimatePresence initial={false}>
+                          {isOpen && (
+                            <motion.div
+                              initial={{ height: 0, opacity: 0 }}
+                              animate={{ height: "auto", opacity: 1 }}
+                              exit={{ height: 0, opacity: 0 }}
+                              transition={{ duration: 0.3, ease: "easeInOut" }}
+                            >
+                              <div className="px-6 pb-6 sm:px-8 sm:pb-8 pt-1 text-slate-300 text-sm sm:text-base font-semibold leading-relaxed border-t border-white/5 whitespace-pre-line bg-white/[0.01]">
+                                {faq.answer}
+                              </div>
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
+                      </motion.div>
+                    );
+                  })
+                ) : (
+                  <motion.div 
+                    layout
+                    className="text-center py-16 bg-white/[0.02] rounded-3xl border border-white/5 shadow-2xl"
+                  >
+                    <HelpCircle className="w-12 h-12 text-slate-500 mx-auto mb-4 animate-bounce" />
+                    <h3 className="text-lg font-black text-white uppercase tracking-tight">{t('faq_no_results')}</h3>
+                    <p className="text-slate-400 font-semibold text-xs sm:text-sm mt-1">{t('faq_no_results_sub')}</p>
                   </motion.div>
-                );
-              })
-            ) : (
-              <motion.div 
-                layout
-                className="text-center py-12 bg-white rounded-2xl border border-slate-200 shadow-sm"
-              >
-                <HelpCircle className="w-12 h-12 text-slate-300 mx-auto mb-4" />
-                <h3 className="text-lg font-black text-[#051622] uppercase tracking-tight">No Results Found</h3>
-                <p className="text-slate-400 font-semibold text-sm mt-1">Try modifying your search keywords or choosing another category.</p>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                )}
+              </AnimatePresence>
+            </div>
+
+          </div>
         </div>
 
       </div>

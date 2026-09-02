@@ -3,12 +3,16 @@ import AnimatedCounter from './AnimatedCounter.tsx';
 import TypingText from './TypingText.tsx';
 import Airplane from './Airplane.tsx';
 import { motion, useScroll, useTransform } from 'motion/react';
+import { useLanguage } from './LanguageContext.tsx';
 
 const Hero: React.FC = () => {
+  const { language, t } = useLanguage();
   const { scrollY } = useScroll();
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
   const y2 = useTransform(scrollY, [0, 500], [0, -150]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
+
+  const isBM = language === 'BM';
 
   return (
     <div className="relative pt-16 pb-24 overflow-hidden min-h-[80vh] flex items-center">
@@ -74,7 +78,7 @@ const Hero: React.FC = () => {
               className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-blue-50/90 backdrop-blur-sm border border-blue-100 text-royal-blue text-[10px] sm:text-xs font-black uppercase tracking-widest mb-5 shadow-sm"
             >
               <span className="flex h-2 w-2 rounded-full bg-accent-yellow animate-pulse"></span>
-              Fast-Track Approval Specialists
+              {isBM ? 'Spesialis Kelulusan Segera' : 'Fast-Track Approval Specialists'}
             </motion.div>
             
             <div className="overflow-hidden">
@@ -91,16 +95,16 @@ const Hero: React.FC = () => {
                     }
                   }
                 }}
-                className="text-3xl sm:text-5xl lg:text-[54px] font-black text-slate-900 mb-5 leading-[1.1] tracking-tight"
+                className="text-3xl sm:text-5xl lg:text-[48px] xl:text-[54px] font-black text-slate-900 mb-5 leading-[1.1] tracking-tight"
               >
-                {["Launch", "Your", "Malaysia", "Business"].map((word, i) => (
+                {(isBM ? ["Lancarkan", "Perniagaan", "Syarikat", "Malaysia"] : ["Launch", "Your", "Malaysia", "Business"]).map((word, i) => (
                   <motion.span 
                     key={i}
                     variants={{
                       hidden: { opacity: 0, y: 50 },
                       visible: { opacity: 1, y: 0 }
                     }}
-                    className={`inline-block mr-3 ${word === "Malaysia" || word === "Business" ? "text-royal-blue" : ""}`}
+                    className={`inline-block mr-3 ${word === "Malaysia" || word === "Business" || word === "Perniagaan" || word === "Syarikat" ? "text-royal-blue" : ""}`}
                   >
                     {word}
                   </motion.span>
@@ -110,9 +114,9 @@ const Hero: React.FC = () => {
                     hidden: { opacity: 0, y: 50 },
                     visible: { opacity: 1, y: 0 }
                   }}
-                  className="block"
+                  className="block text-gold"
                 >
-                  with Zero Friction.
+                  {isBM ? "Tanpa Kerumitan." : "with Zero Friction."}
                 </motion.span>
               </motion.h1>
             </div>
@@ -121,10 +125,10 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.2 }}
-              className="text-base sm:text-lg text-slate-800 mb-6 leading-relaxed max-w-lg font-bold bg-white/30 backdrop-blur-[2px] rounded-lg p-2 min-h-[4rem]"
+              className="text-sm sm:text-base text-slate-800 mb-6 leading-relaxed max-w-lg font-bold bg-white/30 backdrop-blur-[2px] rounded-lg p-2 min-h-[4rem]"
             >
               <TypingText 
-                text="From Company Incorporation to Employment Passes. We bypass the bureaucracy. 100% Compliant. No Hidden Fees. Fast Results."
+                text={isBM ? "Dari Penubuhan Syarikat hingga Pas Penggajian. Kami melangkaui birokrasi. 100% Patuh Berkanun. Tiada Kos Tersembunyi." : "From Company Incorporation to Employment Passes. We bypass the bureaucracy. 100% Compliant. No Hidden Fees. Fast Results."}
                 speed={25}
                 delay={1500}
               />
@@ -144,7 +148,7 @@ const Hero: React.FC = () => {
                 style={{ '--fill-color': '#990000' } as React.CSSProperties}
               >
                 <div className="liquid-wave"></div>
-                <span className="relative z-10">Start My Business Wizard</span>
+                <span className="relative z-10">{isBM ? "Mulakan Wizard Perniagaan" : "Start My Business Wizard"}</span>
               </motion.a>
               <motion.a 
                 whileHover={{ scale: 1.03, y: -3 }}
@@ -154,7 +158,7 @@ const Hero: React.FC = () => {
                 style={{ '--fill-color': '#003366' } as React.CSSProperties}
               >
                 <div className="liquid-wave"></div>
-                <span className="relative z-10">Check Visa Status</span>
+                <span className="relative z-10">{isBM ? "Semak Status Visa" : "Check Visa Status"}</span>
               </motion.a>
             </motion.div>
 
@@ -168,21 +172,21 @@ const Hero: React.FC = () => {
                 <span className="text-2xl font-black text-royal-blue">
                   <AnimatedCounter target="500+" />
                 </span>
-                <span className="text-[9px] font-bold text-slate-700 uppercase tracking-widest">Setup Successful</span>
+                <span className="text-[9px] font-bold text-slate-700 uppercase tracking-widest">{isBM ? "Syarikat Ditubuhkan" : "Setup Successful"}</span>
               </div>
               <div className="w-px h-8 bg-slate-400"></div>
               <div className="flex flex-col">
                 <span className="text-2xl font-black text-royal-blue">
                   <AnimatedCounter target="100%" />
                 </span>
-                <span className="text-[9px] font-bold text-slate-700 uppercase tracking-widest">SSM Compliance</span>
+                <span className="text-[9px] font-bold text-slate-700 uppercase tracking-widest">{isBM ? "Pematuhan SSM" : "SSM Compliance"}</span>
               </div>
               <div className="w-px h-8 bg-slate-400"></div>
               <div className="flex flex-col">
                 <span className="text-2xl font-black text-royal-blue">
                   <AnimatedCounter target="4.9/5" />
                 </span>
-                <span className="text-[9px] font-bold text-slate-700 uppercase tracking-widest">Google Rated</span>
+                <span className="text-[9px] font-bold text-slate-700 uppercase tracking-widest">{isBM ? "Penilaian Google" : "Google Rated"}</span>
               </div>
             </motion.div>
           </motion.div>
