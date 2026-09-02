@@ -1,5 +1,6 @@
 {
   "name": "Bizskoop",
   "description": "Bizskoop - The definitive launchpad for international businesses in Malaysia. Expert services in company formation, regulatory licensing, and immigration support.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
