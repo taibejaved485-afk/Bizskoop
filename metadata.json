@@ -1,6 +1,6 @@
 {
-  "name": "Bizskoop | SSM Malaysia Business Formation & Licensing Expert",
-  "description": "Bizskoop is Malaysia's leading launchpad for international businesses. Expert services in SSM company formation, licensing, compliance, and immigration support.",
+  "name": "Bizskoop | SSM Business Formation & Corporate Services",
+  "description": "Bizskoop provides SSM company formation, ESD employment pass, corporate advisory, tax compliance, and business licensing services in Malaysia.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

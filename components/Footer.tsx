@@ -150,8 +150,21 @@ const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate, onOpenAdmin }
               <div className="pt-4">
                 <h5 className="text-[10px] font-black uppercase tracking-widest text-gold mb-4">Follow {config.companyName}</h5>
                 <div className="flex gap-4">
-                  {[Facebook, Instagram, Linkedin, Twitter].map((Icon, i) => (
-                    <a key={i} href="#" className="text-white/40 hover:text-gold transition-colors">
+                  {[
+                    { Icon: Facebook, url: 'https://facebook.com/bizskoop', label: 'Facebook' },
+                    { Icon: Instagram, url: 'https://instagram.com/bizskoop', label: 'Instagram' },
+                    { Icon: Linkedin, url: 'https://linkedin.com/company/bizskoop', label: 'LinkedIn' },
+                    { Icon: Twitter, url: 'https://twitter.com/bizskoop', label: 'X (Twitter)' },
+                    { Icon: Youtube, url: 'https://youtube.com/@bizskoop', label: 'YouTube' }
+                  ].map(({ Icon, url, label }, i) => (
+                    <a 
+                      key={i} 
+                      href={url} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      aria-label={`Visit Bizskoop on ${label}`} 
+                      className="text-white/40 hover:text-gold transition-colors"
+                    >
                       <Icon size={20} />
                     </a>
                   ))}
@@ -194,8 +207,12 @@ const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate, onOpenAdmin }
                 ))}
               </ul>
               <div className="pt-4 space-y-2">
-                <p className="text-white font-black text-lg tracking-tight">{config.phone}</p>
-                <p className="text-blue-100/50 text-sm font-bold">{config.email}</p>
+                <a href={`tel:${config.phone.replace(/\s+/g, '')}`} className="text-white font-black text-lg tracking-tight block hover:text-gold transition-colors">
+                  {config.phone}
+                </a>
+                <a href={`mailto:${config.email}`} className="text-blue-100/50 text-sm font-bold block hover:text-gold transition-colors">
+                  {config.email}
+                </a>
               </div>
             </div>
 
@@ -211,9 +228,9 @@ const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate, onOpenAdmin }
                 </div>
                 <div>
                   <p className="text-white font-black text-sm uppercase mb-1">Head office:</p>
-                  <p className="text-blue-100/50 text-xs font-bold leading-relaxed whitespace-pre-line">
+                  <address className="not-italic text-blue-100/50 text-xs font-bold leading-relaxed whitespace-pre-line">
                     {config.address}
-                  </p>
+                  </address>
                 </div>
               </div>
             </div>
