@@ -355,7 +355,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
         <div className="absolute top-1/4 -left-40 w-96 h-96 bg-royal-blue/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-1/4 -right-40 w-96 h-96 bg-gold/15 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 relative z-10">
+        <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 relative z-10">
           {/* Header */}
           <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-royal-blue/10 via-gold/15 to-royal-blue/10 border border-gold/40 mb-3.5 shadow-2xs">
@@ -375,8 +375,8 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
             </p>
           </div>
 
-          {/* 3 Clean Blog Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
+          {/* 3 Clean Blog Cards - Full Width Grid */}
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {homePreviewPosts.map((post, idx) => {
               const isSaved = savedArticles.includes(post.id);
               return renderCard(post, idx, isSaved);
@@ -428,10 +428,10 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
       <div className="absolute bottom-1/4 -right-40 w-96 h-96 bg-gold/15 rounded-full blur-3xl pointer-events-none" />
 
       {/* Full Width Container */}
-      <div className="w-full px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 relative z-10">
+      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 relative z-10">
         
         {/* Top Navigation Row: Back to Home + Clean Article Count */}
-        <div className="mb-6 sm:mb-8 flex items-center justify-between gap-4 max-w-7xl mx-auto border-b border-slate-200/80 pb-4">
+        <div className="mb-6 sm:mb-8 flex items-center justify-between gap-4 w-full border-b border-slate-200/80 pb-4">
           <button
             type="button"
             onClick={() => {
@@ -460,9 +460,9 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
           </div>
         )}
 
-        {/* Beautiful Blogs Cards Grid */}
+        {/* Beautiful Blogs Cards Grid - Full Width */}
         {posts.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
+          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {posts.map((post, idx) => {
               const isSaved = savedArticles.includes(post.id);
               return renderCard(post, idx, isSaved);
@@ -471,7 +471,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
         )}
 
         {/* Bottom Banner: Request Specific Briefing / Consult */}
-        <div className="mt-14 max-w-5xl mx-auto">
+        <div className="mt-14 w-full">
           <div className="py-7 px-6 sm:px-10 rounded-3xl bg-gradient-to-r from-royal-blue via-[#002244] to-navy-dark text-white shadow-xl relative overflow-hidden border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="text-center sm:text-left">
               <div className="inline-flex items-center gap-2 text-gold text-[10px] font-black uppercase tracking-widest mb-1.5">
