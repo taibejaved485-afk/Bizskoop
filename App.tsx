@@ -164,7 +164,7 @@ const App: React.FC = () => {
                   className="relative group/about-img"
                 >
                   <div className="relative w-full aspect-[4/3] overflow-hidden rounded-2xl shadow-2xl z-10 border-4 border-white transition-all duration-500 group-hover/about-img:border-gold">
-                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1000" className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" alt="BizFlow Executive" />
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=1000" className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" alt="Bizskoop Executive" />
                   </div>
                   <motion.div 
                     initial={{ opacity: 0, scale: 0.8 }}
@@ -236,7 +236,7 @@ const App: React.FC = () => {
                       className="text-slate-600 text-xs sm:text-sm lg:text-base leading-relaxed font-medium mb-6 sm:mb-8 min-h-[4rem]"
                     >
                       <TypingText 
-                        text="BizFlow is Malaysia’s premium strategic launchpad for global entrepreneurs. We handle the heavy lifting of compliance and operational setup so you can focus on building your empire from day one."
+                        text="Bizskoop is Malaysia’s premium strategic launchpad for global entrepreneurs. We handle the heavy lifting of compliance and operational setup so you can focus on building your empire from day one."
                         speed={20}
                         delay={500}
                         triggerOnView={true}

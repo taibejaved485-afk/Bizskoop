@@ -48,7 +48,7 @@ const CorporateServices: React.FC = () => {
 
     saveNewLead({
       fullName: name,
-      email: 'corporate@bizflow-client.com',
+      email: 'corporate@bizskoop-client.com',
       companyName: companyName,
       phoneNumber: phone,
       service: `corporate-${serviceType}`,

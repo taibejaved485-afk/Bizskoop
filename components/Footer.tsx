@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Facebook, Instagram, Linkedin, Twitter, Youtube, ArrowRight, ShieldCheck, Globe, CreditCard, Lock, CheckCircle2, AlertCircle, Mail, Sparkles } from 'lucide-react';
+import { sanitizeAndGetSiteConfig, SITE_CONFIG_UPDATED_EVENT, DEFAULT_SITE_CONFIG, SiteConfig, getStoredLeads, LEADS_UPDATED_EVENT } from '../services/leadStorage.ts';
 
 interface FooterProps {
   onOpenPolicy?: (policy: string) => void;
@@ -12,14 +13,7 @@ interface FooterProps {
 const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate, onOpenAdmin }) => {
   const currentYear = new Date().getFullYear();
 
-  const [config, setConfig] = useState({
-    companyName: 'BIZFLOW',
-    phone: '+60 3 2771 8000',
-    email: 'info@bizflow.com',
-    address: 'Level 09, Integra Tower, The Intermark, 348 Jalan Tun Razak, 50400 Kuala Lumpur, Malaysia',
-    whatsapp: '+601124244993',
-    heroTitle: 'STRATEGIC CONSULTANCY'
-  });
+  const [config, setConfig] = useState<SiteConfig>(DEFAULT_SITE_CONFIG);
 
   const [unreadCount, setUnreadCount] = useState(0);
 
@@ -49,7 +43,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate, onOpenAdmin }
 
     setIsSubmittingNewsletter(true);
     try {
-      const existing = JSON.parse(localStorage.getItem('bizflow_newsletter_subscribers') || '[]');
+      const existing = JSON.parse(localStorage.getItem('bizskoop_newsletter_subscribers') || '[]');
       const alreadySubscribed = existing.some((sub: any) => sub.email?.toLowerCase() === trimmedEmail.toLowerCase());
       
       if (!alreadySubscribed) {
@@ -58,7 +52,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate, onOpenAdmin }
           subscribedAt: new Date().toISOString(),
           source: 'Business Insights Newsletter'
         });
-        localStorage.setItem('bizflow_newsletter_subscribers', JSON.stringify(existing));
+        localStorage.setItem('bizskoop_newsletter_subscribers', JSON.stringify(existing));
       }
 
       setNewsletterSuccess(true);
@@ -73,14 +67,11 @@ const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate, onOpenAdmin }
 
   useEffect(() => {
     const loadConfig = () => {
-      const storedConfig = localStorage.getItem('bizflow_site_config');
-      if (storedConfig) {
-        setConfig(JSON.parse(storedConfig));
-      }
+      setConfig(sanitizeAndGetSiteConfig());
     };
 
     const updateUnreadCount = () => {
-      const leads = JSON.parse(localStorage.getItem('bizflow_leads') || '[]');
+      const leads = getStoredLeads();
       const count = leads.filter((lead: any) => lead.status === 'unread').length;
       setUnreadCount(count);
     };
@@ -88,10 +79,12 @@ const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate, onOpenAdmin }
     loadConfig();
     updateUnreadCount();
 
-    window.addEventListener('bizflow_config_updated', loadConfig);
+    window.addEventListener(SITE_CONFIG_UPDATED_EVENT, loadConfig);
+    window.addEventListener(LEADS_UPDATED_EVENT, updateUnreadCount);
     window.addEventListener('storage', updateUnreadCount);
     return () => {
-      window.removeEventListener('bizflow_config_updated', loadConfig);
+      window.removeEventListener(SITE_CONFIG_UPDATED_EVENT, loadConfig);
+      window.removeEventListener(LEADS_UPDATED_EVENT, updateUnreadCount);
       window.removeEventListener('storage', updateUnreadCount);
     };
   }, []);
@@ -288,14 +281,14 @@ const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate, onOpenAdmin }
             <div className="space-y-8">
               <h4 className="text-lg font-black uppercase tracking-tighter">Information</h4>
               <ul className="space-y-4">
-                {['Blog', 'FAQs', 'About us at BizFlow', 'BizFlow Legal', 'Our Methodology', 'Global Network'].map((item) => (
+                {['Blog', 'FAQs', 'About us at Bizskoop', 'Bizskoop Legal', 'Our Methodology', 'Global Network'].map((item) => (
                   <li key={item}>
                     <button 
                       onClick={(e) => {
                         e.preventDefault();
                         if ((item === 'Blog' || item === 'Business Blog & Insights') && onNavigate) {
                           onNavigate('blog');
-                        } else if (item === 'About us at BizFlow' && onNavigate) {
+                        } else if (item === 'About us at Bizskoop' && onNavigate) {
                           onNavigate('about');
                         } else if (item === 'FAQs' && onNavigate) {
                           onNavigate('about');
@@ -307,7 +300,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate, onOpenAdmin }
                               window.scrollTo({ top: 1200, behavior: 'smooth' });
                             }
                           }, 100);
-                        } else if (item === 'BizFlow Legal' && onOpenPolicy) {
+                        } else if (item === 'Bizskoop Legal' && onOpenPolicy) {
                           onOpenPolicy('Privacy Policy');
                         } else if (onNavigate) {
                           onNavigate('about');

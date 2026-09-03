@@ -1,10 +1,146 @@
 import { Lead, ServicePricingItem, AnnouncementConfig, ActivityLog } from '../types.ts';
 
-const LEADS_STORAGE_KEY = 'bizflow_leads';
-export const LEADS_UPDATED_EVENT = 'bizflow_leads_updated';
-export const PRICING_UPDATED_EVENT = 'bizflow_pricing_updated';
-export const ANNOUNCEMENT_UPDATED_EVENT = 'bizflow_announcement_updated';
-export const AUDIT_LOGS_KEY = 'bizflow_audit_logs';
+const LEADS_STORAGE_KEY = 'bizskoop_leads';
+export const LEADS_UPDATED_EVENT = 'bizskoop_leads_updated';
+export const PRICING_UPDATED_EVENT = 'bizskoop_pricing_updated';
+export const ANNOUNCEMENT_UPDATED_EVENT = 'bizskoop_announcement_updated';
+export const AUDIT_LOGS_KEY = 'bizskoop_audit_logs';
+export const SITE_CONFIG_STORAGE_KEY = 'bizskoop_site_config';
+export const SITE_CONFIG_UPDATED_EVENT = 'bizskoop_config_updated';
+
+export interface SiteConfig {
+  companyName: string;
+  phone: string;
+  email: string;
+  address: string;
+  whatsapp: string;
+  heroTitle: string;
+}
+
+export const DEFAULT_SITE_CONFIG: SiteConfig = {
+  companyName: 'BIZSKOOP',
+  phone: '+60 3 2771 8000',
+  email: 'info@bizskoop.com',
+  address: 'Level 09, Integra Tower, The Intermark, 348 Jalan Tun Razak, 50400 Kuala Lumpur, Malaysia',
+  whatsapp: '+601124244993',
+  heroTitle: 'STRATEGIC CONSULTANCY'
+};
+
+// Auto-run migration to sanitize and wipe any legacy BIZFLOW / bizflow keys
+export const runStorageMigration = () => {
+  if (typeof window === 'undefined' || !window.localStorage) return;
+  try {
+    // 1. Clean and migrate site config
+    const legacyConfig = localStorage.getItem('bizflow_site_config');
+    const existingConfig = localStorage.getItem(SITE_CONFIG_STORAGE_KEY) || legacyConfig;
+    if (existingConfig) {
+      try {
+        const parsed = JSON.parse(existingConfig);
+        const cleaned: SiteConfig = {
+          companyName: (parsed.companyName && !/bizflow/i.test(parsed.companyName)) ? parsed.companyName : 'BIZSKOOP',
+          phone: parsed.phone || DEFAULT_SITE_CONFIG.phone,
+          email: (parsed.email && !/bizflow/i.test(parsed.email)) ? parsed.email : 'info@bizskoop.com',
+          address: parsed.address || DEFAULT_SITE_CONFIG.address,
+          whatsapp: parsed.whatsapp || DEFAULT_SITE_CONFIG.whatsapp,
+          heroTitle: parsed.heroTitle || DEFAULT_SITE_CONFIG.heroTitle,
+        };
+        localStorage.setItem(SITE_CONFIG_STORAGE_KEY, JSON.stringify(cleaned));
+      } catch {
+        localStorage.setItem(SITE_CONFIG_STORAGE_KEY, JSON.stringify(DEFAULT_SITE_CONFIG));
+      }
+    } else {
+      localStorage.setItem(SITE_CONFIG_STORAGE_KEY, JSON.stringify(DEFAULT_SITE_CONFIG));
+    }
+    localStorage.removeItem('bizflow_site_config');
+
+    // 2. Clean and migrate leads
+    const legacyLeads = localStorage.getItem('bizflow_leads');
+    if (legacyLeads && !localStorage.getItem(LEADS_STORAGE_KEY)) {
+      localStorage.setItem(LEADS_STORAGE_KEY, legacyLeads);
+    }
+    localStorage.removeItem('bizflow_leads');
+
+    // 3. Clean and migrate newsletter
+    const legacyNews = localStorage.getItem('bizflow_newsletter_subscribers');
+    if (legacyNews && !localStorage.getItem('bizskoop_newsletter_subscribers')) {
+      localStorage.setItem('bizskoop_newsletter_subscribers', legacyNews);
+    }
+    localStorage.removeItem('bizflow_newsletter_subscribers');
+
+    // 4. Clean and migrate pricing matrix
+    const legacyPricing = localStorage.getItem('bizflow_pricing_matrix');
+    if (legacyPricing && !localStorage.getItem('bizskoop_pricing_matrix')) {
+      localStorage.setItem('bizskoop_pricing_matrix', legacyPricing);
+    }
+    localStorage.removeItem('bizflow_pricing_matrix');
+
+    // 5. Clean and migrate announcement
+    const legacyAnn = localStorage.getItem('bizflow_announcement');
+    if (legacyAnn && !localStorage.getItem('bizskoop_announcement')) {
+      localStorage.setItem('bizskoop_announcement', legacyAnn);
+    }
+    localStorage.removeItem('bizflow_announcement');
+
+    // 6. Clean FAQs and PIN
+    const legacyFAQs = localStorage.getItem('bizflow_custom_faqs');
+    if (legacyFAQs && !localStorage.getItem('bizskoop_custom_faqs')) {
+      localStorage.setItem('bizskoop_custom_faqs', legacyFAQs);
+    }
+    localStorage.removeItem('bizflow_custom_faqs');
+
+    const legacyPin = localStorage.getItem('bizflow_admin_pin');
+    if (legacyPin && !localStorage.getItem('bizskoop_admin_pin')) {
+      localStorage.setItem('bizskoop_admin_pin', legacyPin);
+    }
+    localStorage.removeItem('bizflow_admin_pin');
+    localStorage.removeItem('bizflow_audit_logs');
+    sessionStorage.removeItem('bizflow_admin_auth');
+  } catch (e) {
+    console.error('Storage migration error:', e);
+  }
+};
+
+// Immediate migration execution on import
+runStorageMigration();
+
+export const sanitizeAndGetSiteConfig = (): SiteConfig => {
+  try {
+    runStorageMigration();
+    const raw = localStorage.getItem(SITE_CONFIG_STORAGE_KEY);
+    if (!raw) {
+      localStorage.setItem(SITE_CONFIG_STORAGE_KEY, JSON.stringify(DEFAULT_SITE_CONFIG));
+      return DEFAULT_SITE_CONFIG;
+    }
+    const parsed = JSON.parse(raw);
+    const cleaned: SiteConfig = {
+      companyName: (parsed.companyName && !/bizflow/i.test(parsed.companyName)) ? parsed.companyName : 'BIZSKOOP',
+      phone: parsed.phone || DEFAULT_SITE_CONFIG.phone,
+      email: (parsed.email && !/bizflow/i.test(parsed.email)) ? parsed.email : 'info@bizskoop.com',
+      address: parsed.address || DEFAULT_SITE_CONFIG.address,
+      whatsapp: parsed.whatsapp || DEFAULT_SITE_CONFIG.whatsapp,
+      heroTitle: parsed.heroTitle || DEFAULT_SITE_CONFIG.heroTitle,
+    };
+    localStorage.setItem(SITE_CONFIG_STORAGE_KEY, JSON.stringify(cleaned));
+    return cleaned;
+  } catch {
+    return DEFAULT_SITE_CONFIG;
+  }
+};
+
+export const saveSiteConfig = (config: SiteConfig) => {
+  try {
+    const cleaned: SiteConfig = {
+      ...config,
+      companyName: (!config.companyName || /bizflow/i.test(config.companyName)) ? 'BIZSKOOP' : config.companyName,
+      email: (!config.email || /bizflow/i.test(config.email)) ? 'info@bizskoop.com' : config.email,
+    };
+    localStorage.setItem(SITE_CONFIG_STORAGE_KEY, JSON.stringify(cleaned));
+    localStorage.removeItem('bizflow_site_config');
+    window.dispatchEvent(new Event(SITE_CONFIG_UPDATED_EVENT));
+  } catch (e) {
+    console.error('Failed to save site config', e);
+  }
+};
 
 export const DEFAULT_PRICING_MATRIX: ServicePricingItem[] = [
   {
@@ -123,9 +259,9 @@ export const DEFAULT_ANNOUNCEMENT: AnnouncementConfig = {
 
 export const getStoredPricingMatrix = (): ServicePricingItem[] => {
   try {
-    const raw = localStorage.getItem('bizflow_pricing_matrix');
+    const raw = localStorage.getItem('bizskoop_pricing_matrix');
     if (!raw) {
-      localStorage.setItem('bizflow_pricing_matrix', JSON.stringify(DEFAULT_PRICING_MATRIX));
+      localStorage.setItem('bizskoop_pricing_matrix', JSON.stringify(DEFAULT_PRICING_MATRIX));
       return DEFAULT_PRICING_MATRIX;
     }
     const parsed = JSON.parse(raw);
@@ -137,9 +273,9 @@ export const getStoredPricingMatrix = (): ServicePricingItem[] => {
 
 export const getStoredAnnouncement = (): AnnouncementConfig => {
   try {
-    const raw = localStorage.getItem('bizflow_announcement');
+    const raw = localStorage.getItem('bizskoop_announcement');
     if (!raw) {
-      localStorage.setItem('bizflow_announcement', JSON.stringify(DEFAULT_ANNOUNCEMENT));
+      localStorage.setItem('bizskoop_announcement', JSON.stringify(DEFAULT_ANNOUNCEMENT));
       return DEFAULT_ANNOUNCEMENT;
     }
     return JSON.parse(raw);
@@ -340,7 +476,7 @@ export const exportLeadsToCSV = (leads: Lead[]) => {
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.setAttribute('href', url);
-  link.setAttribute('download', `bizflow_leads_${new Date().toISOString().split('T')[0]}.csv`);
+  link.setAttribute('download', `bizskoop_leads_${new Date().toISOString().split('T')[0]}.csv`);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);

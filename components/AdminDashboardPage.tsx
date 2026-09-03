@@ -25,11 +25,11 @@ const AdminDashboardPage: React.FC = () => {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [logs, setLogs] = useState<ActivityLog[]>([]);
   const [siteConfig, setSiteConfig] = useState<SiteConfig>({
-    global: { companyName: 'BizFlow', phone: '', email: '', address: '', social: { linkedin: '', whatsapp: '', facebook: '', instagram: '', twitter: '' } },
-    header: { logoText: 'BIZFLOW', navItems: ['Home', 'Services', 'About', 'Contact'] },
+    global: { companyName: 'Bizskoop', phone: '', email: '', address: '', social: { linkedin: '', whatsapp: '', facebook: '', instagram: '', twitter: '' } },
+    header: { logoText: 'BIZSKOOP', navItems: ['Home', 'Services', 'About', 'Contact'] },
     hero: { title: 'Empowering Your Business', subtitle: '', primaryCta: 'Get Started', secondaryCta: 'Learn More', stats: [{ label: 'Years Experience', value: '15+' }, { label: 'Success Rate', value: '99%' }] },
     about: { narrative: '', teamOverview: '' },
-    footer: { copyright: '© 2026 BizFlow', links: [] },
+    footer: { copyright: '© 2026 Bizskoop', links: [] },
     legal: { privacyPolicy: '', terms: '', refundPolicy: '', compliance: '' }
   });
 
@@ -46,13 +46,13 @@ const AdminDashboardPage: React.FC = () => {
   ];
 
   useEffect(() => {
-    const storedLeads = localStorage.getItem('bizflow_leads');
+    const storedLeads = localStorage.getItem('bizskoop_leads');
     if (storedLeads) setLeads(JSON.parse(storedLeads));
     
-    const storedConfig = localStorage.getItem('bizflow_site_config');
+    const storedConfig = localStorage.getItem('bizskoop_site_config');
     if (storedConfig) setSiteConfig(JSON.parse(storedConfig));
     
-    const storedLogs = localStorage.getItem('bizflow_logs');
+    const storedLogs = localStorage.getItem('bizskoop_logs');
     if (storedLogs) setLogs(JSON.parse(storedLogs));
   }, []);
 
@@ -64,20 +64,20 @@ const AdminDashboardPage: React.FC = () => {
     };
     const updatedLogs = [newLog, ...logs];
     setLogs(updatedLogs);
-    localStorage.setItem('bizflow_logs', JSON.stringify(updatedLogs));
+    localStorage.setItem('bizskoop_logs', JSON.stringify(updatedLogs));
   };
 
   const saveConfig = () => {
-    localStorage.setItem('bizflow_site_config', JSON.stringify(siteConfig));
-    window.dispatchEvent(new Event('bizflow_config_updated'));
+    localStorage.setItem('bizskoop_site_config', JSON.stringify(siteConfig));
+    window.dispatchEvent(new Event('bizskoop_config_updated'));
     addLog('Updated Site Configuration');
     alert('Settings saved!');
   };
 
   const resetConfig = () => {
-    localStorage.removeItem('bizflow_site_config');
+    localStorage.removeItem('bizskoop_site_config');
     addLog('Reset Site Configuration');
-    window.dispatchEvent(new Event('bizflow_config_updated'));
+    window.dispatchEvent(new Event('bizskoop_config_updated'));
     window.location.reload();
   };
 
@@ -130,7 +130,7 @@ const AdminDashboardPage: React.FC = () => {
             <span className="text-white font-black text-5xl">B</span>
           </div>
           <h2 className="text-3xl font-black text-white uppercase tracking-tighter mb-2 text-center">Admin Login</h2>
-          <p className="text-slate-400 text-center text-xs font-bold uppercase tracking-widest mb-10">Access BizFlow Control Panel</p>
+          <p className="text-slate-400 text-center text-xs font-bold uppercase tracking-widest mb-10">Access Bizskoop Control Panel</p>
           <form onSubmit={handleLogin} className="space-y-6">
             <input 
               type="text" 
@@ -166,7 +166,7 @@ const AdminDashboardPage: React.FC = () => {
               <div className="w-10 h-10 bg-gradient-to-br from-royal-blue to-blue-700 rounded-xl flex items-center justify-center shadow-lg">
                 <span className="text-white font-black text-xl">B</span>
               </div>
-              <h1 className="text-xl font-black text-white uppercase tracking-tighter">BIZFLOW ADMIN</h1>
+              <h1 className="text-xl font-black text-white uppercase tracking-tighter">BIZSKOOP ADMIN</h1>
             </div>
              <div className="space-y-2">
                 {navItems.map(item => (

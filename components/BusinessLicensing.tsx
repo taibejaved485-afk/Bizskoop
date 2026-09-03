@@ -271,7 +271,7 @@ const BusinessLicensing: React.FC = () => {
         </div>
       </section>
 
-      {/* 4. The BizFlow Approval Process */}
+      {/* 4. The Bizskoop Approval Process */}
       <section className="py-16 sm:py-24 bg-white">
         <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24">
           <motion.h2 

@@ -42,7 +42,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
   const [activeArticle, setActiveArticle] = useState<BlogPost | null>(null);
   const [savedArticles, setSavedArticles] = useState<string[]>(() => {
     try {
-      return JSON.parse(localStorage.getItem('bizflow_saved_articles') || '[]');
+      return JSON.parse(localStorage.getItem('bizskoop_saved_articles') || '[]');
     } catch {
       return [];
     }
@@ -71,7 +71,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
     e.stopPropagation();
     setSavedArticles((prev) => {
       const next = prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id];
-      localStorage.setItem('bizflow_saved_articles', JSON.stringify(next));
+      localStorage.setItem('bizskoop_saved_articles', JSON.stringify(next));
       return next;
     });
   };
@@ -481,7 +481,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
                   <span>Need Tailored Filing Support for Your Enterprise?</span>
                 </h4>
                 <p className="text-xs text-blue-100/80 leading-relaxed font-medium">
-                  Bizflow's licensed corporate secretarial team directly handles your SSM paperwork, ESD immigration submissions, and municipal filings.
+                  Bizskoop's licensed corporate secretarial team directly handles your SSM paperwork, ESD immigration submissions, and municipal filings.
                 </p>
                 <button
                   type="button"

@@ -54,18 +54,13 @@ import {
   getStoredAuditLogs, 
   logAdminAudit, 
   PRICING_UPDATED_EVENT, 
-  ANNOUNCEMENT_UPDATED_EVENT 
+  ANNOUNCEMENT_UPDATED_EVENT,
+  sanitizeAndGetSiteConfig,
+  saveSiteConfig,
+  DEFAULT_SITE_CONFIG,
+  SiteConfig
 } from '../services/leadStorage.ts';
 import { Lead, ServicePricingItem, AnnouncementConfig, ActivityLog } from '../types.ts';
-
-interface SiteConfig {
-  companyName: string;
-  phone: string;
-  email: string;
-  address: string;
-  whatsapp: string;
-  heroTitle: string;
-}
 
 interface CustomFAQ {
   id: string;
@@ -74,14 +69,7 @@ interface CustomFAQ {
   answer: string;
 }
 
-const DEFAULT_CONFIG: SiteConfig = {
-  companyName: 'BIZFLOW',
-  phone: '+60 3 2771 8000',
-  email: 'info@bizflow.com',
-  address: 'Level 09, Integra Tower, The Intermark, 348 Jalan Tun Razak, 50400 Kuala Lumpur, Malaysia',
-  whatsapp: '+601124244993',
-  heroTitle: 'STRATEGIC CONSULTANCY'
-};
+const DEFAULT_CONFIG: SiteConfig = DEFAULT_SITE_CONFIG;
 
 interface AdminPageProps {
   onClose: () => void;
@@ -148,18 +136,9 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
     };
     window.addEventListener(LEADS_UPDATED_EVENT, handleLeadsUpdated);
 
-    const storedConfig = localStorage.getItem('bizflow_site_config');
-    if (storedConfig) {
-      try {
-        setConfig(JSON.parse(storedConfig));
-      } catch (e) {
-        setConfig(DEFAULT_CONFIG);
-      }
-    } else {
-      localStorage.setItem('bizflow_site_config', JSON.stringify(DEFAULT_CONFIG));
-    }
+    setConfig(sanitizeAndGetSiteConfig());
 
-    const storedFAQs = localStorage.getItem('bizflow_custom_faqs');
+    const storedFAQs = localStorage.getItem('bizskoop_custom_faqs');
     if (storedFAQs) {
       try {
         setCustomFAQs(JSON.parse(storedFAQs));
@@ -187,13 +166,13 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    const storedPIN = localStorage.getItem('bizflow_admin_pin') || 'admin123';
+    const storedPIN = localStorage.getItem('bizskoop_admin_pin') || 'admin123';
     
     if (pin === storedPIN) {
       setIsAuthenticated(true);
-      sessionStorage.setItem('bizflow_admin_auth', 'true');
+      sessionStorage.setItem('bizskoop_admin_auth', 'true');
       setErrorMsg('');
-      showToast('Welcome to BizFlow Master Admin');
+      showToast('Welcome to Bizskoop Master Admin');
     } else {
       setErrorMsg('Invalid Admin PIN! Default is admin123');
       setPin('');
@@ -202,7 +181,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
 
   const handleLogout = () => {
     setIsAuthenticated(false);
-    sessionStorage.removeItem('bizflow_admin_auth');
+    sessionStorage.removeItem('bizskoop_admin_auth');
     setPin('');
     showToast('Logged out securely');
   };
@@ -210,7 +189,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
   const handleResetPIN = () => {
     const newPIN = prompt('Enter new 4+ digit Admin PIN:');
     if (newPIN && newPIN.trim().length >= 4) {
-      localStorage.setItem('bizflow_admin_pin', newPIN.trim());
+      localStorage.setItem('bizskoop_admin_pin', newPIN.trim());
       showToast('Admin PIN updated successfully!');
     } else if (newPIN) {
       alert('PIN must be at least 4 characters.');
@@ -221,7 +200,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
   const handleToggleRead = (id: string) => {
     const updated = leads.map(l => l.id === id ? { ...l, status: (l.status === 'unread' ? 'read' : 'unread') as 'unread' | 'read' } : l);
     setLeads(updated);
-    localStorage.setItem('bizflow_leads', JSON.stringify(updated));
+    localStorage.setItem('bizskoop_leads', JSON.stringify(updated));
     showToast('Lead status updated.');
   };
 
@@ -233,7 +212,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
 
     const updated = leads.map(l => l.id === id ? { ...l, status: newStatus } : l);
     setLeads(updated);
-    localStorage.setItem('bizflow_leads', JSON.stringify(updated));
+    localStorage.setItem('bizskoop_leads', JSON.stringify(updated));
     logAdminAudit(`Moved inquiry "${lead.fullName}" from ${oldStatus} to ${newStatus}`);
     setAuditLogs(getStoredAuditLogs());
     showToast(`"${lead.fullName}" moved to ${newStatus}.`);
@@ -270,7 +249,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
   const handleMarkAllRead = () => {
     const updated = leads.map(l => ({ ...l, status: 'read' as const }));
     setLeads(updated);
-    localStorage.setItem('bizflow_leads', JSON.stringify(updated));
+    localStorage.setItem('bizskoop_leads', JSON.stringify(updated));
     showToast('All inquiries marked as read.');
   };
 
@@ -278,7 +257,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
     if (confirm('Are you sure you want to delete this inquiry?')) {
       const updated = leads.filter(l => l.id !== id);
       setLeads(updated);
-      localStorage.setItem('bizflow_leads', JSON.stringify(updated));
+      localStorage.setItem('bizskoop_leads', JSON.stringify(updated));
       setSelectedLead(null);
       showToast('Inquiry successfully deleted.');
     }
@@ -288,7 +267,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
     if (confirm('WARNING: This will delete ALL leads permanently. Proceed?')) {
       setLeads([]);
       setSelectedLeadIds([]);
-      localStorage.setItem('bizflow_leads', JSON.stringify([]));
+      localStorage.setItem('bizskoop_leads', JSON.stringify([]));
       showToast('All leads cleared.');
     }
   };
@@ -313,7 +292,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
   const handleBulkMarkRead = () => {
     const updated = leads.map(l => selectedLeadIds.includes(l.id) ? { ...l, status: 'read' as const } : l);
     setLeads(updated);
-    localStorage.setItem('bizflow_leads', JSON.stringify(updated));
+    localStorage.setItem('bizskoop_leads', JSON.stringify(updated));
     setSelectedLeadIds([]);
     showToast(`Marked ${selectedLeadIds.length} inquiries as read.`);
   };
@@ -321,7 +300,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
   const handleBulkMarkUnread = () => {
     const updated = leads.map(l => selectedLeadIds.includes(l.id) ? { ...l, status: 'unread' as const } : l);
     setLeads(updated);
-    localStorage.setItem('bizflow_leads', JSON.stringify(updated));
+    localStorage.setItem('bizskoop_leads', JSON.stringify(updated));
     setSelectedLeadIds([]);
     showToast(`Marked ${selectedLeadIds.length} inquiries as unread.`);
   };
@@ -330,7 +309,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
     if (confirm(`Are you sure you want to delete ${selectedLeadIds.length} selected inquiries?`)) {
       const updated = leads.filter(l => !selectedLeadIds.includes(l.id));
       setLeads(updated);
-      localStorage.setItem('bizflow_leads', JSON.stringify(updated));
+      localStorage.setItem('bizskoop_leads', JSON.stringify(updated));
       setSelectedLeadIds([]);
       setSelectedLead(null);
       showToast(`Successfully deleted ${selectedLeadIds.length} inquiries.`);
@@ -347,7 +326,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
     if (!editingNoteLead) return;
     const updated = leads.map(l => l.id === editingNoteLead.id ? { ...l, notes: noteInput } : l);
     setLeads(updated);
-    localStorage.setItem('bizflow_leads', JSON.stringify(updated));
+    localStorage.setItem('bizskoop_leads', JSON.stringify(updated));
     logAdminAudit(`Updated notes for inquiry ${editingNoteLead.fullName}`);
     setAuditLogs(getStoredAuditLogs());
     showToast('Admin notes updated successfully.');
@@ -357,7 +336,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
   const handleSavePricingItem = (updatedItem: ServicePricingItem) => {
     const updated = pricingMatrix.map(item => item.id === updatedItem.id ? updatedItem : item);
     setPricingMatrix(updated);
-    localStorage.setItem('bizflow_pricing_matrix', JSON.stringify(updated));
+    localStorage.setItem('bizskoop_pricing_matrix', JSON.stringify(updated));
     window.dispatchEvent(new Event(PRICING_UPDATED_EVENT));
     logAdminAudit(`Updated pricing matrix for ${updatedItem.serviceName}`);
     setAuditLogs(getStoredAuditLogs());
@@ -367,7 +346,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
 
   const handleSaveAnnouncement = (e: React.FormEvent) => {
     e.preventDefault();
-    localStorage.setItem('bizflow_announcement', JSON.stringify(announcement));
+    localStorage.setItem('bizskoop_announcement', JSON.stringify(announcement));
     window.dispatchEvent(new Event(ANNOUNCEMENT_UPDATED_EVENT));
     logAdminAudit(`Updated banner announcement: "${announcement.message.substring(0, 30)}..."`);
     setAuditLogs(getStoredAuditLogs());
@@ -376,7 +355,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
 
   const handleClearAuditLogs = () => {
     if (confirm('Clear administrative audit logs history?')) {
-      localStorage.removeItem('bizflow_audit_logs');
+      localStorage.removeItem('bizskoop_audit_logs');
       setAuditLogs([]);
       showToast('Audit log history cleared.');
     }
@@ -414,7 +393,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
 
     const updated = [testLead, ...leads];
     setLeads(updated);
-    localStorage.setItem('bizflow_leads', JSON.stringify(updated));
+    localStorage.setItem('bizskoop_leads', JSON.stringify(updated));
     showToast('New test inquiry generated!');
   };
 
@@ -439,7 +418,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.setAttribute('href', url);
-    link.setAttribute('download', `bizflow_filtered_leads_${new Date().toISOString().split('T')[0]}.csv`);
+    link.setAttribute('download', `bizskoop_filtered_leads_${new Date().toISOString().split('T')[0]}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -449,8 +428,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
   // Config actions
   const handleSaveConfig = (e: React.FormEvent) => {
     e.preventDefault();
-    localStorage.setItem('bizflow_site_config', JSON.stringify(config));
-    window.dispatchEvent(new Event('bizflow_config_updated'));
+    saveSiteConfig(config);
     showToast('Site Configuration successfully saved & synced!');
   };
 
@@ -468,7 +446,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
 
     const updated = [newFaq, ...customFAQs];
     setCustomFAQs(updated);
-    localStorage.setItem('bizflow_custom_faqs', JSON.stringify(updated));
+    localStorage.setItem('bizskoop_custom_faqs', JSON.stringify(updated));
     setFaqForm({ service: 'general', question: '', answer: '' });
     showToast('Custom FAQ injected successfully!');
   };
@@ -476,7 +454,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
   const handleDeleteFAQ = (id: string) => {
     const updated = customFAQs.filter(f => f.id !== id);
     setCustomFAQs(updated);
-    localStorage.setItem('bizflow_custom_faqs', JSON.stringify(updated));
+    localStorage.setItem('bizskoop_custom_faqs', JSON.stringify(updated));
     showToast('Custom FAQ removed.');
   };
 
@@ -704,7 +682,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
               <Lock size={38} className="drop-shadow" />
             </div>
             
-            <h2 className="text-3xl font-black text-slate-900 tracking-tighter mb-1 uppercase">BIZFLOW ADMIN</h2>
+            <h2 className="text-3xl font-black text-slate-900 tracking-tighter mb-1 uppercase">BIZSKOOP ADMIN</h2>
             <p className="text-slate-500 font-bold uppercase tracking-widest text-[10px] mb-8">Confidential Executive Suite & Lead Control</p>
             
             <form onSubmit={handleLogin} className="w-full space-y-5">
@@ -769,7 +747,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
                     B
                   </div>
                   <div>
-                    <h3 className="font-black text-slate-900 text-lg tracking-tighter uppercase leading-none">BizFlow</h3>
+                    <h3 className="font-black text-slate-900 text-lg tracking-tighter uppercase leading-none">Bizskoop</h3>
                     <span className="text-[9px] font-bold tracking-widest text-amber-600 uppercase">Executive Suite</span>
                   </div>
                 </div>
@@ -1614,8 +1592,8 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
                         type="button"
                         onClick={() => {
                           setConfig(DEFAULT_CONFIG);
-                          localStorage.setItem('bizflow_site_config', JSON.stringify(DEFAULT_CONFIG));
-                          window.dispatchEvent(new Event('bizflow_config_updated'));
+                          localStorage.setItem('bizskoop_site_config', JSON.stringify(DEFAULT_CONFIG));
+                          window.dispatchEvent(new Event('bizskoop_config_updated'));
                           showToast('Reset to default configuration!');
                         }}
                         className="px-6 py-4 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-xs uppercase tracking-widest transition-all cursor-pointer"

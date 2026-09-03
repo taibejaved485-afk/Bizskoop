@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Phone, Mail, Facebook, Twitter, Linkedin, Youtube, Clock, Globe, Search, X, Loader2, Star, ChevronDown, Bell, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
-import { getStoredAnnouncement, ANNOUNCEMENT_UPDATED_EVENT } from '../services/leadStorage.ts';
+import { getStoredAnnouncement, ANNOUNCEMENT_UPDATED_EVENT, sanitizeAndGetSiteConfig, SITE_CONFIG_UPDATED_EVENT, DEFAULT_SITE_CONFIG, SiteConfig } from '../services/leadStorage.ts';
 import { AnnouncementConfig } from '../types.ts';
 import { useLanguage } from './LanguageContext.tsx';
 
@@ -24,21 +24,11 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
   const [activeSection, setActiveSection] = useState('home');
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  const [config, setConfig] = useState({
-    companyName: 'BIZFLOW',
-    phone: '+60 3 2771 8000',
-    email: 'info@bizflow.com',
-    address: 'Level 09, Integra Tower, The Intermark, 348 Jalan Tun Razak, 50400 Kuala Lumpur, Malaysia',
-    whatsapp: '+601124244993',
-    heroTitle: 'STRATEGIC CONSULTANCY'
-  });
+  const [config, setConfig] = useState<SiteConfig>(DEFAULT_SITE_CONFIG);
 
   useEffect(() => {
     const loadConfig = () => {
-      const storedConfig = localStorage.getItem('bizflow_site_config');
-      if (storedConfig) {
-        setConfig(JSON.parse(storedConfig));
-      }
+      setConfig(sanitizeAndGetSiteConfig());
       setAnnouncement(getStoredAnnouncement());
     };
 
@@ -48,10 +38,12 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
       setAnnouncement(getStoredAnnouncement());
     };
 
-    window.addEventListener('bizflow_config_updated', loadConfig);
+    window.addEventListener(SITE_CONFIG_UPDATED_EVENT, loadConfig);
+    window.addEventListener('bizskoop_config_updated', loadConfig);
     window.addEventListener(ANNOUNCEMENT_UPDATED_EVENT, handleAnnouncement);
     return () => {
-      window.removeEventListener('bizflow_config_updated', loadConfig);
+      window.removeEventListener(SITE_CONFIG_UPDATED_EVENT, loadConfig);
+      window.removeEventListener('bizskoop_config_updated', loadConfig);
       window.removeEventListener(ANNOUNCEMENT_UPDATED_EVENT, handleAnnouncement);
     };
   }, []);
@@ -449,7 +441,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
 
               <button 
                 onClick={() => onNavigate('contact')} 
-                className={`bizflow-liquid-consult px-6 py-3 bg-[#E91E63] text-white text-[13px] font-black rounded-lg hover:bg-[#C2185B] transition-all shadow-lg uppercase tracking-widest ${isScrolled ? 'scale-90' : 'scale-100'}`}
+                className={`bizskoop-liquid-consult px-6 py-3 bg-[#E91E63] text-white text-[13px] font-black rounded-lg hover:bg-[#C2185B] transition-all shadow-lg uppercase tracking-widest ${isScrolled ? 'scale-90' : 'scale-100'}`}
               >
                 <span className="relative z-10">Get a Consultation</span>
               </button>
@@ -500,7 +492,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
               className="lg:hidden fixed top-0 right-0 h-full w-[85vw] max-w-[380px] bg-gradient-to-b from-royal-blue to-[#051622] z-[1000] shadow-2xl flex flex-col"
             >
               <div className="flex justify-between items-center px-6 py-5 border-b border-white/10 shrink-0">
-                <span className="text-white font-black text-2xl uppercase tracking-tighter">BIZFLOW</span>
+                <span className="text-white font-black text-2xl uppercase tracking-tighter">BIZSKOOP</span>
                 <button 
                   onClick={() => setIsMobileMenuOpen(false)} 
                   className="p-1.5 rounded-lg bg-white/5 text-white hover:bg-white/10 transition-colors focus:outline-none cursor-pointer"

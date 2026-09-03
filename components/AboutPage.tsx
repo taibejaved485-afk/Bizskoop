@@ -20,23 +20,23 @@ const AboutPage: React.FC = () => {
 
   const faqs = [
     {
-      question: "What exactly does BizFlow do for international entrepreneurs?",
-      answer: "BizFlow acts as a strategic launchpad. We handle the entire spectrum of business setup in Malaysia—from initial SSM company incorporation and licensed secretarial duties to securing specialized business permits (WRT, CIDB) and handling complex Employment Pass (EP) applications for expatriate talent."
+      question: "What exactly does Bizskoop do for international entrepreneurs?",
+      answer: "Bizskoop acts as a strategic launchpad. We handle the entire spectrum of business setup in Malaysia—from initial SSM company incorporation and licensed secretarial duties to securing specialized business permits (WRT, CIDB) and handling complex Employment Pass (EP) applications for expatriate talent."
     },
     {
-      question: "Why should I choose BizFlow over other Malaysian consultancies?",
+      question: "Why should I choose Bizskoop over other Malaysian consultancies?",
       answer: "Unlike generalist agencies, we are specialized 'Execution Partners.' We combine high-level strategic advisory with direct authorization to handle ESD, MDEC, and SSM portals. Our methodology focuses on speed, zero-friction compliance, and transparent pricing—no hidden retainers or fine print."
     },
     {
-      question: "What industries does BizFlow specialize in?",
+      question: "What industries does Bizskoop specialize in?",
       answer: "We have deep expertise in Tech & Digital Economy (MDEC/MD Status), Retail & Wholesale (WRT Licensing), Manufacturing (MIDA incentives), and Professional Services. Our team is equipped to navigate the specific regulatory requirements of over 25 distinct industry sectors in Malaysia."
     },
     {
-      question: "How does BizFlow ensure 100% compliance with Malaysian authorities?",
+      question: "How does Bizskoop ensure 100% compliance with Malaysian authorities?",
       answer: "Our units are led by licensed professionals—Company Secretaries registered with SSM, Chartered Accountants with MIA, and authorized immigration agents. We conduct rigorous internal audits before any submission to authorities like LHDN, ESD, or local municipal councils to ensure a 98% first-time approval rate."
     },
     {
-      question: "Does BizFlow support businesses outside of Kuala Lumpur?",
+      question: "Does Bizskoop support businesses outside of Kuala Lumpur?",
       answer: "Yes. While our headquarters is in KL City Centre (Menara Binjai), we manage federal and state compliance for businesses across all of Malaysia, including Selangor (Petaling Jaya, Shah Alam), Johor, and Penang. Our digital-first approach allows us to serve clients from over 40 countries remotely."
     }
   ];
@@ -126,7 +126,7 @@ const AboutPage: React.FC = () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-gold"></span>
               </span>
-              The BizFlow Narrative
+              The Bizskoop Narrative
             </motion.div>
             <motion.h1 
               variants={{
@@ -186,7 +186,7 @@ const AboutPage: React.FC = () => {
                   <img 
                     src="https://i.pinimg.com/1200x/95/15/92/951592f4a2d51c5a3195039997a306c9.jpg" 
                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
-                    alt="BizFlow Team" 
+                    alt="Bizskoop Team" 
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>
@@ -260,7 +260,7 @@ const AboutPage: React.FC = () => {
                   transition={{ duration: 0.6, delay: 0.3 }}
                   className="text-slate-600 text-xs sm:text-sm lg:text-base leading-relaxed font-medium mb-3"
                 >
-                  BizFlow was founded on the principle that business incorporation should be a catalyst for growth, not a bureaucratic hurdle. In the dynamic Malaysian landscape, speed and compliance are the twin engines of success.
+                  Bizskoop was founded on the principle that business incorporation should be a catalyst for growth, not a bureaucratic hurdle. In the dynamic Malaysian landscape, speed and compliance are the twin engines of success.
                 </motion.p>
                 <motion.p 
                   initial={{ opacity: 0, y: 15 }}
@@ -486,7 +486,7 @@ const AboutPage: React.FC = () => {
                 <svg className="w-6 h-6 sm:w-7 sm:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
               </div>
               <p className="text-slate-600 font-medium text-sm sm:text-base leading-relaxed max-w-2xl">
-                Trusted by hundreds of companies and individuals, Bizflow delivers compliant, practical business solutions in Malaysia. <span className="font-bold text-royal-blue">Speak to our team today for professional support you can rely on.</span>
+                Trusted by hundreds of companies and individuals, Bizskoop delivers compliant, practical business solutions in Malaysia. <span className="font-bold text-royal-blue">Speak to our team today for professional support you can rely on.</span>
               </p>
             </div>
             <div className="flex items-center gap-4 bg-slate-50 p-4 sm:p-5 rounded-[20px] sm:rounded-[24px] border border-slate-100 w-full lg:w-auto min-w-0 sm:min-w-[280px] justify-center sm:justify-start group/phone hover:bg-navy-dark transition-colors duration-500 relative z-10">
@@ -568,7 +568,7 @@ const AboutPage: React.FC = () => {
               viewport={{ once: true }}
               className="text-gold font-black text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.5em] block mb-2"
             >
-              The Pillars of BizFlow
+              The Pillars of Bizskoop
             </motion.span>
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}
@@ -773,7 +773,7 @@ const AboutPage: React.FC = () => {
               viewport={{ once: true }}
               className="text-gold font-black text-[10px] sm:text-xs uppercase tracking-[0.3em] sm:tracking-[0.5em] mb-2 block"
             >
-              Clarity on BizFlow
+              Clarity on Bizskoop
             </motion.span>
             <motion.h2 
               initial={{ opacity: 0, y: 20 }}

@@ -17,7 +17,7 @@ const policyData: Record<string, {
   'Privacy Policy': {
     icon: Shield,
     tagline: 'CONFIDENTIALITY & TRUST BENCHMARK',
-    introduction: 'At BizFlow, we prioritize the security, privacy, and confidentiality of our clients\' corporate and personal data. This Privacy Policy details our elite data management guidelines, ensuring your business records remain entirely private.',
+    introduction: 'At Bizskoop, we prioritize the security, privacy, and confidentiality of our clients\' corporate and personal data. This Privacy Policy details our elite data management guidelines, ensuring your business records remain entirely private.',
     sections: [
       {
         title: '1. Information We Collect',
@@ -33,18 +33,18 @@ const policyData: Record<string, {
       },
       {
         title: '4. Absolute Third-Party Restriction',
-        content: 'BizFlow does NOT sell, rent, or lease client lists to third parties. Data is only shared with official Malaysian federal authorities (SSM, LHDN, DBKL, MDEC) as strictly required by law.'
+        content: 'Bizskoop does NOT sell, rent, or lease client lists to third parties. Data is only shared with official Malaysian federal authorities (SSM, LHDN, DBKL, MDEC) as strictly required by law.'
       }
     ]
   },
   'Terms of Service': {
     icon: Scale,
     tagline: 'MUTUAL OBLIGATIONS & COMPLIANCE',
-    introduction: 'These Terms of Service govern your professional engagement with BizFlow for company formation, corporate secretarial custody, tax compliance, and business licensing facilitation in Malaysia.',
+    introduction: 'These Terms of Service govern your professional engagement with Bizskoop for company formation, corporate secretarial custody, tax compliance, and business licensing facilitation in Malaysia.',
     sections: [
       {
         title: '1. Professional Scope of Work',
-        content: 'BizFlow acts as your official corporate liaison and registered company secretary. We facilitate statutory compliance in strict conformance with the Malaysian Companies Act 2016.'
+        content: 'Bizskoop acts as your official corporate liaison and registered company secretary. We facilitate statutory compliance in strict conformance with the Malaysian Companies Act 2016.'
       },
       {
         title: '2. Client Verification & Responsibilities',
@@ -52,18 +52,18 @@ const policyData: Record<string, {
       },
       {
         title: '3. Limitation of Liability',
-        content: 'While BizFlow maintains a 100% compliance success track record, final approvals for specialized licenses, immigration passes, or custom permits are at the sole discretion of Malaysian government departments.'
+        content: 'While Bizskoop maintains a 100% compliance success track record, final approvals for specialized licenses, immigration passes, or custom permits are at the sole discretion of Malaysian government departments.'
       },
       {
         title: '4. Indemnity & Regulatory Actions',
-        content: 'Clients agree to indemnify BizFlow against penalties arising from inaccurate financial submissions, undisclosed legal liabilities, or late declarations not caused by BizFlow secretarial negligence.'
+        content: 'Clients agree to indemnify Bizskoop against penalties arising from inaccurate financial submissions, undisclosed legal liabilities, or late declarations not caused by Bizskoop secretarial negligence.'
       }
     ]
   },
   'Refund Policy': {
     icon: FileText,
     tagline: 'TRANSPARENT CLIENT-FIRST FINANCES',
-    introduction: 'We believe in absolute financial transparency. BizFlow maintains a fair, milestone-based refund scheme to support entrepreneurs through every step of their registration journey.',
+    introduction: 'We believe in absolute financial transparency. Bizskoop maintains a fair, milestone-based refund scheme to support entrepreneurs through every step of their registration journey.',
     sections: [
       {
         title: '1. 100% Refund Guarantee',
@@ -79,14 +79,14 @@ const policyData: Record<string, {
       },
       {
         title: '4. Disputes & Resolution',
-        content: 'Refund requests must be formally submitted to accounts@bizflow.com. Approved refunds are processed back via the original payment method within 5 to 7 working business days.'
+        content: 'Refund requests must be formally submitted to accounts@bizskoop.com. Approved refunds are processed back via the original payment method within 5 to 7 working business days.'
       }
     ]
   },
   'Compliance Standards': {
     icon: CheckCircle,
     tagline: 'MALAYSIA COMPANIES ACT 2016 COMPLIANT',
-    introduction: 'BizFlow operates under strict alignment with federal laws, SSM regulatory mandates, and international corporate governance best practices to keep your company in premium active standing.',
+    introduction: 'Bizskoop operates under strict alignment with federal laws, SSM regulatory mandates, and international corporate governance best practices to keep your company in premium active standing.',
     sections: [
       {
         title: '1. Statutory Register Maintenance',
@@ -98,7 +98,7 @@ const policyData: Record<string, {
       },
       {
         title: '3. Anti-Money Laundering (AML/CFT)',
-        content: 'BizFlow strictly complies with the Anti-Money Laundering, Anti-Terrorism Financing and Proceeds of Unlawful Activities Act 2001 (AMLA). We execute mandatory KYC screenings for all client directors.'
+        content: 'Bizskoop strictly complies with the Anti-Money Laundering, Anti-Terrorism Financing and Proceeds of Unlawful Activities Act 2001 (AMLA). We execute mandatory KYC screenings for all client directors.'
       },
       {
         title: '4. Professional Standards Auditing',
@@ -198,7 +198,7 @@ export const LegalModal: React.FC<LegalModalProps> = ({ isOpen, onClose, policyT
             {/* Modal Footer */}
             <div className="p-6 sm:p-8 bg-slate-50 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 shrink-0">
               <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest">
-                BizFlow Compliance Facilitation Portal • Active
+                Bizskoop Compliance Facilitation Portal • Active
               </p>
               <button
                 onClick={onClose}

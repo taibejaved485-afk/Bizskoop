@@ -418,7 +418,7 @@ export const AdminBlogManager: React.FC<AdminBlogManagerProps> = ({ onLogAudit, 
     setFormImageAlt(post.imageAlt || post.title);
     setFormImageCaption(post.imageCaption || '');
 
-    setFormMetaTitle(post.metaTitle || `${post.title.slice(0, 50)} | Bizflow`);
+    setFormMetaTitle(post.metaTitle || `${post.title.slice(0, 50)} | Bizskoop`);
     setFormMetaDescription(post.metaDescription || post.excerpt);
     setFormFocusKeywords(post.focusKeywords || post.tags || []);
 
@@ -482,7 +482,7 @@ export const AdminBlogManager: React.FC<AdminBlogManagerProps> = ({ onLogAudit, 
     const postPayload = {
       title: formTitle.trim(),
       slug: formSlug.trim() || formTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
-      excerpt: formExcerpt.trim() || formSummary.slice(0, 160) || 'Comprehensive regulatory briefing by Bizflow Advisory.',
+      excerpt: formExcerpt.trim() || formSummary.slice(0, 160) || 'Comprehensive regulatory briefing by Bizskoop Advisory.',
       category: formCategory,
       categoryLabel,
       readTime: formReadTime,
@@ -499,7 +499,7 @@ export const AdminBlogManager: React.FC<AdminBlogManagerProps> = ({ onLogAudit, 
       focusKeywords: cleanKeywords.length > 0 ? cleanKeywords : cleanTags,
       author: {
         name: formAuthorName.trim() || 'Senior Corporate Advisor',
-        role: formAuthorRole.trim() || 'Bizflow Secretarial & Tax Practice',
+        role: formAuthorRole.trim() || 'Bizskoop Secretarial & Tax Practice',
         avatar: formAuthorAvatar.trim() || AUTHOR_PRESETS[0].avatar
       },
       tags: cleanTags.length > 0 ? cleanTags : ['Corporate Services', 'Malaysia 2026'],

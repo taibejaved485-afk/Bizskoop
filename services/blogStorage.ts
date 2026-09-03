@@ -35,9 +35,9 @@ export interface BlogPost {
   };
 }
 
-export const BLOGS_STORAGE_KEY = 'bizflow_blogs_list';
-export const BLOGS_UPDATED_EVENT = 'bizflow_blogs_updated';
-export const BLOGS_AUTOSAVE_DRAFT_KEY = 'bizflow_blog_editor_autosave';
+export const BLOGS_STORAGE_KEY = 'bizskoop_blogs_list';
+export const BLOGS_UPDATED_EVENT = 'bizskoop_blogs_updated';
+export const BLOGS_AUTOSAVE_DRAFT_KEY = 'bizskoop_blog_editor_autosave';
 
 export const DEFAULT_BLOG_POSTS: BlogPost[] = [
   {
@@ -91,7 +91,7 @@ export const DEFAULT_BLOG_POSTS: BlogPost[] = [
           heading: '3. Mandatory Secretarial Appointments & Deadlines',
           body: [
             'Every Sdn Bhd must officially appoint a licensed Company Secretary registered with the Malaysian Institute of Chartered Secretaries and Administrators (MAICSA) or holding a valid SSM practicing certificate within 30 days of incorporation.',
-            'Bizflow provides registered office address compliance, annual return filings, and board resolutions under one integrated advisory package.'
+            'Bizskoop provides registered office address compliance, annual return filings, and board resolutions under one integrated advisory package.'
           ]
         }
       ],
@@ -241,7 +241,7 @@ export const DEFAULT_BLOG_POSTS: BlogPost[] = [
         {
           heading: '2. The MyInvois Portal Integration',
           body: [
-            'Bizflow helps businesses seamlessly link accounting engines with the Inland Revenue Board API or manage consolidated monthly e-invoice submissions compliant with IRB standard formats.'
+            'Bizskoop helps businesses seamlessly link accounting engines with the Inland Revenue Board API or manage consolidated monthly e-invoice submissions compliant with IRB standard formats.'
           ]
         }
       ],
@@ -322,7 +322,7 @@ export const DEFAULT_BLOG_POSTS: BlogPost[] = [
         'Signboard compliance requires Bahasa Melayu text to be visually prominent and grammatically validated by Dewan Bahasa dan Pustaka (DBP).',
         'Commercial zoning validation is essential; operating commercial activities in residential or unapproved units results in immediate fines or closure.',
         'Bomba (Fire Department) architectural floor plan approvals and emergency exit compliance are required prior to final council inspection.',
-        'Bizflow handles complete site inspections, architectural liaison, and council appeals.'
+        'Bizskoop handles complete site inspections, architectural liaison, and council appeals.'
       ],
       sections: [
         {

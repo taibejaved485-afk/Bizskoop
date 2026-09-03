@@ -49,7 +49,7 @@ const ImmigrationSupport: React.FC = () => {
 
     saveNewLead({
       fullName: name,
-      email: 'mobility@bizflow-client.com',
+      email: 'mobility@bizskoop-client.com',
       companyName: companyName,
       phoneNumber: `Nationality: ${nationality} | Start Date: ${startDate}`,
       service: 'visa',

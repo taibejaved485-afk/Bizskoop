@@ -163,7 +163,7 @@ const ContactPage: React.FC = () => {
         await new Promise(resolve => setTimeout(resolve, 1500));
         
         // Generate pseudo-ticket ID
-        const randomTicket = `BZF-${Math.floor(100000 + Math.random() * 900000)}`;
+        const randomTicket = `BZK-${Math.floor(100000 + Math.random() * 900000)}`;
         setGeneratedTicket(randomTicket);
 
         // Save lead using central leadStorage
@@ -415,7 +415,7 @@ const ContactPage: React.FC = () => {
                   {
                     icon: <Mail size={16} />,
                     title: "Email Channels",
-                    desc: <>General Inquiry: info@bizflow.com<br />Official Compliance: official@bizflow.com</>
+                    desc: <>General Inquiry: info@bizskoop.com<br />Official Compliance: official@bizskoop.com</>
                   }
                 ].map((item, i) => (
                   <motion.div 

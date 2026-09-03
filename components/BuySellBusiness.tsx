@@ -138,7 +138,7 @@ const BuySellBusiness: React.FC = () => {
               }}
               className="text-xs sm:text-sm lg:text-base text-blue-100/80 mb-6 leading-relaxed font-medium max-w-2xl"
             >
-              Whether you are looking to exit your venture or acquire a profitable business in Malaysia, BizFlow ensures a secure, transparent, and professional transaction with absolute confidentiality.
+              Whether you are looking to exit your venture or acquire a profitable business in Malaysia, Bizskoop ensures a secure, transparent, and professional transaction with absolute confidentiality.
             </motion.p>
 
             <motion.div 

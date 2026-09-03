@@ -64,9 +64,9 @@ export const SeoMetaManager: React.FC<SeoMetaManagerProps> = ({
       onSlugChange(cleanSlug);
 
       // 2. Generate Meta Title (50-60 chars optimal)
-      let generatedTitle = `${title.slice(0, 55)} | Bizflow Malaysia`;
+      let generatedTitle = `${title.slice(0, 55)} | Bizskoop Malaysia`;
       if (generatedTitle.length > 60) {
-        generatedTitle = `${title.slice(0, 42)} | Bizflow Advisory`;
+        generatedTitle = `${title.slice(0, 42)} | Bizskoop Advisory`;
       }
       onMetaTitleChange(generatedTitle);
 
@@ -176,7 +176,7 @@ export const SeoMetaManager: React.FC<SeoMetaManagerProps> = ({
               type="text"
               value={metaTitle}
               onChange={(e) => onMetaTitleChange(e.target.value)}
-              placeholder="e.g., 100% Foreign Owned Sdn Bhd Incorporation Guide Malaysia 2026 | Bizflow"
+              placeholder="e.g., 100% Foreign Owned Sdn Bhd Incorporation Guide Malaysia 2026 | Bizskoop"
               className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-xs font-medium focus:ring-2 focus:ring-royal-blue focus:outline-hidden"
             />
           </div>
@@ -188,7 +188,7 @@ export const SeoMetaManager: React.FC<SeoMetaManagerProps> = ({
             </label>
             <div className="flex items-center rounded-xl border border-slate-200 bg-slate-50 overflow-hidden focus-within:ring-2 focus-within:ring-royal-blue">
               <span className="px-3 text-xs text-slate-400 font-mono select-none">
-                bizflow.my/insights/
+                bizskoop.my/insights/
               </span>
               <input
                 type="text"
@@ -341,7 +341,7 @@ export const SeoMetaManager: React.FC<SeoMetaManagerProps> = ({
                 <span className="w-4 h-4 rounded-full bg-royal-blue text-white text-[8px] font-black flex items-center justify-center shrink-0">
                   B
                 </span>
-                <span className="font-medium text-slate-800">Bizflow Malaysia</span>
+                <span className="font-medium text-slate-800">Bizskoop Malaysia</span>
                 <span className="text-slate-400">› insights › {slug || 'article-slug'}</span>
               </div>
               <h4 className="text-sm font-semibold text-[#1a0dab] hover:underline cursor-pointer leading-snug line-clamp-2">
