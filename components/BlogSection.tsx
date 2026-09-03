@@ -6,7 +6,7 @@ import {
   Clock, 
   User, 
   ArrowRight, 
-  ArrowLeft,
+  ArrowLeft, 
   Search, 
   Tag, 
   Share2, 
@@ -15,18 +15,18 @@ import {
   Building2, 
   FileText, 
   X, 
-  ChevronRight,
-  ExternalLink,
-  Bookmark,
-  Check,
-  Award,
-  Filter,
-  SlidersHorizontal,
-  Briefcase,
-  Globe2,
-  FileCheck2,
-  Receipt,
-  Scale
+  ChevronRight, 
+  ExternalLink, 
+  Bookmark, 
+  Check, 
+  Award, 
+  Filter, 
+  SlidersHorizontal, 
+  Briefcase, 
+  Globe2, 
+  FileCheck2, 
+  Receipt, 
+  Scale 
 } from 'lucide-react';
 import { BlogPost, getStoredBlogPosts, BLOGS_UPDATED_EVENT } from '../services/blogStorage.ts';
 
@@ -38,7 +38,7 @@ interface BlogSectionProps {
 }
 
 export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalonePage = false }) => {
-  const [posts, setPosts] = useState<BlogPost[]>(() => getStoredBlogPosts());
+  const [allPosts, setAllPosts] = useState<BlogPost[]>(() => getStoredBlogPosts());
   const [activeArticle, setActiveArticle] = useState<BlogPost | null>(null);
   const [savedArticles, setSavedArticles] = useState<string[]>(() => {
     try {
@@ -49,13 +49,23 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
   });
   const [copiedLink, setCopiedLink] = useState(false);
 
+  // Standalone page filters
+  const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedTag, setSelectedTag] = useState<string>('all');
+
   useEffect(() => {
     const handleUpdate = () => {
-      setPosts(getStoredBlogPosts());
+      setAllPosts(getStoredBlogPosts());
     };
     window.addEventListener(BLOGS_UPDATED_EVENT, handleUpdate);
     return () => window.removeEventListener(BLOGS_UPDATED_EVENT, handleUpdate);
   }, []);
+
+  // Filter public posts: hide drafts
+  const posts = useMemo(() => {
+    return allPosts.filter(p => p.status !== 'draft');
+  }, [allPosts]);
 
   const toggleSaveArticle = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -76,12 +86,27 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
 
   const blogSectionRef = useRef<HTMLElement>(null);
 
-  // Home preview: show top 3 articles
+  // Home preview: show top 3 articles (prioritize featured)
   const homePreviewPosts = useMemo(() => {
     const featured = posts.filter(p => p.featured);
     const rest = posts.filter(p => !p.featured);
     return [...featured, ...rest].slice(0, 3);
   }, [posts]);
+
+  // Standalone filtered posts
+  const filteredPosts = useMemo(() => {
+    return posts.filter(p => {
+      const matchesSearch = !searchQuery || 
+        p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.tags.some(t => t.toLowerCase().includes(searchQuery.toLowerCase())) ||
+        p.author.name.toLowerCase().includes(searchQuery.toLowerCase());
+      
+      const matchesCategory = selectedCategory === 'all' || p.category === selectedCategory;
+      const matchesTag = selectedTag === 'all' || p.tags.includes(selectedTag);
+      return matchesSearch && matchesCategory && matchesTag;
+    });
+  }, [posts, searchQuery, selectedCategory, selectedTag]);
 
   // Category styling helper
   const getCategoryTheme = (category: string) => {
@@ -118,7 +143,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
         return {
           badgeBg: 'bg-indigo-500/10 border-indigo-500/30 text-indigo-900',
           iconColor: 'text-indigo-600',
-          accentGradient: 'from-indigo-500 via-royal-blue to-blue-500',
+          accentGradient: 'from-indigo-500 via-purple-500 to-blue-500',
           borderHover: 'hover:border-indigo-400/80',
           glow: 'group-hover:shadow-[0_20px_40px_rgba(99,102,241,0.12)]',
           icon: Scale
@@ -126,7 +151,9 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
     }
   };
 
-  // Clean reusable card renderer
+  // ---------------------------------------------------------------------------
+  // Reusable Blog Card Component
+  // ---------------------------------------------------------------------------
   const renderCard = (post: BlogPost, idx: number, isSaved: boolean) => {
     const theme = getCategoryTheme(post.category);
     const CategoryIcon = theme.icon;
@@ -142,37 +169,73 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
         className={`bg-white rounded-3xl border border-slate-200/90 shadow-[0_4px_24px_rgba(0,34,68,0.05)] ${theme.glow} ${theme.borderHover} transition-all duration-300 flex flex-col justify-between overflow-hidden group cursor-pointer relative transform hover:-translate-y-1.5`}
       >
         {/* Top Active Accent Glow Line */}
-        <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${theme.accentGradient} opacity-90 group-hover:h-2 transition-all duration-300`} />
+        <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${theme.accentGradient} opacity-90 group-hover:h-2 transition-all duration-300 z-10`} />
 
-        {/* Ambient background watermark for high-end luxury feel */}
-        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-slate-50 to-transparent rounded-bl-full pointer-events-none -z-0 opacity-60 group-hover:scale-110 transition-transform duration-500" />
-
-        <div className="p-6 sm:p-7 relative z-10 flex-1 flex flex-col">
-          {/* Top Badge & Bookmark Row */}
-          <div className="flex items-center justify-between gap-2 mb-4">
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[10.5px] font-black uppercase tracking-wider border ${theme.badgeBg} shadow-2xs transition-transform group-hover:scale-[1.02]`}>
+        {/* Featured Image Header if present */}
+        {post.featuredImage && (
+          <div className="relative w-full aspect-16/9 bg-slate-900 overflow-hidden shrink-0">
+            <img
+              src={post.featuredImage}
+              alt={post.imageAlt || post.title}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
+            
+            {/* Overlay Category Badge */}
+            <div className="absolute top-3 left-3 flex items-center gap-1.5 z-10">
+              <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-[10px] font-black uppercase tracking-wider backdrop-blur-md bg-white/90 text-royal-blue shadow-md`}>
                 <CategoryIcon size={12} className={theme.iconColor} />
                 <span>{post.categoryLabel}</span>
               </span>
-
               {post.featured && (
-                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-[9.5px] font-black uppercase tracking-wider bg-royal-blue text-gold shadow-2xs border border-royal-blue/40">
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-[9px] font-black uppercase tracking-wider bg-royal-blue text-gold shadow-md border border-gold/30">
                   <Sparkles size={10} className="text-gold" />
                   <span>Featured</span>
                 </span>
               )}
             </div>
 
+            {/* Bookmark button */}
             <button
               type="button"
               onClick={(e) => toggleSaveArticle(post.id, e)}
-              className="w-8 h-8 rounded-xl bg-slate-50 hover:bg-gold/20 border border-slate-200/70 hover:border-gold/50 flex items-center justify-center text-slate-400 hover:text-royal-blue transition-all cursor-pointer shadow-2xs"
+              className="absolute top-3 right-3 w-8 h-8 rounded-xl bg-white/90 hover:bg-gold backdrop-blur-md text-slate-700 hover:text-royal-blue flex items-center justify-center transition-all shadow-md z-10"
               title={isSaved ? "Saved" : "Save for later"}
             >
-              <Bookmark size={14} className={isSaved ? "fill-gold text-gold" : "text-slate-400"} />
+              <Bookmark size={14} className={isSaved ? "fill-gold text-gold" : "text-slate-700"} />
             </button>
           </div>
+        )}
+
+        <div className="p-6 sm:p-7 relative z-10 flex-1 flex flex-col">
+          {/* Top Row for Cards without Image */}
+          {!post.featuredImage && (
+            <div className="flex items-center justify-between gap-2 mb-4">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[10.5px] font-black uppercase tracking-wider border ${theme.badgeBg} shadow-2xs transition-transform group-hover:scale-[1.02]`}>
+                  <CategoryIcon size={12} className={theme.iconColor} />
+                  <span>{post.categoryLabel}</span>
+                </span>
+
+                {post.featured && (
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-[9.5px] font-black uppercase tracking-wider bg-royal-blue text-gold shadow-2xs border border-royal-blue/40">
+                    <Sparkles size={10} className="text-gold" />
+                    <span>Featured</span>
+                  </span>
+                )}
+              </div>
+
+              <button
+                type="button"
+                onClick={(e) => toggleSaveArticle(post.id, e)}
+                className="w-8 h-8 rounded-xl bg-slate-50 hover:bg-gold/20 border border-slate-200/70 hover:border-gold/50 flex items-center justify-center text-slate-400 hover:text-royal-blue transition-all cursor-pointer shadow-2xs"
+                title={isSaved ? "Saved" : "Save for later"}
+              >
+                <Bookmark size={14} className={isSaved ? "fill-gold text-gold" : "text-slate-400"} />
+              </button>
+            </div>
+          )}
 
           {/* Title */}
           <h3 className="text-base sm:text-[17px] font-black text-slate-900 group-hover:text-royal-blue transition-colors uppercase leading-snug mb-3 line-clamp-2">
@@ -299,6 +362,24 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
 
             {/* Modal Scrollable Article Body */}
             <div className="p-6 sm:p-10 overflow-y-auto space-y-8">
+              {/* Featured Image Hero in Reader */}
+              {activeArticle.featuredImage && (
+                <div className="space-y-2">
+                  <div className="w-full rounded-2xl overflow-hidden aspect-16/9 bg-slate-900 shadow-md">
+                    <img
+                      src={activeArticle.featuredImage}
+                      alt={activeArticle.imageAlt || activeArticle.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  {activeArticle.imageCaption && (
+                    <p className="text-[11px] text-slate-500 italic text-center">
+                      {activeArticle.imageCaption}
+                    </p>
+                  )}
+                </div>
+              )}
+
               <div>
                 <h1 className="text-xl sm:text-2xl md:text-3xl font-black text-royal-blue uppercase tracking-tight leading-tight">
                   {activeArticle.title}
@@ -320,7 +401,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
               </div>
 
               {/* Key Takeaways Checklist */}
-              {activeArticle.content.takeaways && (
+              {activeArticle.content.takeaways && activeArticle.content.takeaways.length > 0 && (
                 <div className="p-6 rounded-2xl bg-amber-50/70 border border-amber-200/80 space-y-3">
                   <h3 className="text-xs font-black uppercase tracking-wider text-amber-950 mb-3 flex items-center gap-2">
                     <CheckCircle2 size={15} className="text-gold" />
@@ -339,21 +420,28 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
                 </div>
               )}
 
-              {/* Main Content Sections */}
-              <div className="space-y-6">
-                {activeArticle.content.sections.map((section, idx) => (
-                  <div key={idx} className="space-y-3">
-                    <h3 className="text-base sm:text-lg font-black text-royal-blue uppercase tracking-tight">
-                      {section.heading}
-                    </h3>
-                    {section.body.map((p, pIdx) => (
-                      <p key={pIdx} className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">
-                        {p}
-                      </p>
-                    ))}
-                  </div>
-                ))}
-              </div>
+              {/* Main Rich Content or Standard Sections */}
+              {activeArticle.content.richHtml ? (
+                <div 
+                  className="space-y-4 text-xs sm:text-sm text-slate-700 font-medium leading-relaxed prose prose-slate max-w-none prose-headings:text-royal-blue prose-headings:font-black prose-a:text-royal-blue prose-blockquote:border-l-4 prose-blockquote:border-gold prose-blockquote:bg-slate-50 prose-blockquote:p-3 prose-blockquote:rounded-r-lg"
+                  dangerouslySetInnerHTML={{ __html: activeArticle.content.richHtml }}
+                />
+              ) : (
+                <div className="space-y-6">
+                  {activeArticle.content.sections.map((section, idx) => (
+                    <div key={idx} className="space-y-3">
+                      <h3 className="text-base sm:text-lg font-black text-royal-blue uppercase tracking-tight">
+                        {section.heading}
+                      </h3>
+                      {section.body.map((p, pIdx) => (
+                        <p key={pIdx} className="text-xs sm:text-sm text-slate-600 font-medium leading-relaxed">
+                          {p}
+                        </p>
+                      ))}
+                    </div>
+                  ))}
+                </div>
+              )}
 
               {/* Regulatory Citation Note */}
               {activeArticle.content.regulatoryNote && (
@@ -427,6 +515,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
     return (
       <section 
         id="blog" 
+        ref={blogSectionRef}
         className="relative w-full bg-gradient-to-b from-slate-50 via-white to-slate-50 py-20 sm:py-28 overflow-hidden"
       >
         {/* Background Subtle Luxury Grid Pattern */}
@@ -448,146 +537,193 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
               <span className="text-[11px] font-black uppercase tracking-widest text-royal-blue">
                 Latest Regulatory Briefings
               </span>
-              <Award size={12} className="text-gold" />
             </div>
-
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-royal-blue uppercase tracking-tight leading-tight">
-              Business & Regulatory <span className="text-gold">Insights</span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 tracking-tight uppercase">
+              Business Insights & <span className="text-transparent bg-clip-text bg-gradient-to-r from-royal-blue via-blue-900 to-royal-blue">Legal Guides</span>
             </h2>
-
-            <p className="mt-4 text-slate-600 font-medium text-sm sm:text-base leading-relaxed">
-              Stay ahead with Malaysian corporate law updates, tax rulings, and employment pass guidelines compiled by our licensed secretarial team.
+            <p className="mt-3 sm:mt-4 text-sm sm:text-base text-slate-600 font-medium leading-relaxed">
+              Stay ahead of SSM statutory updates, LHDN corporate tax brackets, ESD work visa quotas, and local council licensing mandates in Malaysia.
             </p>
           </div>
 
-          {/* 3 Clean Blog Cards - Full Width Grid */}
-          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          {/* 3 Grid Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
             {homePreviewPosts.map((post, idx) => {
               const isSaved = savedArticles.includes(post.id);
               return renderCard(post, idx, isSaved);
             })}
           </div>
 
-          {/* Clean View All Blogs Button */}
+          {/* View All Articles Action */}
           <div className="mt-12 sm:mt-16 text-center">
             <button
               type="button"
               onClick={() => {
-                if (onNavigate) onNavigate('blog');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                if (onNavigate) {
+                  onNavigate('blog');
+                } else {
+                  window.location.hash = '#all-articles';
+                }
               }}
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-royal-blue hover:bg-[#002244] text-white font-black text-xs sm:text-sm uppercase tracking-wider shadow-lg hover:shadow-xl hover:shadow-royal-blue/25 hover:border-gold/50 border border-transparent transition-all duration-200 cursor-pointer group"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-2xl bg-royal-blue hover:bg-blue-900 text-white font-black text-xs sm:text-sm uppercase tracking-wider transition-all duration-300 shadow-xl hover:shadow-2xl hover:-translate-y-0.5 cursor-pointer border border-blue-900/50 group"
             >
-              <span>View All Articles & Insights ({posts.length})</span>
-              <ArrowRight size={16} className="text-gold group-hover:translate-x-1.5 transition-transform" />
+              <span>Explore All Advisory Articles ({posts.length})</span>
+              <ArrowRight size={16} className="text-gold group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
         </div>
 
-        {/* Reader Modal for home preview */}
+        {/* Reader Modal */}
         {renderArticleModal()}
       </section>
     );
   }
 
   // ---------------------------------------------------------------------------
-  // DEDICATED BLOG PAGE MODE: Shows all blogs cleanly
+  // STANDALONE BLOG DIRECTORY PAGE
   // ---------------------------------------------------------------------------
   return (
-    <section 
-      ref={blogSectionRef}
-      id="blog" 
-      className="relative w-full min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 pt-3 sm:pt-4 pb-16 overflow-hidden"
-    >
-      {/* Background Subtle Luxury Grid Pattern */}
-      <div 
-        className="absolute inset-0 opacity-25 pointer-events-none" 
-        style={{
-          backgroundImage: 'radial-gradient(#003366 1px, transparent 1px)',
-          backgroundSize: '28px 28px'
-        }} 
-      />
-      
-      {/* Ambient Radial Color Accents */}
-      <div className="absolute top-1/4 -left-40 w-96 h-96 bg-royal-blue/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 -right-40 w-96 h-96 bg-gold/15 rounded-full blur-3xl pointer-events-none" />
-
-      {/* Full Width Container */}
-      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 relative z-10">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 pt-28 pb-20">
+      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto space-y-10">
         
-        {/* Top Navigation Row: Back to Home + Clean Article Count */}
-        <div className="mb-6 sm:mb-8 flex items-center justify-between gap-4 w-full border-b border-slate-200/80 pb-4">
-          <button
-            type="button"
-            onClick={() => {
-              if (onNavigate) onNavigate('home');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 hover:text-royal-blue hover:border-royal-blue text-xs font-black uppercase tracking-wider shadow-xs cursor-pointer transition-all"
-          >
-            <ArrowLeft size={16} />
-            <span>Back to Home</span>
-          </button>
+        {/* Top Breadcrumb & Hero */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-2 text-xs font-bold text-slate-500">
+            <button
+              type="button"
+              onClick={() => onNavigate && onNavigate('home')}
+              className="hover:text-royal-blue transition-colors cursor-pointer"
+            >
+              Home
+            </button>
+            <span>/</span>
+            <span className="text-royal-blue">Advisory Insights & Statutory Briefings</span>
+          </div>
 
-          <span className="text-xs font-bold text-slate-500">
-            Showing <strong className="text-royal-blue">{posts.length}</strong> {posts.length === 1 ? 'article' : 'articles'}
-          </span>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-royal-blue/10 text-royal-blue text-[11px] font-black uppercase tracking-wider mb-2">
+                <Sparkles size={12} className="text-gold" />
+                <span>Knowledge & Compliance Hub</span>
+              </div>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 uppercase tracking-tight">
+                Corporate Regulatory Briefings
+              </h1>
+              <p className="text-slate-600 text-sm sm:text-base font-medium mt-2 max-w-2xl">
+                Comprehensive statutory insights authored by licensed Company Secretaries, Chartered Tax Advisors, and Expatriate Immigration Counsel.
+              </p>
+            </div>
+          </div>
         </div>
 
-        {/* Empty State */}
-        {posts.length === 0 && (
-          <div className="py-16 text-center bg-white rounded-3xl border border-slate-200 shadow-xs max-w-lg mx-auto p-8 my-8">
-            <BookOpen size={44} className="mx-auto text-slate-300 mb-3" />
-            <h4 className="text-base font-black text-slate-900 uppercase">No Articles Published Yet</h4>
-            <p className="text-xs text-slate-500 mt-1.5 max-w-sm mx-auto leading-relaxed">
-              Executive briefings uploaded through the Admin Portal will appear here.
-            </p>
-          </div>
-        )}
+        {/* Search & Filter Bar */}
+        <div className="p-4 sm:p-5 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-4">
+          <div className="flex flex-col sm:flex-row gap-3">
+            <div className="relative flex-1">
+              <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search articles, SSM acts, tax brackets, EP visa rules, or author..."
+                className="w-full pl-11 pr-4 py-3 rounded-2xl border border-slate-200 text-xs sm:text-sm font-medium focus:ring-2 focus:ring-royal-blue focus:outline-hidden"
+              />
+            </div>
 
-        {/* Beautiful Blogs Cards Grid - Full Width */}
-        {posts.length > 0 && (
-          <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {posts.map((post, idx) => {
+            {/* Category Filter Pills */}
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
+              <button
+                type="button"
+                onClick={() => setSelectedCategory('all')}
+                className={`px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all shrink-0 cursor-pointer ${
+                  selectedCategory === 'all'
+                    ? 'bg-royal-blue text-white shadow-md'
+                    : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
+                }`}
+              >
+                All Topics
+              </button>
+              <button
+                type="button"
+                onClick={() => setSelectedCategory('incorporation')}
+                className={`px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all shrink-0 cursor-pointer ${
+                  selectedCategory === 'incorporation'
+                    ? 'bg-amber-500 text-white shadow-md'
+                    : 'bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200/60'
+                }`}
+              >
+                Incorporation
+              </button>
+              <button
+                type="button"
+                onClick={() => setSelectedCategory('tax')}
+                className={`px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all shrink-0 cursor-pointer ${
+                  selectedCategory === 'tax'
+                    ? 'bg-emerald-600 text-white shadow-md'
+                    : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-900 border border-emerald-200/60'
+                }`}
+              >
+                Tax Advice
+              </button>
+              <button
+                type="button"
+                onClick={() => setSelectedCategory('visa')}
+                className={`px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all shrink-0 cursor-pointer ${
+                  selectedCategory === 'visa'
+                    ? 'bg-sky-600 text-white shadow-md'
+                    : 'bg-sky-50 hover:bg-sky-100 text-sky-900 border border-sky-200/60'
+                }`}
+              >
+                Immigration
+              </button>
+              <button
+                type="button"
+                onClick={() => setSelectedCategory('licensing')}
+                className={`px-4 py-2.5 rounded-xl text-xs font-black uppercase tracking-wider transition-all shrink-0 cursor-pointer ${
+                  selectedCategory === 'licensing'
+                    ? 'bg-indigo-600 text-white shadow-md'
+                    : 'bg-indigo-50 hover:bg-indigo-100 text-indigo-900 border border-indigo-200/60'
+                }`}
+              >
+                Licensing
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Results Grid */}
+        {filteredPosts.length === 0 ? (
+          <div className="p-16 text-center rounded-3xl bg-white border border-slate-200 space-y-4">
+            <BookOpen size={40} className="mx-auto text-slate-300" />
+            <h3 className="text-lg font-black uppercase text-slate-800">No matching statutory articles found</h3>
+            <p className="text-xs sm:text-sm text-slate-500 max-w-md mx-auto">
+              We couldn't find any briefings matching "{searchQuery}". Try clearing search filters or browse all topics.
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                setSearchQuery('');
+                setSelectedCategory('all');
+                setSelectedTag('all');
+              }}
+              className="px-5 py-2.5 rounded-xl bg-royal-blue text-white text-xs font-bold shadow-md hover:bg-blue-900 transition-colors"
+            >
+              Clear Filters
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {filteredPosts.map((post, idx) => {
               const isSaved = savedArticles.includes(post.id);
               return renderCard(post, idx, isSaved);
             })}
           </div>
         )}
 
-        {/* Bottom Banner: Request Specific Briefing / Consult */}
-        <div className="mt-14 w-full">
-          <div className="py-7 px-6 sm:px-10 rounded-3xl bg-gradient-to-r from-royal-blue via-[#002244] to-navy-dark text-white shadow-xl relative overflow-hidden border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div className="text-center sm:text-left">
-              <div className="inline-flex items-center gap-2 text-gold text-[10px] font-black uppercase tracking-widest mb-1.5">
-                <FileText size={13} />
-                <span>Custom Corporate Research</span>
-              </div>
-              <h3 className="text-base sm:text-lg font-black uppercase tracking-tight text-white">
-                Have a Complex Regulatory or Licensing Case?
-              </h3>
-              <p className="text-xs text-blue-100/75 mt-1 font-medium max-w-lg">
-                Our licensed corporate secretarial partners prepare customized statutory memoranda for corporate setups, ESD quotas, and local council approvals.
-              </p>
-            </div>
-
-            <div className="shrink-0 flex items-center gap-3">
-              <button
-                type="button"
-                onClick={() => onNavigate ? onNavigate('contact') : window.location.assign('#contact')}
-                className="px-6 py-3 rounded-xl bg-gradient-to-r from-gold to-amber-400 hover:from-amber-400 hover:to-gold text-royal-blue font-black text-xs uppercase tracking-wider shadow-lg hover:scale-102 transition-all flex items-center gap-2 cursor-pointer"
-              >
-                <span>Consult Counsel</span>
-                <ArrowRight size={14} />
-              </button>
-            </div>
-          </div>
-        </div>
-
       </div>
 
-      {/* Interactive Article Reader Modal */}
+      {/* Reader Modal */}
       {renderArticleModal()}
-    </section>
+    </div>
   );
 };

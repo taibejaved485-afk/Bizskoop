@@ -7,16 +7,26 @@ export interface BlogPost {
   categoryLabel: string;
   readTime: string;
   publishedDate: string;
+  scheduledDate?: string;
+  status?: 'draft' | 'scheduled' | 'published';
+  targetAudience?: string;
+  featured?: boolean;
+  featuredImage?: string;
+  imageAlt?: string;
+  imageCaption?: string;
+  metaTitle?: string;
+  metaDescription?: string;
+  focusKeywords?: string[];
   author: {
     name: string;
     role: string;
     avatar: string;
   };
   tags: string[];
-  featured?: boolean;
   content: {
     summary: string;
     takeaways: string[];
+    richHtml?: string;
     sections: {
       heading: string;
       body: string[];
@@ -27,6 +37,7 @@ export interface BlogPost {
 
 export const BLOGS_STORAGE_KEY = 'bizflow_blogs_list';
 export const BLOGS_UPDATED_EVENT = 'bizflow_blogs_updated';
+export const BLOGS_AUTOSAVE_DRAFT_KEY = 'bizflow_blog_editor_autosave';
 
 export const DEFAULT_BLOG_POSTS: BlogPost[] = [
   {
@@ -38,7 +49,15 @@ export const DEFAULT_BLOG_POSTS: BlogPost[] = [
     categoryLabel: 'Company Incorporation',
     readTime: '6 min read',
     publishedDate: 'January 18, 2026',
+    status: 'published',
+    targetAudience: 'Foreign Investors & Non-Residents',
     featured: true,
+    featuredImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&auto=format&fit=crop&q=80',
+    imageAlt: 'Modern Kuala Lumpur corporate skyscraper architecture',
+    imageCaption: 'Kuala Lumpur Financial Hub – Primed for 100% Foreign Direct Investment.',
+    metaTitle: '100% Foreign Owned Sdn Bhd Incorporation Guide Malaysia 2026',
+    metaDescription: 'Complete 2026 statutory blueprint to incorporate a 100% foreign-owned Sdn Bhd company in Malaysia with SSM compliance and zero local equity partner requirements.',
+    focusKeywords: ['100% Foreign Ownership', 'Sdn Bhd Incorporation', 'SSM Malaysia', 'Companies Act 2016', 'Paid-up Capital'],
     author: {
       name: 'Tan Sri Datuk Azman Rahim',
       role: 'Head of Corporate Secretarial Practice',
@@ -88,7 +107,15 @@ export const DEFAULT_BLOG_POSTS: BlogPost[] = [
     categoryLabel: 'Immigration',
     readTime: '5 min read',
     publishedDate: 'February 02, 2026',
+    status: 'published',
+    targetAudience: 'Expatriates & Global Talent',
     featured: false,
+    featuredImage: 'https://images.unsplash.com/photo-1577495508048-b635879837f1?w=1200&auto=format&fit=crop&q=80',
+    imageAlt: 'Corporate passport and visa travel paperwork',
+    imageCaption: 'Official ESD Expatriate Services Division immigration compliance blueprint.',
+    metaTitle: 'ESD Employment Pass Category I, II & III Guidelines 2026',
+    metaDescription: 'Understand Malaysian expatriate employment pass categories, minimum salary thresholds from RM3,000 to RM10,000, and dependant privileges for 2026.',
+    focusKeywords: ['ESD Malaysia', 'Employment Pass', 'Expat Visa', 'Immigration Quota', 'Work Permit'],
     author: {
       name: 'Faridah Hashim',
       role: 'Senior Immigration & Expat Affairs Counsel',
@@ -130,7 +157,15 @@ export const DEFAULT_BLOG_POSTS: BlogPost[] = [
     categoryLabel: 'Business Licensing',
     readTime: '7 min read',
     publishedDate: 'February 14, 2026',
+    status: 'published',
+    targetAudience: 'Retail & F&B Operators',
     featured: false,
+    featuredImage: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&auto=format&fit=crop&q=80',
+    imageAlt: 'Modern retail store and distributive trade venue in Malaysia',
+    imageCaption: 'KPDN Wholesale & Retail Trade permit requirements for foreign-invested enterprises.',
+    metaTitle: 'WRT License Malaysia Foreign Equity Guide 2026',
+    metaDescription: 'Guide to securing KPDN Wholesale & Retail Trade (WRT) licensing for foreign-owned retail, restaurants, and wholesale distribution in Malaysia.',
+    focusKeywords: ['WRT License', 'KPDN Malaysia', 'Retail License', 'Foreign Capital RM1M', 'Distributive Trade'],
     author: {
       name: 'Marcus Loh',
       role: 'Director of Trade & Regulatory Licensing',
@@ -172,7 +207,15 @@ export const DEFAULT_BLOG_POSTS: BlogPost[] = [
     categoryLabel: 'Tax Advice',
     readTime: '6 min read',
     publishedDate: 'February 22, 2026',
+    status: 'published',
+    targetAudience: 'Corporate CFOs & Directors',
     featured: false,
+    featuredImage: 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1200&auto=format&fit=crop&q=80',
+    imageAlt: 'Corporate tax computation and e-invoicing documents',
+    imageCaption: 'LHDN MyInvois Continuous Transaction Control (CTC) roadmap for corporate taxpayers.',
+    metaTitle: 'LHDN Corporate Tax Rates & e-Invoicing Compliance Malaysia 2026',
+    metaDescription: 'Complete review of 2026 Malaysian corporate tax rates, SME relief tiers (15%-17%), and LHDN MyInvois real-time validation compliance.',
+    focusKeywords: ['LHDN Corporate Tax', 'e-Invoicing Malaysia', 'MyInvois API', 'SME Tax 15%', 'Form CP204'],
     author: {
       name: 'Elena Choo CA(M)',
       role: 'Principal Tax Advisory Partner',
@@ -214,7 +257,15 @@ export const DEFAULT_BLOG_POSTS: BlogPost[] = [
     categoryLabel: 'Company Incorporation',
     readTime: '5 min read',
     publishedDate: 'February 28, 2026',
+    status: 'published',
+    targetAudience: 'Tech Startups & Digital Entrepreneurs',
     featured: false,
+    featuredImage: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1200&auto=format&fit=crop&q=80',
+    imageAlt: 'High-tech data infrastructure and digital innovation center',
+    imageCaption: 'MDEC Malaysia Digital Status unlocks exclusive tax holidays and fast-tracked foreign knowledge worker visas.',
+    metaTitle: 'MDEC Malaysia Digital (MD) Status Application Guide 2026',
+    metaDescription: 'Unlock tax holidays, 100% foreign equity, and unrestricted FKW visa quotas with Malaysia Digital (MD) Status by MDEC.',
+    focusKeywords: ['MDEC MD Status', 'Malaysia Digital', 'Tech Tax Holidays', 'Foreign Knowledge Workers', 'AI Startups'],
     author: {
       name: 'Marcus Loh',
       role: 'Director of Trade & Regulatory Licensing',
@@ -250,7 +301,15 @@ export const DEFAULT_BLOG_POSTS: BlogPost[] = [
     categoryLabel: 'Business Licensing',
     readTime: '5 min read',
     publishedDate: 'March 01, 2026',
+    status: 'published',
+    targetAudience: 'Retail & F&B Operators',
     featured: false,
+    featuredImage: 'https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?w=1200&auto=format&fit=crop&q=80',
+    imageAlt: 'Commercial premises and municipal storefront inspection in Kuala Lumpur',
+    imageCaption: 'DBKL and MBPJ municipal licensing validation standards for commercial units.',
+    metaTitle: 'DBKL & Municipal Premise License Guide Kuala Lumpur 2026',
+    metaDescription: 'Step-by-step guidance on DBKL and local municipal council premise licenses, Bomba clearances, and DBP certified signboard permits.',
+    focusKeywords: ['DBKL Premise License', 'MBPJ Permit', 'Signboard License', 'DBP Certification', 'Bomba Approval'],
     author: {
       name: 'Faridah Hashim',
       role: 'Senior Immigration & Expat Affairs Counsel',
@@ -292,7 +351,19 @@ export const getStoredBlogPosts = (): BlogPost[] => {
       localStorage.setItem(BLOGS_STORAGE_KEY, JSON.stringify(DEFAULT_BLOG_POSTS));
       return DEFAULT_BLOG_POSTS;
     }
-    return parsed;
+    // Normalize missing fields for legacy items
+    return parsed.map((post: any) => ({
+      ...post,
+      status: post.status || 'published',
+      featured: typeof post.featured === 'boolean' ? post.featured : false,
+      featuredImage: post.featuredImage || DEFAULT_BLOG_POSTS.find(d => d.id === post.id)?.featuredImage || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&auto=format&fit=crop&q=80',
+      imageAlt: post.imageAlt || post.title,
+      imageCaption: post.imageCaption || '',
+      metaTitle: post.metaTitle || post.title,
+      metaDescription: post.metaDescription || post.excerpt,
+      focusKeywords: Array.isArray(post.focusKeywords) ? post.focusKeywords : post.tags || [],
+      targetAudience: post.targetAudience || 'Corporate Directors & Founders'
+    }));
   } catch {
     return DEFAULT_BLOG_POSTS;
   }
@@ -304,7 +375,8 @@ export const saveBlogPost = (newPost: Omit<BlogPost, 'id' | 'slug'> & { id?: str
   const completePost: BlogPost = {
     ...newPost,
     id,
-    slug
+    slug,
+    status: newPost.status || 'published'
   };
   if (typeof window !== 'undefined') {
     const current = getStoredBlogPosts();
