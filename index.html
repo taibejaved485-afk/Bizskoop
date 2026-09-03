@@ -365,7 +365,21 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Seamless Horizontal Marquee (Scrolling Ticker) Left to Right */
+        /* Seamless Horizontal Marquee Leftward (Right to Left) */
+        @keyframes marquee-rtl {
+            0% { transform: translate3d(0%, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
+        .animate-marquee-rtl {
+            display: flex;
+            width: max-content;
+            animation: marquee-rtl 42s linear infinite;
+        }
+        .animate-marquee-rtl:hover {
+            animation-play-state: paused;
+        }
+
+        /* Seamless Horizontal Marquee Rightward (Left to Right) */
         @keyframes marquee-ltr {
             0% { transform: translate3d(-50%, 0, 0); }
             100% { transform: translate3d(0%, 0, 0); }
@@ -373,11 +387,15 @@
         .animate-marquee-ltr {
             display: flex;
             width: max-content;
-            animation: marquee-ltr 30s linear infinite;
+            animation: marquee-ltr 42s linear infinite;
         }
         .animate-marquee-ltr:hover {
             animation-play-state: paused;
         }
+
+        .marquee-fast { animation-duration: 34s; }
+        .marquee-normal { animation-duration: 42s; }
+        .marquee-slow { animation-duration: 50s; }
     </style>
 <script type="importmap">
 {

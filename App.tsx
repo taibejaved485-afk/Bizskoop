@@ -19,6 +19,8 @@ import AnimatedCounter from './components/AnimatedCounter.tsx';
 import ServiceGrid from './components/ServiceGrid.tsx';
 import TypingText from './components/TypingText.tsx';
 import SectionDivider from './components/SectionDivider.tsx';
+import TestimonialsSection from './components/TestimonialsSection.tsx';
+import { BlogSection } from './components/BlogSection.tsx';
 import { LegalModal } from './components/LegalModal.tsx';
 import { AdminPage } from './components/AdminPage.tsx';
 import { FAQSection } from './components/FAQSection.tsx';
@@ -474,8 +476,13 @@ const App: React.FC = () => {
           <SectionDivider variant="gold" />
           <ServiceGrid onNavigate={handleNavigate} />
           
-          
           <SectionDivider variant="gradient" />
+          <TestimonialsSection onNavigate={handleNavigate} />
+          
+          <SectionDivider variant="blue" />
+          <BlogSection onNavigate={handleNavigate} />
+          
+          <SectionDivider variant="gold" />
           <AIToolsSection />
         </>
       ) : (
@@ -487,6 +494,8 @@ const App: React.FC = () => {
         >
           {currentPage === 'about' ? (
             <AboutPage />
+          ) : currentPage === 'blog' ? (
+            <BlogSection onNavigate={handleNavigate} isStandalonePage={true} />
           ) : currentPage === 'company-secretarial' ? (
             <CompanySecretarial />
           ) : currentPage === 'accounting' ? (

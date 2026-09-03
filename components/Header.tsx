@@ -80,7 +80,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
 
       // Scroll Spy Logic
       if (currentPage === 'home') {
-        const sections = ['home', 'about', 'services', 'faq'];
+        const sections = ['home', 'about', 'services', 'blog', 'faq'];
         const scrollPosition = window.scrollY + 160; // offset buffer for sticky header height
 
         for (const section of sections) {
@@ -107,6 +107,11 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
   }, [currentPage]);
 
   const handleNavClick = (sectionId: string) => {
+    if (sectionId === 'blog') {
+      onNavigate('blog');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
     if (currentPage === 'home' && ['home', 'about', 'services', 'faq'].includes(sectionId)) {
       const element = document.getElementById(sectionId);
       if (element) {
@@ -383,6 +388,13 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
               </div>
 
               <button 
+                onClick={() => handleNavClick('blog')} 
+                className={`nav-link uppercase ${activeSection === 'blog' || currentPage === 'blog' ? 'text-gold font-black' : 'text-royal-blue'}`}
+              >
+                {t('nav_blog')}
+              </button>
+
+              <button 
                 onClick={() => handleNavClick('contact')} 
                 className={`nav-link uppercase ${activeSection === 'contact' ? 'text-gold font-black' : 'text-royal-blue'}`}
               >
@@ -551,6 +563,12 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
                     className={`block w-full text-left font-black text-xl uppercase tracking-tight py-1 transition-colors ${activeSection === 'about' ? 'text-gold' : 'text-white hover:text-gold'}`}
                   >
                     {t('nav_about')}
+                  </button>
+                  <button 
+                    onClick={() => { handleNavClick('blog'); setIsMobileMenuOpen(false); }} 
+                    className={`block w-full text-left font-black text-xl uppercase tracking-tight py-1 transition-colors ${activeSection === 'blog' || currentPage === 'blog' ? 'text-gold' : 'text-white hover:text-gold'}`}
+                  >
+                    {t('nav_blog')}
                   </button>
                 </div>
 

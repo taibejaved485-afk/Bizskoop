@@ -41,8 +41,10 @@ import {
   Tag,
   LayoutGrid,
   List,
-  GripVertical
+  GripVertical,
+  BookOpen
 } from 'lucide-react';
+import { AdminBlogManager } from './AdminBlogManager.tsx';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, PieChart, Pie, Cell, AreaChart, Area, Legend, LineChart, Line } from 'recharts';
 import { 
   getStoredLeads, 
@@ -89,7 +91,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [pin, setPin] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
-  const [activeTab, setActiveTab] = useState<'leads' | 'analytics' | 'pricing' | 'announcement' | 'site-config' | 'faqs' | 'data' | 'audit'>('leads');
+  const [activeTab, setActiveTab] = useState<'leads' | 'analytics' | 'pricing' | 'announcement' | 'site-config' | 'faqs' | 'data' | 'audit' | 'blogs'>('leads');
   
   // States for Core Controls
   const [leads, setLeads] = useState<Lead[]>([]);
@@ -827,6 +829,14 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
                   >
                     <HelpCircle size={16} />
                     <span>Dynamic FAQs</span>
+                  </button>
+
+                  <button 
+                    onClick={() => setActiveTab('blogs')}
+                    className={`w-full flex items-center gap-3 p-4 rounded-2xl font-black text-xs uppercase tracking-wider transition-all cursor-pointer ${activeTab === 'blogs' ? 'bg-navy-dark text-gold shadow-md' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'}`}
+                  >
+                    <BookOpen size={16} />
+                    <span>Blog Manager</span>
                   </button>
 
 
@@ -1958,6 +1968,17 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
                     )}
                   </div>
                 </div>
+              )}
+
+              {/* BLOG MANAGER PANEL */}
+              {activeTab === 'blogs' && (
+                <AdminBlogManager 
+                  onLogAudit={(action) => {
+                    logAdminAudit(action);
+                    setAuditLogs(getStoredAuditLogs());
+                  }}
+                  onShowToast={showToast}
+                />
               )}
 
               {/* LEADS DETAIL MODAL (IF SELECTED) */}

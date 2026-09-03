@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { Facebook, Instagram, Linkedin, Twitter, Youtube, ArrowRight, ShieldCheck, Globe, CreditCard, Lock } from 'lucide-react';
+import { Facebook, Instagram, Linkedin, Twitter, Youtube, ArrowRight, ShieldCheck, Globe, CreditCard, Lock, CheckCircle2, AlertCircle, Mail, Sparkles } from 'lucide-react';
 
 interface FooterProps {
   onOpenPolicy?: (policy: string) => void;
@@ -22,6 +22,54 @@ const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate, onOpenAdmin }
   });
 
   const [unreadCount, setUnreadCount] = useState(0);
+
+  // Business Insights Newsletter State
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterError, setNewsletterError] = useState<string | null>(null);
+  const [newsletterSuccess, setNewsletterSuccess] = useState(false);
+  const [isSubmittingNewsletter, setIsSubmittingNewsletter] = useState(false);
+
+  // Basic email validation regex
+  const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setNewsletterError(null);
+
+    const trimmedEmail = newsletterEmail.trim();
+    if (!trimmedEmail) {
+      setNewsletterError('Please enter your business email address.');
+      return;
+    }
+
+    if (!EMAIL_REGEX.test(trimmedEmail)) {
+      setNewsletterError('Please enter a valid email address (e.g. name@company.com).');
+      return;
+    }
+
+    setIsSubmittingNewsletter(true);
+    try {
+      const existing = JSON.parse(localStorage.getItem('bizflow_newsletter_subscribers') || '[]');
+      const alreadySubscribed = existing.some((sub: any) => sub.email?.toLowerCase() === trimmedEmail.toLowerCase());
+      
+      if (!alreadySubscribed) {
+        existing.push({
+          email: trimmedEmail,
+          subscribedAt: new Date().toISOString(),
+          source: 'Business Insights Newsletter'
+        });
+        localStorage.setItem('bizflow_newsletter_subscribers', JSON.stringify(existing));
+      }
+
+      setNewsletterSuccess(true);
+      setNewsletterEmail('');
+    } catch (err) {
+      console.error(err);
+      setNewsletterSuccess(true);
+    } finally {
+      setIsSubmittingNewsletter(false);
+    }
+  };
 
   useEffect(() => {
     const loadConfig = () => {
@@ -110,22 +158,86 @@ const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate, onOpenAdmin }
         <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24 relative z-20">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 py-10 lg:py-12 border-b border-white/10">
             
-            {/* Column 1: Newsletter */}
-            <div className="space-y-8">
-              <h4 className="text-lg font-black uppercase tracking-tighter">{config.companyName}'s Newsletter</h4>
-              <p className="text-blue-100/50 text-sm font-medium leading-relaxed">
-                Stay updated with the latest Malaysian regulatory changes and business insights.
-              </p>
-              <div className="space-y-4">
-                <input 
-                  type="email" 
-                  placeholder="Your email" 
-                  className="w-full px-6 py-4 bg-white/5 border border-white/10 rounded-xl text-white font-bold outline-none focus:border-gold/50 transition-all"
-                />
-                <button className="w-full sm:w-auto px-10 py-4 bg-[#E91E63] text-white font-black rounded-xl hover:bg-white hover:text-royal-blue transition-all uppercase tracking-widest text-xs shadow-xl">
-                  Subscribe
-                </button>
+            {/* Column 1: Business Insights Newsletter */}
+            <div className="space-y-6">
+              <div className="space-y-2">
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-gold/15 border border-gold/30 text-gold text-[10px] font-black uppercase tracking-wider">
+                  <Sparkles size={11} />
+                  <span>Business Insights</span>
+                </div>
+                <h4 className="text-lg font-black uppercase tracking-tight text-white">
+                  Business Insights Newsletter
+                </h4>
+                <p className="text-blue-100/60 text-xs sm:text-sm font-medium leading-relaxed">
+                  Subscribe to receive executive Malaysian regulatory updates, corporate tax advisory, and foreign director compliance briefs directly in your inbox.
+                </p>
               </div>
+
+              {newsletterSuccess ? (
+                <div className="p-4 rounded-xl bg-emerald-950/70 border border-emerald-500/50 text-emerald-200 space-y-2.5">
+                  <div className="flex items-center gap-2 text-emerald-400 font-black text-xs uppercase tracking-wider">
+                    <CheckCircle2 size={16} className="text-emerald-400 shrink-0" />
+                    <span>Subscribed to Business Insights!</span>
+                  </div>
+                  <p className="text-xs text-emerald-100/90 leading-relaxed font-medium">
+                    Thank you for subscribing! You will receive our next monthly corporate advisory and regulatory briefing.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setNewsletterSuccess(false);
+                      setNewsletterError(null);
+                    }}
+                    className="text-[11px] font-bold text-gold hover:text-amber-300 underline underline-offset-2 cursor-pointer pt-0.5 inline-block"
+                  >
+                    Subscribe another email
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleNewsletterSubmit} className="space-y-3" noValidate>
+                  <div className="space-y-1.5">
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-white/40">
+                        <Mail size={16} />
+                      </div>
+                      <input 
+                        type="email" 
+                        value={newsletterEmail}
+                        onChange={(e) => {
+                          setNewsletterEmail(e.target.value);
+                          if (newsletterError) setNewsletterError(null);
+                        }}
+                        placeholder="your.email@company.com" 
+                        aria-label="Your email address for Business Insights newsletter"
+                        className={`w-full pl-10 pr-4 py-3 bg-white/5 border ${
+                          newsletterError ? 'border-red-400/80 focus:border-red-400' : 'border-white/10 focus:border-gold/50'
+                        } rounded-xl text-white font-medium text-xs sm:text-sm outline-none transition-all placeholder:text-white/30`}
+                      />
+                    </div>
+                    {newsletterError && (
+                      <div className="flex items-center gap-1.5 text-xs text-red-300 font-medium px-1 pt-0.5">
+                        <AlertCircle size={13} className="shrink-0 text-red-400" />
+                        <span>{newsletterError}</span>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-2.5">
+                    <button 
+                      type="submit"
+                      disabled={isSubmittingNewsletter}
+                      className="w-full sm:w-auto px-6 py-3 bg-[#E91E63] hover:bg-gold hover:text-royal-blue text-white font-black rounded-xl transition-all uppercase tracking-widest text-xs shadow-xl flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                    >
+                      <span>{isSubmittingNewsletter ? 'Subscribing...' : 'Subscribe'}</span>
+                      <ArrowRight size={14} />
+                    </button>
+                  </div>
+
+                  <p className="text-[10px] text-white/40 font-medium">
+                    No spam. Unsubscribe at any time with 1-click.
+                  </p>
+                </form>
+              )}
             </div>
 
             {/* Column 2: Terms & Conditions */}
@@ -176,12 +288,14 @@ const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate, onOpenAdmin }
             <div className="space-y-8">
               <h4 className="text-lg font-black uppercase tracking-tighter">Information</h4>
               <ul className="space-y-4">
-                {['FAQs', 'About us at BizFlow', 'BizFlow Legal', 'Our Methodology', 'Global Network'].map((item) => (
+                {['Blog', 'FAQs', 'About us at BizFlow', 'BizFlow Legal', 'Our Methodology', 'Global Network'].map((item) => (
                   <li key={item}>
                     <button 
                       onClick={(e) => {
                         e.preventDefault();
-                        if (item === 'About us at BizFlow' && onNavigate) {
+                        if ((item === 'Blog' || item === 'Business Blog & Insights') && onNavigate) {
+                          onNavigate('blog');
+                        } else if (item === 'About us at BizFlow' && onNavigate) {
                           onNavigate('about');
                         } else if (item === 'FAQs' && onNavigate) {
                           onNavigate('about');
