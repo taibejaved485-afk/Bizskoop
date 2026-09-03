@@ -83,75 +83,160 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
     return [...featured, ...rest].slice(0, 3);
   }, [posts]);
 
+  // Category styling helper
+  const getCategoryTheme = (category: string) => {
+    switch (category) {
+      case 'incorporation':
+        return {
+          badgeBg: 'bg-amber-500/10 border-amber-500/30 text-amber-900',
+          iconColor: 'text-amber-600',
+          accentGradient: 'from-amber-500 via-gold to-yellow-400',
+          borderHover: 'hover:border-amber-400/80',
+          glow: 'group-hover:shadow-[0_20px_40px_rgba(217,119,6,0.12)]',
+          icon: Building2
+        };
+      case 'visa':
+        return {
+          badgeBg: 'bg-sky-500/10 border-sky-500/30 text-sky-900',
+          iconColor: 'text-sky-600',
+          accentGradient: 'from-sky-500 via-blue-500 to-indigo-500',
+          borderHover: 'hover:border-sky-400/80',
+          glow: 'group-hover:shadow-[0_20px_40px_rgba(14,165,233,0.12)]',
+          icon: Globe2
+        };
+      case 'tax':
+        return {
+          badgeBg: 'bg-emerald-500/10 border-emerald-500/30 text-emerald-900',
+          iconColor: 'text-emerald-600',
+          accentGradient: 'from-emerald-500 via-teal-500 to-green-400',
+          borderHover: 'hover:border-emerald-400/80',
+          glow: 'group-hover:shadow-[0_20px_40px_rgba(16,185,129,0.12)]',
+          icon: Receipt
+        };
+      case 'licensing':
+      default:
+        return {
+          badgeBg: 'bg-indigo-500/10 border-indigo-500/30 text-indigo-900',
+          iconColor: 'text-indigo-600',
+          accentGradient: 'from-indigo-500 via-royal-blue to-blue-500',
+          borderHover: 'hover:border-indigo-400/80',
+          glow: 'group-hover:shadow-[0_20px_40px_rgba(99,102,241,0.12)]',
+          icon: Scale
+        };
+    }
+  };
+
   // Clean reusable card renderer
   const renderCard = (post: BlogPost, idx: number, isSaved: boolean) => {
+    const theme = getCategoryTheme(post.category);
+    const CategoryIcon = theme.icon;
+
     return (
       <motion.article
         key={post.id}
         initial={{ opacity: 0, y: 15 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.4, delay: idx * 0.08 }}
+        transition={{ duration: 0.4, delay: idx * 0.07 }}
         onClick={() => setActiveArticle(post)}
-        className="bg-white rounded-3xl border border-slate-200/90 shadow-[0_4px_20px_rgba(0,51,102,0.04)] hover:shadow-[0_15px_35px_rgba(0,51,102,0.08)] hover:border-gold/60 transition-all duration-300 flex flex-col justify-between overflow-hidden group cursor-pointer relative transform hover:-translate-y-1"
+        className={`bg-white rounded-3xl border border-slate-200/90 shadow-[0_4px_24px_rgba(0,34,68,0.05)] ${theme.glow} ${theme.borderHover} transition-all duration-300 flex flex-col justify-between overflow-hidden group cursor-pointer relative transform hover:-translate-y-1.5`}
       >
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-royal-blue via-gold to-royal-blue opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        {/* Top Active Accent Glow Line */}
+        <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${theme.accentGradient} opacity-90 group-hover:h-2 transition-all duration-300`} />
 
-        <div className="p-6 sm:p-7">
-          <div className="flex items-center justify-between gap-2 mb-3.5">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-slate-100 text-royal-blue group-hover:bg-amber-50 group-hover:text-amber-950 transition-colors">
-              <Building2 size={11} className="text-gold" />
-              <span>{post.categoryLabel}</span>
-            </span>
+        {/* Ambient background watermark for high-end luxury feel */}
+        <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-slate-50 to-transparent rounded-bl-full pointer-events-none -z-0 opacity-60 group-hover:scale-110 transition-transform duration-500" />
+
+        <div className="p-6 sm:p-7 relative z-10 flex-1 flex flex-col">
+          {/* Top Badge & Bookmark Row */}
+          <div className="flex items-center justify-between gap-2 mb-4">
+            <div className="flex items-center gap-2 flex-wrap">
+              <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[10.5px] font-black uppercase tracking-wider border ${theme.badgeBg} shadow-2xs transition-transform group-hover:scale-[1.02]`}>
+                <CategoryIcon size={12} className={theme.iconColor} />
+                <span>{post.categoryLabel}</span>
+              </span>
+
+              {post.featured && (
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-[9.5px] font-black uppercase tracking-wider bg-royal-blue text-gold shadow-2xs border border-royal-blue/40">
+                  <Sparkles size={10} className="text-gold" />
+                  <span>Featured</span>
+                </span>
+              )}
+            </div>
 
             <button
               type="button"
               onClick={(e) => toggleSaveArticle(post.id, e)}
-              className="text-slate-400 hover:text-gold transition-colors p-1 cursor-pointer"
+              className="w-8 h-8 rounded-xl bg-slate-50 hover:bg-gold/20 border border-slate-200/70 hover:border-gold/50 flex items-center justify-center text-slate-400 hover:text-royal-blue transition-all cursor-pointer shadow-2xs"
               title={isSaved ? "Saved" : "Save for later"}
             >
-              <Bookmark size={15} className={isSaved ? "fill-gold text-gold" : "text-slate-400"} />
+              <Bookmark size={14} className={isSaved ? "fill-gold text-gold" : "text-slate-400"} />
             </button>
           </div>
 
-          <h3 className="text-base sm:text-lg font-black text-royal-blue group-hover:text-amber-950 transition-colors uppercase leading-snug mb-2.5 line-clamp-2">
+          {/* Title */}
+          <h3 className="text-base sm:text-[17px] font-black text-slate-900 group-hover:text-royal-blue transition-colors uppercase leading-snug mb-3 line-clamp-2">
             {post.title}
           </h3>
 
-          <p className="text-slate-600 text-xs sm:text-sm font-medium leading-relaxed mb-4 line-clamp-3">
+          {/* Excerpt */}
+          <p className="text-slate-600 text-xs sm:text-[13px] font-medium leading-relaxed mb-4 line-clamp-3">
             {post.excerpt}
           </p>
 
-          <div className="flex items-center gap-3 pt-3 border-t border-slate-100 text-[11px] font-bold text-slate-500">
-            <span className="flex items-center gap-1 text-slate-400">
-              <Calendar size={12} />
+          {/* Tags Chips */}
+          {post.tags && post.tags.length > 0 && (
+            <div className="flex items-center gap-1.5 flex-wrap mb-4 mt-auto">
+              {post.tags.slice(0, 3).map((tag, tIdx) => (
+                <span 
+                  key={tIdx}
+                  className="px-2.5 py-0.5 rounded-lg bg-slate-100/90 text-slate-600 text-[10px] font-bold tracking-tight border border-slate-200/60 group-hover:bg-slate-200/70 transition-colors"
+                >
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          )}
+
+          {/* Published Date & Read Time */}
+          <div className="flex items-center gap-3 pt-3.5 border-t border-slate-100 text-[11px] font-semibold text-slate-500">
+            <span className="flex items-center gap-1.5 text-slate-500">
+              <Calendar size={13} className="text-slate-400" />
               {post.publishedDate}
             </span>
-            <span>•</span>
-            <span className="flex items-center gap-1 text-slate-400">
-              <Clock size={12} />
+            <span className="text-slate-300">•</span>
+            <span className="flex items-center gap-1.5 text-slate-500">
+              <Clock size={13} className="text-slate-400" />
               {post.readTime}
             </span>
           </div>
         </div>
 
-        <div className="px-6 py-4 bg-slate-50/60 border-t border-slate-100 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5 min-w-0">
-            <img 
-              src={post.author.avatar} 
-              alt={post.author.name}
-              className="w-8 h-8 rounded-xl object-cover ring-1 ring-slate-200 shrink-0"
-              loading="lazy"
-            />
+        {/* Footer: Author details and interactive Read Button */}
+        <div className="px-6 py-4 bg-gradient-to-b from-slate-50/70 to-slate-100/80 border-t border-slate-100 flex items-center justify-between gap-3 relative z-10 group-hover:bg-slate-100/90 transition-colors">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="relative shrink-0">
+              <img 
+                src={post.author.avatar} 
+                alt={post.author.name}
+                className="w-9 h-9 rounded-xl object-cover ring-2 ring-white shadow-2xs"
+                loading="lazy"
+              />
+              <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 border-2 border-white rounded-full" />
+            </div>
             <div className="min-w-0">
-              <h4 className="text-[11px] font-black text-slate-900 truncate leading-tight">{post.author.name}</h4>
-              <p className="text-[9.5px] text-slate-500 font-semibold truncate leading-tight mt-0.5">{post.author.role}</p>
+              <h4 className="text-xs font-black text-slate-900 truncate leading-tight group-hover:text-royal-blue transition-colors">
+                {post.author.name}
+              </h4>
+              <p className="text-[10px] text-slate-500 font-semibold truncate leading-tight mt-0.5">
+                {post.author.role}
+              </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-1 text-[11px] font-bold text-royal-blue group-hover:text-gold shrink-0 transition-colors">
-            <span>Read Article</span>
-            <ChevronRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white group-hover:bg-royal-blue text-royal-blue group-hover:text-gold border border-slate-200/80 group-hover:border-royal-blue text-xs font-black shrink-0 transition-all duration-300 shadow-2xs group-hover:shadow-md">
+            <span>Read</span>
+            <ChevronRight size={14} className="group-hover:translate-x-0.5 transition-transform text-gold" />
           </div>
         </div>
       </motion.article>
