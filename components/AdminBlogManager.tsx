@@ -1353,11 +1353,11 @@ export const AdminBlogManager: React.FC<AdminBlogManagerProps> = ({ onLogAudit, 
                       }`}>
                         {/* Featured Hero Banner if present */}
                         {livePreviewBlog.featuredImage && (
-                          <div className="relative w-full aspect-16/9 bg-slate-900 overflow-hidden">
+                          <div className="relative w-full h-52 sm:h-64 bg-slate-900 overflow-hidden">
                             <img
                               src={livePreviewBlog.featuredImage}
                               alt={livePreviewBlog.imageAlt || 'Featured article image'}
-                              className="w-full h-full object-cover"
+                              className="w-full h-full object-cover object-center"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent" />
                             {livePreviewBlog.imageCaption && (

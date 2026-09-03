@@ -166,30 +166,27 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
         viewport={{ once: true }}
         transition={{ duration: 0.4, delay: idx * 0.07 }}
         onClick={() => setActiveArticle(post)}
-        className={`bg-white rounded-3xl border border-slate-200/90 shadow-[0_4px_24px_rgba(0,34,68,0.05)] ${theme.glow} ${theme.borderHover} transition-all duration-300 flex flex-col justify-between overflow-hidden group cursor-pointer relative transform hover:-translate-y-1.5`}
+        className={`w-full bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-[0_4px_20px_rgba(0,34,68,0.06)] ${theme.glow} ${theme.borderHover} transition-all duration-300 flex flex-col justify-between overflow-hidden group cursor-pointer relative transform hover:-translate-y-1`}
       >
-        {/* Top Active Accent Glow Line */}
-        <div className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${theme.accentGradient} opacity-90 group-hover:h-2 transition-all duration-300 z-10`} />
-
         {/* Featured Image Header if present */}
         {post.featuredImage && (
-          <div className="relative w-full aspect-16/9 bg-slate-900 overflow-hidden shrink-0">
+          <div className="relative w-full h-44 sm:h-48 bg-slate-900 overflow-hidden shrink-0">
             <img
               src={post.featuredImage}
               alt={post.imageAlt || post.title}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent pointer-events-none" />
             
             {/* Overlay Category Badge */}
             <div className="absolute top-3 left-3 flex items-center gap-1.5 z-10">
-              <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-[10px] font-black uppercase tracking-wider backdrop-blur-md bg-white/90 text-royal-blue shadow-md`}>
+              <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider backdrop-blur-md bg-white/95 text-royal-blue shadow-md`}>
                 <CategoryIcon size={12} className={theme.iconColor} />
                 <span>{post.categoryLabel}</span>
               </span>
               {post.featured && (
-                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-[9px] font-black uppercase tracking-wider bg-royal-blue text-gold shadow-md border border-gold/30">
+                <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider bg-royal-blue text-gold shadow-md border border-gold/30">
                   <Sparkles size={10} className="text-gold" />
                   <span>Featured</span>
                 </span>
@@ -200,106 +197,108 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
             <button
               type="button"
               onClick={(e) => toggleSaveArticle(post.id, e)}
-              className="absolute top-3 right-3 w-8 h-8 rounded-xl bg-white/90 hover:bg-gold backdrop-blur-md text-slate-700 hover:text-royal-blue flex items-center justify-center transition-all shadow-md z-10"
+              className="absolute top-3 right-3 w-8 h-8 rounded-lg bg-white/90 hover:bg-gold backdrop-blur-md text-slate-700 hover:text-royal-blue flex items-center justify-center transition-all shadow-md z-10 cursor-pointer"
               title={isSaved ? "Saved" : "Save for later"}
+              aria-label={isSaved ? "Saved" : "Save article"}
             >
               <Bookmark size={14} className={isSaved ? "fill-gold text-gold" : "text-slate-700"} />
             </button>
           </div>
         )}
 
-        <div className="p-6 sm:p-7 relative z-10 flex-1 flex flex-col">
-          {/* Top Row for Cards without Image */}
-          {!post.featuredImage && (
-            <div className="flex items-center justify-between gap-2 mb-4">
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[10.5px] font-black uppercase tracking-wider border ${theme.badgeBg} shadow-2xs transition-transform group-hover:scale-[1.02]`}>
-                  <CategoryIcon size={12} className={theme.iconColor} />
-                  <span>{post.categoryLabel}</span>
-                </span>
-
-                {post.featured && (
-                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-[9.5px] font-black uppercase tracking-wider bg-royal-blue text-gold shadow-2xs border border-royal-blue/40">
-                    <Sparkles size={10} className="text-gold" />
-                    <span>Featured</span>
+        <div className="p-5 sm:p-6 relative z-10 flex-1 flex flex-col justify-between">
+          <div>
+            {/* Top Row for Cards without Image */}
+            {!post.featuredImage && (
+              <div className="flex items-center justify-between gap-2 mb-3">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider border ${theme.badgeBg} shadow-2xs`}>
+                    <CategoryIcon size={12} className={theme.iconColor} />
+                    <span>{post.categoryLabel}</span>
                   </span>
-                )}
-              </div>
 
-              <button
-                type="button"
-                onClick={(e) => toggleSaveArticle(post.id, e)}
-                className="w-8 h-8 rounded-xl bg-slate-50 hover:bg-gold/20 border border-slate-200/70 hover:border-gold/50 flex items-center justify-center text-slate-400 hover:text-royal-blue transition-all cursor-pointer shadow-2xs"
-                title={isSaved ? "Saved" : "Save for later"}
-              >
-                <Bookmark size={14} className={isSaved ? "fill-gold text-gold" : "text-slate-400"} />
-              </button>
-            </div>
-          )}
+                  {post.featured && (
+                    <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider bg-royal-blue text-gold shadow-2xs border border-royal-blue/40">
+                      <Sparkles size={10} className="text-gold" />
+                      <span>Featured</span>
+                    </span>
+                  )}
+                </div>
 
-          {/* Title */}
-          <h3 className="text-base sm:text-[17px] font-black text-slate-900 group-hover:text-royal-blue transition-colors uppercase leading-snug mb-3 line-clamp-2">
-            {post.title}
-          </h3>
-
-          {/* Excerpt */}
-          <p className="text-slate-600 text-xs sm:text-[13px] font-medium leading-relaxed mb-4 line-clamp-3">
-            {post.excerpt}
-          </p>
-
-          {/* Tags Chips */}
-          {post.tags && post.tags.length > 0 && (
-            <div className="flex items-center gap-1.5 flex-wrap mb-4 mt-auto">
-              {post.tags.slice(0, 3).map((tag, tIdx) => (
-                <span 
-                  key={tIdx}
-                  className="px-2.5 py-0.5 rounded-lg bg-slate-100/90 text-slate-600 text-[10px] font-bold tracking-tight border border-slate-200/60 group-hover:bg-slate-200/70 transition-colors"
+                <button
+                  type="button"
+                  onClick={(e) => toggleSaveArticle(post.id, e)}
+                  className="w-8 h-8 rounded-lg bg-slate-50 hover:bg-gold/20 border border-slate-200/70 hover:border-gold/50 flex items-center justify-center text-slate-400 hover:text-royal-blue transition-all cursor-pointer shadow-2xs"
+                  title={isSaved ? "Saved" : "Save for later"}
                 >
-                  #{tag}
-                </span>
-              ))}
-            </div>
-          )}
+                  <Bookmark size={14} className={isSaved ? "fill-gold text-gold" : "text-slate-400"} />
+                </button>
+              </div>
+            )}
+
+            {/* Title */}
+            <h3 className="text-sm sm:text-base font-black text-slate-900 group-hover:text-royal-blue transition-colors uppercase leading-snug mb-2 line-clamp-2">
+              {post.title}
+            </h3>
+
+            {/* Excerpt */}
+            <p className="text-slate-600 text-xs sm:text-[13px] font-medium leading-relaxed mb-3 line-clamp-2">
+              {post.excerpt}
+            </p>
+
+            {/* Tags Chips */}
+            {post.tags && post.tags.length > 0 && (
+              <div className="flex items-center gap-1.5 flex-wrap mb-3">
+                {post.tags.slice(0, 3).map((tag, tIdx) => (
+                  <span 
+                    key={tIdx}
+                    className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-600 text-[10px] font-bold tracking-tight border border-slate-200/60"
+                  >
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
 
           {/* Published Date & Read Time */}
-          <div className="flex items-center gap-3 pt-3.5 border-t border-slate-100 text-[11px] font-semibold text-slate-500">
+          <div className="flex items-center gap-3 pt-3 border-t border-slate-100 text-[11px] font-semibold text-slate-500 mt-2">
             <span className="flex items-center gap-1.5 text-slate-500">
-              <Calendar size={13} className="text-slate-400" />
+              <Calendar size={13} className="text-slate-400 shrink-0" />
               {post.publishedDate}
             </span>
             <span className="text-slate-300">•</span>
             <span className="flex items-center gap-1.5 text-slate-500">
-              <Clock size={13} className="text-slate-400" />
+              <Clock size={13} className="text-slate-400 shrink-0" />
               {post.readTime}
             </span>
           </div>
         </div>
 
         {/* Footer: Author details and interactive Read Button */}
-        <div className="px-6 py-4 bg-gradient-to-b from-slate-50/70 to-slate-100/80 border-t border-slate-100 flex items-center justify-between gap-3 relative z-10 group-hover:bg-slate-100/90 transition-colors">
-          <div className="flex items-center gap-3 min-w-0">
+        <div className="px-5 py-3.5 bg-slate-50/90 border-t border-slate-100 flex items-center justify-between gap-3 relative z-10 group-hover:bg-slate-100/90 transition-colors">
+          <div className="flex items-center gap-2.5 min-w-0">
             <div className="relative shrink-0">
               <img 
                 src={post.author.avatar} 
                 alt={post.author.name}
-                className="w-9 h-9 rounded-xl object-cover ring-2 ring-white shadow-2xs"
+                className="w-8 h-8 rounded-full object-cover ring-1 ring-slate-200 shadow-2xs"
                 loading="lazy"
               />
-              <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-emerald-500 border-2 border-white rounded-full" />
             </div>
             <div className="min-w-0">
               <h4 className="text-xs font-black text-slate-900 truncate leading-tight group-hover:text-royal-blue transition-colors">
                 {post.author.name}
               </h4>
-              <p className="text-[10px] text-slate-500 font-semibold truncate leading-tight mt-0.5">
+              <p className="text-[10px] text-slate-500 font-medium truncate leading-tight">
                 {post.author.role}
               </p>
             </div>
           </div>
 
-          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white group-hover:bg-royal-blue text-royal-blue group-hover:text-gold border border-slate-200/80 group-hover:border-royal-blue text-xs font-black shrink-0 transition-all duration-300 shadow-2xs group-hover:shadow-md">
+          <div className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-white group-hover:bg-royal-blue text-royal-blue group-hover:text-gold border border-slate-200/80 group-hover:border-royal-blue text-xs font-black shrink-0 transition-all duration-300 shadow-2xs">
             <span>Read</span>
-            <ChevronRight size={14} className="group-hover:translate-x-0.5 transition-transform text-gold" />
+            <ChevronRight size={13} className="group-hover:translate-x-0.5 transition-transform text-gold" />
           </div>
         </div>
       </motion.article>
@@ -365,11 +364,11 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
               {/* Featured Image Hero in Reader */}
               {activeArticle.featuredImage && (
                 <div className="space-y-2">
-                  <div className="w-full rounded-2xl overflow-hidden aspect-16/9 bg-slate-900 shadow-md">
+                  <div className="w-full h-56 sm:h-72 rounded-2xl overflow-hidden bg-slate-900 shadow-md">
                     <img
                       src={activeArticle.featuredImage}
                       alt={activeArticle.imageAlt || activeArticle.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover object-center"
                     />
                   </div>
                   {activeArticle.imageCaption && (

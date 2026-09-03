@@ -110,7 +110,7 @@ export const DEFAULT_BLOG_POSTS: BlogPost[] = [
     status: 'published',
     targetAudience: 'Expatriates & Global Talent',
     featured: false,
-    featuredImage: 'https://images.unsplash.com/photo-1577495508048-b635879837f1?w=1200&auto=format&fit=crop&q=80',
+    featuredImage: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?w=1200&auto=format&fit=crop&q=80',
     imageAlt: 'Corporate passport and visa travel paperwork',
     imageCaption: 'Official ESD Expatriate Services Division immigration compliance blueprint.',
     metaTitle: 'ESD Employment Pass Category I, II & III Guidelines 2026',
