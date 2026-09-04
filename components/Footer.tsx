@@ -421,8 +421,8 @@ const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate, onOpenAdmin }
               <p className="text-[10px] font-bold text-blue-100/30 uppercase tracking-[0.3em]">
                 Part of {config.companyName} Group, serving entrepreneurs worldwide.
               </p>
-              <p className="text-[11px] font-black text-blue-100/20 uppercase tracking-widest flex items-center justify-center gap-1.5">
-                © 2024-{currentYear} {config.companyName.toUpperCase()}. ALL RIGHTS RESERVED.
+              <p className="text-[11px] font-bold text-blue-100/40 uppercase tracking-widest flex items-center justify-center gap-1.5">
+                All Copyright & Reserved ©2026 Bizskoop.
                 <button 
                   onClick={() => onOpenAdmin && onOpenAdmin()}
                   className="relative inline-flex items-center justify-center w-5 h-5 rounded-md border border-white/5 bg-white/5 opacity-[0.35] hover:opacity-100 text-gold hover:text-white transition-all duration-300 ml-1.5 cursor-pointer outline-none hover:bg-gold/10 hover:border-gold/30"

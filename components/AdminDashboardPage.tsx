@@ -42,7 +42,7 @@ const AdminDashboardPage: React.FC = () => {
     header: { logoText: 'BIZSKOOP', navItems: ['Home', 'Services', 'About', 'Contact'] },
     hero: { title: 'Empowering Your Business', subtitle: '', primaryCta: 'Get Started', secondaryCta: 'Learn More', stats: [{ label: 'Years Experience', value: '15+' }, { label: 'Success Rate', value: '99%' }] },
     about: { narrative: '', teamOverview: '' },
-    footer: { copyright: '© 2026 Bizskoop', links: [] },
+    footer: { copyright: 'All Copyright & Reserved ©2026 Bizskoop.', links: [] },
     legal: { privacyPolicy: '', terms: '', refundPolicy: '', compliance: '' }
   });
 

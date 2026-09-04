@@ -483,6 +483,9 @@ const App: React.FC = () => {
           <BlogSection onNavigate={handleNavigate} />
           
           <SectionDivider variant="gold" />
+          <FAQSection onNavigate={handleNavigate} />
+
+          <SectionDivider variant="blue" />
           <AIToolsSection />
         </>
       ) : (
