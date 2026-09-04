@@ -61,6 +61,7 @@ import {
   SiteConfig
 } from '../services/leadStorage.ts';
 import { Lead, ServicePricingItem, AnnouncementConfig, ActivityLog } from '../types.ts';
+import { BizskoopLogo } from './BizskoopLogo.tsx';
 
 interface CustomFAQ {
   id: string;
@@ -742,14 +743,13 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
             <div className="w-full md:w-80 md:h-screen md:sticky md:top-0 bg-white border-r border-slate-200 p-6 md:p-8 flex flex-col justify-between shrink-0 shadow-sm md:overflow-y-auto">
               <div className="space-y-8">
                 {/* Branding */}
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-navy-dark text-gold rounded-2xl flex items-center justify-center font-black text-xl shadow-md">
-                    B
-                  </div>
-                  <div>
-                    <h3 className="font-black text-slate-900 text-lg tracking-tighter uppercase leading-none">Bizskoop</h3>
-                    <span className="text-[9px] font-bold tracking-widest text-amber-600 uppercase">Executive Suite</span>
-                  </div>
+                <div className="flex items-center gap-3">
+                  <BizskoopLogo 
+                    variant="dark" 
+                    size="md" 
+                    showSubtitle={true}
+                    subtitle="EXECUTIVE SUITE"
+                  />
                 </div>
 
                 {/* Tabs / Menus */}

@@ -1,10 +1,11 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Phone, Mail, Facebook, Twitter, Linkedin, Youtube, Clock, Globe, Search, X, Loader2, Star, ChevronDown, Bell, ArrowRight } from 'lucide-react';
+import { Phone, Mail, Facebook, Instagram, Linkedin, Clock, Globe, Search, X, Loader2, Star, ChevronDown, Bell, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { getStoredAnnouncement, ANNOUNCEMENT_UPDATED_EVENT, sanitizeAndGetSiteConfig, SITE_CONFIG_UPDATED_EVENT, DEFAULT_SITE_CONFIG, SiteConfig } from '../services/leadStorage.ts';
 import { AnnouncementConfig } from '../types.ts';
 import { useLanguage } from './LanguageContext.tsx';
+import { BizskoopLogo } from './BizskoopLogo.tsx';
 
 interface HeaderProps {
   onNavigate: (page: string) => void;
@@ -278,22 +279,49 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
                 </AnimatePresence>
               </div>
               
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-2">
                 {[
-                  { icon: Facebook, label: 'f', color: 'hover:bg-blue-600' },
-                  { icon: Twitter, label: 't', color: 'hover:bg-sky-500' },
-                  { icon: Linkedin, label: 'in', color: 'hover:bg-blue-700' },
-                  { icon: Youtube, label: 'y', color: 'hover:bg-red-600' }
+                  { 
+                    renderIcon: () => <Facebook size={12} className="group-hover:scale-110 transition-transform" />, 
+                    label: 'Facebook', 
+                    url: 'https://www.facebook.com/bizskoopofficial',
+                    color: 'hover:bg-blue-600' 
+                  },
+                  { 
+                    renderIcon: () => <Linkedin size={12} className="group-hover:scale-110 transition-transform" />, 
+                    label: 'LinkedIn', 
+                    url: 'https://www.linkedin.com/company/bizskoopofficial?originalSubdomain=my',
+                    color: 'hover:bg-blue-700' 
+                  },
+                  { 
+                    renderIcon: () => <Instagram size={12} className="group-hover:scale-110 transition-transform" />, 
+                    label: 'Instagram', 
+                    url: 'https://www.instagram.com/bizskoopofficial/',
+                    color: 'hover:bg-pink-600' 
+                  },
+                  { 
+                    renderIcon: () => (
+                      <svg className="w-3 h-3 fill-current group-hover:scale-110 transition-transform" viewBox="0 0 24 24">
+                        <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.68 6.34 6.34 0 0 0 9.33 22a6.33 6.33 0 0 0 6.34-6.32V8.2a8.28 8.28 0 0 0 4.84 1.55V6.3a4.79 4.79 0 0 1-.92-.06v.45z"/>
+                      </svg>
+                    ), 
+                    label: 'TikTok', 
+                    url: 'https://www.tiktok.com/@bizskoopofficial',
+                    color: 'hover:bg-black' 
+                  }
                 ].map((social, idx) => (
                   <motion.a 
                     key={social.label} 
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.2 + (idx * 0.05) }}
-                    href="#" 
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Bizskoop on ${social.label}`}
                     className={`w-7 h-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-white hover:border-transparent ${social.color} transition-all duration-300 group shadow-sm hover:shadow-lg hover:-translate-y-0.5`}
                   >
-                    <social.icon size={12} className="group-hover:scale-110 transition-transform" />
+                    {social.renderIcon()}
                   </motion.a>
                 ))}
               </div>
@@ -306,19 +334,16 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`flex justify-between items-center transition-all duration-500 ${isScrolled ? 'h-16' : 'h-20'}`}>
             <div 
-              className="flex-shrink-0 flex items-center gap-3 cursor-pointer group"
+              className="flex-shrink-0 flex items-center cursor-pointer group py-1 mr-4 lg:mr-8"
               onClick={() => handleNavClick('home')}
             >
-              <div className="w-10 h-10 bg-royal-blue rounded-lg flex items-center justify-center shadow-lg group-hover:bg-navy-dark transition-colors">
-                <span className="text-white font-black text-xl">{config.companyName.charAt(0)}</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-2xl font-black tracking-tighter text-royal-blue leading-none uppercase">{config.companyName}</span>
-                <span className="text-[10px] font-bold tracking-[0.2em] text-slate-400">{config.heroTitle}</span>
-              </div>
+              <BizskoopLogo 
+                variant="dark" 
+                size={isScrolled ? 'sm' : 'md'} 
+              />
             </div>
             
-            <div className="hidden lg:flex items-center justify-center flex-1 gap-10">
+            <div className="hidden lg:flex items-center justify-center flex-1 gap-8 xl:gap-10">
               <button onClick={() => handleNavClick('home')} className={`nav-link uppercase ${activeSection === 'home' ? 'text-gold font-black' : 'text-royal-blue'}`}>{t('nav_home')}</button>
               <button 
                 onClick={() => handleNavClick('about')} 
@@ -491,8 +516,21 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
               transition={{ type: 'spring', damping: 25, stiffness: 220 }}
               className="lg:hidden fixed top-0 right-0 h-full w-[85vw] max-w-[380px] bg-gradient-to-b from-royal-blue to-[#051622] z-[1000] shadow-2xl flex flex-col"
             >
-              <div className="flex justify-between items-center px-6 py-5 border-b border-white/10 shrink-0">
-                <span className="text-white font-black text-2xl uppercase tracking-tighter">BIZSKOOP</span>
+              <div className="flex justify-between items-center px-6 py-4 border-b border-white/10 shrink-0">
+                <div 
+                  className="cursor-pointer"
+                  onClick={() => {
+                    handleNavClick('home');
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
+                  <BizskoopLogo 
+                    variant="light" 
+                    size="md" 
+                    showSubtitle={true}
+                    subtitle="STRATEGIC CONSULTANCY"
+                  />
+                </div>
                 <button 
                   onClick={() => setIsMobileMenuOpen(false)} 
                   className="p-1.5 rounded-lg bg-white/5 text-white hover:bg-white/10 transition-colors focus:outline-none cursor-pointer"
@@ -587,10 +625,50 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
               </div>
 
               {/* Drawer Sticky Footer with Quick Action */}
-              <div className="p-6 border-t border-white/10 bg-black/10 shrink-0">
+              <div className="p-6 border-t border-white/10 bg-black/10 shrink-0 space-y-4">
+                <div className="flex items-center justify-center gap-3">
+                  {[
+                    { 
+                      renderIcon: () => <Facebook size={14} />, 
+                      label: 'Facebook', 
+                      url: 'https://www.facebook.com/bizskoopofficial' 
+                    },
+                    { 
+                      renderIcon: () => <Linkedin size={14} />, 
+                      label: 'LinkedIn', 
+                      url: 'https://www.linkedin.com/company/bizskoopofficial?originalSubdomain=my' 
+                    },
+                    { 
+                      renderIcon: () => <Instagram size={14} />, 
+                      label: 'Instagram', 
+                      url: 'https://www.instagram.com/bizskoopofficial/' 
+                    },
+                    { 
+                      renderIcon: () => (
+                        <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.68 6.34 6.34 0 0 0 9.33 22a6.33 6.33 0 0 0 6.34-6.32V8.2a8.28 8.28 0 0 0 4.84 1.55V6.3a4.79 4.79 0 0 1-.92-.06v.45z"/>
+                        </svg>
+                      ), 
+                      label: 'TikTok', 
+                      url: 'https://www.tiktok.com/@bizskoopofficial' 
+                    }
+                  ].map((social) => (
+                    <a
+                      key={social.label}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Bizskoop on ${social.label}`}
+                      className="w-8 h-8 rounded-lg bg-white/10 hover:bg-gold hover:text-slate-900 border border-white/10 flex items-center justify-center text-white/70 transition-all duration-300 shadow-sm"
+                    >
+                      {social.renderIcon()}
+                    </a>
+                  ))}
+                </div>
+
                 <button 
                   onClick={() => { onNavigate('contact'); setIsMobileMenuOpen(false); }} 
-                  className="w-full py-4 bg-white text-royal-blue hover:bg-gold hover:text-slate-900 transition-all font-black rounded-xl uppercase tracking-widest text-xs text-center shadow-lg cursor-pointer"
+                  className="w-full py-3.5 bg-white text-royal-blue hover:bg-gold hover:text-slate-900 transition-all font-black rounded-xl uppercase tracking-widest text-xs text-center shadow-lg cursor-pointer"
                 >
                   {t('nav_contact')}
                 </button>

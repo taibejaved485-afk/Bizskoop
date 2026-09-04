@@ -19,9 +19,9 @@ export interface SiteConfig {
 
 export const DEFAULT_SITE_CONFIG: SiteConfig = {
   companyName: 'BIZSKOOP',
-  phone: '+60 3 2771 8000',
-  email: 'info@bizskoop.com',
-  address: 'Level 09, Integra Tower, The Intermark, 348 Jalan Tun Razak, 50400 Kuala Lumpur, Malaysia',
+  phone: '+60 11-2424 4993',
+  email: 'bizskoop@gmail.com',
+  address: 'Level 09, Integra Tower, The Intermark 50400 Kuala Lumpur',
   whatsapp: '+601124244993',
   heroTitle: 'STRATEGIC CONSULTANCY'
 };
@@ -38,9 +38,9 @@ export const runStorageMigration = () => {
         const parsed = JSON.parse(existingConfig);
         const cleaned: SiteConfig = {
           companyName: (parsed.companyName && !/bizflow/i.test(parsed.companyName)) ? parsed.companyName : 'BIZSKOOP',
-          phone: parsed.phone || DEFAULT_SITE_CONFIG.phone,
-          email: (parsed.email && !/bizflow/i.test(parsed.email)) ? parsed.email : 'info@bizskoop.com',
-          address: parsed.address || DEFAULT_SITE_CONFIG.address,
+          phone: (parsed.phone && parsed.phone.includes('2424')) ? parsed.phone : DEFAULT_SITE_CONFIG.phone,
+          email: (parsed.email && !/bizflow/i.test(parsed.email) && !/info@bizskoop/i.test(parsed.email)) ? parsed.email : DEFAULT_SITE_CONFIG.email,
+          address: (parsed.address && parsed.address.includes('Integra')) ? parsed.address : DEFAULT_SITE_CONFIG.address,
           whatsapp: parsed.whatsapp || DEFAULT_SITE_CONFIG.whatsapp,
           heroTitle: parsed.heroTitle || DEFAULT_SITE_CONFIG.heroTitle,
         };
@@ -114,9 +114,9 @@ export const sanitizeAndGetSiteConfig = (): SiteConfig => {
     const parsed = JSON.parse(raw);
     const cleaned: SiteConfig = {
       companyName: (parsed.companyName && !/bizflow/i.test(parsed.companyName)) ? parsed.companyName : 'BIZSKOOP',
-      phone: parsed.phone || DEFAULT_SITE_CONFIG.phone,
-      email: (parsed.email && !/bizflow/i.test(parsed.email)) ? parsed.email : 'info@bizskoop.com',
-      address: parsed.address || DEFAULT_SITE_CONFIG.address,
+      phone: (parsed.phone && parsed.phone.includes('2424')) ? parsed.phone : DEFAULT_SITE_CONFIG.phone,
+      email: (parsed.email && !/bizflow/i.test(parsed.email) && !/info@bizskoop/i.test(parsed.email)) ? parsed.email : DEFAULT_SITE_CONFIG.email,
+      address: (parsed.address && parsed.address.includes('Integra')) ? parsed.address : DEFAULT_SITE_CONFIG.address,
       whatsapp: parsed.whatsapp || DEFAULT_SITE_CONFIG.whatsapp,
       heroTitle: parsed.heroTitle || DEFAULT_SITE_CONFIG.heroTitle,
     };
@@ -132,7 +132,7 @@ export const saveSiteConfig = (config: SiteConfig) => {
     const cleaned: SiteConfig = {
       ...config,
       companyName: (!config.companyName || /bizflow/i.test(config.companyName)) ? 'BIZSKOOP' : config.companyName,
-      email: (!config.email || /bizflow/i.test(config.email)) ? 'info@bizskoop.com' : config.email,
+      email: (!config.email || /bizflow/i.test(config.email)) ? 'bizskoop@gmail.com' : config.email,
     };
     localStorage.setItem(SITE_CONFIG_STORAGE_KEY, JSON.stringify(cleaned));
     localStorage.removeItem('bizflow_site_config');

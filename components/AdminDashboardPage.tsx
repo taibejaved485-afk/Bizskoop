@@ -25,7 +25,20 @@ const AdminDashboardPage: React.FC = () => {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [logs, setLogs] = useState<ActivityLog[]>([]);
   const [siteConfig, setSiteConfig] = useState<SiteConfig>({
-    global: { companyName: 'Bizskoop', phone: '', email: '', address: '', social: { linkedin: '', whatsapp: '', facebook: '', instagram: '', twitter: '' } },
+    global: { 
+      companyName: 'BIZSKOOP', 
+      phone: '+60 11-2424 4993', 
+      email: 'bizskoop@gmail.com', 
+      address: 'Level 09, Integra Tower, The Intermark 50400 Kuala Lumpur', 
+      social: { 
+        linkedin: 'https://www.linkedin.com/company/bizskoopofficial?originalSubdomain=my', 
+        whatsapp: '+601124244993', 
+        facebook: 'https://www.facebook.com/bizskoopofficial', 
+        instagram: 'https://www.instagram.com/bizskoopofficial/', 
+        twitter: '',
+        tiktok: 'https://www.tiktok.com/@bizskoopofficial'
+      } 
+    },
     header: { logoText: 'BIZSKOOP', navItems: ['Home', 'Services', 'About', 'Contact'] },
     hero: { title: 'Empowering Your Business', subtitle: '', primaryCta: 'Get Started', secondaryCta: 'Learn More', stats: [{ label: 'Years Experience', value: '15+' }, { label: 'Success Rate', value: '99%' }] },
     about: { narrative: '', teamOverview: '' },

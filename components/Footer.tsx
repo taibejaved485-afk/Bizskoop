@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Facebook, Instagram, Linkedin, Twitter, Youtube, ArrowRight, ShieldCheck, Globe, CreditCard, Lock, CheckCircle2, AlertCircle, Mail, Sparkles } from 'lucide-react';
 import { sanitizeAndGetSiteConfig, SITE_CONFIG_UPDATED_EVENT, DEFAULT_SITE_CONFIG, SiteConfig, getStoredLeads, LEADS_UPDATED_EVENT } from '../services/leadStorage.ts';
+import { BizskoopLogo } from './BizskoopLogo.tsx';
 
 interface FooterProps {
   onOpenPolicy?: (policy: string) => void;
@@ -149,6 +150,37 @@ const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate, onOpenAdmin }
         ></div>
         
         <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24 relative z-20">
+          {/* Footer Brand Header */}
+          <div className="pt-10 pb-8 border-b border-white/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div 
+              className="flex items-center gap-4 cursor-pointer group"
+              onClick={() => onNavigate && onNavigate('home')}
+            >
+              <img 
+                src="/footer-logo.png" 
+                alt="BIZSKOOP" 
+                className="h-6 sm:h-7 md:h-8 w-auto max-w-[160px] sm:max-w-[185px] md:max-w-[210px] object-contain transition-transform duration-300 group-hover:scale-105" 
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (target.src !== '/Gemini_Generated_Image_iocel8iocel8ioce-removebg-preview.png') {
+                    target.src = '/Gemini_Generated_Image_iocel8iocel8ioce-removebg-preview.png';
+                  }
+                }}
+              />
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3 text-xs text-blue-100/70 font-semibold">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
+                <ShieldCheck size={14} className="text-gold" />
+                <span>SSM Licensed Secretaries</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
+                <Globe size={14} className="text-gold" />
+                <span>Kuala Lumpur, Malaysia</span>
+              </span>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 py-10 lg:py-12 border-b border-white/10">
             
             {/* Column 1: Business Insights Newsletter */}
@@ -254,23 +286,42 @@ const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate, onOpenAdmin }
               </ul>
               <div className="pt-4">
                 <h5 className="text-[10px] font-black uppercase tracking-widest text-gold mb-4">Follow {config.companyName}</h5>
-                <div className="flex gap-4">
+                <div className="flex items-center gap-3.5 flex-wrap">
                   {[
-                    { Icon: Facebook, url: 'https://facebook.com/bizskoop', label: 'Facebook' },
-                    { Icon: Instagram, url: 'https://instagram.com/bizskoop', label: 'Instagram' },
-                    { Icon: Linkedin, url: 'https://linkedin.com/company/bizskoop', label: 'LinkedIn' },
-                    { Icon: Twitter, url: 'https://twitter.com/bizskoop', label: 'X (Twitter)' },
-                    { Icon: Youtube, url: 'https://youtube.com/@bizskoop', label: 'YouTube' }
-                  ].map(({ Icon, url, label }, i) => (
+                    { 
+                      renderIcon: () => <Facebook size={18} />, 
+                      url: 'https://www.facebook.com/bizskoopofficial', 
+                      label: 'Facebook' 
+                    },
+                    { 
+                      renderIcon: () => <Linkedin size={18} />, 
+                      url: 'https://www.linkedin.com/company/bizskoopofficial?originalSubdomain=my', 
+                      label: 'LinkedIn' 
+                    },
+                    { 
+                      renderIcon: () => <Instagram size={18} />, 
+                      url: 'https://www.instagram.com/bizskoopofficial/', 
+                      label: 'Instagram' 
+                    },
+                    { 
+                      renderIcon: () => (
+                        <svg className="w-[18px] h-[18px] fill-current" viewBox="0 0 24 24">
+                          <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.68 6.34 6.34 0 0 0 9.33 22a6.33 6.33 0 0 0 6.34-6.32V8.2a8.28 8.28 0 0 0 4.84 1.55V6.3a4.79 4.79 0 0 1-.92-.06v.45z"/>
+                        </svg>
+                      ), 
+                      url: 'https://www.tiktok.com/@bizskoopofficial', 
+                      label: 'TikTok' 
+                    }
+                  ].map(({ renderIcon, url, label }, i) => (
                     <a 
                       key={i} 
                       href={url} 
                       target="_blank" 
                       rel="noopener noreferrer" 
                       aria-label={`Visit Bizskoop on ${label}`} 
-                      className="text-white/40 hover:text-gold transition-colors"
+                      className="w-8 h-8 rounded-lg bg-white/5 hover:bg-gold hover:text-slate-900 border border-white/10 flex items-center justify-center text-white/70 transition-all duration-300 shadow-sm hover:shadow-lg hover:-translate-y-0.5"
                     >
-                      <Icon size={20} />
+                      {renderIcon()}
                     </a>
                   ))}
                 </div>

@@ -13,6 +13,7 @@ export interface SiteConfig {
       facebook: string;
       instagram: string;
       twitter: string;
+      tiktok?: string;
     };
   };
   header: {

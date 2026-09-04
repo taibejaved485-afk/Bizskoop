@@ -405,17 +405,17 @@ const ContactPage: React.FC = () => {
                   {
                     icon: <MapPin size={16} />,
                     title: "Corporate Office",
-                    desc: <>Level 28, Menara Binjai,<br />No. 2, Jalan Binjai, Kuala Lumpur City Centre,<br />50450 Kuala Lumpur, Malaysia.</>
+                    desc: <>Level 09, Integra Tower,<br />The Intermark, 50400 Kuala Lumpur,<br />Malaysia.</>
                   },
                   {
                     icon: <Phone size={16} />,
                     title: "Liaison Desk",
-                    desc: <>General Line: +60 3 2771 8000<br />WhatsApp Hotline: +60 12 999 0000</>
+                    desc: <>General Line: +60 11-2424 4993<br />WhatsApp Hotline: +60 11-2424 4993</>
                   },
                   {
                     icon: <Mail size={16} />,
                     title: "Email Channels",
-                    desc: <>General Inquiry: info@bizskoop.com<br />Official Compliance: official@bizskoop.com</>
+                    desc: <>Direct Mail: bizskoop@gmail.com<br />Client Support: bizskoop@gmail.com</>
                   }
                 ].map((item, i) => (
                   <motion.div 
@@ -782,14 +782,15 @@ const ContactPage: React.FC = () => {
             <div className="absolute top-0 right-0 w-24 h-24 bg-gold opacity-5 rounded-bl-full group-hover:scale-150 transition-transform duration-700"></div>
             <h4 className="text-gold font-black text-[10px] uppercase tracking-[0.3em] mb-2">Visit Our Office</h4>
             <p className="text-xs font-semibold leading-relaxed mb-4">
-              Menara Binjai, Level 28<br/>
-              No. 2, Jalan Binjai, KLCC<br/>
-              50450 Kuala Lumpur
+              Level 09, Integra Tower<br/>
+              The Intermark<br/>
+              50400 Kuala Lumpur
             </p>
             <motion.a 
               whileHover={{ x: 5 }}
-              href="https://maps.google.com" 
+              href="https://www.google.com/maps/search/?api=1&query=Integra+Tower+The+Intermark+Kuala+Lumpur" 
               target="_blank" 
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-gold text-[9px] font-black uppercase tracking-widest"
             >
               Get Directions
