@@ -383,7 +383,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate, onOpenAdmin }
                   aria-label="Email Bizskoop Advisory Desk"
                   className="text-blue-100/50 text-sm font-bold block hover:text-gold transition-colors select-all"
                 >
-                  {config.email.replace('@', ' [at] ')}
+                  {config.email}
                 </a>
               </div>
             </div>

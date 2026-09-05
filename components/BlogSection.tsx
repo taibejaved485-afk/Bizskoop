@@ -186,17 +186,11 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent pointer-events-none" />
             
             {/* Overlay Category Badge */}
-            <div className="absolute top-3 left-3 flex items-center gap-1.5 z-10">
-              <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider backdrop-blur-md bg-white/95 text-royal-blue shadow-md`}>
+            <div className="absolute top-3 left-3 flex items-center gap-1.5 z-10 max-w-[calc(100%-3.5rem)]">
+              <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-wider backdrop-blur-md bg-white/95 text-royal-blue shadow-md truncate`}>
                 <CategoryIcon size={12} className={theme.iconColor} />
-                <span>{post.categoryLabel}</span>
+                <span className="truncate">{post.categoryLabel}</span>
               </span>
-              {post.featured && (
-                <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider bg-royal-blue text-gold shadow-md border border-gold/30">
-                  <Sparkles size={10} className="text-gold" />
-                  <span>Featured</span>
-                </span>
-              )}
             </div>
 
             {/* Bookmark button */}
@@ -222,13 +216,6 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
                     <CategoryIcon size={12} className={theme.iconColor} />
                     <span>{post.categoryLabel}</span>
                   </span>
-
-                  {post.featured && (
-                    <span className="inline-flex items-center gap-1 px-2 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider bg-royal-blue text-gold shadow-2xs border border-royal-blue/40">
-                      <Sparkles size={10} className="text-gold" />
-                      <span>Featured</span>
-                    </span>
-                  )}
                 </div>
 
                 <button

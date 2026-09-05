@@ -217,7 +217,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
                 <Mail size={12} className="text-gold group-hover:scale-110 transition-transform" />
               </div>
               <span className="font-black tracking-tight select-all">
-                {config.email.replace('@', ' [at] ')}
+                {config.email}
               </span>
               <div className="absolute -bottom-1 left-8 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300"></div>
             </motion.a>
