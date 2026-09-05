@@ -210,12 +210,15 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage }) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
               href={`mailto:${config.email}`} 
-              className="hidden sm:flex items-center gap-2.5 hover:text-gold transition-all duration-300 group relative"
+              aria-label="Send email to Bizskoop Corporate Advisory Desk"
+              className="hidden sm:flex items-center gap-2.5 hover:text-gold transition-all duration-300 group relative cursor-pointer"
             >
               <div className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-gold/20 transition-colors">
                 <Mail size={12} className="text-gold group-hover:scale-110 transition-transform" />
               </div>
-              <span className="font-black tracking-tight">{config.email}</span>
+              <span className="font-black tracking-tight select-all">
+                {config.email.replace('@', ' [at] ')}
+              </span>
               <div className="absolute -bottom-1 left-8 w-0 h-0.5 bg-gold group-hover:w-full transition-all duration-300"></div>
             </motion.a>
             

@@ -378,8 +378,12 @@ const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate, onOpenAdmin }
                 <a href={`tel:${config.phone.replace(/\s+/g, '')}`} className="text-white font-black text-lg tracking-tight block hover:text-gold transition-colors">
                   {config.phone}
                 </a>
-                <a href={`mailto:${config.email}`} className="text-blue-100/50 text-sm font-bold block hover:text-gold transition-colors">
-                  {config.email}
+                <a 
+                  href={`mailto:${config.email}`} 
+                  aria-label="Email Bizskoop Advisory Desk"
+                  className="text-blue-100/50 text-sm font-bold block hover:text-gold transition-colors select-all"
+                >
+                  {config.email.replace('@', ' [at] ')}
                 </a>
               </div>
             </div>
