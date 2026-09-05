@@ -42,9 +42,16 @@ import {
   LayoutGrid,
   List,
   GripVertical,
-  BookOpen
+  BookOpen,
+  FileSpreadsheet,
+  MessageSquare,
+  Globe,
+  UserPlus
 } from 'lucide-react';
 import { AdminBlogManager } from './AdminBlogManager.tsx';
+import { AdminLeadCreateModal } from './AdminLeadCreateModal.tsx';
+import { AdminQuotationGenerator } from './AdminQuotationGenerator.tsx';
+import { AdminDataManager } from './AdminDataManager.tsx';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, PieChart, Pie, Cell, AreaChart, Area, Legend, LineChart, Line } from 'recharts';
 import { 
   getStoredLeads, 
@@ -73,14 +80,18 @@ interface CustomFAQ {
 const DEFAULT_CONFIG: SiteConfig = DEFAULT_SITE_CONFIG;
 
 interface AdminPageProps {
-  onClose: () => void;
+  onClose?: () => void;
+  onBack?: () => void;
+  onNavigate?: (page: string) => void;
 }
 
-export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
+export const AdminPage: React.FC<AdminPageProps> = ({ onClose, onBack, onNavigate }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [pin, setPin] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
-  const [activeTab, setActiveTab] = useState<'leads' | 'analytics' | 'pricing' | 'announcement' | 'site-config' | 'faqs' | 'data' | 'audit' | 'blogs'>('leads');
+  const [activeTab, setActiveTab] = useState<'leads' | 'analytics' | 'quotation' | 'pricing' | 'announcement' | 'site-config' | 'faqs' | 'data' | 'audit' | 'blogs'>('leads');
+  const [isCreateLeadOpen, setIsCreateLeadOpen] = useState(false);
+  const [quotationInitialLead, setQuotationInitialLead] = useState<Lead | null>(null);
   
   // States for Core Controls
   const [leads, setLeads] = useState<Lead[]>([]);
@@ -743,13 +754,27 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
             <div className="w-full md:w-80 md:h-screen md:sticky md:top-0 bg-white border-r border-slate-200 p-6 md:p-8 flex flex-col justify-between shrink-0 shadow-sm md:overflow-y-auto">
               <div className="space-y-8">
                 {/* Branding */}
-                <div className="flex items-center gap-3">
-                  <BizskoopLogo 
-                    variant="dark" 
-                    size="md" 
-                    showSubtitle={true}
-                    subtitle="EXECUTIVE SUITE"
-                  />
+                <div className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <BizskoopLogo 
+                      variant="dark" 
+                      size="md" 
+                      showSubtitle={true}
+                      subtitle="EXECUTIVE SUITE"
+                    />
+                  </div>
+                  <button 
+                    onClick={() => {
+                      if (onClose) onClose();
+                      else if (onBack) onBack();
+                      else if (onNavigate) onNavigate('home');
+                      else window.location.href = '/';
+                    }}
+                    className="w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-slate-50 hover:bg-royal-blue/5 hover:border-royal-blue/30 text-slate-700 border border-slate-200 font-black text-[10px] uppercase tracking-wider transition-all cursor-pointer shadow-xs"
+                  >
+                    <Globe size={13} className="text-royal-blue" />
+                    <span>View Public Website</span>
+                  </button>
                 </div>
 
                 {/* Tabs / Menus */}
@@ -767,6 +792,14 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
                         {unreadCount}
                       </span>
                     )}
+                  </button>
+
+                  <button 
+                    onClick={() => setActiveTab('quotation')}
+                    className={`w-full flex items-center gap-3 p-4 rounded-2xl font-black text-xs uppercase tracking-wider transition-all cursor-pointer ${activeTab === 'quotation' ? 'bg-navy-dark text-gold shadow-md' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'}`}
+                  >
+                    <FileSpreadsheet size={16} />
+                    <span>Quotation Builder</span>
                   </button>
 
                   <button 
@@ -817,6 +850,13 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
                     <span>Blog Manager</span>
                   </button>
 
+                  <button 
+                    onClick={() => setActiveTab('data')}
+                    className={`w-full flex items-center gap-3 p-4 rounded-2xl font-black text-xs uppercase tracking-wider transition-all cursor-pointer ${activeTab === 'data' ? 'bg-navy-dark text-gold shadow-md' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'}`}
+                  >
+                    <Database size={16} />
+                    <span>Data & Backup</span>
+                  </button>
 
                   <button 
                     onClick={() => setActiveTab('audit')}
@@ -862,6 +902,13 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
                     </div>
 
                     <div className="flex flex-wrap items-center gap-2.5">
+                      <button 
+                        onClick={() => setIsCreateLeadOpen(true)}
+                        className="px-4 py-3 bg-royal-blue hover:bg-blue-900 text-white rounded-xl font-black text-[10px] uppercase tracking-widest transition-all flex items-center gap-2 shadow-md cursor-pointer"
+                      >
+                        <UserPlus size={14} className="text-gold" />
+                        <span>+ Record Inquiry</span>
+                      </button>
                       <button 
                         onClick={handleAddTestLead}
                         className="px-4 py-3 bg-white hover:bg-slate-100 border border-slate-200 rounded-xl font-bold text-[10px] uppercase tracking-widest text-slate-700 transition-all flex items-center gap-2 cursor-pointer shadow-sm"
@@ -1231,27 +1278,89 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
                               )}
                             </div>
 
-                            <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+                            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 shrink-0" onClick={(e) => e.stopPropagation()}>
+                              {/* Quick Status Dropdown */}
+                              <select
+                                value={lead.status}
+                                onChange={(e) => {
+                                  e.stopPropagation();
+                                  handleUpdateLeadStatus(lead.id, e.target.value as any);
+                                }}
+                                className={`px-2 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-wider outline-none border cursor-pointer ${
+                                  lead.status === 'unread' ? 'bg-amber-100 text-amber-900 border-amber-300' :
+                                  lead.status === 'in-progress' ? 'bg-purple-100 text-purple-900 border-purple-300' :
+                                  lead.status === 'read' ? 'bg-blue-100 text-blue-900 border-blue-300' :
+                                  'bg-emerald-100 text-emerald-900 border-emerald-300'
+                                }`}
+                              >
+                                <option value="unread">New</option>
+                                <option value="in-progress">Review</option>
+                                <option value="read">Processing</option>
+                                <option value="resolved">Completed</option>
+                              </select>
+
+                              {/* WhatsApp Direct Action */}
+                              {lead.phoneNumber && (
+                                <a
+                                  href={`https://wa.me/${lead.phoneNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Salam / Hello ${lead.fullName}, thank you for contacting Bizskoop Advisory regarding ${lead.service}. How may we assist you today?`)}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  onClick={(e) => e.stopPropagation()}
+                                  title={`WhatsApp ${lead.fullName}`}
+                                  className="p-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 rounded-xl transition-all cursor-pointer border border-emerald-200 shadow-xs"
+                                >
+                                  <MessageSquare size={14} />
+                                </a>
+                              )}
+
+                              {/* Call Direct Action */}
+                              {lead.phoneNumber && (
+                                <a
+                                  href={`tel:${lead.phoneNumber}`}
+                                  onClick={(e) => e.stopPropagation()}
+                                  title={`Call ${lead.phoneNumber}`}
+                                  className="p-2 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-xl transition-all cursor-pointer border border-blue-200 shadow-xs hidden sm:inline-flex"
+                                >
+                                  <Phone size={14} />
+                                </a>
+                              )}
+
+                              {/* Create Quotation Button */}
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setQuotationInitialLead(lead);
+                                  setActiveTab('quotation');
+                                }}
+                                title="Generate Quotation for this Client"
+                                className="px-2.5 py-1.5 bg-royal-blue/10 hover:bg-royal-blue hover:text-white text-royal-blue border border-royal-blue/25 rounded-xl text-[9px] font-black uppercase tracking-wider transition-all flex items-center gap-1 cursor-pointer shadow-xs"
+                              >
+                                <FileSpreadsheet size={13} />
+                                <span className="hidden xl:inline">Quote</span>
+                              </button>
+
                               <button 
                                 onClick={(e) => handleOpenNotes(lead, e)}
                                 title={lead.notes ? 'View/Edit Notes' : 'Add Admin Notes'}
-                                className={`px-3 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all flex items-center gap-1.5 cursor-pointer ${lead.notes ? 'bg-amber-100 text-amber-800 hover:bg-amber-200' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}
+                                className={`px-2.5 py-1.5 rounded-xl text-[9px] font-black uppercase tracking-wider transition-all flex items-center gap-1 cursor-pointer ${lead.notes ? 'bg-amber-100 text-amber-800 hover:bg-amber-200' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}`}
                               >
-                                <FileText size={14} />
-                                {lead.notes ? 'Notes' : 'Add Note'}
+                                <FileText size={13} />
+                                <span className="hidden sm:inline">{lead.notes ? 'Notes' : 'Note'}</span>
                               </button>
+
                               <button 
                                 onClick={() => handleToggleRead(lead.id)}
                                 title={lead.status === 'unread' ? 'Mark as Read' : 'Mark as Unread'}
-                                className="p-2.5 bg-slate-100 hover:bg-slate-200 rounded-xl text-slate-600 hover:text-slate-900 transition-all cursor-pointer"
+                                className="p-2 bg-slate-100 hover:bg-slate-200 rounded-xl text-slate-600 hover:text-slate-900 transition-all cursor-pointer"
                               >
-                                {lead.status === 'unread' ? <Eye size={16} /> : <CheckSquare size={16} />}
+                                {lead.status === 'unread' ? <Eye size={14} /> : <CheckSquare size={14} />}
                               </button>
+
                               <button 
                                 onClick={() => handleDeleteLead(lead.id)}
-                                className="p-2.5 bg-slate-100 hover:bg-red-100 rounded-xl text-slate-600 hover:text-red-600 transition-all cursor-pointer"
+                                className="p-2 bg-slate-100 hover:bg-red-100 rounded-xl text-slate-600 hover:text-red-600 transition-all cursor-pointer"
                               >
-                                <Trash2 size={16} />
+                                <Trash2 size={14} />
                               </button>
                             </div>
                           </div>
@@ -1959,6 +2068,19 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
                 />
               )}
 
+              {/* QUOTATION GENERATOR PANEL */}
+              {activeTab === 'quotation' && (
+                <AdminQuotationGenerator 
+                  initialLead={quotationInitialLead}
+                  onClearInitialLead={() => setQuotationInitialLead(null)}
+                />
+              )}
+
+              {/* DATA & BACKUP PANEL */}
+              {activeTab === 'data' && (
+                <AdminDataManager />
+              )}
+
               {/* LEADS DETAIL MODAL (IF SELECTED) */}
               <AnimatePresence>
                 {selectedLead && (
@@ -2042,6 +2164,42 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
                           ) : (
                             <p className="text-xs text-slate-400 italic">No administrative remarks captured yet.</p>
                           )}
+                        </div>
+
+                        {/* Instant Communication & Quotation Action Buttons */}
+                        <div className="flex flex-wrap items-center gap-2 pt-3 border-t border-slate-100">
+                          {selectedLead.phoneNumber && (
+                            <a
+                              href={`https://wa.me/${selectedLead.phoneNumber.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(`Salam / Hello ${selectedLead.fullName}, thank you for reaching out to Bizskoop Advisory regarding ${selectedLead.service}. How may we assist you?`)}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-[10px] font-black uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-sm"
+                            >
+                              <MessageSquare size={13} />
+                              <span>WhatsApp Client</span>
+                            </a>
+                          )}
+                          {selectedLead.email && (
+                            <a
+                              href={`mailto:${selectedLead.email}?subject=${encodeURIComponent(`Bizskoop Advisory — Follow-Up: ${selectedLead.service}`)}`}
+                              className="px-4 py-2.5 bg-royal-blue hover:bg-blue-900 text-white rounded-xl text-[10px] font-black uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-sm"
+                            >
+                              <Mail size={13} />
+                              <span>Email Client</span>
+                            </a>
+                          )}
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setQuotationInitialLead(selectedLead);
+                              setSelectedLead(null);
+                              setActiveTab('quotation');
+                            }}
+                            className="px-4 py-2.5 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all flex items-center gap-1.5 shadow-sm cursor-pointer"
+                          >
+                            <FileSpreadsheet size={13} className="text-amber-700" />
+                            <span>Create Official Quotation</span>
+                          </button>
                         </div>
 
                         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-2">
@@ -2410,6 +2568,16 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose }) => {
                   );
                 })()}
               </AnimatePresence>
+
+              {/* MANUAL CRM LEAD CREATION MODAL */}
+              <AdminLeadCreateModal 
+                isOpen={isCreateLeadOpen}
+                onClose={() => setIsCreateLeadOpen(false)}
+                onLeadCreated={(newLead) => {
+                  setLeads(prev => [newLead, ...prev]);
+                  showToast(`Inquiry for "${newLead.fullName}" created in CRM!`);
+                }}
+              />
 
             </div>
           </div>

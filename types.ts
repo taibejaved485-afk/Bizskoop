@@ -65,6 +65,33 @@ export interface Lead {
   status: 'unread' | 'read' | 'in-progress' | 'resolved';
   date: string;
   notes?: string;
+  source?: 'website' | 'whatsapp' | 'phone' | 'walk-in' | 'referral';
+  priority?: 'high' | 'medium' | 'low';
+  estimatedValue?: number;
+}
+
+export interface QuotationItem {
+  id: string;
+  description: string;
+  quantity: number;
+  unitPrice: number;
+}
+
+export interface Quotation {
+  id: string;
+  quoteNumber: string;
+  clientName: string;
+  companyName: string;
+  clientEmail: string;
+  clientPhone: string;
+  date: string;
+  validUntil: string;
+  items: QuotationItem[];
+  applySST: boolean;
+  sstRate: number;
+  discount: number;
+  notes: string;
+  status: 'draft' | 'sent' | 'accepted' | 'declined';
 }
 
 export interface VisaFormData {
