@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ChevronDown, HelpCircle, MessageSquare, Phone, ArrowRight } from 'lucide-react';
+import { ChevronDown, HelpCircle, MessageSquare, ArrowRight, Link2, Check } from 'lucide-react';
 import { useLanguage } from './LanguageContext.tsx';
 
 interface FAQItem {
@@ -13,6 +13,7 @@ export const FAQSection: React.FC<{ onNavigate?: (page: string) => void }> = ({ 
   const { language } = useLanguage();
   const [openLeft, setOpenLeft] = useState<number | null>(null);
   const [openRight, setOpenRight] = useState<number | null>(null);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
 
   const isBM = language === 'BM';
 
@@ -112,6 +113,70 @@ export const FAQSection: React.FC<{ onNavigate?: (page: string) => void }> = ({ 
     }
   ];
 
+  // Auto-expand and scroll if URL hash targets a specific FAQ
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const hash = window.location.hash.replace('#', '');
+    if (!hash) return;
+
+    const leftIdx = leftFaqs.findIndex(item => item.id === hash);
+    if (leftIdx !== -1) {
+      setOpenLeft(leftIdx);
+      setTimeout(() => {
+        const el = document.getElementById(hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 200);
+      return;
+    }
+
+    const rightIdx = rightFaqs.findIndex(item => item.id === hash);
+    if (rightIdx !== -1) {
+      setOpenRight(rightIdx);
+      setTimeout(() => {
+        const el = document.getElementById(hash);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 200);
+    }
+  }, []);
+
+  const handleCopyLink = async (id: string, e: React.MouseEvent, column: 'left' | 'right', index: number) => {
+    e.stopPropagation();
+    
+    // Auto-open this item if not already open
+    if (column === 'left') {
+      setOpenLeft(index);
+    } else {
+      setOpenRight(index);
+    }
+
+    const url = `${window.location.origin}${window.location.pathname}#${id}`;
+    
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(url);
+      } else {
+        const textArea = document.createElement('textarea');
+        textArea.value = url;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+      }
+      
+      // Update hash in browser URL without causing page reload/jump
+      if (window.history && window.history.pushState) {
+        window.history.pushState(null, '', `#${id}`);
+      } else {
+        window.location.hash = `#${id}`;
+      }
+
+      setCopiedId(id);
+      setTimeout(() => setCopiedId(null), 2200);
+    } catch (err) {
+      console.error('Failed to copy direct FAQ link:', err);
+    }
+  };
+
   return (
     <section id="faq" className="w-full py-16 sm:py-24 bg-[#f4f7fb] text-slate-800 relative overflow-hidden scroll-mt-20">
       {/* Subtle geometric background accents */}
@@ -151,32 +216,76 @@ export const FAQSection: React.FC<{ onNavigate?: (page: string) => void }> = ({ 
           <div className="space-y-3.5 sm:space-y-4">
             {leftFaqs.map((faq, index) => {
               const isOpen = openLeft === index;
+              const isCopied = copiedId === faq.id;
               return (
                 <motion.div
                   key={faq.id}
+                  id={faq.id}
                   initial={{ opacity: 0, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.06 }}
-                  className="bg-white rounded-lg shadow-sm border border-slate-200/80 hover:border-slate-300 transition-all duration-200 overflow-hidden"
+                  className={`bg-white rounded-lg shadow-sm border transition-all duration-200 overflow-hidden scroll-mt-28 ${
+                    isOpen ? 'border-slate-300 ring-1 ring-royal-blue/10' : 'border-slate-200/80 hover:border-slate-300'
+                  }`}
                 >
-                  <button
+                  <div
                     onClick={() => setOpenLeft(isOpen ? null : index)}
-                    className="w-full px-5 py-4 sm:px-6 sm:py-4.5 flex items-center justify-between text-left focus:outline-none cursor-pointer group gap-4"
+                    className="w-full px-5 py-4 sm:px-6 sm:py-4.5 flex items-center justify-between text-left focus:outline-none cursor-pointer group gap-4 select-none"
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setOpenLeft(isOpen ? null : index);
+                      }
+                    }}
                     aria-expanded={isOpen}
                   >
-                    <span className={`text-xs sm:text-sm font-black tracking-tight leading-snug transition-colors ${
+                    <span className={`text-xs sm:text-sm font-black tracking-tight leading-snug transition-colors flex-1 ${
                       isOpen ? 'text-royal-blue' : 'text-slate-900 group-hover:text-royal-blue'
                     }`}>
                       {faq.question}
                     </span>
-                    <ChevronDown 
-                      className={`w-4 h-4 shrink-0 text-slate-700 transition-transform duration-300 ${
-                        isOpen ? 'rotate-180 text-royal-blue' : 'group-hover:text-royal-blue'
-                      }`} 
-                      strokeWidth={2.2}
-                    />
-                  </button>
+
+                    <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                      {/* Copy Direct Link Button */}
+                      <button
+                        type="button"
+                        onClick={(e) => handleCopyLink(faq.id, e, 'left', index)}
+                        title={isCopied ? "Direct link copied!" : "Copy link to this question"}
+                        aria-label="Copy direct question link"
+                        className={`p-1.5 rounded-md transition-all duration-200 relative group/btn cursor-pointer ${
+                          isCopied 
+                            ? 'bg-emerald-50 text-emerald-600 ring-1 ring-emerald-300' 
+                            : 'text-slate-400 hover:text-royal-blue hover:bg-slate-100'
+                        }`}
+                      >
+                        {isCopied ? (
+                          <Check className="w-3.5 h-3.5 text-emerald-600 animate-scale-in" />
+                        ) : (
+                          <Link2 className="w-3.5 h-3.5 group-hover/btn:scale-110 transition-transform" />
+                        )}
+
+                        {/* Floating Tooltip Pill */}
+                        {isCopied && (
+                          <span className="absolute -top-7 left-1/2 -translate-x-1/2 bg-[#002244] text-white text-[10px] font-bold py-0.5 px-2 rounded-md whitespace-nowrap shadow-md z-30 pointer-events-none">
+                            Link Copied!
+                          </span>
+                        )}
+                      </button>
+
+                      {/* Expand / Collapse Chevron */}
+                      <div className="p-1">
+                        <ChevronDown 
+                          className={`w-4 h-4 text-slate-700 transition-transform duration-300 ${
+                            isOpen ? 'rotate-180 text-royal-blue' : 'group-hover:text-royal-blue'
+                          }`} 
+                          strokeWidth={2.2}
+                        />
+                      </div>
+                    </div>
+                  </div>
 
                   <AnimatePresence initial={false}>
                     {isOpen && (
@@ -201,32 +310,76 @@ export const FAQSection: React.FC<{ onNavigate?: (page: string) => void }> = ({ 
           <div className="space-y-3.5 sm:space-y-4">
             {rightFaqs.map((faq, index) => {
               const isOpen = openRight === index;
+              const isCopied = copiedId === faq.id;
               return (
                 <motion.div
                   key={faq.id}
+                  id={faq.id}
                   initial={{ opacity: 0, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.06 }}
-                  className="bg-white rounded-lg shadow-sm border border-slate-200/80 hover:border-slate-300 transition-all duration-200 overflow-hidden"
+                  className={`bg-white rounded-lg shadow-sm border transition-all duration-200 overflow-hidden scroll-mt-28 ${
+                    isOpen ? 'border-slate-300 ring-1 ring-royal-blue/10' : 'border-slate-200/80 hover:border-slate-300'
+                  }`}
                 >
-                  <button
+                  <div
                     onClick={() => setOpenRight(isOpen ? null : index)}
-                    className="w-full px-5 py-4 sm:px-6 sm:py-4.5 flex items-center justify-between text-left focus:outline-none cursor-pointer group gap-4"
+                    className="w-full px-5 py-4 sm:px-6 sm:py-4.5 flex items-center justify-between text-left focus:outline-none cursor-pointer group gap-4 select-none"
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setOpenRight(isOpen ? null : index);
+                      }
+                    }}
                     aria-expanded={isOpen}
                   >
-                    <span className={`text-xs sm:text-sm font-black tracking-tight leading-snug transition-colors ${
+                    <span className={`text-xs sm:text-sm font-black tracking-tight leading-snug transition-colors flex-1 ${
                       isOpen ? 'text-royal-blue' : 'text-slate-900 group-hover:text-royal-blue'
                     }`}>
                       {faq.question}
                     </span>
-                    <ChevronDown 
-                      className={`w-4 h-4 shrink-0 text-slate-700 transition-transform duration-300 ${
-                        isOpen ? 'rotate-180 text-royal-blue' : 'group-hover:text-royal-blue'
-                      }`} 
-                      strokeWidth={2.2}
-                    />
-                  </button>
+
+                    <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                      {/* Copy Direct Link Button */}
+                      <button
+                        type="button"
+                        onClick={(e) => handleCopyLink(faq.id, e, 'right', index)}
+                        title={isCopied ? "Direct link copied!" : "Copy link to this question"}
+                        aria-label="Copy direct question link"
+                        className={`p-1.5 rounded-md transition-all duration-200 relative group/btn cursor-pointer ${
+                          isCopied 
+                            ? 'bg-emerald-50 text-emerald-600 ring-1 ring-emerald-300' 
+                            : 'text-slate-400 hover:text-royal-blue hover:bg-slate-100'
+                        }`}
+                      >
+                        {isCopied ? (
+                          <Check className="w-3.5 h-3.5 text-emerald-600 animate-scale-in" />
+                        ) : (
+                          <Link2 className="w-3.5 h-3.5 group-hover/btn:scale-110 transition-transform" />
+                        )}
+
+                        {/* Floating Tooltip Pill */}
+                        {isCopied && (
+                          <span className="absolute -top-7 left-1/2 -translate-x-1/2 bg-[#002244] text-white text-[10px] font-bold py-0.5 px-2 rounded-md whitespace-nowrap shadow-md z-30 pointer-events-none">
+                            Link Copied!
+                          </span>
+                        )}
+                      </button>
+
+                      {/* Expand / Collapse Chevron */}
+                      <div className="p-1">
+                        <ChevronDown 
+                          className={`w-4 h-4 text-slate-700 transition-transform duration-300 ${
+                            isOpen ? 'rotate-180 text-royal-blue' : 'group-hover:text-royal-blue'
+                          }`} 
+                          strokeWidth={2.2}
+                        />
+                      </div>
+                    </div>
+                  </div>
 
                   <AnimatePresence initial={false}>
                     {isOpen && (
@@ -293,3 +446,4 @@ export const FAQSection: React.FC<{ onNavigate?: (page: string) => void }> = ({ 
     </section>
   );
 };
+

@@ -33,7 +33,7 @@ import { BlogPost, getStoredBlogPosts, BLOGS_UPDATED_EVENT } from '../services/b
 export type { BlogPost };
 
 interface BlogSectionProps {
-  onNavigate?: (page: string) => void;
+  onNavigate?: (page: string, blogSlug?: string) => void;
   isStandalonePage?: boolean;
 }
 
@@ -165,7 +165,13 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.4, delay: idx * 0.07 }}
-        onClick={() => setActiveArticle(post)}
+        onClick={() => {
+          if (onNavigate) {
+            onNavigate('blog-detail', post.slug || post.id);
+          } else {
+            setActiveArticle(post);
+          }
+        }}
         className={`w-full bg-white rounded-2xl sm:rounded-3xl border border-slate-200/90 shadow-[0_4px_20px_rgba(0,34,68,0.06)] ${theme.glow} ${theme.borderHover} transition-all duration-300 flex flex-col justify-between overflow-hidden group cursor-pointer relative transform hover:-translate-y-1`}
       >
         {/* Featured Image Header if present */}
@@ -582,11 +588,11 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
   // STANDALONE BLOG DIRECTORY PAGE
   // ---------------------------------------------------------------------------
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 pt-28 pb-20">
-      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 max-w-7xl mx-auto space-y-10">
+    <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-slate-50 pt-6 sm:pt-8 pb-20">
+      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-24 mx-auto space-y-6 sm:space-y-8">
         
         {/* Top Breadcrumb & Hero */}
-        <div className="space-y-4">
+        <div className="space-y-3">
           <div className="flex items-center gap-2 text-xs font-bold text-slate-500">
             <button
               type="button"
@@ -596,19 +602,19 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
               Home
             </button>
             <span>/</span>
-            <span className="text-royal-blue">Advisory Insights & Statutory Briefings</span>
+            <span className="text-royal-blue font-bold">Advisory Insights & Statutory Briefings</span>
           </div>
 
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-royal-blue/10 text-royal-blue text-[11px] font-black uppercase tracking-wider mb-2">
                 <Sparkles size={12} className="text-gold" />
                 <span>Knowledge & Compliance Hub</span>
               </div>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 uppercase tracking-tight">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl font-black text-slate-900 uppercase tracking-tight">
                 Corporate Regulatory Briefings
               </h1>
-              <p className="text-slate-600 text-sm sm:text-base font-medium mt-2 max-w-2xl">
+              <p className="text-slate-600 text-xs sm:text-base font-medium mt-1.5 max-w-3xl">
                 Comprehensive statutory insights authored by licensed Company Secretaries, Chartered Tax Advisors, and Expatriate Immigration Counsel.
               </p>
             </div>
@@ -616,8 +622,8 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
         </div>
 
         {/* Search & Filter Bar */}
-        <div className="p-4 sm:p-5 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-4">
-          <div className="flex flex-col sm:flex-row gap-3">
+        <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-4">
+          <div className="flex flex-col lg:flex-row gap-3">
             <div className="relative flex-1">
               <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
               <input
@@ -625,12 +631,12 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search articles, SSM acts, tax brackets, EP visa rules, or author..."
-                className="w-full pl-11 pr-4 py-3 rounded-2xl border border-slate-200 text-xs sm:text-sm font-medium focus:ring-2 focus:ring-royal-blue focus:outline-hidden"
+                className="w-full pl-11 pr-4 py-3 rounded-xl sm:rounded-2xl border border-slate-200 text-xs sm:text-sm font-medium focus:ring-2 focus:ring-royal-blue focus:outline-hidden"
               />
             </div>
 
             {/* Category Filter Pills */}
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 lg:pb-0">
               <button
                 type="button"
                 onClick={() => setSelectedCategory('all')}
@@ -711,7 +717,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-6 sm:gap-8">
             {filteredPosts.map((post, idx) => {
               const isSaved = savedArticles.includes(post.id);
               return renderCard(post, idx, isSaved);

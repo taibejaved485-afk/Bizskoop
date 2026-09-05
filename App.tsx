@@ -24,6 +24,8 @@ import { BlogSection } from './components/BlogSection.tsx';
 import { LegalModal } from './components/LegalModal.tsx';
 import { AdminPage } from './components/AdminPage.tsx';
 import { FAQSection } from './components/FAQSection.tsx';
+import { BlogDetailPage } from './components/BlogDetailPage.tsx';
+import { BlogPost, getStoredBlogPosts } from './services/blogStorage.ts';
 import { MessageCircle } from 'lucide-react';
 import { motion } from 'motion/react';
 import { ErrorBoundary } from './components/ErrorBoundary.tsx';
@@ -31,34 +33,55 @@ import { ErrorBoundary } from './components/ErrorBoundary.tsx';
 // App Component - Main Entry Point
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState('home');
+  const [selectedBlogSlug, setSelectedBlogSlug] = useState<string | null>(null);
   const [selectedPolicy, setSelectedPolicy] = useState<string | null>(null);
 
   // Handle URL path changes for routing and back/forward browser buttons
   useEffect(() => {
     const syncRoute = () => {
       const path = window.location.pathname;
+      const hash = window.location.hash;
+
       if (path === '/admin') {
         setCurrentPage('admin');
-      } else {
-        setCurrentPage('home');
+      } else if (hash && hash.startsWith('#blog-')) {
+        const slug = hash.replace('#blog-', '');
+        setSelectedBlogSlug(slug);
+        setCurrentPage('blog-detail');
       }
     };
 
     syncRoute();
     window.addEventListener('popstate', syncRoute);
-    return () => window.removeEventListener('popstate', syncRoute);
+    window.addEventListener('hashchange', syncRoute);
+    return () => {
+      window.removeEventListener('popstate', syncRoute);
+      window.removeEventListener('hashchange', syncRoute);
+    };
   }, []);
 
-  const handleNavigate = (page: string) => {
+  const handleNavigate = (page: string, blogSlug?: string) => {
+    if (blogSlug) {
+      setSelectedBlogSlug(blogSlug);
+    }
     if (page === 'admin') {
       window.history.pushState(null, '', '/admin');
       setCurrentPage('admin');
     } else {
-      window.history.pushState(null, '', '/');
+      if (page === 'blog-detail' && blogSlug) {
+        window.history.pushState(null, '', `/#blog-${blogSlug}`);
+      } else {
+        window.history.pushState(null, '', '/');
+      }
       setCurrentPage(page);
     }
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  const allBlogPosts = getStoredBlogPosts();
+  const currentBlogPost = allBlogPosts.find(
+    (p) => p.slug === selectedBlogSlug || p.id === selectedBlogSlug
+  ) || allBlogPosts[0];
 
   if (currentPage === 'admin') {
     return <AdminPage onClose={() => handleNavigate('home')} />;
@@ -499,6 +522,12 @@ const App: React.FC = () => {
             <AboutPage />
           ) : currentPage === 'blog' ? (
             <BlogSection onNavigate={handleNavigate} isStandalonePage={true} />
+          ) : currentPage === 'blog-detail' ? (
+            <BlogDetailPage 
+              post={currentBlogPost} 
+              onNavigate={handleNavigate} 
+              onBack={() => handleNavigate('blog')} 
+            />
           ) : currentPage === 'company-secretarial' ? (
             <CompanySecretarial />
           ) : currentPage === 'accounting' ? (

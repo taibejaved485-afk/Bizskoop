@@ -186,10 +186,6 @@ const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate, onOpenAdmin }
             {/* Column 1: Business Insights Newsletter */}
             <div className="space-y-6">
               <div className="space-y-2">
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-gold/15 border border-gold/30 text-gold text-[10px] font-black uppercase tracking-wider">
-                  <Sparkles size={11} />
-                  <span>Business Insights</span>
-                </div>
                 <h4 className="text-lg font-black uppercase tracking-tight text-white">
                   Business Insights Newsletter
                 </h4>
