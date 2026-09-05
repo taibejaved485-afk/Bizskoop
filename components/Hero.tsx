@@ -19,49 +19,47 @@ const Hero: React.FC = () => {
       {/* 1. Background Image Layer with Parallax */}
       <motion.div 
         style={{ y: y1 }}
-        initial={{ scale: 1.1, opacity: 0 }}
+        initial={{ scale: 1.05, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 1.5, ease: "easeOut" }}
-        className="absolute inset-0 z-0"
+        transition={{ duration: 1.2, ease: "easeOut" }}
+        className="absolute inset-0 z-0 will-change-transform"
       >
         <img 
           src="https://i.pinimg.com/1200x/60/60/67/60606708179d33e4ddc01a4695a40a9e.jpg" 
           className="w-full h-full object-cover"
           alt="Kuala Lumpur Skyline Background"
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
+          width="1200"
+          height="800"
         />
         {/* Adjusted multi-layered overlay for better image visibility while keeping text crisp */}
         <div className="absolute inset-0 bg-white/40 lg:bg-gradient-to-r lg:from-white lg:via-white/70 lg:to-transparent"></div>
         <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white to-transparent"></div>
       </motion.div>
       
-      {/* Floating Decorative Elements */}
-      <div className="absolute inset-0 z-1 pointer-events-none overflow-hidden">
+      {/* Floating Decorative Elements - Hidden on mobile to preserve CPU & FPS */}
+      <div className="absolute inset-0 z-1 pointer-events-none overflow-hidden hidden sm:block">
         <motion.div 
           animate={{ 
-            y: [0, -40, 0],
-            x: [0, 20, 0],
-            rotate: [0, 10, 0]
+            y: [0, -30, 0],
+            x: [0, 15, 0],
+            rotate: [0, 8, 0]
           }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/4 right-[10%] w-32 h-32 border-2 border-royal-blue/10 rounded-full"
+          className="absolute top-1/4 right-[10%] w-32 h-32 border-2 border-royal-blue/10 rounded-full will-change-transform"
         />
         <motion.div 
           animate={{ 
-            y: [0, 50, 0],
-            x: [0, -30, 0],
-            rotate: [0, -15, 0]
+            y: [0, 40, 0],
+            x: [0, -20, 0],
+            rotate: [0, -10, 0]
           }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute bottom-1/4 left-[5%] w-48 h-48 border border-gold/20 rounded-[40px]"
+          className="absolute bottom-1/4 left-[5%] w-48 h-48 border border-gold/20 rounded-[40px] will-change-transform"
         />
-        <motion.div 
-          animate={{ 
-            scale: [1, 1.2, 1],
-            opacity: [0.1, 0.2, 0.1]
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-1/3 left-1/4 w-64 h-64 bg-royal-blue/5 rounded-full blur-[80px]"
-        />
+        <div className="absolute top-1/3 left-1/4 w-64 h-64 bg-royal-blue/5 rounded-full blur-[80px]" />
       </div>
 
       <div className="w-full px-4 sm:px-10 lg:px-16 2xl:px-24 relative z-10">
@@ -237,6 +235,11 @@ const Hero: React.FC = () => {
               src="https://i.pinimg.com/736x/4f/d6/45/4fd64566a496266abfb11dda065cbc2b.jpg" 
               className="relative rounded-3xl shadow-2xl border-4 border-white object-cover aspect-square max-h-[380px] mx-auto z-10"
               alt="Elite Business Environment"
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              width="380"
+              height="380"
             />
             
             {/* Enhanced Testimonial Card with Rotating Glow Border */}
