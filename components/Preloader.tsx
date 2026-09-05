@@ -8,24 +8,23 @@ interface PreloaderProps {
 
 export const Preloader: React.FC<PreloaderProps> = ({
   onComplete,
-  minDuration = 1400
+  minDuration = 1800
 }) => {
-  const [progress, setProgress] = useState(12);
+  const [progress, setProgress] = useState(15);
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
     // Smooth progress increment
     const interval = setInterval(() => {
       setProgress((prev) => {
-        if (prev >= 100) {
+        if (prev >= 98) {
           clearInterval(interval);
           return 100;
         }
-        // Accelerate near the end
-        const step = prev > 70 ? 12 : Math.floor(Math.random() * 8) + 6;
+        const step = prev > 70 ? 8 : Math.floor(Math.random() * 7) + 5;
         return Math.min(100, prev + step);
       });
-    }, 80);
+    }, 70);
 
     const timer = setTimeout(() => {
       setProgress(100);
@@ -33,8 +32,8 @@ export const Preloader: React.FC<PreloaderProps> = ({
         setIsVisible(false);
         setTimeout(() => {
           if (onComplete) onComplete();
-        }, 550);
-      }, 350);
+        }, 400);
+      }, 250);
     }, minDuration);
 
     return () => {
@@ -53,9 +52,10 @@ export const Preloader: React.FC<PreloaderProps> = ({
             opacity: 0,
             scale: 1.02,
             filter: 'blur(4px)',
-            transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] }
+            transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] }
           }}
-          className="fixed inset-0 z-99999 flex flex-col items-center justify-center bg-white overflow-hidden select-none"
+          className="fixed inset-0 z-[9999999] flex flex-col items-center justify-center bg-white overflow-hidden select-none"
+          style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 9999999 }}
         >
           {/* Subtle Ambient Background Gradients */}
           <div className="absolute inset-0 pointer-events-none overflow-hidden">

@@ -29,31 +29,23 @@ import { BlogPost, getStoredBlogPosts } from './services/blogStorage.ts';
 import { MessageCircle } from 'lucide-react';
 import { motion } from 'motion/react';
 import { ErrorBoundary } from './components/ErrorBoundary.tsx';
+import { Preloader } from './components/Preloader.tsx';
 
 // App Component - Main Entry Point
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState('home');
   const [selectedBlogSlug, setSelectedBlogSlug] = useState<string | null>(null);
   const [selectedPolicy, setSelectedPolicy] = useState<string | null>(null);
+  const [showPreloader, setShowPreloader] = useState(true);
 
-  // Smoothly dismiss the 0ms instant HTML preloader once React has mounted and hydrated (Strictly < 3s)
+  // Clean up static HTML preloader so React Preloader seamlessly presents the animation
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (typeof (window as any).__dismissPreloader === 'function') {
-        (window as any).__dismissPreloader();
-      } else {
-        const initialLoader = document.getElementById('initial-preloader');
-        if (initialLoader) {
-          initialLoader.classList.add('fade-out');
-          setTimeout(() => {
-            try {
-              initialLoader.remove();
-            } catch (_) {}
-          }, 450);
-        }
-      }
-    }, 1200);
-    return () => clearTimeout(timer);
+    const initialLoader = document.getElementById('initial-preloader');
+    if (initialLoader) {
+      try {
+        initialLoader.remove();
+      } catch (_) {}
+    }
   }, []);
 
   // Handle URL path changes for routing and back/forward browser buttons
@@ -109,6 +101,9 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-white relative">
+      {showPreloader && (
+        <Preloader onComplete={() => setShowPreloader(false)} minDuration={1800} />
+      )}
       <Header onNavigate={handleNavigate} currentPage={currentPage} />
       
       {currentPage === 'home' ? (
