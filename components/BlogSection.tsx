@@ -176,7 +176,7 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
       >
         {/* Featured Image Header if present */}
         {post.featuredImage && (
-          <div className="relative w-full h-44 sm:h-48 bg-slate-900 overflow-hidden shrink-0">
+          <div className="relative w-full h-48 sm:h-52 md:h-56 lg:h-60 bg-slate-900 overflow-hidden shrink-0">
             <img
               src={post.featuredImage}
               alt={post.imageAlt || post.title}
@@ -534,9 +534,9 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
         <div className="absolute top-1/4 -left-40 w-96 h-96 bg-royal-blue/10 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute bottom-1/4 -right-40 w-96 h-96 bg-gold/15 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 relative z-10">
+        <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 2xl:px-20 relative z-10">
           {/* Header */}
-          <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+          <div className="text-center max-w-4xl mx-auto mb-12 sm:mb-16">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gradient-to-r from-royal-blue/10 via-gold/15 to-royal-blue/10 border border-gold/40 mb-3.5 shadow-2xs">
               <Sparkles size={12} className="text-gold" />
               <span className="text-[11px] font-black uppercase tracking-widest text-royal-blue">
@@ -551,8 +551,8 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
             </p>
           </div>
 
-          {/* 3 Grid Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto">
+          {/* 3 Grid Cards - Full Width */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 w-full">
             {homePreviewPosts.map((post, idx) => {
               const isSaved = savedArticles.includes(post.id);
               return renderCard(post, idx, isSaved);
