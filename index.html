@@ -38,6 +38,13 @@
       fbq('track', 'PageView');
     </script>
     
+    <!-- Preconnect & Performance Optimizations -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
+    <link rel="dns-prefetch" href="https://connect.facebook.net">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Bizskoop">
@@ -50,54 +57,146 @@
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
 
-    <!-- Twitter -->
+    <!-- Twitter / X Cards -->
     <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:site" content="@bizskoop">
+    <meta property="twitter:creator" content="@bizskoop">
     <meta property="twitter:url" content="https://bizskoop.com/">
     <meta property="twitter:title" content="Bizskoop | SSM Business Formation & Corporate Services">
     <meta property="twitter:description" content="Bizskoop provides SSM company formation, ESD employment pass, corporate advisory, tax compliance, and business licensing services in Malaysia.">
     <meta property="twitter:image" content="https://i.pinimg.com/736x/4f/d6/45/4fd64566a496266abfb11dda065cbc2b.jpg">
 
-    <!-- Local Business Structured Data -->
+    <!-- Organization & Local Business Structured Data (JSON-LD) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Bizskoop",
-      "image": "https://bizskoop.com/logo.png",
-      "@id": "https://bizskoop.com",
-      "url": "https://bizskoop.com",
-      "telephone": "+601124244993",
-      "email": "bizskoop@gmail.com",
-      "priceRange": "$$",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "Level 09, Integra Tower, The Intermark",
-        "addressLocality": "Kuala Lumpur",
-        "postalCode": "50400",
-        "addressCountry": "MY"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 3.1583,
-        "longitude": 101.7167
-      },
-      "openingHoursSpecification": {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday"
-        ],
-        "opens": "09:00",
-        "closes": "18:00"
-      },
-      "sameAs": [
-        "https://www.facebook.com/bizskoopofficial",
-        "https://www.linkedin.com/company/bizskoopofficial?originalSubdomain=my",
-        "https://www.instagram.com/bizskoopofficial/",
-        "https://www.tiktok.com/@bizskoopofficial"
+      "@graph": [
+        {
+          "@type": "LocalBusiness",
+          "@id": "https://bizskoop.com/#business",
+          "name": "Bizskoop",
+          "alternateName": "Bizskoop Strategic Corporate Consultancy",
+          "image": "https://bizskoop.com/logo.png",
+          "url": "https://bizskoop.com",
+          "telephone": "+601124244993",
+          "email": "contact@bizskoop.com",
+          "priceRange": "$$",
+          "description": "Premier Malaysian corporate launchpad providing SSM company registration, licensed company secretarial, ESD expatriate visas, LHDN tax compliance, and business licensing.",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Level 09, Integra Tower, The Intermark",
+            "addressLocality": "Kuala Lumpur",
+            "postalCode": "50400",
+            "addressCountry": "MY"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 3.1583,
+            "longitude": 101.7167
+          },
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "09:00",
+            "closes": "18:00"
+          },
+          "sameAs": [
+            "https://www.facebook.com/bizskoopofficial",
+            "https://x.com/bizskoop",
+            "https://www.linkedin.com/company/bizskoopofficial?originalSubdomain=my",
+            "https://www.instagram.com/bizskoopofficial/",
+            "https://www.youtube.com/@bizskoop",
+            "https://www.tiktok.com/@bizskoopofficial"
+          ]
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://bizskoop.com/#organization",
+          "name": "Bizskoop",
+          "url": "https://bizskoop.com",
+          "logo": "https://bizskoop.com/logo.png",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+601124244993",
+            "contactType": "Customer Support & Corporate Consultation",
+            "areaServed": "MY",
+            "availableLanguage": ["English", "Malay"]
+          },
+          "sameAs": [
+            "https://www.facebook.com/bizskoopofficial",
+            "https://x.com/bizskoop",
+            "https://www.linkedin.com/company/bizskoopofficial?originalSubdomain=my",
+            "https://www.instagram.com/bizskoopofficial/",
+            "https://www.youtube.com/@bizskoop",
+            "https://www.tiktok.com/@bizskoopofficial"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://bizskoop.com/#website",
+          "url": "https://bizskoop.com",
+          "name": "Bizskoop",
+          "publisher": { "@id": "https://bizskoop.com/#organization" },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://bizskoop.com/advisory-insights?search={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://bizskoop.com/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Can a foreign citizen own 100% of a company in Malaysia?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes, foreign nationals and international corporations can own 100% equity in a Malaysian Sendirian Berhad (Sdn Bhd) across most non-restricted sectors including IT, consultancy, regional trading, and business management under the Companies Act 2016."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How long does it take to register a Sdn Bhd company in Malaysia?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Once your company name reservation is approved by SSM, complete incorporation typically takes 3 to 5 business days provided all identity documentation, shareholder details, and Section 201 director consents are properly verified."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What is the minimum capital required to sponsor an Employment Pass (EP)?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "For 100% foreign-owned companies in Malaysia sponsoring expatriate Employment Passes via the Expatriate Services Division (ESD), the minimum required paid-up capital is strictly RM1,000,000. Joint ventures with Malaysian equity require RM350,000 to RM500,000."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "When does Malaysia's new Expatriate Salary Policy start?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "The updated expatriate salary policy announced by the Ministry of Home Affairs (KDN) takes effect on 1 June 2026, revising salary thresholds and duration rules across Employment Pass (EP) Categories I, II, and III."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Is it mandatory to appoint a Company Secretary in Malaysia?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Yes. Section 235 of the Companies Act 2016 legally requires every Sdn Bhd in Malaysia to appoint at least one qualified, licensed Company Secretary who is a natural person and ordinarily resides in Malaysia within 30 days of incorporation."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What are the corporate tax rates for SMEs in Malaysia in 2026?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Qualifying Malaysian SMEs enjoy a preferential corporate tax rate of 15% on the first RM150,000 of chargeable income, 17% on income from RM150,001 to RM600,000, and 24% on the remaining balance."
+              }
+            }
+          ]
+        }
       ]
     }
     </script>
@@ -448,13 +547,37 @@
                 <p>Strategic business buying, selling, due diligence, and enterprise valuation advisory for international expansion into ASEAN markets through Malaysia.</p>
             </article>
 
+            <!-- Explicit Question-and-Answer Knowledge for Search Engines & LLMs -->
+            <section>
+                <h2>Frequently Asked Questions (FAQ) & Corporate Insights</h2>
+                <dl>
+                    <dt><h3>Can a foreigner own 100% of a company in Malaysia?</h3></dt>
+                    <dd><p>Yes. Foreign nationals and international holding companies can own 100% equity in a Malaysian Private Limited Company (Sdn Bhd) across non-restricted business activities such as technology, consultancy, regional trading, and business management.</p></dd>
+
+                    <dt><h3>How long does it take to incorporate a Sdn Bhd with SSM?</h3></dt>
+                    <dd><p>Incorporation with Suruhanjaya Syarikat Malaysia (SSM) typically completes within 3 to 5 working days following name approval and identity verification through MyCoID.</p></dd>
+
+                    <dt><h3>What is the minimum capital requirement for an ESD Employment Pass?</h3></dt>
+                    <dd><p>For 100% foreign-owned companies sponsoring foreign directors or employees for an Employment Pass (EP), the statutory paid-up capital requirement is RM1,000,000. Joint ventures with Malaysian equity require between RM350,000 and RM500,000.</p></dd>
+
+                    <dt><h3>What is Malaysia's new Expatriate Salary Policy for June 2026?</h3></dt>
+                    <dd><p>Effective 1 June 2026, the Ministry of Home Affairs (KDN) has updated Employment Pass categories with revised minimum salary thresholds and tenure policies to ensure transparent foreign talent placement.</p></dd>
+
+                    <dt><h3>Is appointing a licensed Company Secretary mandatory?</h3></dt>
+                    <dd><p>Yes. Under Section 235 of the Companies Act 2016, every Malaysian Sdn Bhd must appoint at least one qualified, licensed Company Secretary residing in Malaysia within 30 days of company formation.</p></dd>
+
+                    <dt><h3>What is required for LHDN MyInvois e-Invoicing in 2026?</h3></dt>
+                    <dd><p>Malaysian businesses must comply with LHDN MyInvois mandates by validating invoices via the MyInvois Portal or direct ERP API integration in standard XML/JSON formats with dynamic QR codes.</p></dd>
+                </dl>
+            </section>
+
             <section>
                 <h2>Official Contact & Corporate Headquarters</h2>
                 <address>
                     Bizskoop Strategic Corporate Consultancy<br>
                     Level 09, Integra Tower, The Intermark, 50400 Kuala Lumpur, Malaysia.<br>
                     Telephone / WhatsApp Hotline: +60 11-2424 4993<br>
-                    Email: bizskoop@gmail.com
+                    Email: contact&#64;bizskoop.com
                 </address>
             </section>
         </main>

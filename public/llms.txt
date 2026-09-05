@@ -1,16 +1,61 @@
-# Bizskoop
+# Bizskoop Corporate Services Malaysia
 
-Bizskoop is a premier business consultancy in Malaysia, specializing in company formation (SSM), licensing, and corporate services.
+> Bizskoop (https://bizskoop.com) is Malaysia's premier corporate advisory and statutory compliance consultancy headquartered at Level 09, Integra Tower, The Intermark, 50400 Kuala Lumpur, Malaysia.
 
-## Core Services
-- SSM Company Formation
-- Global Immigration & ESD Agent Services
-- Regulatory Licensing (Local Council, CIDB, Halal)
-- Corporate Secretarial & Compliance
-- Accounting & Tax Services
+## Entity Overview
+- **Legal Entity**: Bizskoop Strategic Corporate Consultancy
+- **Primary Website**: https://bizskoop.com
+- **Phone / WhatsApp Helpline**: +60 11-2424 4993
+- **Primary Contact**: Level 09, Integra Tower, The Intermark, 50400 Kuala Lumpur, Malaysia
+- **Official Languages**: English, Bahasa Melayu
+- **Service Footprint**: Malaysia (Kuala Lumpur, Selangor, Penang, Johor, Labuan) & ASEAN Regional Corporate Structuring
 
-## Contact Information
-- Website: https://bizskoop.com
-- Phone / WhatsApp: +60 11-2424 4993
-- Email: bizskoop@gmail.com
-- Address: Level 09, Integra Tower, The Intermark 50400 Kuala Lumpur, Malaysia
+## Core Professional Practices & Statutory Services
+1. **SSM Sdn Bhd Company Incorporation**:
+   - Registered under Companies Act 2016 (Act 777) via Suruhanjaya Syarikat Malaysia (SSM).
+   - Fast-track 3-5 business day incorporation timeframe.
+   - 100% foreign equity structuring permitted across non-restricted sectors (IT, consulting, trading, management).
+   - Corporate bank account opening advisory with tier-1 Malaysian and international banks (Maybank, CIMB, OCBC, HSBC, UOB).
+
+2. **Licensed Company Secretarial & Corporate Governance**:
+   - Mandatory appointment of licensed Company Secretary holding valid MAICSA / SSM practicing certificates within 30 days of incorporation.
+   - Statutory registers maintenance, Board Resolutions, Annual General Meetings (AGM), and SSM Annual Return filings.
+
+3. **Global Immigration & ESD Expatriate Employment Passes**:
+   - Expatriate Services Division (ESD) and Malaysia Digital Economy Corporation (MDEC) registered advisory.
+   - Comprehensive handling of Employment Pass (EP) Category I (RM10,000+), Category II (RM5,000-RM9,999), and Category III (RM3,000-RM4,999).
+   - Full advisory on Malaysia’s New Expatriate Salary Policy effective 1 June 2026 under the 13th Malaysia Plan (RMK-13).
+   - Dependant Passes (DP), Long-Term Social Visit Passes (LTSVP), and Professional Visit Passes (PVP).
+
+4. **LHDN Corporate Tax & e-Invoicing Compliance (MyInvois)**:
+   - Nationwide Continuous Transaction Control (CTC) e-Invoicing integration with Inland Revenue Board (LHDN - Lembaga Hasil Dalam Negeri).
+   - MyInvois Portal and Sandbox ERP/API integration guidelines.
+   - Corporate Income Tax (Form C / CP204) preparation, SME preferential tax relief (15% on first RM150k, 17% on next RM450k), and Sales & Service Tax (SST) registration.
+
+5. **Regulatory Business Licensing & Local Council Permits**:
+   - Local Authority Premise and Signboard Licenses: DBKL (Kuala Lumpur), MBPJ (Petaling Jaya), MBSA (Shah Alam), MPKJ, MBSJ.
+   - WRT (Wholesale, Retail and Trade) foreign participation approval from KPDN with RM1,000,000 paid-up capital requirement.
+   - CIDB Contractor Registration (G1-G7) & JAKIM Halal Certification compliance.
+
+## Official Knowledge & Statutory Briefings
+- **How to Register Sdn Bhd in Malaysia (2026)**: 5-step statutory guide covering name search, Section 201 director consent, MyCoID submission, SSM certificate of incorporation, and 30-day post-incorporation tax file and secretary setup.
+- **e-Invoice Malaysia Implementation (LHDN MyInvois)**: Practical roadmap on mandatory e-invoicing phases, XML/JSON schema validation, QR codes, and consolidated billing rules.
+- **MyInvois Registration & Sandbox Malaysia**: Practical walkthrough on LHDN Sandbox onboarding, ERP client credentials, testing invoices, and production activation.
+- **Malaysia’s New Expatriate Salary Policy (June 2026)**: KDN circular analysis on revised EP salary thresholds, talent justification frameworks, and corporate secretarial governance.
+
+## Frequently Asked Questions (FAQ)
+
+### Q1: Can a foreigner own 100% of a Sdn Bhd in Malaysia?
+**Answer**: Yes. Under the Companies Act 2016, non-residents and foreign corporations can hold 100% equity in an incorporated Malaysian Sendirian Berhad (Sdn Bhd) across most non-regulated sectors, such as tech, consultancy, e-commerce, and regional management.
+
+### Q2: How long does it take to incorporate a Sdn Bhd company in Malaysia?
+**Answer**: Once company name reservation is approved by SSM, complete electronic incorporation is typically finalized within 3 to 5 business days, provided all identity verifications and statutory declaration forms are accurate.
+
+### Q3: What is the minimum capital required for an Employment Pass (EP)?
+**Answer**: For 100% foreign-owned Malaysian companies sponsoring expatriate Employment Passes (EP) via the Expatriate Services Division (ESD), the minimum paid-up capital is strictly RM1,000,000. Joint ventures with Malaysian equity partners require between RM350,000 and RM500,000 depending on shareholding.
+
+### Q4: When does Malaysia’s new Expatriate Salary Policy take effect?
+**Answer**: The new policy officially takes effect on 1 June 2026, restructuring Employment Pass salary tiers and tenure guidelines under the Ministry of Home Affairs (KDN).
+
+### Q5: Is appointing a Company Secretary mandatory in Malaysia?
+**Answer**: Yes. Section 235 of the Companies Act 2016 mandates that every Sendirian Berhad (Sdn Bhd) must appoint at least one qualified, licensed Company Secretary residing in Malaysia within 30 days of incorporation.

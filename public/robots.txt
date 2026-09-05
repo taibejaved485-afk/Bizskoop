@@ -1,5 +1,30 @@
+# Robots.txt for Bizskoop Corporate Services Malaysia
 User-agent: *
 Allow: /
 
-# Sitemaps
+# Explicit AI Engine & LLM Crawlers Permissions for GEO
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# Sitemaps & LLM Context
 Sitemap: https://bizskoop.com/sitemap.xml
+Sitemap: https://bizskoop.com/sitemap_index.xml
+LLMs-Txt: https://bizskoop.com/llms.txt

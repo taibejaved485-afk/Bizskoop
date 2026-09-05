@@ -282,26 +282,40 @@ const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate, onOpenAdmin }
               </ul>
               <div className="pt-4">
                 <h5 className="text-[10px] font-black uppercase tracking-widest text-gold mb-4">Follow {config.companyName}</h5>
-                <div className="flex items-center gap-3.5 flex-wrap">
+                <div className="flex items-center gap-2.5 flex-wrap">
                   {[
                     { 
-                      renderIcon: () => <Facebook size={18} />, 
+                      renderIcon: () => <Facebook size={16} />, 
                       url: 'https://www.facebook.com/bizskoopofficial', 
                       label: 'Facebook' 
                     },
                     { 
-                      renderIcon: () => <Linkedin size={18} />, 
+                      renderIcon: () => (
+                        <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                        </svg>
+                      ),
+                      url: 'https://x.com/bizskoop', 
+                      label: 'X (Twitter)' 
+                    },
+                    { 
+                      renderIcon: () => <Linkedin size={16} />, 
                       url: 'https://www.linkedin.com/company/bizskoopofficial?originalSubdomain=my', 
                       label: 'LinkedIn' 
                     },
                     { 
-                      renderIcon: () => <Instagram size={18} />, 
+                      renderIcon: () => <Instagram size={16} />, 
                       url: 'https://www.instagram.com/bizskoopofficial/', 
                       label: 'Instagram' 
                     },
                     { 
+                      renderIcon: () => <Youtube size={16} />, 
+                      url: 'https://www.youtube.com/@bizskoop', 
+                      label: 'YouTube' 
+                    },
+                    { 
                       renderIcon: () => (
-                        <svg className="w-[18px] h-[18px] fill-current" viewBox="0 0 24 24">
+                        <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                           <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.298-.002.595.042.88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.68 6.34 6.34 0 0 0 9.33 22a6.33 6.33 0 0 0 6.34-6.32V8.2a8.28 8.28 0 0 0 4.84 1.55V6.3a4.79 4.79 0 0 1-.92-.06v.45z"/>
                         </svg>
                       ), 
