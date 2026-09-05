@@ -302,9 +302,9 @@ export const BlogSection: React.FC<BlogSectionProps> = ({ onNavigate, isStandalo
             </div>
           </div>
 
-          <div className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-white group-hover:bg-royal-blue text-royal-blue group-hover:text-gold border border-slate-200/80 group-hover:border-royal-blue text-xs font-black shrink-0 transition-all duration-300 shadow-2xs">
-            <span>Read</span>
-            <ChevronRight size={13} className="group-hover:translate-x-0.5 transition-transform text-gold" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white group-hover:bg-royal-blue border border-slate-200/80 group-hover:border-royal-blue text-xs font-black shrink-0 transition-all duration-300 shadow-2xs">
+            <span className="text-royal-blue group-hover:text-white transition-colors duration-300 font-black">Read</span>
+            <ChevronRight size={13} className="text-gold group-hover:translate-x-0.5 transition-transform" />
           </div>
         </div>
       </motion.article>

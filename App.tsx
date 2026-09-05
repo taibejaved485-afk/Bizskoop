@@ -36,6 +36,26 @@ const App: React.FC = () => {
   const [selectedBlogSlug, setSelectedBlogSlug] = useState<string | null>(null);
   const [selectedPolicy, setSelectedPolicy] = useState<string | null>(null);
 
+  // Smoothly dismiss the 0ms instant HTML preloader once React has mounted and hydrated (Strictly < 3s)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (typeof (window as any).__dismissPreloader === 'function') {
+        (window as any).__dismissPreloader();
+      } else {
+        const initialLoader = document.getElementById('initial-preloader');
+        if (initialLoader) {
+          initialLoader.classList.add('fade-out');
+          setTimeout(() => {
+            try {
+              initialLoader.remove();
+            } catch (_) {}
+          }, 450);
+        }
+      }
+    }, 1200);
+    return () => clearTimeout(timer);
+  }, []);
+
   // Handle URL path changes for routing and back/forward browser buttons
   useEffect(() => {
     const syncRoute = () => {
@@ -88,7 +108,7 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white relative">
       <Header onNavigate={handleNavigate} currentPage={currentPage} />
       
       {currentPage === 'home' ? (

@@ -22,18 +22,11 @@ body {
   content-visibility: auto;
 }
 
-/* Utility theme classes */
-.bg-royal-blue { background-color: #003366; }
-.bg-navy-dark { background-color: #001f3f; }
-.text-royal-blue { color: #003366; }
-.bg-action-red { background-color: #CC0000; }
-.hover-bg-action-red:hover { background-color: #990000; }
-.text-accent-yellow { color: #FFCC00; }
-.bg-accent-yellow { background-color: #FFCC00; }
-.text-gold { color: #D4AF37; }
-.bg-gold { background-color: #D4AF37; }
-.border-gold { border-color: #D4AF37; }
-.hover-bg-gold:hover { background-color: #B8860B; }
+/* Layered utility theme classes */
+@layer utilities {
+  .hover-bg-action-red:hover { background-color: #990000; }
+  .hover-bg-gold:hover { background-color: #B8860B; }
+}
 
 .nav-link {
   transition: color 0.3s ease;

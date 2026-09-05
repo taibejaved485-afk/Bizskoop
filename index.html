@@ -221,11 +221,131 @@
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="apple-touch-icon" href="/favicon.png">
 
+    <!-- Immediate Critical Styles for Instant Preloader & Strict SEO Masking -->
+    <style>
+      .sr-only {
+        display: none !important;
+        position: absolute !important;
+        width: 1px !important;
+        height: 1px !important;
+        padding: 0 !important;
+        margin: -1px !important;
+        overflow: hidden !important;
+        clip: rect(0, 0, 0, 0) !important;
+        white-space: nowrap !important;
+        border: 0 !important;
+      }
+      
+      #initial-preloader {
+        position: fixed;
+        inset: 0;
+        z-index: 9999999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #ffffff;
+        user-select: none;
+        transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), visibility 0.5s ease;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+      #initial-preloader.fade-out {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+      @keyframes bz-pulse-glow {
+        0%, 100% { transform: scale(1); opacity: 0.35; }
+        50% { transform: scale(1.14); opacity: 0.75; }
+      }
+      @keyframes bz-rotate-dash {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      @keyframes bz-shimmer {
+        0% { transform: translateX(-160%) skewX(-25deg); }
+        100% { transform: translateX(260%) skewX(-25deg); }
+      }
+      @keyframes bz-load-fill {
+        0% { width: 15%; }
+        40% { width: 60%; }
+        75% { width: 85%; }
+        100% { width: 100%; }
+      }
+    </style>
 </head>
 <body class="bg-white text-slate-900">
-    <div id="root">
-        <!-- Semantic pre-render for search engines, LLMs, and crawlers -->
-        <main class="sr-only" aria-hidden="true">
+    <!-- Instant Preloader (Shows immediately at 0ms before JavaScript downloads) -->
+    <div id="initial-preloader">
+      <div style="position:relative;display:flex;flex-direction:column;align-items:center;padding:1.5rem;text-align:center;max-width:440px;width:100%;">
+        
+        <!-- Rotating and Pulsing Aura Rings -->
+        <div style="position:relative;margin-bottom:2rem;display:flex;align-items:center;justify-content:center;">
+          <div style="position:absolute;width:160px;height:160px;border-radius:9999px;border:1.5px solid rgba(212,175,55,0.45);background:radial-gradient(circle, rgba(212,175,55,0.14) 0%, rgba(0,51,102,0.06) 70%, transparent 100%);animation:bz-pulse-glow 2.2s ease-in-out infinite;"></div>
+          <div style="position:absolute;width:190px;height:190px;border-radius:9999px;border:1.5px dashed #cbd5e1;animation:bz-rotate-dash 12s linear infinite;"></div>
+          
+          <!-- Glossy Logo Container Card -->
+          <div style="position:relative;background:#ffffff;padding:1.25rem 2rem;border-radius:1.25rem;box-shadow:0 20px 45px rgba(0,51,102,0.12);border:1px solid #f1f5f9;display:flex;align-items:center;justify-content:center;overflow:hidden;z-index:2;">
+            <div style="position:absolute;inset:0;width:50%;height:100%;background:linear-gradient(90deg, transparent, rgba(255,255,255,0.85), transparent);animation:bz-shimmer 2s ease-in-out infinite;pointer-events:none;z-index:4;"></div>
+            <img 
+              src="/logo-cmyk.png" 
+              alt="Bizskoop" 
+              style="height:48px;width:auto;object-fit:contain;position:relative;z-index:3;" 
+              onerror="this.onerror=null;this.src='/Logo CMYK.png';"
+            />
+          </div>
+        </div>
+
+        <!-- Tagline & Corporate Badge -->
+        <div style="margin-bottom:1.5rem;display:flex;flex-direction:column;align-items:center;">
+          <div style="display:inline-flex;align-items:center;gap:6px;padding:4px 14px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:9999px;margin-bottom:8px;">
+            <span style="width:7px;height:7px;border-radius:9999px;background:#D4AF37;display:inline-block;"></span>
+            <span style="font-size:11px;font-weight:900;letter-spacing:0.08em;color:#003366;text-transform:uppercase;">Corporate Launchpad Malaysia</span>
+          </div>
+          <p style="margin:0;font-size:12px;font-weight:600;color:#64748b;letter-spacing:0.01em;">
+            SSM &bull; ESD Expatriate Visas &bull; LHDN Tax Compliance
+          </p>
+        </div>
+
+        <!-- Animated Progress Bar -->
+        <div style="width:230px;">
+          <div style="height:6px;width:100%;background:#f1f5f9;border-radius:9999px;overflow:hidden;position:relative;box-shadow:inset 0 1px 2px rgba(0,0,0,0.06);">
+            <div style="height:100%;background:linear-gradient(90deg, #003366, #D4AF37, #003366);border-radius:9999px;animation:bz-load-fill 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:11px;font-weight:700;color:#94a3b8;">
+            <span style="letter-spacing:0.05em;text-transform:uppercase;">Loading</span>
+            <span style="color:#003366;font-weight:900;">Bizskoop</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Hard Maximum 2.5s Safety Dismissal Script (Guarantees < 3 seconds strictly) -->
+    <script>
+      window.__dismissPreloader = function() {
+        var loader = document.getElementById('initial-preloader');
+        if (loader && !loader.classList.contains('fade-out')) {
+          loader.classList.add('fade-out');
+          setTimeout(function() {
+            try { loader.remove(); } catch (e) {}
+          }, 450);
+        }
+      };
+
+      // Hard timeout guarantee: Preloader is dismissed automatically within 2.4s under all circumstances
+      setTimeout(function() {
+        if (typeof window.__dismissPreloader === 'function') {
+          window.__dismissPreloader();
+        }
+      }, 2400);
+    </script>
+
+    <!-- Application Root -->
+    <div id="root"></div>
+
+    <!-- Semantic pre-render for search engines, LLMs, and crawlers (Kept strictly hidden from screen) -->
+    <main class="sr-only" aria-hidden="true" style="display:none!important;visibility:hidden!important;">
             <header>
                 <h1>Bizskoop | SSM Business Formation & Corporate Services in Malaysia</h1>
                 <p>Launch your Malaysia business with zero friction. Bizskoop is Malaysia's premier corporate launchpad providing authorized advisory in SSM company incorporation, ESD and MDEC registered agent services, LHDN verified tax compliance, business licensing, and licensed corporate secretarial management.</p>
@@ -369,7 +489,6 @@
                 <p>Copyright © 2026 Bizskoop Corporate Services. All Rights Reserved. Regulated under the Laws of Malaysia.</p>
             </footer>
         </main>
-    </div>
     <!-- Added entry point script -->
     <script type="module" src="/index.tsx"></script>
 </body>
