@@ -89,6 +89,17 @@ export const AdminQuotationGenerator: React.FC<AdminQuotationGeneratorProps> = (
   const [copiedWhatsApp, setCopiedWhatsApp] = useState(false);
   const [savedQuotes, setSavedQuotes] = useState<Quotation[]>([]);
   const [showSavedModal, setShowSavedModal] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
+  const [isPrinting, setIsPrinting] = useState(false);
+  const [toast, setToast] = useState<{ show: boolean; message: string; type: 'success' | 'error' | 'info' } | null>(null);
+
+  // Auto-dismiss toast
+  useEffect(() => {
+    if (toast) {
+      const timer = setTimeout(() => setToast(null), 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [toast]);
 
   // Synchronize initial lead if provided
   useEffect(() => {
@@ -151,16 +162,152 @@ export const AdminQuotationGenerator: React.FC<AdminQuotationGeneratorProps> = (
   const sstAmount = applySST ? (subtotal - discount) * sstRate : 0;
   const grandTotal = Math.max(0, subtotal - discount + sstAmount);
 
+  // Generate self-contained standalone HTML quotation document
+  const generatePrintableQuotationHTML = () => {
+    const formattedDate = new Date(date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+    const validDate = new Date(validUntil).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
+    
+    return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bizskoop Quotation - ${quoteNumber}</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: #0f172a; background: #fff; padding: 40px; font-size: 13px; line-height: 1.5; }
+    .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 3px solid #003366; padding-bottom: 24px; margin-bottom: 24px; }
+    .brand-title { font-size: 26px; font-weight: 900; color: #003366; letter-spacing: -0.5px; }
+    .brand-tag { background: #001f3f; color: #D4AF37; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 4px; margin-left: 6px; letter-spacing: 1px; }
+    .company-desc { color: #64748b; font-size: 11px; margin-top: 8px; line-height: 1.45; }
+    .quote-title { text-align: right; }
+    .quote-heading { font-size: 26px; font-weight: 900; color: #0f172a; text-transform: uppercase; letter-spacing: -0.5px; }
+    .quote-ref { font-size: 14px; font-weight: 800; color: #003366; margin-top: 4px; }
+    .meta-box { display: flex; justify-content: space-between; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 18px; margin-bottom: 24px; }
+    .meta-col { width: 48%; }
+    .meta-label { font-size: 10px; font-weight: 800; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .meta-val-strong { font-size: 15px; font-weight: 800; color: #0f172a; }
+    .meta-val { font-size: 12px; color: #334155; margin-top: 2px; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+    th { background: #003366; color: #fff; text-align: left; padding: 12px 14px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+    th.text-right, td.text-right { text-align: right; }
+    th.text-center, td.text-center { text-align: center; }
+    td { padding: 14px; border-bottom: 1px solid #e2e8f0; font-size: 12px; }
+    tr:nth-child(even) td { background: #f8fafc; }
+    .totals-area { display: flex; justify-content: flex-end; margin-bottom: 24px; }
+    .totals-table { width: 360px; }
+    .totals-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 12px; color: #475569; font-weight: 600; }
+    .totals-grand { display: flex; justify-content: space-between; padding: 12px 0; border-top: 2px solid #003366; border-bottom: 2px solid #003366; font-size: 18px; font-weight: 900; color: #003366; margin-top: 8px; }
+    .terms-box { background: #f8fafc; border-left: 4px solid #D4AF37; padding: 16px; border-radius: 8px; margin-bottom: 20px; font-size: 11px; color: #475569; }
+    .bank-box { border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px; font-size: 11px; margin-bottom: 28px; background: #fafafa; }
+    .signature-area { display: flex; justify-content: space-between; margin-top: 40px; padding-top: 20px; }
+    .sig-col { width: 45%; text-align: center; }
+    .sig-line { border-bottom: 1px solid #94a3b8; height: 55px; margin-bottom: 8px; }
+    .sig-title { font-size: 11px; font-weight: 800; text-transform: uppercase; color: #64748b; }
+    @media print {
+      body { padding: 0; }
+      @page { size: A4; margin: 15mm; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div>
+      <div><span class="brand-title">BIZSKOOP</span><span class="brand-tag">ADVISORY</span></div>
+      <div class="company-desc">
+        Bizskoop Corporate Advisory Sdn. Bhd. (202401012345)<br>
+        Level 28, The Exchange 106, Lingkaran TRX, 55188 Kuala Lumpur, Malaysia<br>
+        Email: bizskoop@gmail.com | Phone / WhatsApp: +60 11-3701 4452
+      </div>
+    </div>
+    <div class="quote-title">
+      <div class="quote-heading">FEE PROPOSAL</div>
+      <div class="quote-ref">Ref: ${quoteNumber}</div>
+      <div class="meta-val" style="margin-top: 4px;">Date: ${formattedDate}</div>
+    </div>
+  </div>
+
+  <div class="meta-box">
+    <div class="meta-col">
+      <div class="meta-label">Client / Entity Details</div>
+      <div class="meta-val-strong">${clientName || 'Valued Corporate Client'}</div>
+      ${companyName ? `<div class="meta-val">${companyName}</div>` : ''}
+      ${clientEmail ? `<div class="meta-val">${clientEmail}</div>` : ''}
+      ${clientPhone ? `<div class="meta-val">${clientPhone}</div>` : ''}
+    </div>
+    <div class="meta-col" style="text-align: right;">
+      <div class="meta-label">Proposal Validity</div>
+      <div class="meta-val">Valid Until: <strong>${validDate}</strong></div>
+      <div class="meta-val" style="margin-top: 4px;">Jurisdiction: <strong>Malaysia (SSM / LHDN / ESD)</strong></div>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 40px;" class="text-center">#</th>
+        <th>Scope of Professional Service</th>
+        <th style="width: 70px;" class="text-center">Qty</th>
+        <th style="width: 130px;" class="text-right">Rate (RM)</th>
+        <th style="width: 130px;" class="text-right">Total (RM)</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${items.map((item, idx) => `
+        <tr>
+          <td class="text-center" style="color: #64748b; font-weight: 700;">${idx + 1}</td>
+          <td style="font-weight: 600; color: #0f172a;">${item.description || 'Corporate Advisory Service'}</td>
+          <td class="text-center">${item.quantity}</td>
+          <td class="text-right">RM ${(item.unitPrice || 0).toLocaleString()}</td>
+          <td class="text-right" style="font-weight: 700; color: #003366;">RM ${((item.quantity || 1) * (item.unitPrice || 0)).toLocaleString()}</td>
+        </tr>
+      `).join('')}
+    </tbody>
+  </table>
+
+  <div class="totals-area">
+    <div class="totals-table">
+      <div class="totals-row"><span>Gross Subtotal:</span><span>RM ${subtotal.toLocaleString()}</span></div>
+      ${discount > 0 ? `<div class="totals-row" style="color: #059669;"><span>Courtesy Discount:</span><span>-RM ${discount.toLocaleString()}</span></div>` : ''}
+      ${applySST ? `<div class="totals-row"><span>Malaysian SST (8%):</span><span>RM ${sstAmount.toFixed(2)}</span></div>` : ''}
+      <div class="totals-grand"><span>Total Professional Fee:</span><span>RM ${grandTotal.toLocaleString()}</span></div>
+    </div>
+  </div>
+
+  <div class="terms-box">
+    <strong>Terms & Conditions:</strong><br>
+    ${notes || 'Quotation valid for 14 days. Statutory disbursements are estimated based on prevailing government fees.'}
+  </div>
+
+  <div class="bank-box">
+    <strong>Official Remittance Bank Details:</strong><br>
+    Bank Name: <strong>Malayan Banking Berhad (Maybank)</strong> | Account Name: <strong>Bizskoop Corporate Advisory Sdn Bhd</strong><br>
+    Account Number: <strong>5140 1234 5678</strong> | Swift Code: <strong>MBBEMYKL</strong>
+  </div>
+
+  <div class="signature-area">
+    <div class="sig-col">
+      <div class="sig-line"></div>
+      <div class="sig-title">For Bizskoop Corporate Advisory</div>
+    </div>
+    <div class="sig-col">
+      <div class="sig-line"></div>
+      <div class="sig-title">Client Acceptance & Confirmation</div>
+    </div>
+  </div>
+</body>
+</html>`;
+  };
+
   const handleSaveQuotation = () => {
+    const targetName = clientName.trim() || 'Valued Corporate Client';
     if (!clientName.trim()) {
-      alert('Please enter Client Full Name.');
-      return;
+      setClientName(targetName);
     }
 
     const quote: Quotation = {
       id: `quote_${Date.now()}`,
-      quoteNumber,
-      clientName: clientName.trim(),
+      quoteNumber: quoteNumber || `BZ-Q-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, '0')}-001`,
+      clientName: targetName,
       companyName: companyName.trim() || 'Unspecified Entity',
       clientEmail: clientEmail.trim(),
       clientPhone: clientPhone.trim(),
@@ -174,11 +321,24 @@ export const AdminQuotationGenerator: React.FC<AdminQuotationGeneratorProps> = (
       status: 'sent'
     };
 
-    const updated = [quote, ...savedQuotes.filter(q => q.quoteNumber !== quoteNumber)];
+    const updated = [quote, ...savedQuotes.filter(q => q.quoteNumber !== quote.quoteNumber)];
     setSavedQuotes(updated);
-    localStorage.setItem('bizskoop_quotations', JSON.stringify(updated));
-    logAdminAudit(`Generated & saved formal quotation #${quoteNumber} for ${clientName} (RM ${grandTotal.toLocaleString()})`);
-    alert(`Quotation #${quoteNumber} has been saved to your advisory archive!`);
+    try {
+      localStorage.setItem('bizskoop_quotations', JSON.stringify(updated));
+    } catch (err) {
+      console.error('LocalStorage write error:', err);
+    }
+
+    logAdminAudit(`Generated & saved formal quotation #${quote.quoteNumber} for ${targetName} (RM ${grandTotal.toLocaleString()})`);
+
+    setIsSaved(true);
+    setTimeout(() => setIsSaved(false), 3500);
+
+    setToast({
+      show: true,
+      message: `Quotation #${quote.quoteNumber} saved to archive! Total: RM ${grandTotal.toLocaleString()}`,
+      type: 'success'
+    });
   };
 
   const handleLoadQuote = (q: Quotation) => {
@@ -194,15 +354,19 @@ export const AdminQuotationGenerator: React.FC<AdminQuotationGeneratorProps> = (
     setDiscount(q.discount);
     setNotes(q.notes);
     setShowSavedModal(false);
+    setToast({ show: true, message: `Loaded Quotation #${q.quoteNumber}`, type: 'info' });
   };
 
   const handleDeleteSavedQuote = (id: string, e: React.MouseEvent) => {
     e.stopPropagation();
-    if (confirm('Delete this saved quotation from archive?')) {
-      const updated = savedQuotes.filter(q => q.id !== id);
-      setSavedQuotes(updated);
+    const updated = savedQuotes.filter(q => q.id !== id);
+    setSavedQuotes(updated);
+    try {
       localStorage.setItem('bizskoop_quotations', JSON.stringify(updated));
+    } catch (err) {
+      console.error(err);
     }
+    setToast({ show: true, message: 'Quotation removed from archive', type: 'info' });
   };
 
   const handleCopyWhatsApp = () => {
@@ -211,13 +375,13 @@ export const AdminQuotationGenerator: React.FC<AdminQuotationGeneratorProps> = (
     
     let msg = `*BIZSKOOP CORPORATE ADVISORY — OFFICIAL FEE ESTIMATE*\n`;
     msg += `Ref: ${quoteNumber} | Date: ${formattedDate}\n\n`;
-    msg += `*Client:* ${clientName}\n`;
+    msg += `*Client:* ${clientName || 'Valued Client'}\n`;
     if (companyName) msg += `*Company:* ${companyName}\n`;
     msg += `------------------------------------\n`;
     msg += `*PROPOSED SERVICES:*\n`;
     items.forEach((item, idx) => {
-      msg += `${idx + 1}. *${item.description}*\n`;
-      msg += `   Qty: ${item.quantity} × RM ${item.unitPrice.toLocaleString()} = RM ${(item.quantity * item.unitPrice).toLocaleString()}\n`;
+      msg += `${idx + 1}. *${item.description || 'Service Scope'}*\n`;
+      msg += `   Qty: ${item.quantity} × RM ${(item.unitPrice || 0).toLocaleString()} = RM ${((item.quantity || 1) * (item.unitPrice || 0)).toLocaleString()}\n`;
     });
     msg += `------------------------------------\n`;
     msg += `*Subtotal:* RM ${subtotal.toLocaleString()}\n`;
@@ -229,13 +393,92 @@ export const AdminQuotationGenerator: React.FC<AdminQuotationGeneratorProps> = (
     msg += `_Bizskoop Corporate Advisory Desk_\n`;
     msg += `_Kuala Lumpur & Selangor, Malaysia_`;
 
-    navigator.clipboard.writeText(msg);
-    setCopiedWhatsApp(true);
-    setTimeout(() => setCopiedWhatsApp(false), 3000);
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(msg);
+      } else {
+        const textarea = document.createElement('textarea');
+        textarea.value = msg;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+      }
+      setCopiedWhatsApp(true);
+      setTimeout(() => setCopiedWhatsApp(false), 3000);
+      setToast({ show: true, message: 'WhatsApp quote summary copied to clipboard!', type: 'success' });
+    } catch (err) {
+      setToast({ show: true, message: 'Failed to copy to clipboard', type: 'error' });
+    }
   };
 
   const handlePrint = () => {
-    window.print();
+    setIsPrinting(true);
+    setTimeout(() => setIsPrinting(false), 2500);
+
+    const htmlDoc = generatePrintableQuotationHTML();
+
+    // 1. Try opening standalone print view in a new tab
+    try {
+      const printDoc = htmlDoc.replace(
+        '</body>',
+        `<script>
+          window.onload = function() {
+            setTimeout(function() {
+              try { window.print(); } catch(e) {}
+            }, 300);
+          };
+        </script></body>`
+      );
+      const blob = new Blob([printDoc], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const win = window.open(url, '_blank');
+      if (win) {
+        setToast({
+          show: true,
+          message: 'Quotation opened in new tab! Use "Save as PDF" or Print.',
+          type: 'success'
+        });
+        return;
+      }
+    } catch (err) {
+      console.warn('Direct popup print blocked by browser sandbox:', err);
+    }
+
+    // 2. Fallback: window.print() inside the page
+    try {
+      window.print();
+      setToast({
+        show: true,
+        message: 'Print dialog opened! Choose "Save as PDF" to export.',
+        type: 'success'
+      });
+      return;
+    } catch (err) {
+      console.warn('window.print() not allowed in sandboxed iframe:', err);
+    }
+
+    // 3. Fallback: Download file directly
+    handleDownloadDoc();
+  };
+
+  const handleDownloadDoc = () => {
+    const htmlDoc = generatePrintableQuotationHTML();
+    const blob = new Blob([htmlDoc], { type: 'text/html;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Bizskoop-Quotation-${quoteNumber}.html`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    setToast({
+      show: true,
+      message: `Quotation file downloaded! Open in browser to print or Save as PDF.`,
+      type: 'success'
+    });
   };
 
   return (
@@ -283,22 +526,58 @@ export const AdminQuotationGenerator: React.FC<AdminQuotationGeneratorProps> = (
           <button
             type="button"
             onClick={handlePrint}
-            className="px-4 py-3 bg-navy-dark hover:bg-slate-800 text-gold rounded-xl font-black text-[10px] uppercase tracking-widest transition-all flex items-center gap-2 cursor-pointer shadow-md"
+            title="Print or Export as PDF document"
+            className="px-4 py-3 bg-navy-dark hover:bg-slate-800 text-gold rounded-xl font-black text-[10px] uppercase tracking-widest transition-all flex items-center gap-2 cursor-pointer shadow-md active:scale-95"
           >
-            <Printer size={14} />
-            <span>Print / Export PDF</span>
+            {isPrinting ? <RefreshCw size={14} className="animate-spin text-gold" /> : <Printer size={14} />}
+            <span>{isPrinting ? 'Opening Print...' : 'Print / Export PDF'}</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={handleDownloadDoc}
+            title="Download formatted official Quotation file to open or save as PDF"
+            className="px-3.5 py-3 bg-white hover:bg-slate-100 border border-slate-200 text-slate-700 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all flex items-center gap-1.5 cursor-pointer shadow-sm active:scale-95"
+          >
+            <Download size={14} className="text-royal-blue" />
+            <span>Download Doc</span>
           </button>
 
           <button
             type="button"
             onClick={handleSaveQuotation}
-            className="px-4 py-3 bg-royal-blue hover:bg-blue-900 text-white rounded-xl font-black text-[10px] uppercase tracking-widest transition-all flex items-center gap-2 cursor-pointer shadow-md"
+            className={`px-4 py-3 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all flex items-center gap-2 cursor-pointer shadow-md active:scale-95 ${
+              isSaved 
+                ? 'bg-emerald-600 text-white shadow-emerald-200' 
+                : 'bg-royal-blue hover:bg-blue-900 text-white'
+            }`}
           >
-            <Save size={14} className="text-gold" />
-            <span>Save to Archive</span>
+            {isSaved ? <Check size={14} className="text-white" /> : <Save size={14} className="text-gold" />}
+            <span>{isSaved ? 'Saved to Archive!' : 'Save to Archive'}</span>
           </button>
         </div>
       </div>
+
+      {/* Floating Status Notification Toast */}
+      {toast && (
+        <div className={`p-4 rounded-2xl border text-xs font-bold flex items-center justify-between shadow-lg transition-all animate-in fade-in slide-in-from-top-2 duration-300 ${
+          toast.type === 'success' ? 'bg-emerald-50 text-emerald-900 border-emerald-300' :
+          toast.type === 'error' ? 'bg-red-50 text-red-900 border-red-300' :
+          'bg-blue-50 text-blue-900 border-blue-300'
+        }`}>
+          <div className="flex items-center gap-2.5">
+            {toast.type === 'success' && <Check size={16} className="text-emerald-600 shrink-0" />}
+            {toast.type === 'info' && <Archive size={16} className="text-blue-600 shrink-0" />}
+            <span>{toast.message}</span>
+          </div>
+          <button
+            onClick={() => setToast(null)}
+            className="text-slate-400 hover:text-slate-800 text-xs px-2 py-0.5 rounded-lg hover:bg-black/5 cursor-pointer"
+          >
+            ✕
+          </button>
+        </div>
+      )}
 
       {/* Preset Package Quick-Loaders */}
       <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-sm space-y-3">

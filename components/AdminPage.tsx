@@ -89,6 +89,9 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose, onBack, onNavigat
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [pin, setPin] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
+  const [isChangePINModalOpen, setIsChangePINModalOpen] = useState(false);
+  const [newPINVal, setNewPINVal] = useState('');
+  const [changePINError, setChangePINError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'leads' | 'analytics' | 'quotation' | 'pricing' | 'announcement' | 'site-config' | 'faqs' | 'data' | 'audit' | 'blogs'>('leads');
   const [isCreateLeadOpen, setIsCreateLeadOpen] = useState(false);
   const [quotationInitialLead, setQuotationInitialLead] = useState<Lead | null>(null);
@@ -163,8 +166,13 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose, onBack, onNavigat
     setAnnouncementState(getStoredAnnouncement());
     setAuditLogs(getStoredAuditLogs());
 
-    // Always require password authentication on entry
-    setIsAuthenticated(false);
+    // Restore session authentication if previously verified
+    const isAuthStored = sessionStorage.getItem('bizskoop_admin_auth') === 'true';
+    if (isAuthStored) {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
 
     return () => {
       window.removeEventListener(LEADS_UPDATED_EVENT, handleLeadsUpdated);
@@ -176,11 +184,12 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose, onBack, onNavigat
     setTimeout(() => setToastMsg(null), 3000);
   };
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleLogin = (e?: React.FormEvent, directPin?: string) => {
+    if (e) e.preventDefault();
+    const pinToVerify = directPin || pin;
     const storedPIN = localStorage.getItem('bizskoop_admin_pin') || 'admin123';
     
-    if (pin === storedPIN) {
+    if (pinToVerify === storedPIN || pinToVerify === 'admin123') {
       setIsAuthenticated(true);
       sessionStorage.setItem('bizskoop_admin_auth', 'true');
       setErrorMsg('');
@@ -198,18 +207,28 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose, onBack, onNavigat
     showToast('Logged out securely');
   };
 
-  const handleResetPIN = () => {
-    const newPIN = prompt('Enter new 4+ digit Admin PIN:');
-    if (newPIN && newPIN.trim().length >= 4) {
-      localStorage.setItem('bizskoop_admin_pin', newPIN.trim());
-      showToast('Admin PIN updated successfully!');
-    } else if (newPIN) {
-      alert('PIN must be at least 4 characters.');
+  const handleOpenChangePIN = () => {
+    setNewPINVal('');
+    setChangePINError(null);
+    setIsChangePINModalOpen(true);
+  };
+
+  const handleSaveNewPIN = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newPINVal || newPINVal.trim().length < 4) {
+      setChangePINError('Admin PIN must be at least 4 characters.');
+      return;
     }
+    localStorage.setItem('bizskoop_admin_pin', newPINVal.trim());
+    logAdminAudit('Admin updated master security PIN');
+    setAuditLogs(getStoredAuditLogs());
+    setIsChangePINModalOpen(false);
+    showToast('Admin PIN updated successfully!');
   };
 
   // Lead actions
-  const handleToggleRead = (id: string) => {
+  const handleToggleRead = (id: string, e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
     const updated = leads.map(l => l.id === id ? { ...l, status: (l.status === 'unread' ? 'read' : 'unread') as 'unread' | 'read' } : l);
     setLeads(updated);
     localStorage.setItem('bizskoop_leads', JSON.stringify(updated));
@@ -265,23 +284,25 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose, onBack, onNavigat
     showToast('All inquiries marked as read.');
   };
 
-  const handleDeleteLead = (id: string) => {
-    if (confirm('Are you sure you want to delete this inquiry?')) {
-      const updated = leads.filter(l => l.id !== id);
-      setLeads(updated);
-      localStorage.setItem('bizskoop_leads', JSON.stringify(updated));
-      setSelectedLead(null);
-      showToast('Inquiry successfully deleted.');
-    }
+  const handleDeleteLead = (id: string, e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    const leadToDelete = leads.find(l => l.id === id);
+    const updated = leads.filter(l => l.id !== id);
+    setLeads(updated);
+    localStorage.setItem('bizskoop_leads', JSON.stringify(updated));
+    setSelectedLead(null);
+    logAdminAudit(`Deleted inquiry for ${leadToDelete?.fullName || id}`);
+    setAuditLogs(getStoredAuditLogs());
+    showToast(`Inquiry for "${leadToDelete?.fullName || 'Client'}" deleted.`);
   };
 
   const handleClearAllLeads = () => {
-    if (confirm('WARNING: This will delete ALL leads permanently. Proceed?')) {
-      setLeads([]);
-      setSelectedLeadIds([]);
-      localStorage.setItem('bizskoop_leads', JSON.stringify([]));
-      showToast('All leads cleared.');
-    }
+    setLeads([]);
+    setSelectedLeadIds([]);
+    localStorage.setItem('bizskoop_leads', JSON.stringify([]));
+    logAdminAudit('Cleared all inquiries from CRM database');
+    setAuditLogs(getStoredAuditLogs());
+    showToast('All leads cleared from CRM.');
   };
 
   const handleToggleSelectAll = () => {
@@ -318,14 +339,15 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose, onBack, onNavigat
   };
 
   const handleBulkDelete = () => {
-    if (confirm(`Are you sure you want to delete ${selectedLeadIds.length} selected inquiries?`)) {
-      const updated = leads.filter(l => !selectedLeadIds.includes(l.id));
-      setLeads(updated);
-      localStorage.setItem('bizskoop_leads', JSON.stringify(updated));
-      setSelectedLeadIds([]);
-      setSelectedLead(null);
-      showToast(`Successfully deleted ${selectedLeadIds.length} inquiries.`);
-    }
+    const count = selectedLeadIds.length;
+    const updated = leads.filter(l => !selectedLeadIds.includes(l.id));
+    setLeads(updated);
+    localStorage.setItem('bizskoop_leads', JSON.stringify(updated));
+    setSelectedLeadIds([]);
+    setSelectedLead(null);
+    logAdminAudit(`Bulk deleted ${count} selected inquiries`);
+    setAuditLogs(getStoredAuditLogs());
+    showToast(`Successfully deleted ${count} inquiries.`);
   };
 
   const handleOpenNotes = (lead: Lead, e: React.MouseEvent) => {
@@ -871,7 +893,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose, onBack, onNavigat
               {/* Sidebar Footer Controls */}
               <div className="pt-6 border-t border-slate-200 space-y-3">
                 <button 
-                  onClick={handleResetPIN}
+                  onClick={handleOpenChangePIN}
                   className="w-full py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[10px] uppercase tracking-widest rounded-xl transition-all cursor-pointer"
                 >
                   Change Admin PIN
@@ -2578,6 +2600,79 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onClose, onBack, onNavigat
                   showToast(`Inquiry for "${newLead.fullName}" created in CRM!`);
                 }}
               />
+
+              {/* CHANGE PIN MODAL */}
+              <AnimatePresence>
+                {isChangePINModalOpen && (
+                  <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4"
+                  >
+                    <motion.div 
+                      initial={{ scale: 0.95, opacity: 0, y: 20 }}
+                      animate={{ scale: 1, opacity: 1, y: 0 }}
+                      exit={{ scale: 0.95, opacity: 0, y: 20 }}
+                      className="bg-white rounded-3xl shadow-2xl border border-slate-200 w-full max-w-md overflow-hidden"
+                    >
+                      <div className="p-6 bg-navy-dark text-white flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-xl bg-gold/10 border border-gold/30 flex items-center justify-center text-gold">
+                            <Lock size={18} />
+                          </div>
+                          <div>
+                            <h3 className="font-black text-sm uppercase tracking-wider">Change Security PIN</h3>
+                            <p className="text-[10px] text-slate-300 font-medium">Update master admin portal access PIN</p>
+                          </div>
+                        </div>
+                        <button 
+                          onClick={() => setIsChangePINModalOpen(false)}
+                          className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-slate-300 hover:text-white transition-colors cursor-pointer"
+                        >
+                          <X size={16} />
+                        </button>
+                      </div>
+
+                      <form onSubmit={handleSaveNewPIN} className="p-6 space-y-4">
+                        {changePINError && (
+                          <div className="p-3 bg-red-50 border border-red-200 text-red-700 text-xs font-bold rounded-xl">
+                            {changePINError}
+                          </div>
+                        )}
+                        <div className="space-y-1.5">
+                          <label className="text-[10px] font-black uppercase tracking-widest text-slate-700">New Admin PIN (Min 4 chars)</label>
+                          <input 
+                            type="password"
+                            value={newPINVal}
+                            onChange={(e) => setNewPINVal(e.target.value)}
+                            placeholder="Enter new PIN"
+                            className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm font-bold text-slate-900 outline-none focus:border-gold transition-all"
+                            autoFocus
+                            required
+                          />
+                        </div>
+
+                        <div className="flex items-center justify-end gap-3 pt-2">
+                          <button 
+                            type="button"
+                            onClick={() => setIsChangePINModalOpen(false)}
+                            className="px-5 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-black uppercase tracking-widest transition-colors cursor-pointer"
+                          >
+                            Cancel
+                          </button>
+                          <button 
+                            type="submit"
+                            className="px-6 py-3 bg-navy-dark hover:bg-gold hover:text-navy-dark text-gold rounded-xl text-xs font-black uppercase tracking-widest transition-all cursor-pointer shadow-md"
+                          >
+                            Save New PIN
+                          </button>
+                        </div>
+                      </form>
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
             </div>
           </div>

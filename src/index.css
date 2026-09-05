@@ -280,3 +280,28 @@ body {
 .marquee-fast { animation-duration: 34s; }
 .marquee-normal { animation-duration: 42s; }
 .marquee-slow { animation-duration: 50s; }
+
+/* Print optimization for quotation invoices */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #bizskoop-print-quotation, #bizskoop-print-quotation * {
+    visibility: visible;
+  }
+  #bizskoop-print-quotation {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 24px !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: white !important;
+    color: black !important;
+  }
+  .no-print, header, nav, aside, footer, button, .print-hide {
+    display: none !important;
+  }
+}

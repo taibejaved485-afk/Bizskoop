@@ -38,13 +38,14 @@ export const AdminLeadCreateModal: React.FC<AdminLeadCreateModalProps> = ({
   const [notes, setNotes] = useState('');
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<Lead['status']>('unread');
+  const [validationError, setValidationError] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!fullName.trim() || !phoneNumber.trim()) {
-      alert('Client Name and Phone/WhatsApp Number are required.');
+      setValidationError('Client Name and Phone/WhatsApp Number are required.');
       return;
     }
 
@@ -83,7 +84,7 @@ export const AdminLeadCreateModal: React.FC<AdminLeadCreateModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-fadeIn">
+    <div className="fixed inset-0 z-[10005] flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-fadeIn">
       <div 
         className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden my-auto max-h-[90vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
@@ -112,6 +113,20 @@ export const AdminLeadCreateModal: React.FC<AdminLeadCreateModalProps> = ({
             <X size={18} />
           </button>
         </div>
+
+        {/* Error notification banner if any */}
+        {validationError && (
+          <div className="mx-6 mt-4 p-3 bg-red-50 border border-red-200 rounded-xl text-xs font-bold text-red-700 flex items-center justify-between">
+            <span>{validationError}</span>
+            <button 
+              type="button" 
+              onClick={() => setValidationError(null)}
+              className="text-red-500 hover:text-red-800 font-black cursor-pointer ml-2"
+            >
+              ✕
+            </button>
+          </div>
+        )}
 
         {/* Modal Body Form */}
         <form onSubmit={handleSubmit} className="p-6 overflow-y-auto space-y-5 text-slate-900">

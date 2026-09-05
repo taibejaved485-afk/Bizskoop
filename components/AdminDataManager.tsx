@@ -27,6 +27,12 @@ export const AdminDataManager: React.FC = () => {
     pricingCount: 0
   });
   const [restoreStatus, setRestoreStatus] = useState<string | null>(null);
+  const [actionNotice, setActionNotice] = useState<{ msg: string; type: 'success' | 'error' } | null>(null);
+
+  const showNotice = (msg: string, type: 'success' | 'error' = 'success') => {
+    setActionNotice({ msg, type });
+    setTimeout(() => setActionNotice(null), 4000);
+  };
 
   const calculateStats = () => {
     let total = 0;
@@ -98,7 +104,7 @@ export const AdminDataManager: React.FC = () => {
     URL.revokeObjectURL(url);
 
     logAdminAudit('Exported complete system JSON backup archive');
-    alert('System backup archive downloaded successfully!');
+    showNotice('System backup JSON downloaded successfully!');
   };
 
   const handleImportJSON = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -112,104 +118,96 @@ export const AdminDataManager: React.FC = () => {
         const parsed = JSON.parse(content);
 
         if (!parsed.data) {
-          alert('Invalid backup file format. Missing root data property.');
+          showNotice('Invalid backup file format: missing root data property.', 'error');
           return;
         }
 
-        if (confirm('Are you sure you want to restore this backup? Existing local data will be replaced.')) {
-          Object.keys(parsed.data).forEach(key => {
-            const val = parsed.data[key];
-            if (typeof val === 'object') {
-              localStorage.setItem(key, JSON.stringify(val));
-            } else {
-              localStorage.setItem(key, String(val));
-            }
-          });
+        Object.keys(parsed.data).forEach(key => {
+          const val = parsed.data[key];
+          if (typeof val === 'object') {
+            localStorage.setItem(key, JSON.stringify(val));
+          } else {
+            localStorage.setItem(key, String(val));
+          }
+        });
 
-          // Dispatch sync events
-          window.dispatchEvent(new Event('leads_updated'));
-          window.dispatchEvent(new Event('pricing_updated'));
-          window.dispatchEvent(new Event('announcement_updated'));
+        // Dispatch sync events
+        window.dispatchEvent(new Event('leads_updated'));
+        window.dispatchEvent(new Event('pricing_updated'));
+        window.dispatchEvent(new Event('announcement_updated'));
 
-          logAdminAudit(`Restored full system database from backup file: ${file.name}`);
-          setRestoreStatus(`Successfully restored from ${file.name}! Reloading data...`);
-          calculateStats();
-          setTimeout(() => {
-            window.location.reload();
-          }, 1200);
-        }
+        logAdminAudit(`Restored full system database from backup file: ${file.name}`);
+        setRestoreStatus(`Successfully restored from ${file.name}! System state refreshed.`);
+        calculateStats();
+        showNotice(`Restored database from ${file.name}!`);
       } catch (err) {
-        alert('Failed to parse JSON backup file. Please ensure it is a valid backup.');
+        showNotice('Failed to parse JSON backup file. Please ensure it is valid.', 'error');
       }
     };
     reader.readAsText(file);
   };
 
   const handleSeedDemoData = () => {
-    if (confirm('Populate system with realistic demo inquiries and sample quotations for demonstration?')) {
-      const sampleLeads = [
-        {
-          id: `demo_${Date.now()}_1`,
-          fullName: "Dato' Brian Lee",
-          companyName: "Apex FinTech Global Sdn. Bhd.",
-          email: "brian.lee@apexfin.com.my",
-          phoneNumber: "+60 12-888 2341",
-          service: "Sdn Bhd Incorporation & Setup",
-          message: "Requesting full-service Sdn Bhd company setup with 2 corporate shareholders and foreign director nomination.",
-          status: "unread",
-          date: new Date().toISOString(),
-          source: "referral",
-          priority: "high",
-          estimatedValue: 2800,
-          notes: "Introduced by legal partner. Expects turnaround within 5 working days."
-        },
-        {
-          id: `demo_${Date.now()}_2`,
-          fullName: "Dr. Elena Rostova",
-          companyName: "BioGen Innovations Asia",
-          email: "e.rostova@biogen-asia.de",
-          phoneNumber: "+60 11-555 9812",
-          service: "Employment Pass (ESD Tier 1 / 2)",
-          message: "Looking for ESD expatriate visa quota clearance for 3 senior bio-research specialists from Munich.",
-          status: "in-progress",
-          date: new Date(Date.now() - 86400000).toISOString(),
-          source: "website",
-          priority: "high",
-          estimatedValue: 10500,
-          notes: "Company has RM 500,000 paid-up capital already deposited."
-        },
-        {
-          id: `demo_${Date.now()}_3`,
-          fullName: "Tan Sri Ahmad Fauzi",
-          companyName: "Nusantara Logistics Holdings",
-          email: "fauzi@nusantaralogistics.com.my",
-          phoneNumber: "+60 19-333 4455",
-          service: "Corporate Income Tax & E-Invoicing",
-          message: "Transitioning to statutory LHDN E-Invoicing mandate by July deadline. Requesting compliance gap assessment.",
-          status: "read",
-          date: new Date(Date.now() - 172800000).toISOString(),
-          source: "phone",
-          priority: "medium",
-          estimatedValue: 3600,
-          notes: "Requires formal quotation for board approval."
-        }
-      ];
+    const sampleLeads = [
+      {
+        id: `demo_${Date.now()}_1`,
+        fullName: "Dato' Brian Lee",
+        companyName: "Apex FinTech Global Sdn. Bhd.",
+        email: "brian.lee@apexfin.com.my",
+        phoneNumber: "+60 12-888 2341",
+        service: "Sdn Bhd Incorporation & Setup",
+        message: "Requesting full-service Sdn Bhd company setup with 2 corporate shareholders and foreign director nomination.",
+        status: "unread" as const,
+        date: new Date().toISOString(),
+        source: "referral" as const,
+        priority: "high" as const,
+        estimatedValue: 2800,
+        notes: "Introduced by legal partner. Expects turnaround within 5 working days."
+      },
+      {
+        id: `demo_${Date.now()}_2`,
+        fullName: "Dr. Elena Rostova",
+        companyName: "BioGen Innovations Asia",
+        email: "e.rostova@biogen-asia.de",
+        phoneNumber: "+60 11-555 9812",
+        service: "Employment Pass (ESD Tier 1 / 2)",
+        message: "Looking for ESD expatriate visa quota clearance for 3 senior bio-research specialists from Munich.",
+        status: "in-progress" as const,
+        date: new Date(Date.now() - 86400000).toISOString(),
+        source: "website" as const,
+        priority: "high" as const,
+        estimatedValue: 10500,
+        notes: "Company has RM 500,000 paid-up capital already deposited."
+      },
+      {
+        id: `demo_${Date.now()}_3`,
+        fullName: "Tan Sri Ahmad Fauzi",
+        companyName: "Nusantara Logistics Holdings",
+        email: "fauzi@nusantaralogistics.com.my",
+        phoneNumber: "+60 19-333 4455",
+        service: "Corporate Income Tax & E-Invoicing",
+        message: "Transitioning to statutory LHDN E-Invoicing mandate by July deadline. Requesting compliance gap assessment.",
+        status: "read" as const,
+        date: new Date(Date.now() - 172800000).toISOString(),
+        source: "phone" as const,
+        priority: "medium" as const,
+        estimatedValue: 3600,
+        notes: "Requires formal quotation for board approval."
+      }
+    ];
 
-      const existingLeads = JSON.parse(localStorage.getItem('bizskoop_leads') || '[]');
-      localStorage.setItem('bizskoop_leads', JSON.stringify([...sampleLeads, ...existingLeads]));
-      window.dispatchEvent(new Event('leads_updated'));
-      logAdminAudit('Populated demo inquiries and advisory records');
-      calculateStats();
-      alert('Sample advisory records added successfully!');
-    }
+    const existingLeads = JSON.parse(localStorage.getItem('bizskoop_leads') || '[]');
+    localStorage.setItem('bizskoop_leads', JSON.stringify([...sampleLeads, ...existingLeads]));
+    window.dispatchEvent(new Event('leads_updated'));
+    logAdminAudit('Populated demo inquiries and advisory records');
+    calculateStats();
+    showNotice('Realistic sample advisory inquiries populated in CRM!');
   };
 
   const handleClearAuditLogs = () => {
-    if (confirm('Clear audit trail logs? This action cannot be undone.')) {
-      localStorage.removeItem('bizskoop_audit_logs');
-      calculateStats();
-      alert('Audit logs cleared.');
-    }
+    localStorage.removeItem('bizskoop_audit_logs');
+    calculateStats();
+    showNotice('Administrative audit logs cleared.');
   };
 
   return (
@@ -228,6 +226,22 @@ export const AdminDataManager: React.FC = () => {
         <div className="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold rounded-2xl flex items-center gap-2 animate-fadeIn">
           <CheckCircle size={16} className="text-emerald-600" />
           <span>{restoreStatus}</span>
+        </div>
+      )}
+
+      {actionNotice && (
+        <div className={`p-4 ${actionNotice.type === 'error' ? 'bg-red-50 border-red-200 text-red-800' : 'bg-blue-50 border-blue-200 text-royal-blue'} border text-xs font-bold rounded-2xl flex items-center justify-between gap-2 animate-fadeIn`}>
+          <div className="flex items-center gap-2">
+            <CheckCircle size={16} className={actionNotice.type === 'error' ? 'text-red-600' : 'text-royal-blue'} />
+            <span>{actionNotice.msg}</span>
+          </div>
+          <button 
+            type="button" 
+            onClick={() => setActionNotice(null)} 
+            className="text-slate-400 hover:text-slate-700 font-bold ml-2 cursor-pointer"
+          >
+            ✕
+          </button>
         </div>
       )}
 
