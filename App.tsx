@@ -380,37 +380,15 @@ const App: React.FC = () => {
                   { val: "25+", sub: "Industries Covered" },
                   { val: "100%", sub: "Compliance Approach" }
                 ].map((stat, idx) => (
-                  <motion.div 
+                  <div 
                     key={idx} 
-                    variants={{
-                      hidden: { opacity: 0, y: 30, scale: 0.9 },
-                      visible: { opacity: 1, y: 0, scale: 1 }
-                    }}
-                    className="water-tank-box bg-white p-8 sm:p-10 rounded-[24px] sm:rounded-[30px] shadow-sm border-2 border-slate-200 text-center transform hover:-translate-y-2 hover:border-gold hover:shadow-xl transition-all duration-500 group cursor-default"
-                    style={{ '--fill-color': 'rgba(0, 51, 102, 0.15)' } as React.CSSProperties}
+                    className="bg-white p-8 sm:p-10 rounded-[24px] sm:rounded-[30px] shadow-sm border border-slate-200/90 text-center hover:border-gold hover:shadow-md transition-all duration-300 group cursor-default"
                   >
-                    <div className="water-tank-liquid"></div>
-                    
-                    {/* Bubbles */}
-                    {[...Array(10)].map((_, i) => (
-                      <div 
-                        key={i} 
-                        className="bubble" 
-                        style={{ 
-                          left: `${Math.random() * 100}%`, 
-                          width: `${Math.random() * 12 + 6}px`, 
-                          height: `${Math.random() * 12 + 6}px`, 
-                          '--bubble-duration': `${Math.random() * 4 + 2}s`,
-                          animationDelay: `${Math.random() * 5}s`
-                        } as React.CSSProperties}
-                      ></div>
-                    ))}
-
                     <p className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#051622] mb-3 tracking-tighter group-hover:text-royal-blue transition-colors">
                       <AnimatedCounter target={stat.val} />
                     </p>
                     <p className="text-[10px] sm:text-[11px] font-bold text-slate-400 uppercase tracking-[0.2em] group-hover:text-royal-blue transition-colors">{stat.sub}</p>
-                  </motion.div>
+                  </div>
                 ))}
               </motion.div>
             </div>
