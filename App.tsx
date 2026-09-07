@@ -1,50 +1,54 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Header from './components/Header.tsx';
 import Hero from './components/Hero.tsx';
 import Services from './components/Services.tsx';
-import { AIToolsSection } from './components/AIServiceTool.tsx';
 import Footer from './components/Footer.tsx';
-import CompanySecretarial from './components/CompanySecretarial.tsx';
-import AccountingBookkeeping from './components/AccountingBookkeeping.tsx';
-import TaxCompliance from './components/TaxCompliance.tsx';
-import BusinessLicensing from './components/BusinessLicensing.tsx';
-import LocalCouncilLicensing from './components/LocalCouncilLicensing.tsx';
-import CorporateServices from './components/CorporateServices.tsx';
-import ImmigrationSupport from './components/ImmigrationSupport.tsx';
-import BuySellBusiness from './components/BuySellBusiness.tsx';
-import ContactPage from './components/ContactPage.tsx';
-import AboutPage from './components/AboutPage.tsx';
 import AnimatedCounter from './components/AnimatedCounter.tsx';
 import ServiceGrid from './components/ServiceGrid.tsx';
 import TypingText from './components/TypingText.tsx';
 import SectionDivider from './components/SectionDivider.tsx';
 import TestimonialsSection from './components/TestimonialsSection.tsx';
 import { BlogSection } from './components/BlogSection.tsx';
-import { LegalModal } from './components/LegalModal.tsx';
-import { AdminPage } from './components/AdminPage.tsx';
 import { FAQSection } from './components/FAQSection.tsx';
-import { BlogDetailPage } from './components/BlogDetailPage.tsx';
 import { BlogPost, getStoredBlogPosts } from './services/blogStorage.ts';
 import { MessageCircle } from 'lucide-react';
 import { motion } from 'motion/react';
 import { ErrorBoundary } from './components/ErrorBoundary.tsx';
-import { Preloader } from './components/Preloader.tsx';
+
+// Code-split heavy components for instant mobile paint and minimal bundle
+const AdminPage = lazy(() => import('./components/AdminPage.tsx').then(m => ({ default: m.AdminPage })));
+const AIToolsSection = lazy(() => import('./components/AIServiceTool.tsx').then(m => ({ default: m.AIToolsSection })));
+const AboutPage = lazy(() => import('./components/AboutPage.tsx'));
+const ContactPage = lazy(() => import('./components/ContactPage.tsx'));
+const BlogDetailPage = lazy(() => import('./components/BlogDetailPage.tsx').then(m => ({ default: m.BlogDetailPage })));
+const CompanySecretarial = lazy(() => import('./components/CompanySecretarial.tsx'));
+const AccountingBookkeeping = lazy(() => import('./components/AccountingBookkeeping.tsx'));
+const TaxCompliance = lazy(() => import('./components/TaxCompliance.tsx'));
+const BusinessLicensing = lazy(() => import('./components/BusinessLicensing.tsx'));
+const LocalCouncilLicensing = lazy(() => import('./components/LocalCouncilLicensing.tsx'));
+const CorporateServices = lazy(() => import('./components/CorporateServices.tsx'));
+const ImmigrationSupport = lazy(() => import('./components/ImmigrationSupport.tsx'));
+const BuySellBusiness = lazy(() => import('./components/BuySellBusiness.tsx'));
+const LegalModal = lazy(() => import('./components/LegalModal.tsx').then(m => ({ default: m.LegalModal })));
 
 // App Component - Main Entry Point
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState('home');
   const [selectedBlogSlug, setSelectedBlogSlug] = useState<string | null>(null);
   const [selectedPolicy, setSelectedPolicy] = useState<string | null>(null);
-  const [showPreloader, setShowPreloader] = useState(true);
 
-  // Clean up static HTML preloader so React Preloader seamlessly presents the animation
+  // Clean up static HTML preloader immediately so content is instantly interactive
   useEffect(() => {
-    const initialLoader = document.getElementById('initial-preloader');
-    if (initialLoader) {
-      try {
-        initialLoader.remove();
-      } catch (_) {}
+    if (typeof (window as any).__dismissPreloader === 'function') {
+      (window as any).__dismissPreloader();
+    } else {
+      const initialLoader = document.getElementById('initial-preloader');
+      if (initialLoader) {
+        try {
+          initialLoader.remove();
+        } catch (_) {}
+      }
     }
   }, []);
 
@@ -96,14 +100,15 @@ const App: React.FC = () => {
   ) || allBlogPosts[0];
 
   if (currentPage === 'admin') {
-    return <AdminPage onClose={() => handleNavigate('home')} />;
+    return (
+      <Suspense fallback={<div className="min-h-screen flex items-center justify-center bg-slate-900 text-white font-bold">Loading Portal...</div>}>
+        <AdminPage onClose={() => handleNavigate('home')} />
+      </Suspense>
+    );
   }
 
   return (
     <div className="min-h-screen bg-white relative">
-      {showPreloader && (
-        <Preloader onComplete={() => setShowPreloader(false)} minDuration={1800} />
-      )}
       <Header onNavigate={handleNavigate} currentPage={currentPage} />
       
       {currentPage === 'home' ? (
@@ -163,9 +168,13 @@ const App: React.FC = () => {
                 whileInView={{ scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1.5 }}
-                src="https://i.pinimg.com/1200x/b0/97/fd/b097fd4721f2d2e3ac4fc665d328cc00.jpg" 
+                src="/images/about-bg.webp" 
                 className="w-full h-full object-cover opacity-10"
                 alt="Background Pattern"
+                loading="lazy"
+                decoding="async"
+                width="1000"
+                height="600"
               />
               <div className="absolute inset-0 bg-white/90"></div>
             </div>
@@ -502,50 +511,54 @@ const App: React.FC = () => {
           <FAQSection onNavigate={handleNavigate} />
 
           <SectionDivider variant="blue" />
-          <AIToolsSection />
+          <Suspense fallback={<div className="py-12 text-center text-slate-400">Loading AI Tools...</div>}>
+            <AIToolsSection />
+          </Suspense>
         </>
       ) : (
-        <motion.div
-          key={currentPage}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          {currentPage === 'about' ? (
-            <AboutPage />
-          ) : currentPage === 'blog' ? (
-            <BlogSection onNavigate={handleNavigate} isStandalonePage={true} />
-          ) : currentPage === 'blog-detail' ? (
-            <BlogDetailPage 
-              post={currentBlogPost} 
-              onNavigate={handleNavigate} 
-              onBack={() => handleNavigate('blog')} 
-            />
-          ) : currentPage === 'company-secretarial' ? (
-            <CompanySecretarial />
-          ) : currentPage === 'accounting' ? (
-            <AccountingBookkeeping />
-          ) : currentPage === 'tax' ? (
-            <TaxCompliance />
-          ) : currentPage === 'licensing' ? (
-            <BusinessLicensing />
-          ) : currentPage === 'local-licensing' ? (
-            <LocalCouncilLicensing />
-          ) : currentPage === 'corporate' ? (
-            <CorporateServices />
-          ) : currentPage === 'visa' ? (
-            <ImmigrationSupport />
-          ) : currentPage === 'buy-sell' ? (
-            <BuySellBusiness />
-          ) : currentPage === 'contact' ? (
-            <ContactPage />
-          ) : (
-            <div className="py-40 text-center">
-              <h2 className="text-4xl font-black text-royal-blue mb-8">Service coming soon!</h2>
-              <button onClick={() => handleNavigate('home')} className="px-8 py-4 bg-royal-blue text-white font-bold rounded-lg uppercase tracking-widest">Back Home</button>
-            </div>
-          )}
-        </motion.div>
+        <Suspense fallback={<div className="min-h-[50vh] flex items-center justify-center"><div className="w-10 h-10 border-4 border-royal-blue border-t-transparent rounded-full animate-spin"></div></div>}>
+          <motion.div
+            key={currentPage}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            {currentPage === 'about' ? (
+              <AboutPage />
+            ) : currentPage === 'blog' ? (
+              <BlogSection onNavigate={handleNavigate} isStandalonePage={true} />
+            ) : currentPage === 'blog-detail' ? (
+              <BlogDetailPage 
+                post={currentBlogPost} 
+                onNavigate={handleNavigate} 
+                onBack={() => handleNavigate('blog')} 
+              />
+            ) : currentPage === 'company-secretarial' ? (
+              <CompanySecretarial />
+            ) : currentPage === 'accounting' ? (
+              <AccountingBookkeeping />
+            ) : currentPage === 'tax' ? (
+              <TaxCompliance />
+            ) : currentPage === 'licensing' ? (
+              <BusinessLicensing />
+            ) : currentPage === 'local-licensing' ? (
+              <LocalCouncilLicensing />
+            ) : currentPage === 'corporate' ? (
+              <CorporateServices />
+            ) : currentPage === 'visa' ? (
+              <ImmigrationSupport />
+            ) : currentPage === 'buy-sell' ? (
+              <BuySellBusiness />
+            ) : currentPage === 'contact' ? (
+              <ContactPage />
+            ) : (
+              <div className="py-40 text-center">
+                <h2 className="text-4xl font-black text-royal-blue mb-8">Service coming soon!</h2>
+                <button onClick={() => handleNavigate('home')} className="px-8 py-4 bg-royal-blue text-white font-bold rounded-lg uppercase tracking-widest">Back Home</button>
+              </div>
+            )}
+          </motion.div>
+        </Suspense>
       )}
 
       <Footer 
@@ -554,17 +567,20 @@ const App: React.FC = () => {
         onOpenAdmin={() => handleNavigate('admin')}
       />
 
-      <LegalModal 
-        isOpen={selectedPolicy !== null} 
-        onClose={() => setSelectedPolicy(null)} 
-        policyType={selectedPolicy || 'Privacy Policy'} 
-      />
+      <Suspense fallback={null}>
+        <LegalModal 
+          isOpen={selectedPolicy !== null} 
+          onClose={() => setSelectedPolicy(null)} 
+          policyType={selectedPolicy || 'Privacy Policy'} 
+        />
+      </Suspense>
       
       {/* Floating WhatsApp Button */}
       <a 
         href="https://wa.me/601124244993" 
         target="_blank" 
         rel="noopener noreferrer"
+        aria-label="Chat with Bizskoop Corporate Advisory on WhatsApp"
         className="fixed bottom-24 sm:bottom-8 right-6 sm:right-8 z-[9999] group cursor-pointer"
       >
         <div className="relative">

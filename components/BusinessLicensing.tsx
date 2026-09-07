@@ -29,9 +29,13 @@ const BusinessLicensing: React.FC = () => {
           className="absolute inset-0 z-0"
         >
           <img 
-            src="https://i.pinimg.com/1200x/b0/97/fd/b097fd4721f2d2e3ac4fc665d328cc00.jpg" 
+            src="/images/about-bg.webp" 
             className="w-full h-full object-cover opacity-40"
             alt="Background"
+            loading="lazy"
+            decoding="async"
+            width="1000"
+            height="600"
           />
         </motion.div>
         

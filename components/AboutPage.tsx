@@ -57,7 +57,7 @@ const AboutPage: React.FC = () => {
           <div 
             className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-40"
             style={{ 
-              backgroundImage: "url('https://i.pinimg.com/1200x/b0/97/fd/b097fd4721f2d2e3ac4fc665d328cc00.jpg')",
+              backgroundImage: "url('/images/about-bg.webp')",
             }}
           />
         </motion.div>
@@ -184,9 +184,13 @@ const AboutPage: React.FC = () => {
                 
                 <div className="relative w-full aspect-[4/3] sm:aspect-[4/4] overflow-hidden rounded-[28px] bg-white z-10">
                   <img 
-                    src="https://i.pinimg.com/1200x/95/15/92/951592f4a2d51c5a3195039997a306c9.jpg" 
+                    src="/images/team.webp" 
                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" 
                     alt="Bizskoop Team" 
+                    loading="lazy"
+                    decoding="async"
+                    width="800"
+                    height="600"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy-dark/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 </div>

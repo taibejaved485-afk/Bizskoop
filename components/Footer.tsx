@@ -142,7 +142,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenPolicy, onNavigate, onOpenAdmin }
         <div 
           className="absolute inset-0 opacity-15 pointer-events-none select-none"
           style={{ 
-            backgroundImage: `url("https://i.pinimg.com/736x/47/9d/68/479d684a4749f39776cca09afefca6b5.jpg")`,
+            backgroundImage: `url("/images/footer-bg.webp")`,
             backgroundSize: 'cover',
             backgroundPosition: 'top',
             backgroundRepeat: 'no-repeat'

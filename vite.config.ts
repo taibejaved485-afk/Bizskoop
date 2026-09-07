@@ -29,10 +29,24 @@ export default defineConfig(({ mode }) => {
         cssMinify: true,
         rollupOptions: {
           output: {
-            manualChunks: {
-              'vendor-react': ['react', 'react-dom'],
-              'vendor-lucide': ['lucide-react'],
-              'vendor-motion': ['motion']
+            manualChunks(id) {
+              if (id.includes('node_modules')) {
+                if (id.includes('@google/genai')) {
+                  return 'vendor-genai';
+                }
+                if (id.includes('recharts') || id.includes('d3')) {
+                  return 'vendor-charts';
+                }
+                if (id.includes('motion')) {
+                  return 'vendor-motion';
+                }
+                if (id.includes('lucide-react')) {
+                  return 'vendor-lucide';
+                }
+                if (id.includes('react') || id.includes('react-dom')) {
+                  return 'vendor-react';
+                }
+              }
             }
           }
         }

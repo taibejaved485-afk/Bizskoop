@@ -24,16 +24,20 @@ const Hero: React.FC = () => {
         transition={{ duration: 1.2, ease: "easeOut" }}
         className="absolute inset-0 z-0 will-change-transform"
       >
-        <img 
-          src="https://i.pinimg.com/1200x/60/60/67/60606708179d33e4ddc01a4695a40a9e.jpg" 
-          className="w-full h-full object-cover"
-          alt="Kuala Lumpur Skyline Background"
-          loading="eager"
-          decoding="async"
-          fetchPriority="high"
-          width="1200"
-          height="800"
-        />
+        <picture>
+          <source media="(max-width: 640px)" srcSet="/images/hero-bg-mobile.webp" type="image/webp" />
+          <source srcSet="/images/hero-bg.webp" type="image/webp" />
+          <img 
+            src="/images/hero-bg.webp" 
+            className="w-full h-full object-cover"
+            alt="Kuala Lumpur Skyline Background"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+            width="1200"
+            height="800"
+          />
+        </picture>
         {/* Adjusted multi-layered overlay for better image visibility while keeping text crisp */}
         <div className="absolute inset-0 bg-white/40 lg:bg-gradient-to-r lg:from-white lg:via-white/70 lg:to-transparent"></div>
         <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white to-transparent"></div>
@@ -229,18 +233,21 @@ const Hero: React.FC = () => {
               <Airplane size={96} color="#003366" />
             </motion.div>
 
-            <motion.img 
-              whileHover={{ scale: 1.01 }}
-              transition={{ duration: 0.5 }}
-              src="https://i.pinimg.com/736x/4f/d6/45/4fd64566a496266abfb11dda065cbc2b.jpg" 
-              className="relative rounded-3xl shadow-2xl border-4 border-white object-cover aspect-square max-h-[380px] mx-auto z-10"
-              alt="Elite Business Environment"
-              loading="eager"
-              decoding="async"
-              fetchPriority="high"
-              width="380"
-              height="380"
-            />
+            <picture>
+              <source srcSet="/images/hero-card.webp" type="image/webp" />
+              <motion.img 
+                whileHover={{ scale: 1.01 }}
+                transition={{ duration: 0.5 }}
+                src="/images/hero-card.webp" 
+                className="relative rounded-3xl shadow-2xl border-4 border-white object-cover aspect-square max-h-[380px] mx-auto z-10"
+                alt="Elite Business Environment"
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
+                width="380"
+                height="380"
+              />
+            </picture>
             
             {/* Enhanced Testimonial Card with Rotating Glow Border */}
             <motion.div 
